@@ -5,6 +5,7 @@ import { connectToDB } from './config/mongoDatabase';
 import signupRoute from './routes/auth/signupRoute';
 import loginRoute from './routes/auth/loginRoute';
 import landlordBasicInfoRoute from './routes/settings/landlordBasicInfoRoute';
+import stripeRoute from './routes/stripe/stripeRoute';
 
 dotenv.config()
 
@@ -20,6 +21,7 @@ app.use(express.json())
 app.use('/api', signupRoute)
 app.use('/api', loginRoute)
 app.use('/api', landlordBasicInfoRoute)
+app.use('./api', stripeRoute)
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
