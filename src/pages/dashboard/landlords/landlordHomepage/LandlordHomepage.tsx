@@ -29,7 +29,7 @@ const LandlordHomepage = () => {
             handleClick={handleInvite}
           >
             <ActiveTenantsCard
-              numberOfTenants={1}
+              numberOfTenants={0}
               tenantsWithSubscription={0}
             />
           </StatsKPICard>
@@ -49,7 +49,7 @@ const LandlordHomepage = () => {
             ctaText={'Tip: Help keep a tenant longer with a perk!'}
             handleClick={handleGift}
           >
-            <RetentionHealthMeter numberOfTenants={0} retentionHealth='High' value={80}/>
+            <RetentionHealthMeter numberOfTenants={0} retentionHealth='High' value={50}/>
           </StatsKPICard>
         </div>
       </div>

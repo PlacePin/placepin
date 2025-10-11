@@ -23,6 +23,8 @@
 .meter {
   height: 2rem;
   width: 100%;
+  border-radius: 999px;
+  overflow: hidden;
 }
 
 .bad::-webkit-meter-bar,
@@ -44,7 +46,7 @@
 .warn::-webkit-meter-optimum-value,
 .warn::-webkit-meter-suboptimum-value,
 .warn::-webkit-meter-even-less-good-value {
-  background: yellow;
+  background: rgb(233, 187, 3);
 }
 
 .good::-webkit-meter-bar,
@@ -56,4 +58,21 @@
 .good::-webkit-meter-suboptimum-value,
 .good::-webkit-meter-even-less-good-value {
   background: green;
+}
+
+meter::-webkit-meter-bar {
+  background: #f5f0eb;
+  border-radius: 999px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+}
+meter::-webkit-meter-optimum-value,
+meter::-webkit-meter-suboptimum-value,
+meter::-webkit-meter-even-less-good-value {
+  border-radius: 999px;
+}
+
+meter::-webkit-meter-optimum-value,
+meter::-webkit-meter-suboptimum-value,
+meter::-webkit-meter-even-less-good-value {
+  transition: width 0.8s ease-in-out, background-color 0.8s ease-in-out;
 }
