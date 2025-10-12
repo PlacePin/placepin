@@ -12,6 +12,7 @@ const landlordSchema = new mongoose.Schema({
   hasAcceptedDisclaimer: Boolean,
   password: { type: String, required: true },
   phoneNumber: Number,
+  stripeCustomerId: {type: String, default: null},
   username: { type: String, required: true },
 });
 

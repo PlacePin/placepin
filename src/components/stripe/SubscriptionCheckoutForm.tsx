@@ -1,10 +1,18 @@
 import { type FormEvent, useState } from "react";
 import axios from "axios";
+import { useAuth } from "../../context/AuthContext";
+import { Navigate } from "react-router-dom";
 
 const SubscriptionCheckoutForm = () => {
 
   const [loading, setLoading] = useState(false);
 
+  const { accessToken } = useAuth();
+
+  if(!accessToken){
+    return <Navigate to="/login" replace />;
+  }
+  
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -12,7 +20,9 @@ const SubscriptionCheckoutForm = () => {
 
     try {
       // 1. Create Checkout Session on the server
-      const { data } = await axios.post("/api/stripeSubscriptionCheckout");
+      const { data } = await axios.post(
+        `/api/stripeSubscriptionCheckout/${accessToken}`
+        );
 
       // 2. Redirect to Stripe Checkout
       window.location.href = data.sessionUrl;

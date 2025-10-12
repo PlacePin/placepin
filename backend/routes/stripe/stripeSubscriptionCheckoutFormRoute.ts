@@ -3,6 +3,6 @@ import { stripeSubscriptionCheckoutFormController } from '../../controllers/stri
 
 const router = express.Router();
 
-router.post('/stripeSubscriptionCheckout', stripeSubscriptionCheckoutFormController);
+router.post('/stripeSubscriptionCheckout/:id', stripeSubscriptionCheckoutFormController);
 
 export default router

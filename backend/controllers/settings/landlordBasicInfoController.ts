@@ -15,8 +15,7 @@ export const landlordBasicInfoController = async (req: Request, res: Response) =
     const decoded = jwt.verify(accessToken, JWT_ACCESS_TOKEN);
 
     if (!decoded || typeof decoded !== 'object') {
-      res.status(400).json({ message: "Something's wrong with your access token." })
-      return
+      return res.status(400).json({ message: "Something's wrong with your access token." })
     }
 
     const landlord = await LandlordModel.findById(decoded.userID);
