@@ -3,6 +3,7 @@ import styles from './basicInfoForm.module.css';
 import axios from 'axios';
 import { useAuth } from "../../../context/AuthContext";
 import { Navigate } from "react-router-dom";
+import { LockKeyhole } from 'lucide-react';
 
 const BasicInfoForm = () => {
 
@@ -14,6 +15,9 @@ const BasicInfoForm = () => {
   const [email, setEmail] = useState('');
 
   const { accessToken } = useAuth();
+
+  const disabled = true
+  const disableStyle = disabled && styles.disabled
 
   if (!accessToken) {
     return <Navigate to="/login" replace />;
@@ -124,13 +128,17 @@ const BasicInfoForm = () => {
             >
               Email
             </label>
-            <input
-              className={styles.inputFields}
-              type='email'
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <div className={styles.disabledField}>
+              <input
+                className={`${styles.inputFields} ${disableStyle}`}
+                type='email'
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={disabled}
+              />
+              <LockKeyhole />
+            </div>
           </div>
         </div>
         <div className={styles.buttonContainer}>
