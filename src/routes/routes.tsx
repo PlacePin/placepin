@@ -15,6 +15,8 @@ import LandlordTenantInsights from "../pages/dashboard/landlords/landlordTenantI
 import LandlordMessaging from "../pages/dashboard/landlords/landlordMessaging/LandlordMessaging";
 import LandlordVendors from "../pages/dashboard/landlords/landlordVendors/LandlordVendors";
 import GeneralSettings from "../pages/settings/GeneralSettings";
+import SuccessfulSubscription from "../pages/stripeUrlPages/SuccessfulSubscription";
+import FailedSubscription from "../pages/stripeUrlPages/FailedSubscription";
 
 const routes: RouteObject[] = [
   { path: '/', element: <LandingPage /> },
@@ -42,13 +44,18 @@ const routes: RouteObject[] = [
   {
     path: TENANT_ROUTE.DASHBOARD, element: <PrivateRoute />,
     children: [
-      {
-        path: '',
-        element: <TenantDashboard />,
+      {path: '', element: <TenantDashboard />,
         children: [
           {path: '', element: <LandlordTenants />},
         ]
       }
+    ]
+  },
+  {
+    path: '', element: <PrivateRoute />,
+    children: [
+      {path: '/success', element: <SuccessfulSubscription />},
+      {path: '/cancel', element: <FailedSubscription />}
     ]
   }
 ]
