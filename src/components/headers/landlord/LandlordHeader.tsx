@@ -5,6 +5,7 @@ import DropdownModal from '../../modals/DropdownModal';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 import { LANDLORD_ROUTES } from "../../../routes/landlordRoutes";
+import { capitalizeWords } from "../../../utils/stringUtils";
 
 interface LandlordHeaderProps {
   username: string,
@@ -14,8 +15,16 @@ const LandlordHeader = ({ username }: LandlordHeaderProps) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const navigate = useNavigate()
-  const { logout } = useAuth()
+  // Click outside the modal and header to close
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleSignout = () => {
     logout()
@@ -37,21 +46,15 @@ const LandlordHeader = ({ username }: LandlordHeaderProps) => {
 
   const handleToggle = () => setShowDropdown(prev => !prev);
 
-  // Click outside the modal and header to close
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
-        setShowDropdown(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const navigate = useNavigate()
+  const { logout } = useAuth()
+
+  let upperCaseUsername = capitalizeWords(username)
 
   return (
     <div className={styles.landlordHeaderContainer} ref={wrapperRef}>
       <h2 className={styles.headerTitle}>
-        Welcome, {username}
+        Welcome, {upperCaseUsername}
       </h2>
       <Settings
         size={30}
