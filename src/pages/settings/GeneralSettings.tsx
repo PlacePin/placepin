@@ -2,10 +2,11 @@ import styles from './generalSetting.module.css';
 import BasicInfo from './basicInfomation/BasicInfo';
 import BankSettings from './bankSettings/BankSettings';
 import { useState } from 'react';
+import Subscriptions from './subscriptionSettings/Subscriptions';
 
 const GeneralSettings = () => {
 
-  const [activeTab, setActiveTab] = useState<'basic' | 'bank'>('basic');
+  const [activeTab, setActiveTab] = useState<'basic' | 'bank' | 'subscriptions'>('basic');
 
   return (
     <div className={styles.entireContainer}>
@@ -26,10 +27,17 @@ const GeneralSettings = () => {
           >
             Bank Settings
           </p>
+          <p
+            onClick={() => setActiveTab('subscriptions')}
+            className={activeTab === 'subscriptions' ? styles.activeTab : ''}
+          >
+            Subscriptions
+          </p>
         </div>
         <div className={styles.mainContent}>
           {activeTab === 'basic' && <BasicInfo />}
           {activeTab === 'bank' && <BankSettings />}
+          {activeTab === 'subscriptions' && <Subscriptions />}
         </div>
       </div>
     </div>
