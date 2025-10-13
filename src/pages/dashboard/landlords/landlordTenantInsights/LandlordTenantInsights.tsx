@@ -1,8 +1,13 @@
+import styles from './landlordTenantInsights.module.css'
+
 const LandlordTenantInsights = () => {
   return (
-    <>
-      Landlord Tenant Insights
-    </>
+    <div className={styles.container}>
+      <h2 className={styles.noData}>No Data</h2>
+      <div className={styles.noDataButtonContainer}>
+        <button className={styles.button}>Invite Tenants</button>
+      </div>
+    </div>
   )
 }
 
