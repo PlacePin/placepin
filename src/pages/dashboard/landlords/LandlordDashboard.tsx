@@ -9,6 +9,7 @@ export interface DecodedAccessToken {
   email: string;
   userID: string;
   username: string,
+  fullName: string,
   iat: number;
   exp: number;
 }
@@ -28,7 +29,7 @@ const LandlordDashboard = () => {
     <div className={styles.landlordDashboardContainer}>
       <LandlordSidebar />
       <div className={styles.landlordHeaderBody}>
-        <LandlordHeader username={user.username} />
+        <LandlordHeader username={user.fullName} />
         <Outlet />
       </div>
     </div>

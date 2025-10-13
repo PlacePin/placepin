@@ -67,7 +67,15 @@ export const signupController = async (req: Request, res: Response) => {
     const userID = await newUser._id.toString()
 
     // Create JWT with email, userID and username as payload
-    const accessToken = jwt.sign({ email, userID, username }, JWT_ACCESS_TOKEN, { expiresIn: '30d' })
+    const accessToken = jwt.sign({
+      email,
+      userID,
+      username,
+      fullName: username
+    },
+      JWT_ACCESS_TOKEN,
+      { expiresIn: '30d' }
+    )
 
     // Respond with the token and account type
     res.status(201).json({ message: 'User Created Successfully', accessToken, accountType })
