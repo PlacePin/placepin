@@ -1,5 +1,6 @@
 import SubscriptionCheckoutForm from "../../../components/stripe/SubscriptionCheckoutForm";
 import styles from './bankSettings.module.css';
+// import { Elements } from '@stripe/react-stripe-js';
 
 const BankSettings = () => {
   return (

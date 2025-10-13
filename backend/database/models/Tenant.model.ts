@@ -19,6 +19,7 @@ const tenantSchema = new mongoose.Schema({
     ref: "landlords",
     default: null,
   },
+  stripeCustomerId: { type: String, default: null },
   username: { type: String, required: true },
 })
 

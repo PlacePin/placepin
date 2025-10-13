@@ -16,7 +16,7 @@ const SignupPage = () => {
   const [password, setPassword] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
   const [accountType, setAccountType] = useState('tenant')
-  const [promo, setPromo] = useState('')
+  const [referral, setReferral] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
   const handleCreateAccount = async (e: FormEvent<HTMLFormElement>) => {
@@ -42,7 +42,7 @@ const SignupPage = () => {
       accountType,
       password,
       phoneNumber,
-      promo,
+      referral,
     }
 
     // sending info to the backend, login to either landlord or dashboard. If failed show an error message.
@@ -158,7 +158,7 @@ const SignupPage = () => {
             <input
               type="text"
               className={styles.inputFields}
-              onChange={(e) => setPromo(e.target.value.toLowerCase().trim())}
+              onChange={(e) => setReferral(e.target.value.toLowerCase().trim())}
               id='landlordReferral'
               placeholder='1234-abc-5678 (Optional)'  />
           </>}

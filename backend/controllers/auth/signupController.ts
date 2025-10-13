@@ -4,13 +4,15 @@ import { LandlordModel } from '../../database/models/Landlord.model';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
+import Stripe from 'stripe';
 
 dotenv.config();
 
 export const signupController = async (req: Request, res: Response) => {
 
-  const { email, username, address, password, phoneNumber, promo, accountType } = req.body
+  const { email, username, address, password, phoneNumber, referral, accountType } = req.body
   const JWT_ACCESS_TOKEN = process.env.JWT_ACCESS_TOKEN!
+  const STRIPE_TEST_SECRET_KEY = process.env.STRIPE_TEST_SECRET_KEY!
 
   let hashedPassword: string;
   const saltRounds = 10
@@ -44,7 +46,7 @@ export const signupController = async (req: Request, res: Response) => {
         accountType,
         password: hashedPassword,
         phoneNumber,
-        landlordPromo: promo,
+        landlordReferral: referral,
       })
     }
 
@@ -60,6 +62,24 @@ export const signupController = async (req: Request, res: Response) => {
       })
     }
 
+    const stripeAccess = new Stripe(STRIPE_TEST_SECRET_KEY, {
+      apiVersion: '2025-09-30.clover',
+    })
+
+    // If the user already has a stripe customer id save it here
+    let stripeCustomerId = newUser.stripeCustomerId;
+
+    // If the user doesn't have the stripe customer id create it here
+    if (!stripeCustomerId) {
+      const customer = await stripeAccess.customers.create({
+        email: newUser.email,
+      });
+
+      stripeCustomerId = customer.id;
+    
+      newUser.stripeCustomerId = customer.id;
+    };
+    
     // Save the user to the database
     await newUser.save();
 
