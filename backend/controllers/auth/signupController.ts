@@ -71,7 +71,8 @@ export const signupController = async (req: Request, res: Response) => {
       email,
       userID,
       username,
-      fullName: username
+      fullName: username,
+      accountType,
     },
       JWT_ACCESS_TOKEN,
       { expiresIn: '30d' }

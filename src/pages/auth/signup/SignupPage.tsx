@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useState, type FormEvent } from 'react';
 import { useAuth } from '../../../context/AuthContext';
 import { LANDLORD_ROUTES } from '../../../routes/landlordRoutes'; 
-import { TENANT_ROUTE } from '../../../routes/tenantRoutes';
+import { TENANT_ROUTES } from '../../../routes/tenantRoutes';
 
 const SignupPage = () => {
   const navigate = useNavigate()
@@ -55,7 +55,7 @@ const SignupPage = () => {
           navigate(LANDLORD_ROUTES.DASHBOARD)
         }
         if(accountType === 'tenant'){
-          navigate(TENANT_ROUTE.DASHBOARD)
+          navigate(TENANT_ROUTES.DASHBOARD)
         }
       }
     } catch (err: any) {

@@ -37,7 +37,8 @@ export const loginController = async (req: Request, res: Response) => {
       email: user.email,
       userID: user._id,
       username: user.username,
-      fullName: user.fullName
+      fullName: user.fullName,
+      accountType: user.accountType,
     },
       JWT_ACCESS_TOKEN,
       { expiresIn: '30d' }

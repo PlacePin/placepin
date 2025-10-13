@@ -1,6 +1,6 @@
 import type { RouteObject } from "react-router-dom";
 import { LANDLORD_ROUTES, LANDLORD_CHILD_ROUTES } from "./landlordRoutes";
-import { TENANT_ROUTE } from "./tenantRoutes";
+import { TENANT_ROUTES } from "./tenantRoutes";
 import LandingPage from "../pages/home/LandingPage";
 import SignupPage from "../pages/auth/signup/SignupPage";
 import LoginPage from "../pages/auth/login/LoginPage";
@@ -42,7 +42,7 @@ const routes: RouteObject[] = [
     ]
   },
   {
-    path: TENANT_ROUTE.DASHBOARD, element: <PrivateRoute />,
+    path: TENANT_ROUTES.DASHBOARD, element: <PrivateRoute />,
     children: [
       {path: '', element: <TenantDashboard />,
         children: [

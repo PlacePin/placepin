@@ -3,6 +3,7 @@ export interface DecodedAccessToken {
   userID: string;
   username: string,
   fullName: string,
+  accountType: string,
   iat: number;
   exp: number;
 }

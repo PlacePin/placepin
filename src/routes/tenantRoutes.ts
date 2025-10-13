@@ -1,4 +1,4 @@
-export const TENANT_ROUTE = {
+export const TENANT_ROUTES = {
   DASHBOARD: '/tenantdashboard',
   MESSAGES: '/tenantdashboard/messages',
   SETTINGS: '/tenantdashboard/generalsettings',
