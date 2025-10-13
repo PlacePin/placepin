@@ -12,6 +12,7 @@ const SaveCardForm = ({ userID, accountType, accessToken }: SaveCardFormProps) =
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,9 +36,23 @@ const SaveCardForm = ({ userID, accountType, accessToken }: SaveCardFormProps) =
 
       if (result.error) {
         console.error(result.error.message);
+        return
       } else {
-        console.log("Card saved successfully!", result.setupIntent);
+
+        const paymentMethodId = result.setupIntent.payment_method;
+        
+        // Send the paymentMethodId back to the same route to store it
+        const res = await axios.post("/api/savecardform", {
+          userID,
+          accountType,
+          accessToken,
+          paymentMethodId: paymentMethodId
+        });
+        
+        setMessage(res.data.message)
       }
+
+      console.log("Card saved and stored in database!");
     } catch (err) {
       console.error(err);
     } finally {
@@ -51,6 +66,7 @@ const SaveCardForm = ({ userID, accountType, accessToken }: SaveCardFormProps) =
       <button disabled={loading || !stripe}>
         {loading ? "Saving..." : "Save Card"}
       </button>
+      {message}
     </form>
   );
 };
