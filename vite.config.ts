@@ -20,4 +20,10 @@ export default defineConfig({
     setupFiles: './src/setupTests.ts',
     exclude: [...configDefaults.exclude, 'e2e/**'],
   },
+  css: {
+    modules: {
+      localsConvention: 'camelCase',
+      generateScopedName: '[name]__[local]',
+    },
+  }
 })
