@@ -4,15 +4,7 @@ import LandlordSidebar from "../../../components/sidebars/landord/LandlordSideba
 import LandlordHeader from "../../../components/headers/landlord/LandlordHeader";
 import styles from './landlordDashboard.module.css';
 import { jwtDecode } from "jwt-decode";
-
-export interface DecodedAccessToken {
-  email: string;
-  userID: string;
-  username: string,
-  fullName: string,
-  iat: number;
-  exp: number;
-}
+import type { DecodedAccessToken } from "../../../interfaces/interfaces";
 
 const LandlordDashboard = () => {
 
