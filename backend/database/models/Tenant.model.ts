@@ -11,9 +11,14 @@ const tenantSchema = new mongoose.Schema({
   lowercase: true},
   fullName: String,
   hasAcceptedDisclaimer: Boolean,
-  landlordPromo: String,
+  landlordReferral: String,
   password: {type: String, required: true},
   phoneNumber: Number,
+  referredByLandlord: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "landlords",
+    default: null,
+  },
   username: { type: String, required: true },
 })
 

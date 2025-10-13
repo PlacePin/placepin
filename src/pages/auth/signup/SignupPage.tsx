@@ -15,7 +15,7 @@ const SignupPage = () => {
   const [address, setAddress] = useState('')
   const [password, setPassword] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
-  const [accountType, setAccountType] = useState('')
+  const [accountType, setAccountType] = useState('tenant')
   const [promo, setPromo] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -151,15 +151,15 @@ const SignupPage = () => {
           {accountType === 'tenant' && <>
             <label
               className={styles.inputLabel}
-              htmlFor='landlordPromo'
+              htmlFor='landlordReferral'
             >
-              Landlord Promo Code
+              Landlord Referral Code
             </label>
             <input
               type="text"
               className={styles.inputFields}
               onChange={(e) => setPromo(e.target.value.toLowerCase().trim())}
-              id='landlordPromo'
+              id='landlordReferral'
               placeholder='1234-abc-5678 (Optional)'  />
           </>}
           <label
