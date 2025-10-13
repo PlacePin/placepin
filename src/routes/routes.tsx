@@ -13,7 +13,7 @@ import LandlordProperties from "../pages/dashboard/landlords/landlordProperties/
 import LandlordBillingPayments from "../pages/dashboard/landlords/landlordBillingPayments/LandlordBillingPayments";
 import LandlordTenantInsights from "../pages/dashboard/landlords/landlordTenantInsights/LandlordTenantInsights";
 import LandlordMessaging from "../pages/dashboard/landlords/landlordMessaging/LandlordMessaging";
-import LandlordVendors from "../pages/dashboard/landlords/landlordVendors/LandlordVendors";
+import LandlordMaintenance from "../pages/dashboard/landlords/landlordMaintenance/LandlordMaintenance";
 import GeneralSettings from "../pages/settings/GeneralSettings";
 import SuccessfulSubscriptionPage from "../pages/stripeUrlPages/SuccessfulSubscriptionPage";
 import FailedSubscriptionPage from "../pages/stripeUrlPages/FailedSubscriptionPage";
@@ -34,7 +34,7 @@ const routes: RouteObject[] = [
           {path: LANDLORD_CHILD_ROUTES.PROPERTIES, element: <LandlordProperties />},
           {path: LANDLORD_CHILD_ROUTES.BILLING, element: <LandlordBillingPayments />},
           {path: LANDLORD_CHILD_ROUTES.INSIGHTS, element: <LandlordTenantInsights />},
-          {path: LANDLORD_CHILD_ROUTES.VENDORS, element: <LandlordVendors />},
+          {path: LANDLORD_CHILD_ROUTES.MAINTENANCE, element: <LandlordMaintenance />},
           {path: LANDLORD_CHILD_ROUTES.MESSAGING, element: <LandlordMessaging />},
           {path: LANDLORD_CHILD_ROUTES.SETTINGS, element: <GeneralSettings />},
         ]

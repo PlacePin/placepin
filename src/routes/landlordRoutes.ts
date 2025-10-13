@@ -4,7 +4,7 @@ export const LANDLORD_ROUTES = {
   PROPERTIES: '/landlorddashboard/landlordproperties',
   MESSAGING: '/landlorddashboard/landlordmessaging',
   INSIGHTS: '/landlorddashboard/landlordtenantinsights',
-  VENDORS: '/landlorddashboard/landlordvendors',
+  MAINTENANCE: '/landlorddashboard/landlordmaintenance',
   BILLING: '/landlorddashboard/landlordbillingpayments',
   SETTINGS: '/landlorddashboard/generalsettings',
 };
@@ -14,7 +14,7 @@ export const LANDLORD_CHILD_ROUTES = {
   PROPERTIES: 'landlordproperties',
   BILLING: 'landlordbillingpayments',
   INSIGHTS: 'landlordtenantinsights',
-  VENDORS: 'landlordvendors',
+  MAINTENANCE: 'landlordmaintenance',
   MESSAGING: 'landlordmessaging',
   SETTINGS: 'generalsettings',
 };
