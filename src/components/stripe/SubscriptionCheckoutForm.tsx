@@ -2,6 +2,7 @@ import { type FormEvent, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import { Navigate } from "react-router-dom";
+import styles from './subscriptionCheckoutForm.module.css';
 
 const SubscriptionCheckoutForm = () => {
 
@@ -35,8 +36,11 @@ const SubscriptionCheckoutForm = () => {
 
 return (
   <form onSubmit={handleSubmit}>
-    <button disabled={loading}>
-      {loading ? "Processing..." : "Checkout"}
+    <button
+     disabled={loading}
+     className={styles.button}
+     >
+      {loading ? "Redirecting..." : "Checkout"}
     </button>
   </form>
 );

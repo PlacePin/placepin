@@ -7,7 +7,6 @@ import { TENANT_ROUTES } from '../../routes/tenantRoutes';
 
 const FailedSubscription = () => {
 
-
   const { accessToken } = useAuth();
 
   if (!accessToken) return
@@ -23,7 +22,6 @@ const FailedSubscription = () => {
       window.location.href = '/login'
     }
   }
-
 
   return (
     <div className={styles.container}>
