@@ -16,6 +16,7 @@ const landlordSchema = new mongoose.Schema({
     {
       name: String,
       address: { type: String, required: true },
+      referralCode: { type: String, unique: true },
       tenants: [
         {
           tenantId: {
@@ -26,10 +27,9 @@ const landlordSchema = new mongoose.Schema({
           monthPaid: { type: Boolean, default: false },
           referred: Boolean,
         }
-      ]
+      ],
     }
   ],
-  referralCode: { type: String, unique: true },
   stripeCustomerId: { type: String, default: null },
   username: { type: String, required: true },
 });
