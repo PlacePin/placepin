@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
+import styles from './saveCardForm.module.css';
 
 interface SaveCardFormProps {
   userID: string;
@@ -13,7 +14,7 @@ const SaveCardForm = ({ userID, accountType, accessToken }: SaveCardFormProps) =
   const elements = useElements();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('')
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!stripe || !elements) return;
@@ -40,7 +41,7 @@ const SaveCardForm = ({ userID, accountType, accessToken }: SaveCardFormProps) =
       } else {
 
         const paymentMethodId = result.setupIntent.payment_method;
-        
+
         // Send the paymentMethodId back to the same route to store it
         const res = await axios.post("/api/savecardform", {
           userID,
@@ -48,7 +49,7 @@ const SaveCardForm = ({ userID, accountType, accessToken }: SaveCardFormProps) =
           accessToken,
           paymentMethodId: paymentMethodId
         });
-        
+
         setMessage(res.data.message)
       }
 
@@ -61,12 +62,43 @@ const SaveCardForm = ({ userID, accountType, accessToken }: SaveCardFormProps) =
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <CardElement />
-      <button disabled={loading || !stripe}>
+    <form
+      onSubmit={handleSubmit}
+      className={styles.form}
+    >
+      <div className={styles.divContainer}>
+        <CardElement
+          options={{
+            style: {
+              base: {
+                fontSize: "16px",
+                color: "#111827",
+                fontFamily: "'Inter', sans-serif",
+                fontSmoothing: "antialiased",
+                "::placeholder": {
+                  color: "#9ca3af",
+                },
+                padding: "12px 14px",
+              },
+              invalid: {
+                color: "#ef4444",
+                iconColor: "#ef4444",
+              },
+            },
+          }}
+        />
+      </div>
+      <button
+        type="submit"
+        disabled={loading || !stripe}
+        className={styles.button}
+      >
         {loading ? "Saving..." : "Save Card"}
       </button>
-      {message}
+
+      {message && (
+        <p className={styles.message}>{message}</p>
+      )}
     </form>
   );
 };
