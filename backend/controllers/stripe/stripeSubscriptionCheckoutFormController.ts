@@ -38,8 +38,16 @@ export const stripeSubscriptionCheckoutFormController = async (req: Request, res
       apiVersion: '2025-09-30.clover',
     })
 
+    if (!landlord.subscription) {
+      landlord.subscription = {
+        isSubscribed: false,
+        savedPaymentMethod: '',
+        stripeCustomerId: '',
+      };
+    }
+
     // If the user already has a stripe customer id save it here
-    let stripeCustomerId = landlord.stripeCustomerId;
+    let stripeCustomerId = landlord.subscription.stripeCustomerId;
 
     // If the user doesn't have the stripe customer id create it here and update it in the database
     if (!stripeCustomerId) {

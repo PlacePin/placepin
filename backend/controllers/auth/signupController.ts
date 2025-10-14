@@ -59,6 +59,11 @@ export const signupController = async (req: Request, res: Response) => {
         accountType,
         password: hashedPassword,
         phoneNumber,
+        subscription: {
+          isSubscribed: false,
+          savedPaymentMethod: null,
+          stripeCustomerId: null,
+        },
       })
     }
 
@@ -67,7 +72,7 @@ export const signupController = async (req: Request, res: Response) => {
     })
 
     // If the user already has a stripe customer id save it here
-    let stripeCustomerId = newUser.stripeCustomerId;
+    let stripeCustomerId = newUser.subscription.stripeCustomerId;
 
     // If the user doesn't have the stripe customer id create it here
     if (!stripeCustomerId) {
@@ -77,7 +82,7 @@ export const signupController = async (req: Request, res: Response) => {
 
       stripeCustomerId = customer.id;
     
-      newUser.stripeCustomerId = customer.id;
+      newUser.subscription.stripeCustomerId = customer.id;
     };
     
     // Save the user to the database

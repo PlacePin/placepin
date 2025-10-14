@@ -36,26 +36,34 @@ export const stripeSaveCardFormController = async (
       return res.status(404).json({ message: "User not found." });
     }
 
+    if (!user.subscription) {
+      user.subscription = {
+        isSubscribed: false,
+        savedPaymentMethod: '',
+        stripeCustomerId: '',
+      };
+    }
+
     // If there's no paymentMethodId yet, create and return SetupIntent
     if (!paymentMethodId) {
-      if (!user.stripeCustomerId) {
+      if (!user.subscription?.stripeCustomerId) {
         // Create a customer if needed
         const customer = await stripe.customers.create({
           email: user.email,
         });
-        user.stripeCustomerId = customer.id;
+        user.subscription.stripeCustomerId = customer.id;
         await user.save();
       }
 
       const setupIntent = await stripe.setupIntents.create({
-        customer: user.stripeCustomerId,
+        customer: user.subscription.stripeCustomerId,
       });
 
       return res.status(200).json({ clientSecret: setupIntent.client_secret });
     }
 
     // If paymentMethodId exists, store it in DB
-    user.savedPaymentMethod = paymentMethodId;
+    user.subscription.savedPaymentMethod = paymentMethodId;
     await user.save();
 
     return res
