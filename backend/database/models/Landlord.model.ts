@@ -16,7 +16,7 @@ const landlordSchema = new mongoose.Schema({
     {
       name: String,
       address: { type: String, required: true },
-      referralCode: { type: String, unique: true },
+      referralCode: { type: String },
       tenants: [
         {
           tenantId: {
