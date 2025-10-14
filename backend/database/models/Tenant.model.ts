@@ -19,8 +19,6 @@ const tenantSchema = new mongoose.Schema({
     ref: "landlords",
     default: null,
   },
-  savedPaymentMethod: { type: String, default: null },
-  stripeCustomerId: { type: String, default: null },
   subscription: {
     isSubscribed: { type: Boolean, default: false },
     savedPaymentMethod: { type: String, default: null },
