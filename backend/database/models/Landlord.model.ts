@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { generateReferralCode } from '../../utils/generateReferralCode';
 
 // This is the shape of the landlord database object
 
@@ -16,7 +17,7 @@ const landlordSchema = new mongoose.Schema({
     {
       name: String,
       address: { type: String, required: true },
-      referralCode: { type: String },
+      referralCode: { type: String, default: generateReferralCode },
       tenants: [
         {
           tenantId: {
