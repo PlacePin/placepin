@@ -18,7 +18,7 @@
     border-radius: 4px;
     background: #00bfa5;
     color: white;
-    cursor: "pointer";
+    cursor: pointer;
 }
 
 .button:disabled {
