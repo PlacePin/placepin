@@ -67,6 +67,10 @@ export const signupController = async (req: Request, res: Response) => {
       })
     }
 
+    
+    // Save the user to the database
+    await newUser.save();
+
     const stripeAccess = new Stripe(STRIPE_TEST_SECRET_KEY, {
       apiVersion: '2025-09-30.clover',
     })
@@ -84,8 +88,8 @@ export const signupController = async (req: Request, res: Response) => {
     
       newUser.subscription.stripeCustomerId = customer.id;
     };
-    
-    // Save the user to the database
+
+    // Save again to update the Stripe Customer ID
     await newUser.save();
 
     // Grabbing the userID from the database and transforming it to a string
