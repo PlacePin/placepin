@@ -41,9 +41,7 @@ const SubscriptionCheckoutForm = () => {
         const isSubscribed = data.data.subscription.isSubscribed
         setSubscription(isSubscribed)
       })
-  }, [])
-
-  console.log(subscripton)
+  }, []);
 
   return (
     <form onSubmit={handleSubmit}>
