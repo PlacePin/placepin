@@ -62,44 +62,48 @@ const SaveCardForm = ({ userID, accountType, accessToken }: SaveCardFormProps) =
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={styles.form}
-    >
-      <div className={styles.divContainer}>
-        <CardElement
-          options={{
-            style: {
-              base: {
-                fontSize: "16px",
-                color: "#111827",
-                fontFamily: "'Inter', sans-serif",
-                fontSmoothing: "antialiased",
-                "::placeholder": {
-                  color: "#9ca3af",
-                },
-                padding: "12px 14px",
-              },
-              invalid: {
-                color: "#ef4444",
-                iconColor: "#ef4444",
-              },
-            },
-          }}
-        />
-      </div>
-      <button
-        type="submit"
-        disabled={loading || !stripe}
-        className={styles.button}
+    <>
+      <p>Save your debit/credit card</p>
+      <form
+        onSubmit={handleSubmit}
+        className={styles.form}
       >
-        {loading ? "Saving..." : "Save Card"}
-      </button>
+        <div className={styles.divContainer}>
+          <CardElement
+            options={{
+              style: {
+                base: {
+                  fontSize: "16px",
+                  color: "#111827",
+                  fontFamily: "'Inter', sans-serif",
+                  fontSmoothing: "antialiased",
+                  "::placeholder": {
+                    color: "#9ca3af",
+                  },
+                  padding: "12px 14px",
+                },
+                invalid: {
+                  color: "#ef4444",
+                  iconColor: "#ef4444",
+                },
+              },
+            }}
+          />
+        </div>
+        <button
+          type="submit"
+          disabled={loading || !stripe}
+          className={styles.button}
+        >
+          {loading ? "Saving..." : "Save Card"}
+        </button>
 
-      {message && (
-        <p className={styles.message}>{message}</p>
-      )}
-    </form>
+        {message && (
+          <p className={styles.message}>{message}</p>
+        )}
+      </form>
+      <p className={styles.disclaimer}>This card is usually used to collect rent.</p>
+    </>
   );
 };
 
