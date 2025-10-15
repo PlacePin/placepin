@@ -1,4 +1,4 @@
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import { Navigate } from "react-router-dom";
@@ -7,13 +7,14 @@ import styles from './subscriptionCheckoutForm.module.css';
 const SubscriptionCheckoutForm = () => {
 
   const [loading, setLoading] = useState(false);
+  const [subscripton, setSubscription] = useState(false)
 
   const { accessToken } = useAuth();
 
-  if(!accessToken){
+  if (!accessToken) {
     return <Navigate to="/login" replace />;
   }
-  
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -23,7 +24,7 @@ const SubscriptionCheckoutForm = () => {
       // 1. Create Checkout Session on the server
       const { data } = await axios.post(
         `/api/stripeSubscriptionCheckout/${accessToken}`
-        );
+      );
 
       // 2. Redirect to Stripe Checkout
       window.location.href = data.sessionUrl;
@@ -34,16 +35,27 @@ const SubscriptionCheckoutForm = () => {
     }
   };
 
-return (
-  <form onSubmit={handleSubmit}>
-    <button
-     disabled={loading}
-     className={styles.button}
-     >
-      {loading ? "Redirecting..." : "Checkout"}
-    </button>
-  </form>
-);
+  useEffect(() => {
+    axios.get(`/api/subscription/status/${accessToken}`)
+      .then(data => {
+        const isSubscribed = data.data.subscription.isSubscribed
+        setSubscription(isSubscribed)
+      })
+  }, [])
+
+  console.log(subscripton)
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <button
+        disabled={subscripton || loading}
+        className={`${styles.button} ${subscripton && styles.notAllowed}`}
+      >
+        {loading ? "Redirecting..." : "Checkout"}
+      </button>
+      <p className={styles.message}>{subscripton && 'You are already subscribed!'}</p>
+    </form>
+  );
 };
 
 export default SubscriptionCheckoutForm;

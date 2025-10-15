@@ -8,6 +8,7 @@ import landlordBasicInfoRoute from './routes/settings/landlordBasicInfoRoute';
 import stripeSubscriptionCheckoutFormRoute from './routes/stripe/stripeSubscriptionCheckoutFormRoute';
 import stripeSaveCardFormRoute from './routes/stripe/stripeSaveCardFormRoute';
 import stripeWebhookRoute from './routes/stripe/webhooks/stripeWebhookRoute';
+import subscriptionRoute from './routes/resources/subscriptionRoute';
 
 dotenv.config()
 
@@ -29,6 +30,7 @@ app.use('/api', loginRoute)
 app.use('/api', landlordBasicInfoRoute)
 app.use('/api', stripeSubscriptionCheckoutFormRoute)
 app.use('/api', stripeSaveCardFormRoute)
+app.use('/api', subscriptionRoute)
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)

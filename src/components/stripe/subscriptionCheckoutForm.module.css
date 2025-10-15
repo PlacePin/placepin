@@ -10,3 +10,12 @@
   transition: background-color 0.3s ease;
   margin-top: 1rem;
 }
+
+.notAllowed {
+  cursor: not-allowed;
+}
+
+.message {
+  padding-top: 2rem;
+  font-weight: 600;
+}
