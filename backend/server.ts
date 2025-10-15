@@ -7,6 +7,7 @@ import loginRoute from './routes/auth/loginRoute';
 import landlordBasicInfoRoute from './routes/settings/landlordBasicInfoRoute';
 import stripeSubscriptionCheckoutFormRoute from './routes/stripe/stripeSubscriptionCheckoutFormRoute';
 import stripeSaveCardFormRoute from './routes/stripe/stripeSaveCardFormRoute';
+import stripeWebhookRoute from './routes/stripe/webhooks/stripeWebhookRoute';
 
 dotenv.config()
 
@@ -18,6 +19,10 @@ connectToDB()
 // Middleware
 
 app.use(cors())
+
+// Webhooks
+app.use('/api', stripeWebhookRoute)
+
 app.use(express.json())
 app.use('/api', signupRoute)
 app.use('/api', loginRoute)
