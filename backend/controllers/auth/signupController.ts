@@ -47,6 +47,12 @@ export const signupController = async (req: Request, res: Response) => {
         password: hashedPassword,
         phoneNumber,
         landlordReferral: referral,
+        subscription: {
+          isSubscribed: false,
+          savedPaymentMethod: null,
+          stripeCustomerId: null,
+          tier: "free",
+        },
       })
     }
 
@@ -67,10 +73,9 @@ export const signupController = async (req: Request, res: Response) => {
       })
     }
 
-    
     // Save the user to the database
     await newUser.save();
-
+    
     const stripeAccess = new Stripe(STRIPE_TEST_SECRET_KEY, {
       apiVersion: '2025-09-30.clover',
     })
@@ -113,5 +118,4 @@ export const signupController = async (req: Request, res: Response) => {
     console.error('Failed to create user', err)
     res.status(500).json({ message: 'Failed to create new user' })
   }
-
 }
