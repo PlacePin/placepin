@@ -3,11 +3,18 @@ import ActiveTenantsCard from '../../../../components/cards/landlord/ActiveTenan
 import PerkAdoptionCard from '../../../../components/cards/landlord/PerkAdoptionCard';
 import StatsKPICard from '../../../../components/cards/landlord/StatsKPICard';
 import RetentionHealthMeter from '../../../../components/cards/landlord/RetentionHealthMeter';
+import InviteTenantModal from '../../../../components/modals/InviteTenantModal';
+import { useState } from 'react';
 
 const LandlordHomepage = () => {
 
+  const [showInviteModal, setShowInviteModal] = useState(false);
+  const [showNudgeModal, setShowNudgeModal] = useState(false);
+  const [showGiftModal, setShowGiftModal] = useState(false);
+
   const handleInvite = () => {
     console.log('Make modal popup to send email invite!')
+    setShowInviteModal(true)
   }
 
   const handleNudge = () => {
@@ -53,6 +60,7 @@ const LandlordHomepage = () => {
           </StatsKPICard>
         </div>
       </div>
+      {showInviteModal && <InviteTenantModal />}
     </div>
   )
 }
