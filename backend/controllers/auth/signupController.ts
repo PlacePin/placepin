@@ -101,7 +101,7 @@ export const signupController = async (req: Request, res: Response) => {
     // Save again to update the Stripe Customer ID
     await newUser.save();
 
-    // Grabbing the userID from the database and transforming it to a string
+    // Grabbing the userId transforming it to a string
     const userID = newUser._id.toString();
 
     // Create JWT with email, userID and username as payload
