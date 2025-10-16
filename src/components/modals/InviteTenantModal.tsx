@@ -20,7 +20,7 @@ const InviteTenantModal = () => {
     console.log(tenantInfo)
 
     try{
-      const res = await axios.post('/api/invite/tenant/:id', tenantInfo)
+      const res = await axios.post('/api/invite/tenant/', tenantInfo)
 
     } catch (err) {
       console.error(err, "Failed to send invite!")
