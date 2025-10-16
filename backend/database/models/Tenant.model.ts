@@ -28,6 +28,9 @@ const tenantSchema = new mongoose.Schema({
   username: { type: String, required: true },
 })
 
+// This is the type as a js object
 export type TenantType = InferSchemaType<typeof tenantSchema>;
+
+// This is the type as a mongoose document
 export type TenantDocumentType = HydratedDocument<TenantType>;
 export const TenantModel = mongoose.model('Tenants', tenantSchema)

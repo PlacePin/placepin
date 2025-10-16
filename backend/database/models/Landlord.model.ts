@@ -39,6 +39,9 @@ const landlordSchema = new mongoose.Schema({
   username: { type: String, required: true },
 });
 
+// This is the type as a js object
 export type LandlordType = InferSchemaType<typeof landlordSchema>;
+
+// This is the type as a mongoose document
 export type LandlordDocumentType = HydratedDocument<LandlordType>;
 export const LandlordModel = mongoose.model('Landlords', landlordSchema)
