@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { type InferSchemaType, type HydratedDocument } from 'mongoose';
 import { generateReferralCode } from '../../utils/generateReferralCode';
 
 // This is the shape of the landlord database object
@@ -39,4 +39,6 @@ const landlordSchema = new mongoose.Schema({
   username: { type: String, required: true },
 });
 
+export type LandlordType = InferSchemaType<typeof landlordSchema>;
+export type LandlordDocumentType = HydratedDocument<LandlordType>;
 export const LandlordModel = mongoose.model('Landlords', landlordSchema)

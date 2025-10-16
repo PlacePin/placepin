@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import { TenantModel } from '../../database/models/Tenant.model';
-import { LandlordModel } from '../../database/models/Landlord.model';
+import { TenantModel, type TenantDocumentType } from '../../database/models/Tenant.model';
+import { LandlordModel, type LandlordDocumentType } from '../../database/models/Landlord.model';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
@@ -16,7 +16,7 @@ export const signupController = async (req: Request, res: Response) => {
 
   let hashedPassword: string;
   const saltRounds = 10
-  let newUser: any;
+  let newUser: LandlordDocumentType | TenantDocumentType | null = null;
   let existingEmail: string | null;
 
   try {
@@ -73,6 +73,10 @@ export const signupController = async (req: Request, res: Response) => {
       })
     }
 
+    if(!newUser){
+      return res.status(400).json({ message: 'Retry creating an account.' })
+    }
+
     // Save the user to the database
     await newUser.save();
     
@@ -81,7 +85,7 @@ export const signupController = async (req: Request, res: Response) => {
     })
 
     // If the user already has a stripe customer id save it here
-    let stripeCustomerId = newUser.subscription.stripeCustomerId;
+    let stripeCustomerId = newUser.subscription!.stripeCustomerId;
 
     // If the user doesn't have the stripe customer id create it here
     if (!stripeCustomerId) {
@@ -91,14 +95,14 @@ export const signupController = async (req: Request, res: Response) => {
 
       stripeCustomerId = customer.id;
     
-      newUser.subscription.stripeCustomerId = customer.id;
+      newUser.subscription!.stripeCustomerId = customer.id;
     };
 
     // Save again to update the Stripe Customer ID
     await newUser.save();
 
     // Grabbing the userID from the database and transforming it to a string
-    const userID = await newUser._id.toString()
+    const userID = newUser._id.toString();
 
     // Create JWT with email, userID and username as payload
     const accessToken = jwt.sign({

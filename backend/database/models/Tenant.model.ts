@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { type HydratedDocument, type InferSchemaType } from 'mongoose';
 
 // This is the shape of the tenant database object
 
@@ -28,4 +28,6 @@ const tenantSchema = new mongoose.Schema({
   username: { type: String, required: true },
 })
 
+export type TenantType = InferSchemaType<typeof tenantSchema>;
+export type TenantDocumentType = HydratedDocument<TenantType>;
 export const TenantModel = mongoose.model('Tenants', tenantSchema)
