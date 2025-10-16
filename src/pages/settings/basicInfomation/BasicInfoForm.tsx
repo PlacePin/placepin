@@ -39,7 +39,7 @@ const BasicInfoForm = () => {
     }
 
     fetchUserID()
-  }, [])
+  }, [accessToken])
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
