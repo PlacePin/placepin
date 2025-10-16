@@ -22,6 +22,7 @@ connectToDB()
 app.use(cors())
 
 // Webhooks
+// Webhooks won't work if they're after the express.json()
 app.use('/api', stripeWebhookRoute)
 
 app.use(express.json())
