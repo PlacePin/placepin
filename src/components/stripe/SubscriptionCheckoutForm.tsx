@@ -15,6 +15,14 @@ const SubscriptionCheckoutForm = () => {
     return <Navigate to="/login" replace />;
   }
 
+  useEffect(() => {
+    axios.get(`/api/subscription/status/${accessToken}`)
+      .then(data => {
+        const isSubscribed = data.data.subscription.isSubscribed
+        setSubscription(isSubscribed)
+      })
+  }, [accessToken]);
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -34,14 +42,6 @@ const SubscriptionCheckoutForm = () => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    axios.get(`/api/subscription/status/${accessToken}`)
-      .then(data => {
-        const isSubscribed = data.data.subscription.isSubscribed
-        setSubscription(isSubscribed)
-      })
-  }, []);
 
   return (
     <form onSubmit={handleSubmit}>

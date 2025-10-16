@@ -49,7 +49,7 @@ const LandlordHeader = ({ username }: LandlordHeaderProps) => {
   const navigate = useNavigate()
   const { logout } = useAuth()
 
-  let upperCaseUsername = capitalizeWords(username)
+  const upperCaseUsername = capitalizeWords(username)
 
   return (
     <div className={styles.landlordHeaderContainer} ref={wrapperRef}>

@@ -17,7 +17,7 @@ export const signupController = async (req: Request, res: Response) => {
   let hashedPassword: string;
   const saltRounds = 10
   let newUser: any;
-  let existingEmail: any;
+  let existingEmail: string | null;
 
   try {
 
