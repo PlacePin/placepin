@@ -1,27 +1,32 @@
 import { useState, type FormEvent } from 'react';
 import styles from './inviteTenantModal.module.css';
 import axios from 'axios';
+import { useAuth } from '../../context/AuthContext';
 
 const InviteTenantModal = () => {
 
-  const [tenantName, setTenantName] = useState('')
-  const [tenantEmail, setTenantEmail] = useState('')
-  const [tenantAddress, setTenantAddress] = useState('')
+  const [tenantName, setTenantName] = useState('');
+  const [tenantEmail, setTenantEmail] = useState('');
+  const [tenantAddress, setTenantAddress] = useState('');
+  
+  const { accessToken } = useAuth();
 
   const handleTenantInviteSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    
 
     const tenantInfo = {
       tenantName,
       tenantAddress,
-      tenantEmail
+      tenantEmail,
+      accessToken
     }
 
     console.log(tenantInfo)
 
     try{
       const res = await axios.post('/api/invite/tenant/', tenantInfo)
-
+      console.log(res)
     } catch (err) {
       console.error(err, "Failed to send invite!")
     }
@@ -69,7 +74,7 @@ const InviteTenantModal = () => {
             />
             <br />
             <button>
-              Submit
+              Send Invite!
             </button>
           </form>
         </div>

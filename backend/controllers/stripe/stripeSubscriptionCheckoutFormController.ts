@@ -82,7 +82,12 @@ export const stripeSubscriptionCheckoutFormController = async (req: Request, res
     return res.status(200).json({ sessionUrl: session.url })
 
   } catch (err) {
-    console.error(err)
-    res.status(500).json({ error: "Unexpected error!" })
+    // all tampering / invalid signature / expired token lands here
+    if (err instanceof jwt.JsonWebTokenError) {
+      return res.status(400).json({ message: err.message });
+    } else {
+      console.error(err)
+      return res.status(500).json({ error: "Unexpected error!" })
+    }
   }
 }

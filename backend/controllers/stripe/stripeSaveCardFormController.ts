@@ -70,9 +70,13 @@ export const stripeSaveCardFormController = async (
       .status(200)
       .json({ message: "Payment method saved successfully" });
   } catch (err) {
-    console.error("Error in stripeSaveCardFormController:", err);
-    return res
-      .status(500)
-      .json({ message: "Something went wrong with saving the card" });
+    if (err instanceof jwt.JsonWebTokenError) {
+      return res.status(400).json({ message: err.message });
+    } else {
+      console.error("Error in stripeSaveCardFormController:", err);
+      return res
+        .status(500)
+        .json({ message: "Something went wrong with saving the card" });
+    }
   }
 };
