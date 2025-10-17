@@ -23,7 +23,8 @@ export const inviteTenantController = (req: Request, res: Response) => {
     if (err instanceof jwt.JsonWebTokenError) {
       return res.status(400).json({ message: err.message });
     } else {
-      return console.error('Unexpected Error:', err);
+      console.error('Unexpected Error:', err);
+      return res.status(500).json({ message: 'Unexpected Error'})
     }
   }
   console.log(tenantAddress, tenantEmail, tenantName, accessToken)

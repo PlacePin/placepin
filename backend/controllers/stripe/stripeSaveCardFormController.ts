@@ -74,9 +74,7 @@ export const stripeSaveCardFormController = async (
       return res.status(400).json({ message: err.message });
     } else {
       console.error("Error in stripeSaveCardFormController:", err);
-      return res
-        .status(500)
-        .json({ message: "Something went wrong with saving the card" });
+      return res.status(500).json({ message: "Something went wrong with saving the card" });
     }
   }
 };
