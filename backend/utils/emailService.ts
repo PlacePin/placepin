@@ -45,7 +45,8 @@ export const emailInviteToTenant = async (referralCode: string, tenantName: stri
     text: `Hey ${tenantName}, your exclusive referral code is: ${referralCode}`,
   });
 
-  console.log("Message sent:", info);
+  // If you want to see the message object uncomment!
+  // console.log("Message sent:", info);
 
 
 }

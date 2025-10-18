@@ -21,8 +21,6 @@ const InviteTenantModal = () => {
       accessToken
     }
 
-    console.log(tenantInfo)
-
     try{
       const res = await axios.post('/api/invite/tenant/', tenantInfo)
       console.log(res)
