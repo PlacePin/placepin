@@ -23,3 +23,7 @@
   text-align: center;
   margin: 0 25em;
 }
+
+.exit {
+  cursor: pointer;
+}

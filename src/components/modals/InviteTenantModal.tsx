@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import styles from './inviteTenantModal.module.css';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
+import { X } from 'lucide-react';
 
 const InviteTenantModal = () => {
 
@@ -32,6 +33,10 @@ const InviteTenantModal = () => {
   return (
       <div className={styles.modalOverlay}>
         <div className={styles.modalContainer}>
+          <X 
+            className={styles.exit}
+            // size={12}
+          />
           <h2>Invite Tenant</h2>
           <form onSubmit={handleTenantInviteSubmit}>
             <label htmlFor='tenantName'>
