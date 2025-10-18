@@ -20,6 +20,7 @@ const landlordSchema = new mongoose.Schema({
       referralCode: { type: String, default: generateReferralCode },
       tenants: [
         {
+          _id: false,
           tenantId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "tenants",

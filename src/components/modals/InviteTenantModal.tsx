@@ -14,7 +14,6 @@ const InviteTenantModal = () => {
   const handleTenantInviteSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     
-
     const tenantInfo = {
       tenantName,
       tenantAddress,
