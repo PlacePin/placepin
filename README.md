@@ -16,3 +16,7 @@
  - All CSS file names are camalCase to the file they are CSS'ing
  - All CSS file names end in .module.css
  - All CSS style names are camalCase
+
+## MAILING INVITES
+ - mailtrap.io is the smtp
+ - Currently using gmail smtp because its free
