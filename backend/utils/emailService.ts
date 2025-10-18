@@ -41,8 +41,8 @@ export const emailInviteToTenant = async (referralCode: string, tenantName: stri
     // For prod switch to domain verified email for from
     from: 'kerlin.augustin1@gmail.com',
     to: `${tenantEmail}`,
-    subject: "Your Referral Code",
-    text: `Hey ${tenantName}, you've just been sent a referral code: ${referralCode}`,
+    subject: "Your Referral Code is Ready 🎉",
+    text: `Hey ${tenantName}, your exclusive referral code is: ${referralCode}`,
   });
 
   console.log("Message sent:", info);
