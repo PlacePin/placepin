@@ -11,8 +11,6 @@ export const inviteTenantController = async (req: Request, res: Response) => {
   const { tenantName, tenantAddress, tenantEmail, accessToken } = req.body
 
   const JWT_ACCESS_TOKEN = process.env.JWT_ACCESS_TOKEN!
-  const MAILTRAP_TEST_USERNAME=process.env.MAILTRAP_TEST_USERNAME!
-  const MAILTRAP_TEST_PASSWORD=process.env.MAILTRAP_TEST_PASSWORD!
 
   let referralCode: string;
 
@@ -35,7 +33,7 @@ export const inviteTenantController = async (req: Request, res: Response) => {
     }
 
     if (landlord?.properties.length === 0) {
-      const updatedModel = await LandlordModel.findByIdAndUpdate(
+      const updatedLandlord = await LandlordModel.findByIdAndUpdate(
         decoded.userID,
         {
           $push: {
@@ -49,17 +47,44 @@ export const inviteTenantController = async (req: Request, res: Response) => {
         },
         { new: true }
       );
-      console.log(updatedModel)
+
+      console.log(updatedLandlord)
+
+      // emailInviteToTenant(referralCode, tenantName, tenantEmail)
+      return res.status(200).json({ message: 'Email sent! Your first invite!' })
+      // if at least one property exist run the else condition
     } else {
       // console.log('landlord', landlord)
       for (let property of landlord.properties) {
         console.log(property)
+        // if there is a matching property run this condition
         if (property.address === tenantAddress) {
           referralCode = property.referralCode
           console.log(referralCode)
-          emailInviteToTenant(referralCode, tenantName, tenantEmail)
+          // emailInviteToTenant(referralCode, tenantName, tenantEmail)
+          console.log('adding to existing property')
+          return res.status(200).json({ message: 'Invite sent!' })
         }
       }
+      // if there are properties but none match run this condition
+      const updatedLandlord = await LandlordModel.findByIdAndUpdate(
+        decoded.userID,
+        {
+          $push: {
+            properties: {
+              name: "",
+              address: tenantAddress,
+              referralCode: generateReferralCode(),
+              tenants: []
+            }
+          }
+        },
+        { new: true }
+      );
+      console.log('updated model2', updatedLandlord)
+      console.log('last condition')
+      // emailInviteToTenant(referralCode, tenantName, tenantEmail)
+      return res.status(200).json({ message: 'Email invite sent!' })
     }
 
   } catch (err) {
