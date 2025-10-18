@@ -29,13 +29,13 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
+.button:active {
+  transform: translateY(2px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-3px); }
   75% { transform: translateX(3px); }
-}
-
-.button:active {
-  transform: translateY(2px);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }

@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import dotenv from 'dotenv';
 import { LandlordModel } from "../../database/models/Landlord.model";
 import { generateReferralCode } from "../../utils/generateReferralCode";
+import { emailInviteToTenant } from "../../utils/emailService";
 
 dotenv.config()
 
@@ -10,6 +11,10 @@ export const inviteTenantController = async (req: Request, res: Response) => {
   const { tenantName, tenantAddress, tenantEmail, accessToken } = req.body
 
   const JWT_ACCESS_TOKEN = process.env.JWT_ACCESS_TOKEN!
+  const MAILTRAP_TEST_USERNAME=process.env.MAILTRAP_TEST_USERNAME!
+  const MAILTRAP_TEST_PASSWORD=process.env.MAILTRAP_TEST_PASSWORD!
+
+  let referralCode: string;
 
   try {
     const decoded = jwt.verify(accessToken, JWT_ACCESS_TOKEN);
@@ -47,10 +52,12 @@ export const inviteTenantController = async (req: Request, res: Response) => {
       console.log(updatedModel)
     } else {
       // console.log('landlord', landlord)
-      for(let property of landlord.properties){
+      for (let property of landlord.properties) {
         console.log(property)
-        if(property.address === tenantAddress){
-          
+        if (property.address === tenantAddress) {
+          referralCode = property.referralCode
+          console.log(referralCode)
+          emailInviteToTenant(referralCode, tenantName, tenantEmail)
         }
       }
     }
