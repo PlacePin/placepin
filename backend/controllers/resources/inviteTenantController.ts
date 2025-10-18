@@ -19,11 +19,11 @@ export const inviteTenantController = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Invalid token format." });
     }
 
-    console.log(decoded)
+    // console.log(decoded)
 
     const landlord = await LandlordModel.findById(decoded.userID)
 
-    console.log(landlord?.properties.length)
+    // console.log(landlord?.properties.length)
 
     if (!landlord) {
       return res.status(404).json({ message: 'User not found!' })
@@ -45,6 +45,14 @@ export const inviteTenantController = async (req: Request, res: Response) => {
         { new: true }
       );
       console.log(updatedModel)
+    } else {
+      // console.log('landlord', landlord)
+      for(let property of landlord.properties){
+        console.log(property)
+        if(property.address === tenantAddress){
+          
+        }
+      }
     }
 
   } catch (err) {
