@@ -33,3 +33,42 @@
   display: flex;
   align-items: center;
 }
+
+.inputFields {
+  height: 2.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.formContainer {
+  padding: 1rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: .5rem;
+}
+
+.labels {
+  text-align: left;
+}
+
+.button {
+  height: 2.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  cursor: pointer;
+  color: #ffffff;
+  background: #00bfa5;
+  box-shadow: 2px 2px 8px gray;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.button:active {
+  transform: translateY(1px);
+  box-shadow: 1px 1px 4px gray;
+}

@@ -37,43 +37,51 @@ const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
   return (
     <FormModal title='Invite Tenant' onClose={onClose}>
       <form onSubmit={handleTenantInviteSubmit}>
-        <label htmlFor='tenantName'>
-          Tenant Name
-        </label>
-        <br />
-        <input
-          type="text"
-          id='tenantName'
-          placeholder='Dinah Augustin'
-          onChange={(e) => setTenantName(e.target.value)}
-          required
-        />
-        <br />
-        <label htmlFor='tenantAddress'>
-          Tenant Address
-        </label>
-        <br />
-        <input
-          type="text"
-          id='tenantAddress'
-          placeholder='123 Main St. Boston MA, 02136'
-          onChange={(e) => setTenantAddress(e.target.value)}
-          required
-        />
-        <br />
-        <label htmlFor='tenantEmail'>
-          Tenant Email
-        </label>
-        <br />
-        <input
-          type="email"
-          id='tenantEmail'
-          placeholder='dinahaugustin@placepin.com'
-          onChange={(e) => setTenantEmail(e.target.value)}
-          required
-        />
-        <br />
-        <button>
+        <div className={styles.formContainer}>
+          <label 
+          htmlFor='tenantName'
+          className={styles.labels}
+          >
+            Tenant Name
+          </label>
+          <input
+            type="text"
+            id='tenantName'
+            placeholder='Dinah Augustin'
+            onChange={(e) => setTenantName(e.target.value)}
+            className={styles.inputFields}
+            required
+          />
+          <label 
+          htmlFor='tenantAddress'
+          className={styles.labels}
+          >
+            Tenant Address
+          </label>
+          <input
+            type="text"
+            id='tenantAddress'
+            placeholder='123 Main St. Boston MA, 02136'
+            onChange={(e) => setTenantAddress(e.target.value)}
+            className={styles.inputFields}
+            required
+          />
+          <label 
+          htmlFor='tenantEmail'
+          className={styles.labels}
+          >
+            Tenant Email
+          </label>
+          <input
+            type="email"
+            id='tenantEmail'
+            placeholder='dinahaugustin@placepin.com'
+            onChange={(e) => setTenantEmail(e.target.value)}
+            className={styles.inputFields}
+            required
+          />
+        </div>
+        <button className={styles.button}>
           Send Invite!
         </button>
       </form>
