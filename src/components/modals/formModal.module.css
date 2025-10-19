@@ -15,8 +15,6 @@
 
 .modalContainer {
   background-color: white;
-  padding: 2rem;
-  border: 1px solid black;
   border-radius: 0.5em;
   z-index: 11;
   position: relative;
@@ -24,12 +22,23 @@
   margin: 0 25em;
 }
 
-.exit {
-  cursor: pointer;
-  text-align: right;
-}
-
 .exitWrapper {
   display: flex;
   align-items: center;
+  border-bottom: 2px solid rgb(159, 159, 159);
+  padding: 1rem;
+}
+
+.exit {
+  cursor: pointer;
+  text-align: right;
+  margin-left: 15rem;
+}
+
+.childrenWrapper {
+  padding: 1rem 0 1rem 0;
+}
+
+.close {
+  display: none;
 }
