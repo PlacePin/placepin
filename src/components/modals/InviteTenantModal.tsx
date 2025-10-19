@@ -4,7 +4,11 @@ import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
 import FormModal from './FormModal';
 
-const InviteTenantModal = () => {
+interface InviteTenantModalProps {
+  onClose?: () => void;
+}
+
+const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
 
   const [tenantName, setTenantName] = useState('');
   const [tenantEmail, setTenantEmail] = useState('');
@@ -31,7 +35,7 @@ const InviteTenantModal = () => {
   }
 
   return (
-    <FormModal title='Invite Tenant'>
+    <FormModal title='Invite Tenant' onClose={onClose}>
       <form onSubmit={handleTenantInviteSubmit}>
         <label htmlFor='tenantName'>
           Tenant Name

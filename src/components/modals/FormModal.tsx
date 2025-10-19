@@ -1,30 +1,27 @@
 import { X } from 'lucide-react';
 import styles from './formModal.module.css';
-import { useState, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 interface FormModalProps {
   children: ReactNode,
   title: string,
+  onClose?: () => void,
 }
 
-const FormModal = ({ children, title }: FormModalProps) => {
-
-  const [closeModalContainer, setCloseModalContainer] = useState(false);
+const FormModal = ({ children, title, onClose }: FormModalProps) => {
 
   return (
-    <div className={closeModalContainer ? styles.close : ''}>
-      <div className={styles.modalOverlay}>
-        <div className={styles.modalContainer}>
-          <div className={styles.exitWrapper}>
-            <h2>{title}</h2>
-            <X
-              className={styles.exit}
-              onClick={() => setCloseModalContainer(prev => !prev)}
-            />
-          </div>
-          <div className={styles.childrenWrapper}>
-            {children}
-          </div>
+    <div className={styles.modalOverlay}>
+      <div className={styles.modalContainer}>
+        <div className={styles.exitWrapper}>
+          <h2>{title}</h2>
+          <X
+            className={styles.exit}
+            onClick={onClose}
+          />
+        </div>
+        <div className={styles.childrenWrapper}>
+          {children}
         </div>
       </div>
     </div>

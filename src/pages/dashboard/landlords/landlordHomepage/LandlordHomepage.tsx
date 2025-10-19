@@ -14,7 +14,7 @@ const LandlordHomepage = () => {
 
   const handleInvite = () => {
     console.log('Make modal popup to send email invite!')
-    setShowInviteModal(true)
+    setShowInviteModal(prev => !prev)
   }
 
   const handleNudge = () => {
@@ -56,11 +56,19 @@ const LandlordHomepage = () => {
             ctaText={'Tip: Help keep a tenant longer with a perk!'}
             handleClick={handleGift}
           >
-            <RetentionHealthMeter numberOfTenants={0} retentionHealth='High' value={50}/>
+            <RetentionHealthMeter
+              numberOfTenants={0}
+              retentionHealth='High'
+              value={50}
+            />
           </StatsKPICard>
         </div>
       </div>
-      {showInviteModal && <InviteTenantModal />}
+      {showInviteModal && (
+        <InviteTenantModal
+          onClose={() => setShowInviteModal(prev => !prev)}
+        />
+      )}
     </div>
   )
 }
