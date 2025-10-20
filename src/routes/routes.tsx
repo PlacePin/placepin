@@ -81,6 +81,10 @@ const routes: RouteObject[] = [
             path: TENANT_CHILD_ROUTES.MESSAGING,
             element: <TenantMessaging />
           },
+          {
+            path: TENANT_CHILD_ROUTES.SETTINGS,
+            element: <GeneralSettings />
+          },
         ]
       }
     ]

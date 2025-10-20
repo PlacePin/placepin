@@ -26,12 +26,12 @@ const BasicInfoForm = () => {
   useEffect(() => {
     const fetchUserID = async () => {
       try {
-        const res = await axios.get(`/api/landlordsetting/${accessToken}`)
-        const { landlord } = res.data
-        setFullName(landlord.fullName ?? '');
-        setPhoneNumber(landlord.phoneNumber ?? '');
-        setUsername(landlord.username ?? '');
-        setEmail(landlord.email ?? '');
+        const res = await axios.get(`/api/usersettings/${accessToken}`)
+        const { user } = res.data
+        setFullName(user.fullName ?? '');
+        setPhoneNumber(user.phoneNumber ?? '');
+        setUsername(user.username ?? '');
+        setEmail(user.email ?? '');
 
       } catch (err: any) {
         console.error(err.response.data.message)
