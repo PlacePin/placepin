@@ -78,8 +78,6 @@ export const signupController = async (req: Request, res: Response) => {
       return res.status(400).json({ message: 'Retry creating an account.' })
     }
 
-    console.log('new user', newUser)
-
     if (accountType === 'tenant' && referral !== '') {
       matchingLandlord = await LandlordModel.findOneAndUpdate(
         { "properties.referralCode": referral },
@@ -99,7 +97,6 @@ export const signupController = async (req: Request, res: Response) => {
       }
 
       (newUser as TenantDocumentType).referredByLandlord = matchingLandlord._id
-
     }
 
     // Save the user to the database
