@@ -1,0 +1,22 @@
+.tenantHeaderContainer {
+  height: 3.5rem;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerTitle {
+  margin-left: 1em;
+}
+
+.settingsIcon {
+  margin-right: 1em;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.settingsIcon:hover {
+  transform: rotate(90deg);
+}

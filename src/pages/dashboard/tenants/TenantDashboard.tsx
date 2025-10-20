@@ -1,7 +1,7 @@
 import TenantSidebar from "../../../components/sidebars/tenant/TenantSidebar";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
-// import LandlordHeader from "../../../components/headers/landlord/LandlordHeader";
+import TenantHeader from "../../../components/headers/tenant/TenantHeader";
 import styles from './tenantDashboard.module.css';
 import { jwtDecode } from "jwt-decode";
 import type { DecodedAccessToken } from "../../../interfaces/interfaces";
@@ -21,7 +21,7 @@ const TenantDashboard = () => {
     <div className={styles.tenantDashboardContainer}>
       <TenantSidebar />
       <div className={styles.tenantHeaderBody}>
-        {/* <LandlordHeader username={user.fullName} /> */}
+        <TenantHeader username={user.fullName} />
         <Outlet />
       </div>
     </div>
