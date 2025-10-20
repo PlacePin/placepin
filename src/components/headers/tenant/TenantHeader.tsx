@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 import { TENANT_ROUTES } from "../../../routes/tenantRoutes";
 import { capitalizeWords } from "../../../utils/stringUtils";
+import axios from "axios";
 
 interface TenantHeaderProps {
   username: string,
@@ -13,6 +14,7 @@ interface TenantHeaderProps {
 
 const TenantHeader = ({ username }: TenantHeaderProps) => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [tier, setTier] = useState('');
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   // Click outside the modal and header to close
@@ -47,7 +49,15 @@ const TenantHeader = ({ username }: TenantHeaderProps) => {
   const handleToggle = () => setShowDropdown(prev => !prev);
 
   const navigate = useNavigate()
-  const { logout } = useAuth()
+  const { logout, accessToken } = useAuth()
+
+  useEffect(() => {
+    const res = axios.get(`/api/subscription/tier/${accessToken}`)
+    res.then(data => {
+      const subTier = data.data.subscriptionTier
+      setTier(capitalizeWords(subTier))
+    })
+  }, [accessToken])
 
   const upperCaseUsername = capitalizeWords(username)
 
@@ -57,7 +67,7 @@ const TenantHeader = ({ username }: TenantHeaderProps) => {
         Welcome, {upperCaseUsername}
       </h2>
       <div className={styles.settingsWrapper}>
-        <span className={styles.tiers}>Tier: {'Free'}</span>
+        <p className={styles.tiers}>Tier: <span className={styles.span}>{tier}</span></p>
         <Settings
           size={30}
           color={'black'}
