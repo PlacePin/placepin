@@ -2,7 +2,8 @@ import type { Request, Response } from "express";
 import dotenv from 'dotenv';
 import Stripe from "stripe";
 import jwt from 'jsonwebtoken';
-import { LandlordModel } from "../../database/models/Landlord.model";
+import { LandlordModel, type LandlordDocumentType } from "../../database/models/Landlord.model";
+import { TenantModel, type TenantDocumentType } from "../../database/models/Tenant.model";
 
 dotenv.config();
 
@@ -23,9 +24,14 @@ export const stripeSubscriptionCheckoutFormController = async (req: Request, res
     }
 
     // Getting user landlord from database
-    const landlord = await LandlordModel.findById(decoded.userID)
 
-    if (!landlord) {
+    const landlord = await LandlordModel.findById(decoded.userID)
+    const tenant = await TenantModel.findById(decoded.userID)
+    const user: TenantDocumentType | LandlordDocumentType | null = landlord || tenant
+
+    console.log('landlord', user)
+
+    if (!user) {
       return res.status(404).json({ message: "Landlord doesn't exist." })
     }
 
@@ -38,8 +44,17 @@ export const stripeSubscriptionCheckoutFormController = async (req: Request, res
       apiVersion: '2025-09-30.clover',
     })
 
-    if (!landlord.subscription) {
-      landlord.subscription = {
+    if (user && user.accountType === 'tenant') {
+      user.subscription = {
+        isSubscribed: false,
+        savedPaymentMethod: '',
+        stripeCustomerId: '',
+        tier: 'free',
+      };
+    }
+    
+    if (user && user.accountType === 'landlord') {
+      user.subscription = {
         isSubscribed: false,
         savedPaymentMethod: '',
         stripeCustomerId: '',
@@ -47,20 +62,27 @@ export const stripeSubscriptionCheckoutFormController = async (req: Request, res
     }
 
     // If the user already has a stripe customer id save it here
-    let stripeCustomerId = landlord.subscription.stripeCustomerId;
+    let stripeCustomerId = user.subscription?.stripeCustomerId ?? '';
 
     // If the user doesn't have the stripe customer id create it here and update it in the database
     if (!stripeCustomerId) {
       const customer = await stripeAccess.customers.create({
-        email: landlord.email,
+        email: user.email,
       });
 
       stripeCustomerId = customer.id;
 
-      await LandlordModel.updateOne(
-        { _id: landlord._id },
-        { stripeCustomerId }
-      )
+      if (user.accountType === 'landlord') {
+        await LandlordModel.updateOne(
+          { _id: user._id },
+          { 'subscription.stripeCustomerId': stripeCustomerId }
+        );
+      } else {
+        await TenantModel.updateOne(
+          { _id: user._id },
+          { 'subscription.stripeCustomerId': stripeCustomerId }
+        );
+      }      
     }
 
     // This is the checkout flow when a user is paying for a subscription.
