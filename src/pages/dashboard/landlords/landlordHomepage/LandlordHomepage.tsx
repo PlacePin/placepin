@@ -13,7 +13,6 @@ const LandlordHomepage = () => {
   const [showGiftModal, setShowGiftModal] = useState(false);
 
   const handleInvite = () => {
-    console.log('Make modal popup to send email invite!')
     setShowInviteModal(prev => !prev)
   }
 
