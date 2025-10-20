@@ -18,6 +18,7 @@ export const signupController = async (req: Request, res: Response) => {
   const saltRounds = 10
   let newUser: LandlordDocumentType | TenantDocumentType | null = null;
   let existingEmail: string | null;
+  let matchingLandlord: LandlordDocumentType | TenantDocumentType | null = null
 
   try {
 
@@ -73,13 +74,37 @@ export const signupController = async (req: Request, res: Response) => {
       })
     }
 
-    if(!newUser){
+    if (!newUser) {
       return res.status(400).json({ message: 'Retry creating an account.' })
+    }
+
+    console.log('new user', newUser)
+
+    if (accountType === 'tenant' && referral !== '') {
+      matchingLandlord = await LandlordModel.findOneAndUpdate(
+        { "properties.referralCode": referral },
+        {
+          $push: {
+            "properties.$.tenants": {
+              tenantId: newUser._id,
+              referred: true
+            },
+          }
+        },
+        { new: true }
+      )
+
+      if (!matchingLandlord) {
+        return res.status(422).json({ message: 'Not a valid referral code.' })
+      }
+
+      (newUser as TenantDocumentType).referredByLandlord = matchingLandlord._id
+
     }
 
     // Save the user to the database
     await newUser.save();
-    
+
     const stripeAccess = new Stripe(STRIPE_TEST_SECRET_KEY, {
       apiVersion: '2025-09-30.clover',
     })
@@ -94,7 +119,7 @@ export const signupController = async (req: Request, res: Response) => {
       });
 
       stripeCustomerId = customer.id;
-    
+
       newUser.subscription!.stripeCustomerId = customer.id;
     };
 

@@ -160,7 +160,7 @@ const SignupPage = () => {
               className={styles.inputFields}
               onChange={(e) => setReferral(e.target.value.toLowerCase().trim())}
               id='landlordReferral'
-              placeholder='1234-abc-5678 (Optional)'  />
+              placeholder='Referral Code (Optional)'  />
           </>}
           <label
             className={styles.inputLabel}
