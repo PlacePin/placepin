@@ -23,7 +23,7 @@ export const stripeSubscriptionCheckoutFormController = async (req: Request, res
       return res.status(400).json({ message: "Something's wrong with your access token." })
     }
 
-    // Getting user landlord from database
+    // Getting user from database
 
     const landlord = await LandlordModel.findById(decoded.userID)
     const tenant = await TenantModel.findById(decoded.userID)

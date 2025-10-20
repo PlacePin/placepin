@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import Stripe from "stripe";
 import dotenv from "dotenv";
 import { LandlordModel } from "../../../database/models/Landlord.model";
+import { TenantModel } from "../../../database/models/Tenant.model";
 
 dotenv.config();
 const STRIPE_TEST_SECRET_KEY = process.env.STRIPE_TEST_SECRET_KEY!;
@@ -32,16 +33,33 @@ export const stripeWebhookController = async (req: Request, res: Response) => {
           const stripeCustomerId =
             typeof session.customer === "string" ? session.customer : session.customer.id;
 
-          // update the landlord by stripe customer id
-          await LandlordModel.updateOne(
-            { "subscription.stripeCustomerId": stripeCustomerId },
-            {
-              "subscription.isSubscribed": true,
-              // optional: store subscription id if present
-              // "subscription.stripeSubscriptionId": session.subscription
-            }
-          );
-          console.log("Marked landlord subscribed for customer:", stripeCustomerId);
+          const landlord = await LandlordModel.findOne({ "subscription.stripeCustomerId": stripeCustomerId })
+          const tenant = await TenantModel.findOne({ "subscription.stripeCustomerId": stripeCustomerId })
+
+          if (landlord) {
+            // update the landlord by stripe customer id
+            await LandlordModel.updateOne(
+              { "subscription.stripeCustomerId": stripeCustomerId },
+              {
+                "subscription.isSubscribed": true,
+                // optional: store subscription id if present
+                // "subscription.stripeSubscriptionId": session.subscription
+              }
+            );
+            console.log("Marked LANDLORD subscribed for:", stripeCustomerId);
+          } else if (tenant) {
+            await TenantModel.updateOne(
+              { "subscription.stripeCustomerId": stripeCustomerId },
+              {
+                "subscription.isSubscribed": true,
+                // optional: store subscription id if present
+                // "subscription.stripeSubscriptionId": session.subscription
+              }
+            )
+            console.log("Marked TENANT subscribed for:", stripeCustomerId);
+          } else {
+            console.warn("No landlord or tenant found with stripeCustomerId:", stripeCustomerId);
+          }
         }
         break;
       }
