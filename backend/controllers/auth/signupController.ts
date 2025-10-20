@@ -93,7 +93,7 @@ export const signupController = async (req: Request, res: Response) => {
       )
 
       if (!matchingLandlord) {
-        return res.status(422).json({ message: 'Not a valid referral code.' })
+        return res.status(422).json({ message: 'Not a valid referral code. Try again, or leave blank!' })
       }
 
       (newUser as TenantDocumentType).referredByLandlord = matchingLandlord._id
