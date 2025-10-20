@@ -21,7 +21,7 @@ export const subscriptionController = async (req: Request, res: Response) => {
     const user = (await TenantModel.findById(decoded.userID)) || (await LandlordModel.findById(decoded.userID));
 
     if (!user) {
-      return res.status(404).json({ message: "Landlord doesn't exist." })
+      return res.status(404).json({ message: "User doesn't exist." })
     }
 
     const subscription = user.subscription

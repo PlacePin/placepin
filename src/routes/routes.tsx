@@ -25,7 +25,8 @@ const routes: RouteObject[] = [
   { path: '/signup', element: <SignupPage /> },
   { path: '/login', element: <LoginPage /> },
   {
-    path: LANDLORD_ROUTES.DASHBOARD, element: <PrivateRoute />,
+    path: LANDLORD_ROUTES.DASHBOARD,
+    element: <PrivateRoute />,
     children: [
       {
         path: '',
@@ -68,7 +69,8 @@ const routes: RouteObject[] = [
     ]
   },
   {
-    path: TENANT_ROUTES.DASHBOARD, element: <PrivateRoute />,
+    path: TENANT_ROUTES.DASHBOARD,
+    element: <PrivateRoute />,
     children: [
       {
         path: '', element: <TenantDashboard />,
