@@ -1,0 +1,10 @@
+.tenantDashboardContainer {
+  display: flex;
+  background: #f5f0eb;
+}
+
+.tenantHeaderBody {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

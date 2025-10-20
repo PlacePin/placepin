@@ -1,8 +1,30 @@
+import TenantSidebar from "../../../components/sidebars/tenant/TenantSidebar";
+import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
+// import LandlordHeader from "../../../components/headers/landlord/LandlordHeader";
+import styles from './tenantDashboard.module.css';
+import { jwtDecode } from "jwt-decode";
+import type { DecodedAccessToken } from "../../../interfaces/interfaces";
+
 const TenantDashboard = () => {
+
+  const { accessToken } = useAuth()
+
+  if (!accessToken) {
+    return <Navigate to="/login" replace />;
+  }
+
+  // This is authPayload for a user
+  const user = jwtDecode<DecodedAccessToken>(accessToken);
+
   return (
-    <>
-      Tenant Dashboard
-    </>
+    <div className={styles.tenantDashboardContainer}>
+      <TenantSidebar />
+      <div className={styles.tenantHeaderBody}>
+        {/* <LandlordHeader username={user.fullName} /> */}
+        <Outlet />
+      </div>
+    </div>
   )
 }
 

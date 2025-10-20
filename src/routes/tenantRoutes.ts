@@ -1,10 +1,10 @@
 export const TENANT_ROUTES = {
   DASHBOARD: '/tenantdashboard',
-  MESSAGES: '/tenantdashboard/messages',
+  MESSAGING: '/tenantdashboard/tenantmessaging',
   SETTINGS: '/tenantdashboard/generalsettings',
 }
 
-export const TENANT_ROUTE_CHILD = {
-  MESSAGES: 'messages',
+export const TENANT_CHILD_ROUTES = {
+  MESSAGING: 'tenantmessaging',
   SETTINGS: 'generalsettings',
 }
