@@ -20,3 +20,14 @@
 .settingsIcon:hover {
   transform: rotate(90deg);
 }
+
+.settingsWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.tiers {
+  margin-right: 2rem;
+  font-size: 24px;
+  font-weight: 700;
+}

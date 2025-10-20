@@ -56,18 +56,21 @@ const TenantHeader = ({ username }: TenantHeaderProps) => {
       <h2 className={styles.headerTitle}>
         Welcome, {upperCaseUsername}
       </h2>
-      <Settings
-        size={30}
-        color={'black'}
-        className={styles.settingsIcon}
-        onClick={handleToggle}
-      />
-      {showDropdown && (
-        <DropdownModal
-          selections={['Settings', 'Sign out']}
-          onSelect={handleSelect}
+      <div className={styles.settingsWrapper}>
+        <span className={styles.tiers}>Tier: {'Free'}</span>
+        <Settings
+          size={30}
+          color={'black'}
+          className={styles.settingsIcon}
+          onClick={handleToggle}
         />
-      )}
+        {showDropdown && (
+          <DropdownModal
+            selections={['Settings', 'Sign out']}
+            onSelect={handleSelect}
+          />
+        )}
+      </div>
     </div>
   )
 }
