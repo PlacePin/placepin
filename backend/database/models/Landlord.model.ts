@@ -23,7 +23,7 @@ const landlordSchema = new mongoose.Schema({
           _id: false,
           tenantId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "tenants",
+            ref: "Tenants",
           },
           rentAmount: Number,
           monthPaid: { type: Boolean, default: false },

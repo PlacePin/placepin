@@ -11,6 +11,7 @@ import stripeWebhookRoute from './routes/stripe/webhooks/stripeWebhookRoute';
 import subscriptionRoute from './routes/resources/subscriptionRoute';
 import inviteRoute from './routes/resources/inviteRoute';
 import userRoute from './routes/resources/userRoute';
+import landlordTenantDataRoute from './routes/resources/landlordTenantDataRoute';
 
 dotenv.config()
 
@@ -36,6 +37,7 @@ app.use('/api', stripeSaveCardFormRoute)
 app.use('/api', subscriptionRoute)
 app.use('/api', inviteRoute)
 app.use('/api', userRoute)
+app.use('/api', landlordTenantDataRoute)
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)

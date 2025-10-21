@@ -16,7 +16,7 @@ const tenantSchema = new mongoose.Schema({
   phoneNumber: Number,
   referredByLandlord: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "landlords",
+    ref: "Landlords",
     default: null,
   },
   subscription: {
