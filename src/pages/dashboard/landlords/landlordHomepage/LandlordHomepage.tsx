@@ -19,7 +19,23 @@ const LandlordHomepage = () => {
 
   const { data, error } = useGetAxios(`/api/user/${accessToken}`)
 
-  console.log(data)
+  if(!data){
+    return <div>{'Loading Data'}</div>
+  }
+
+  if(error){
+    return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
+  }
+
+  const properties = data.user.properties
+  let tenantsWithSubscription = 0
+  
+  properties.forEach((property: any) => {
+    console.log(property)
+    tenantsWithSubscription += property.tenants.length
+  })
+
+  console.log(tenantsWithSubscription)
 
   const handleInvite = () => {
     setShowInviteModal(prev => !prev)
@@ -44,8 +60,8 @@ const LandlordHomepage = () => {
             handleClick={handleInvite}
           >
             <ActiveTenantsCard
-              numberOfTenants={0}
-              tenantsWithSubscription={0}
+              numberOfTenants={tenantsWithSubscription}
+              tenantsWithSubscription={tenantsWithSubscription}
             />
           </StatsKPICard>
           <StatsKPICard
@@ -54,7 +70,7 @@ const LandlordHomepage = () => {
             handleClick={handleNudge}
           >
             <PerkAdoptionCard
-              numberOfTenants={0}
+              numberOfTenants={tenantsWithSubscription}
               tenantsUsingPerksPercentage={0}
               mostUsedPerk={''}
             />
@@ -65,8 +81,8 @@ const LandlordHomepage = () => {
             handleClick={handleGift}
           >
             <RetentionHealthMeter
-              numberOfTenants={0}
-              retentionHealth='High'
+              numberOfTenants={tenantsWithSubscription}
+              retentionHealth='Medium'
               value={50}
             />
           </StatsKPICard>

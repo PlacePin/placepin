@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export const useGetAxios = (url: string, deps: any[] = []) => {
+export const useGetAxios = (url: string, deps: any[] = []): any => {
   const [data, setData] = useState(null);
   const [error, setError] = useState<string | null>(null);
 
