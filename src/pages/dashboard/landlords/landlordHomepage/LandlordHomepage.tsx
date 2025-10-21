@@ -31,12 +31,9 @@ const LandlordHomepage = () => {
   let tenantsWithSubscription = 0
   
   properties.forEach((property: any) => {
-    console.log(property)
     tenantsWithSubscription += property.tenants.length
   })
-
-  console.log(tenantsWithSubscription)
-
+  
   const handleInvite = () => {
     setShowInviteModal(prev => !prev)
   }
