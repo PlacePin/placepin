@@ -1,0 +1,74 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.4); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; 
+  pointer-events: auto; 
+}
+
+.modalContainer {
+  background-color: white;
+  padding: 2rem;
+  border: 1px solid black;
+  border-radius: 0.5em;
+  z-index: 11;
+  position: relative;
+  text-align: center;
+  margin: 0 25em;
+}
+
+.exit {
+  cursor: pointer;
+  text-align: right;
+}
+
+.exitWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.inputFields {
+  height: 2.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.formContainer {
+  padding: 1rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: .5rem;
+}
+
+.labels {
+  text-align: left;
+}
+
+.button {
+  height: 2.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  cursor: pointer;
+  color: #ffffff;
+  background: #00bfa5;
+  box-shadow: 2px 2px 8px gray;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.button:active {
+  transform: translateY(1px);
+  box-shadow: 1px 1px 4px gray;
+}
