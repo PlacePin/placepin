@@ -4,6 +4,7 @@ import InviteTenantModal from '../../../../components/modals/InviteTenantModal';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
 import { useAuth } from '../../../../context/AuthContext';
 import { Info } from 'lucide-react';
+import { capitalizeWords } from '../../../../utils/stringUtils';
 
 const LandlordTenants = () => {
 
@@ -45,7 +46,7 @@ const LandlordTenants = () => {
           className={styles.descriptionWrapper}
         >
           <p>
-            {tenant.fullName}
+            {capitalizeWords(tenant.fullName)}
           </p>
           <button
             className={styles.infoButton}
