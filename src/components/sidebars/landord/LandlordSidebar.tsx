@@ -29,7 +29,7 @@ const LandlordSidebar = () => {
               className={styles.navLink}
             >
               <div
-                className={`${styles.sidebarItem} ${location.pathname.includes(tab.path) ? 'active' : ''
+                className={`${styles.sidebarItem} ${location.pathname.includes(tab.path) ? styles.active : ''
                   }`}
               >
                 {tab.icon}
