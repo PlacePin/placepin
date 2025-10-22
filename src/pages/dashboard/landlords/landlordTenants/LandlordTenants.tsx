@@ -3,14 +3,14 @@ import styles from './landlordTenants.module.css'
 import InviteTenantModal from '../../../../components/modals/InviteTenantModal';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
 import { useAuth } from '../../../../context/AuthContext';
+import { Info } from 'lucide-react';
 
 const LandlordTenants = () => {
 
   const [showInviteModal, setShowInviteModal] = useState(false);
   const { accessToken } = useAuth();
 
-  const { data, error } = useGetAxios(`/api/user/${accessToken}`, [accessToken]);
-  const object = useGetAxios(`/api/landlordtenants/${accessToken}`, [accessToken]);
+  const { data, error } = useGetAxios(`/api/landlordtenants/${accessToken}`, [accessToken]);
 
   // Todo: Fix this so skeleton loading or cache so null doesn't render on each re-render
   if (!data) {
@@ -21,23 +21,56 @@ const LandlordTenants = () => {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
 
-  console.log('object', object)
+  const tenants = data.tenants
 
-  const properties = data.user.properties
-  let tenants = 0
+  console.log(tenants)
 
-  properties.forEach((property: any) => {
-    tenants += property.tenants.length
+  const tenantsCards = tenants.map((tenant: any, i: number) => {
+    return (
+      <div
+        key={i}
+        className={styles.tenantCards}
+      >
+        <div
+          className={styles.photoWrapper}
+        >
+          <img
+            src='/public/emptyProfile.png'
+            alt='tenant photo'
+            width={150}
+            height={200}
+          />
+        </div>
+        <div
+          className={styles.descriptionWrapper}
+        >
+          <p>
+            {tenant.fullName}
+          </p>
+          <button
+            className={styles.infoButton}
+          >
+            <Info
+            size={18}
+            className={styles.infoIcon}
+            />
+            Info
+          </button>
+        </div>
+      </div>
+    )
   })
-
-  
 
   return (
     <>
       {tenants
         ?
         <div className={styles.container}>
-          
+          <h2>Tenants</h2>
+          <div className={styles.tenantCardsContainer}>
+            {tenantsCards}
+          </div>
+
         </div>
         :
         <div>
