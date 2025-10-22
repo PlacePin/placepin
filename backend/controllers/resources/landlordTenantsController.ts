@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import jwt from "jsonwebtoken";
 import { LandlordModel } from "../../database/models/Landlord.model";
 import { excludeFields } from "../../utils/user";
+import mongoose from "mongoose";
 
 dotenv.config();
 
@@ -14,21 +15,46 @@ export const landlordTenantsController = async (req: Request, res: Response) => 
 
   try {
     const decoded = verifyToken(accessToken, JWT_ACCESS_TOKEN)
-    const landlord = await LandlordModel.findById(decoded.userID).populate({
-        path: 'properties.tenants.tenantId',
-        model: 'tenants',
-      }).select(excludeFields)
+    // const landlord = await LandlordModel.findById(decoded.userID).populate({
+    //   path: 'properties.tenants.tenantId',
+    //   model: 'Tenants',
+    // }).select(excludeFields)
 
-  console.log('landlords', landlord)
-  
-  return res.status(200).json({ decoded })
-} catch (err) {
-  if (err instanceof jwt.JsonWebTokenError) {
-    return res.status(400).json({ message: err.message });
-  } else {
-    return res.status(500).json({ message: 'Oops! Something went wrong!' })
+    const tenants = await LandlordModel.aggregate([
+      { $match: { _id: new mongoose.Types.ObjectId(`${decoded.userID}`) } },
+      { $unwind: '$properties' },
+      { $unwind: '$properties.tenants' },
+      {
+        $lookup: {
+          from: 'tenants',
+          localField: 'properties.tenants.tenantId',
+          foreignField: '_id',
+          as: 'tenantData'
+        }
+      },
+      { $unwind: { path: '$tenantData', preserveNullAndEmptyArrays: true } },
+      {
+        $project: {
+          'tenantData.password': 0,
+          'tenantData.__v': 0,
+          'tenantData.referredByLandlord': 0,
+          'tenantData.subscription.stripeCustomerId': 0,
+          'tenantData.subscription.savedPaymentMethod': 0,
+        }
+      },
+      { $replaceRoot: { newRoot: '$tenantData' } },
+    ]);
+
+    console.log('tenants', tenants)
+
+    return res.status(200).json({ tenants })
+  } catch (err) {
+    if (err instanceof jwt.JsonWebTokenError) {
+      return res.status(400).json({ message: err.message });
+    } else {
+      return res.status(500).json({ message: 'Oops! Something went wrong!' })
+    }
   }
-}
 
 
 }
