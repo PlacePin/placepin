@@ -7,3 +7,13 @@ export interface DecodedAccessToken {
   iat: number;
   exp: number;
 }
+
+export interface Address {
+  number: string;
+  street: string;
+  streetType: string;
+  unit?: string;
+  city: string;
+  state: string;
+  zip: string;
+}
