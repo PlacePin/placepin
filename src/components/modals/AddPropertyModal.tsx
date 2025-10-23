@@ -1,6 +1,8 @@
 import { useState, type FormEvent } from "react";
 import FormModal from "./FormModal";
 import styles from './addPropertyModal.module.css';
+import axios from "axios";
+import { useAuth } from "../../context/AuthContext";
 
 interface AddPropertyModalProps {
   onClose?: () => void;
@@ -8,9 +10,11 @@ interface AddPropertyModalProps {
 
 const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
 
-  const [propertyName, setPropertyName] = useState('')
-  const [propertyAddress, setPropertyAddress] = useState('')
-  const [unitAmount, setUnitAmount] = useState('')
+  const [propertyName, setPropertyName] = useState('');
+  const [propertyAddress, setPropertyAddress] = useState('');
+  const [unitAmount, setUnitAmount] = useState('');
+
+  const  { accessToken } = useAuth();
   
   const handleAddPropertySubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,8 +32,9 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
         throw new Error("Number of units can't be less than or equal to 0")
       }
 
-      
+      const res = await axios.post(`/api/addproperty/${accessToken}`)
 
+      console.log(res)
 
     } catch (err){
       console.error(err)

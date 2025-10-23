@@ -12,6 +12,7 @@ import subscriptionRoute from './routes/resources/subscriptionRoute';
 import inviteRoute from './routes/resources/inviteRoute';
 import userRoute from './routes/resources/userRoute';
 import landlordTenantDataRoute from './routes/resources/landlordTenantDataRoute';
+import landlordPropertyDataRoute from './routes/resources/landlordPropertyDataRoute';
 
 dotenv.config()
 
@@ -38,6 +39,7 @@ app.use('/api', subscriptionRoute)
 app.use('/api', inviteRoute)
 app.use('/api', userRoute)
 app.use('/api', landlordTenantDataRoute)
+app.use('/api', landlordPropertyDataRoute)
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)

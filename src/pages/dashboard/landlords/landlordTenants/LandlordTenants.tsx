@@ -34,7 +34,7 @@ const LandlordTenants = () => {
           className={styles.photoWrapper}
         >
           <img
-            src='/public/emptyProfile.png'
+            src='/emptyProfile.png'
             alt='tenant photo'
             width={150}
             height={200}
