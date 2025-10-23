@@ -14,7 +14,7 @@ export const addPropertyController = async (req: Request, res: Response) => {
   try {
     const decoded = await verifyToken(accessToken);
 
-    
+    // Parse the address from the property address var, then pull in all of the proprties from this landlord and parseAddress those properties and compare them to the incoming property if any of them are the same, do nothing, if none match add it to there properties array.
 
   } catch (err) {
     if (err instanceof jwt.JsonWebTokenError) {
