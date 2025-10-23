@@ -32,7 +32,7 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
         throw new Error("Number of units can't be less than or equal to 0")
       }
 
-      const res = await axios.post(`/api/addproperty/${accessToken}`)
+      const res = await axios.post(`/api/addproperty/${accessToken}`, property)
 
       console.log(res)
 

@@ -39,8 +39,6 @@ export const landlordTenantsController = async (req: Request, res: Response) => 
       { $replaceRoot: { newRoot: '$tenantData' } },
     ]);
 
-    console.log('tenants', tenants)
-
     return res.status(200).json({ tenants })
   } catch (err) {
     if (err instanceof jwt.JsonWebTokenError) {
