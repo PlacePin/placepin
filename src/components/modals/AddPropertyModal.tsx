@@ -54,7 +54,7 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
           <input
             type="text"
             id='propertyName'
-            placeholder='Childhood Home'
+            placeholder='The Palace'
             onChange={(e) => setPropertyName(e.target.value)}
             className={styles.inputFields}
             required

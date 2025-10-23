@@ -1,25 +1,22 @@
 import type { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import dotenv from 'dotenv';
 import { LandlordModel } from "../../database/models/Landlord.model";
 import { generateReferralCode } from "../../utils/generateReferralCode";
 import { emailInviteToTenant } from "../../utils/emailService";
 import { parseAddress } from "../../utils/parseAddress";
 import { addressesEqual } from "../../utils/addressEqual";
-
-dotenv.config()
+import { verifyToken } from "../../utils/jwt";
 
 export const inviteTenantController = async (req: Request, res: Response) => {
   const { tenantName, tenantAddress, tenantEmail, accessToken } = req.body
-
-  const JWT_ACCESS_TOKEN = process.env.JWT_ACCESS_TOKEN!
 
   let referralCode: string | undefined;
 
   const parsedAddress = parseAddress(tenantAddress)
 
   try {
-    const decoded = jwt.verify(accessToken, JWT_ACCESS_TOKEN);
+
+    const decoded = verifyToken(accessToken)
 
     // extra defensive check
     if (!decoded || typeof decoded !== 'object') {
