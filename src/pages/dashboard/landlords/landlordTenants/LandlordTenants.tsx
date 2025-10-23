@@ -62,7 +62,7 @@ const LandlordTenants = () => {
 
   return (
     <>
-      {tenants
+      {tenants.length
         ?
         <div className={styles.container}>
           <h2>Tenants</h2>

@@ -5,7 +5,15 @@ import { generateReferralCode } from '../../utils/generateReferralCode';
 
 const landlordSchema = new mongoose.Schema({
   accountType: String,
-  address: String,
+  address: {
+    number: String,
+    street: String,
+    streetType: String,
+    unit: { type: String, default: undefined },
+    city: String,
+    state: String,
+    zip: String
+  },
   createdAt: { type: Date, default: Date.now },
   dateOfBirth: Number,
   email: { type: String, required: true, unique: true, lowercase: true },

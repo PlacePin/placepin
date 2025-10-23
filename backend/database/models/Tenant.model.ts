@@ -4,16 +4,28 @@ import mongoose, { type HydratedDocument, type InferSchemaType } from 'mongoose'
 
 const tenantSchema = new mongoose.Schema({
   accountType: String,
-  address: String,
+  address: {
+    number: String,
+    street: String,
+    streetType: String,
+    unit: { type: String, default: undefined },
+    city: String,
+    state: String,
+    zip: String
+  },
   createdAt: { type: Date, default: Date.now },
   dateOfBirth: Number,
-  email: {type: String, required: true, unique: true, 
-  lowercase: true},
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true
+  },
   fullName: String,
   gender: String,
   hasAcceptedPrivacyPolicy: Boolean,
   landlordReferral: String,
-  password: {type: String, required: true},
+  password: { type: String, required: true },
   phoneNumber: Number,
   referredByLandlord: {
     type: mongoose.Schema.Types.ObjectId,
