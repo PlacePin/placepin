@@ -1,3 +1,4 @@
+import { useState, type FormEvent } from "react";
 import FormModal from "./FormModal";
 import styles from './addPropertyModal.module.css';
 
@@ -6,9 +7,33 @@ interface AddPropertyModalProps {
 }
 
 const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
-  
-  const handleAddPropertySubmit = () => {
 
+  const [propertyName, setPropertyName] = useState('')
+  const [propertyAddress, setPropertyAddress] = useState('')
+  const [unitAmount, setUnitAmount] = useState('')
+  
+  const handleAddPropertySubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    const property = {
+      propertyName,
+      propertyAddress,
+      unitAmount,
+    }
+    
+    console.log(property)
+
+    try{
+      if(Number(unitAmount) <= 0){
+        throw new Error("Number of units can't be less than or equal to 0")
+      }
+
+      
+
+
+    } catch (err){
+      console.error(err)
+    }
   }
 
   return(
@@ -25,7 +50,7 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
             type="text"
             id='propertyName'
             placeholder='Childhood Home'
-            // onChange={(e) => setTenantName(e.target.value)}
+            onChange={(e) => setPropertyName(e.target.value)}
             className={styles.inputFields}
             required
           />
@@ -39,7 +64,7 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
             type="text"
             id='propertyAddress'
             placeholder='123 Main St. Boston MA, 02136'
-            // onChange={(e) => setTenantAddress(e.target.value)}
+            onChange={(e) => setPropertyAddress(e.target.value)}
             className={styles.inputFields}
             required
           />
@@ -50,10 +75,10 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
             Apartment Units
           </label>
           <input
-            type="email"
+            type="number"
             id='apartmentUnits'
             placeholder='Number of Units'
-            // onChange={(e) => setTenantEmail(e.target.value)}
+            onChange={(e) => setUnitAmount(e.target.value)}
             className={styles.inputFields}
             required
           />
