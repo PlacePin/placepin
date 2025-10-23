@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import { LandlordModel } from "../../database/models/Landlord.model";
 import { generateReferralCode } from "../../utils/generateReferralCode";
 import { emailInviteToTenant } from "../../utils/emailService";
+import { parseAddress } from "../../utils/parseAddress";
+import { addressesEqual } from "../../utils/addressEqual";
 
 dotenv.config()
 
@@ -13,6 +15,8 @@ export const inviteTenantController = async (req: Request, res: Response) => {
   const JWT_ACCESS_TOKEN = process.env.JWT_ACCESS_TOKEN!
 
   let referralCode: string | undefined;
+
+  const parsedAddress = parseAddress(tenantAddress)
 
   try {
     const decoded = jwt.verify(accessToken, JWT_ACCESS_TOKEN);
@@ -35,7 +39,7 @@ export const inviteTenantController = async (req: Request, res: Response) => {
           $push: {
             properties: {
               name: "",
-              address: tenantAddress,
+              address: parsedAddress,
               referralCode: generateReferralCode(),
               tenants: []
             }
@@ -53,7 +57,8 @@ export const inviteTenantController = async (req: Request, res: Response) => {
     } else {
       for (let property of landlord.properties) {
         // if there is a matching property run this condition
-        if (property.address === tenantAddress) {
+        
+        if (addressesEqual(property.address, parsedAddress)) {
           referralCode = property.referralCode
 
           emailInviteToTenant(referralCode, tenantName, tenantEmail)
@@ -68,7 +73,7 @@ export const inviteTenantController = async (req: Request, res: Response) => {
           $push: {
             properties: {
               name: "",
-              address: tenantAddress,
+              address: parsedAddress,
               referralCode: generateReferralCode(),
               tenants: []
             }

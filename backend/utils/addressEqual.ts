@@ -1,55 +1,55 @@
 import { type Address } from "../../src/interfaces/interfaces";
-import { streetTypeMap } from '../../src/utils/stringUtils';
+import { streetTypeMap } from "../../src/utils/stringUtils";
 
-// Normalize a string: trim, collapse spaces, lowercase (used internally)
-function normalizePart(str: string): string {
-  return str.trim().replace(/\s+/g, ' ').toLowerCase();
+// --- Helpers ---
+const norm = (v?: string | null) => v?.trim().toLowerCase() ?? "";
+const cap = (s?: string | null) =>
+  (s ?? "")
+    .toLowerCase()
+    .split(" ")
+    .filter(Boolean)
+    .map(w => w[0].toUpperCase() + w.slice(1))
+    .join(" ");
+
+// Normalize a string: trim, collapse spaces, lowercase (used internally)    
+function normalizePart(str?: string | null): string {
+  return norm(str).replace(/\s+/g, " ");
 }
 
 // Normalize street type using map
-function normalizeStreetType(type: string): string | null {
+function normalizeStreetType(type?: string | null): string | null {
   const key = normalizePart(type);
   return streetTypeMap[key] || null;
 }
 
 // Validate individual address components
 export function validateAddress(addr: Address): boolean {
-  if (!addr.number || !addr.street || !addr.streetType || !addr.city || !addr.state || !addr.zip) {
-    return false;
-  }
+  if (!addr) return false;
 
-  const normalizedType = normalizeStreetType(addr.streetType);
-  if (!normalizedType) return false;
+  const { number, street, streetType, city, state, zip, unit } = addr;
+  if (!number || !street || !streetType || !city || !state || !zip) return false;
 
-  if (!/^\d+[A-Za-z]?$/.test(addr.number)) return false; // allow numbers like 12 or 12B
-  if (!/^[A-Za-z\s]+$/.test(addr.street)) return false; // street letters
-  if (!/^[A-Za-z\s]+$/.test(addr.city)) return false; // city letters
-  if (!/^[A-Z]{2}$/.test(addr.state.toUpperCase())) return false; // 2-letter state
-  if (!/^\d{5}(-\d{4})?$/.test(addr.zip)) return false; // ZIP or ZIP+4
-
-  if (addr.unit && !/^[A-Za-z0-9\s#\-]+$/.test(addr.unit)) return false; // unit optional, allow #, letters, numbers
+  if (!normalizeStreetType(streetType)) return false;
+  if (!/^\d+[A-Za-z]?$/.test(number)) return false;
+  if (!/^[A-Za-z\s]+$/.test(street)) return false;
+  if (!/^[A-Za-z\s]+$/.test(city)) return false;
+  if (!/^[A-Z]{2}$/.test(state.toUpperCase())) return false;
+  if (!/^\d{5}(-\d{4})?$/.test(zip)) return false;
+  if (unit && !/^[A-Za-z0-9\s#\-]+$/.test(unit)) return false;
 
   return true;
 }
 
 // Normalize address: capitalization, remove extra spaces, normalize streetType
 export function normalizeAddress(addr: Address): Address {
-  const cap = (s: string) =>
-    s
-      .toLowerCase()
-      .split(' ')
-      .filter(Boolean)
-      .map(w => w[0].toUpperCase() + w.slice(1))
-      .join(' ');
-
   return {
-    number: addr.number.trim(),
-    street: cap(addr.street.trim()),
-    streetType: normalizeStreetType(addr.streetType)!,
-    unit: addr.unit ? addr.unit.trim() : undefined,
-    city: cap(addr.city.trim()),
-    state: addr.state.toUpperCase(),
-    zip: addr.zip.trim(),
+    number: norm(addr.number),
+    street: cap(addr.street),
+    streetType: normalizeStreetType(addr.streetType) ?? "",
+    unit: addr.unit ? addr.unit.trim() : "",
+    city: cap(addr.city),
+    state: norm(addr.state).toUpperCase(),
+    zip: norm(addr.zip),
   };
 }
 
@@ -61,12 +61,12 @@ export function addressesEqual(a1: Address | null, a2: Address | null): boolean 
   const n2 = normalizeAddress(a2);
 
   return (
-    n1.number.toLowerCase() === n2.number.toLowerCase() &&
-    n1.street.toLowerCase() === n2.street.toLowerCase() &&
-    n1.streetType.toLowerCase() === n2.streetType.toLowerCase() &&
-    (n1.unit || '').toLowerCase() === (n2.unit || '').toLowerCase() &&
-    n1.city.toLowerCase() === n2.city.toLowerCase() &&
+    norm(n1.number) === norm(n2.number) &&
+    norm(n1.street) === norm(n2.street) &&
+    norm(n1.streetType) === norm(n2.streetType) &&
+    norm(n1.unit) === norm(n2.unit) &&
+    norm(n1.city) === norm(n2.city) &&
     n1.state === n2.state &&
-    n1.zip === n2.zip
+    norm(n1.zip) === norm(n2.zip)
   );
 }

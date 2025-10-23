@@ -9,11 +9,11 @@ export interface DecodedAccessToken {
 }
 
 export interface Address {
-  number: string;
-  street: string;
-  streetType: string;
-  unit?: string;
-  city: string;
-  state: string;
-  zip: string;
+  number?: string | null;
+  street?: string | null;
+  streetType?: string | null;
+  city?: string | null;
+  state?: string | null;
+  zip?: string | null;
+  unit?: string | null;
 }
