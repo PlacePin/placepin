@@ -11,14 +11,16 @@ const LandlordProperties = () => {
       <h2 className={styles.noData}>No Data</h2>
       <div className={styles.noDataButtonContainer}>
         <button
-         className={styles.button}
-         onClick={() => setShowAddPropertyModal(prev => !prev)}
-         >
+          className={styles.button}
+          onClick={() => setShowAddPropertyModal(prev => !prev)}
+        >
           Add Property
-          </button>
+        </button>
       </div>
       {showAddPropertyModal && (
-        <AddPropertyModal />
+        <AddPropertyModal
+          onClose={() => setShowAddPropertyModal(prev => !prev)}
+        />
       )}
     </div>
   )

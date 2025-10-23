@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './landlordTenants.module.css'
+import styles from './landlordTenants.module.css';
 import InviteTenantModal from '../../../../components/modals/InviteTenantModal';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
 import { useAuth } from '../../../../context/AuthContext';
@@ -23,8 +23,6 @@ const LandlordTenants = () => {
   }
 
   const tenants = data.tenants
-
-  console.log(tenants)
 
   const tenantsCards = tenants.map((tenant: any, i: number) => {
     return (
