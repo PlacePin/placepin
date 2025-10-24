@@ -1,6 +1,7 @@
+import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 import type { Request, Response } from "express";
 import { verifyToken } from "../../utils/jwt";
-import jwt from "jsonwebtoken";
 import { LandlordModel } from "../../database/models/Landlord.model";
 import { parseAddress } from "../../utils/parseAddress";
 import { addressesEqual } from "../../utils/addressEqual";
@@ -14,11 +15,55 @@ export const addPropertyController = async (req: Request, res: Response) => {
   try {
     const decoded = verifyToken(accessToken);
 
+    if (!decoded || typeof decoded !== 'object') {
+      return res.status(400).json({ message: "Invalid token format." });
+    }
+
     const parsedAddress = parseAddress(propertyAddress)
 
-    console.log(parsedAddress)
+    const properties = await LandlordModel.aggregate([
+      { $match: { _id: new mongoose.Types.ObjectId(`${decoded.userID}`) } },
+      { $unwind: '$properties' },
+      {
+        $project: {
+          _id: 0,
+          address: {
+            number: "$properties.address.number",
+            street: "$properties.address.street",
+            streetType: "$properties.address.streetType",
+            unit: '$properties.address.unit',
+            city: "$properties.address.city",
+            state: "$properties.address.state",
+            zip: "$properties.address.zip"
+          },
+        },
+      },
+    ]);
 
-    // Parse the address from the property address var, then pull in all of the proprties from this landlord and parseAddress those properties and compare them to the incoming property if any of them are the same, do nothing, if none match add it to there properties array.
+    for(let property of properties){
+      if(addressesEqual(property.address, parsedAddress)){
+        return res.status(422).json({ message: 'Property already exist!'})
+      }
+    }
+
+    const newProperty = {
+      name: propertyName,
+      address: parsedAddress,
+      numberOfUnits: unitAmount,
+    }
+
+    await LandlordModel.findByIdAndUpdate(
+      decoded.userID,
+      {
+        $push: {
+          properties: newProperty
+        }
+      },
+    )
+
+    return res.status(200).json({ message: "property added!"})
+
+    // this works but do a double check and go to the frontend and handle statuses
 
   } catch (err) {
     if (err instanceof jwt.JsonWebTokenError) {

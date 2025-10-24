@@ -64,7 +64,7 @@
   cursor: pointer;
   color: #ffffff;
   background: #00bfa5;
-  box-shadow: 2px 2px 8px gray;
+  box-shadow: 2px 2px 8px rgb(198, 198, 198);
   transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
