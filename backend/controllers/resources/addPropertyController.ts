@@ -61,18 +61,16 @@ export const addPropertyController = async (req: Request, res: Response) => {
       },
     )
 
-    return res.status(200).json({ message: "property added!"})
+    return res.status(201).json({ message: "Property added!"})
 
-    // this works but do a double check and go to the frontend and handle statuses
-
-  } catch (err) {
-    if (err instanceof jwt.JsonWebTokenError) {
-      return res.status(400).json({ message: err.message });
-    } else {
-      console.error('Unexpected Error:', err);
-      return res.status(500).json({ message: 'Unexpected Error' })
+  } catch (err: any) {
+    if (err.name === "TokenExpiredError") {
+      return res.status(401).json({ message: "Token expired" });
     }
+    if (err.name === "JsonWebTokenError") {
+      return res.status(401).json({ message: "Invalid token" });
+    }
+    console.error("Unexpected JWT error:", err);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
-
-
 }

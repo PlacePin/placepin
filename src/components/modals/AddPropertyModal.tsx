@@ -13,6 +13,7 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
   const [propertyName, setPropertyName] = useState('');
   const [propertyAddress, setPropertyAddress] = useState('');
   const [unitAmount, setUnitAmount] = useState('');
+  const [message, setMessage] = useState('');
 
   const  { accessToken } = useAuth();
   
@@ -24,20 +25,22 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
       propertyAddress,
       unitAmount,
     }
-    
-    console.log(property)
 
     try{
       if(Number(unitAmount) <= 0){
-        throw new Error("Number of units can't be less than or equal to 0")
+        throw new Error("Number of units can't be less than or equal to zero!")
       }
 
       const res = await axios.post(`/api/addproperty/${accessToken}`, property)
 
       console.log(res)
 
-    } catch (err){
-      console.error(err)
+    } catch (err: unknown){
+      if(axios.isAxiosError(err)){
+        setMessage(err.response?.data.message)
+      } else if(err instanceof Error){
+        setMessage(err.message)
+      }
     }
   }
 
@@ -91,6 +94,7 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
         <button className={styles.button}>
           Add Property!
         </button>
+        <p className={styles.message}>{message}</p>
       </form>
     </FormModal>
   )
