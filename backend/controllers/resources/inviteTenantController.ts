@@ -90,7 +90,7 @@ export const inviteTenantController = async (req: Request, res: Response) => {
   } catch (err) {
     // all tampering / invalid signature / expired token lands here
     if (err instanceof jwt.JsonWebTokenError) {
-      return res.status(400).json({ message: err.message });
+      return res.status(400).json({ message: 'Token Issue!' });
     } else {
       console.error('Unexpected Error:', err);
       return res.status(500).json({ message: 'Unexpected Error' })

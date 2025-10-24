@@ -13,6 +13,7 @@ const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
   const [tenantName, setTenantName] = useState('');
   const [tenantEmail, setTenantEmail] = useState('');
   const [tenantAddress, setTenantAddress] = useState('');
+  const [message, setMessage] = useState('');
 
   const { accessToken } = useAuth();
 
@@ -29,7 +30,8 @@ const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
     try {
       const res = await axios.post('/api/invite/tenant/', tenantInfo)
       console.log(res)
-    } catch (err) {
+    } catch (err: any) {
+      setMessage(err.response.data.message)
       console.error(err, "Failed to send invite!")
     }
   }
@@ -84,6 +86,7 @@ const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
         <button className={styles.button}>
           Send Invite!
         </button>
+        <p className={styles.message}>{message}</p>
       </form>
     </FormModal>
   )
