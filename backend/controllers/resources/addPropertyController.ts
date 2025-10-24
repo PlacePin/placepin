@@ -1,4 +1,3 @@
-import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import type { Request, Response } from "express";
 import { verifyToken } from "../../utils/jwt";
@@ -70,7 +69,7 @@ export const addPropertyController = async (req: Request, res: Response) => {
     if (err.name === "JsonWebTokenError") {
       return res.status(401).json({ message: "Invalid token" });
     }
-    console.error("Unexpected JWT error:", err);
+    console.error("Unexpected error:", err);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 }

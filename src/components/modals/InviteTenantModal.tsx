@@ -31,8 +31,7 @@ const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
       const res = await axios.post('/api/invite/tenant/', tenantInfo)
       console.log(res)
     } catch (err: any) {
-      setMessage(err.response.data.message)
-      console.error(err, "Failed to send invite!")
+      setMessage('Failed to send invite!')
     }
   }
 

@@ -60,7 +60,6 @@ const SignupPage = () => {
       }
     } catch (err: any) {
       setErrorMessage(err.response.data.message)
-      console.error(err)
     }
 
   }
