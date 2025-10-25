@@ -17,7 +17,7 @@ const LandlordHomepage = () => {
 
   const { accessToken } = useAuth()
 
-  const { data, error } = useGetAxios(`/api/user/${accessToken}`)
+  const { data, error } = useGetAxios(`/api/user`)
 
   if(!data){
     return <div>{'Loading Data'}</div>
