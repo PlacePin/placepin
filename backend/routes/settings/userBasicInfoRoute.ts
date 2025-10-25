@@ -3,6 +3,6 @@ import { userBasicInfoController } from '../../controllers/settings/userBasicInf
 
 const router = express.Router()
 
-router.get('/usersettings/:id', userBasicInfoController)
+router.get('/usersettings', userBasicInfoController)
 
 export default router

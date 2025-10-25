@@ -12,7 +12,6 @@ export const landlordTenantsController = async (
   const accessToken = authHeader?.split(' ')[1]
 
   try {
-
     if (!accessToken) {
       return res.status(401).json({ message: 'Missing authorization token' });
     }

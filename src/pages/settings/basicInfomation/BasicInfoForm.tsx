@@ -26,7 +26,12 @@ const BasicInfoForm = () => {
   useEffect(() => {
     const fetchUserID = async () => {
       try {
-        const res = await axios.get(`/api/usersettings/${accessToken}`)
+        const res = await axios.get(`/api/usersettings`, {
+          headers: {
+            Authorization: `bearer ${accessToken}`
+          }
+        })
+        
         const { user } = res.data
         setFullName(user.fullName ?? '');
         setPhoneNumber(user.phoneNumber ?? '');
