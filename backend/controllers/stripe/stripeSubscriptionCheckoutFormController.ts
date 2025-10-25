@@ -8,8 +8,9 @@ import { TenantModel, type TenantDocumentType } from "../../database/models/Tena
 dotenv.config();
 
 export const stripeSubscriptionCheckoutFormController = async (req: Request, res: Response) => {
-  // Pulling in access token from param
-  const accessToken = req.params.id
+  // Pulling in access token
+  const authHeader = req.headers.authorization
+  const accessToken = authHeader?.split(' ')[1]
 
   // Declaring Stripe secret key and JWT token
   const STRIPE_TEST_SECRET_KEY = process.env.STRIPE_TEST_SECRET_KEY
@@ -17,6 +18,10 @@ export const stripeSubscriptionCheckoutFormController = async (req: Request, res
 
   // This entire block is the subscription form using stripe to redirect to a new page
   try {
+    if (!accessToken) {
+      return res.status(401).json({ message: 'Missing authorization token' });
+    };
+
     const decoded = jwt.verify(accessToken, JWT_ACCESS_TOKEN)
 
     if (!decoded || typeof decoded !== 'object') {

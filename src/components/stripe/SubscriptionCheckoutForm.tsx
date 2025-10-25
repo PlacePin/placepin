@@ -32,7 +32,11 @@ const SubscriptionCheckoutForm = () => {
     try {
       // 1. Create Checkout Session on the server
       const { data } = await axios.post(
-        `/api/stripeSubscriptionCheckout/${accessToken}`
+        `/api/stripeSubscriptionCheckout`, {
+          headers: {
+            Authorization: `bearer ${accessToken}`
+          }
+        }
       );
 
       // 2. Redirect to Stripe Checkout
