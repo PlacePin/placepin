@@ -4,7 +4,7 @@ import { subscriptionTierController } from '../../controllers/resources/subscrip
 
 const router = express.Router()
 
-router.get('/subscription/status/:id', subscriptionController)
+router.get('/subscription/status', subscriptionController)
 router.get('/subscription/tier/:id', subscriptionTierController)
 
 export default router

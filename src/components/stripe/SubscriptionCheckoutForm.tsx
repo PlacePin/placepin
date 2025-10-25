@@ -3,6 +3,7 @@ import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import { Navigate } from "react-router-dom";
 import styles from './subscriptionCheckoutForm.module.css';
+import { useGetAxios } from "../../hooks/useGetAxios";
 
 const SubscriptionCheckoutForm = () => {
 
@@ -15,13 +16,13 @@ const SubscriptionCheckoutForm = () => {
     return <Navigate to="/login" replace />;
   }
 
+  const { data } = useGetAxios(`/api/subscription/status`)
+
   useEffect(() => {
-    axios.get(`/api/subscription/status/${accessToken}`)
-      .then(data => {
-        const isSubscribed = data.data.subscription.isSubscribed
-        setSubscription(isSubscribed)
-      })
-  }, [accessToken]);
+    if (data?.subscription) {
+      setSubscription(data.subscription.isSubscribed)
+    }
+  }, [data]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()

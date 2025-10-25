@@ -7,11 +7,16 @@ import { LandlordModel } from "../../database/models/Landlord.model";
 dotenv.config();
 
 export const subscriptionController = async (req: Request, res: Response) => {
-  const accessToken = req.params.id
+  const authHeader = req.headers.authorization
+  const accessToken = authHeader?.split(' ')[1]
 
   const JWT_ACCESS_TOKEN = process.env.JWT_ACCESS_TOKEN!
 
   try {
+    if (!accessToken) {
+      return res.status(401).json({ message: 'Missing authorization token' });
+    }
+
     const decoded = jwt.verify(accessToken, JWT_ACCESS_TOKEN)
 
     if (!decoded || typeof decoded !== 'object') {
