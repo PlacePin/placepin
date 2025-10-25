@@ -3,6 +3,6 @@ import { addPropertyController } from '../../controllers/resources/addPropertyCo
 
 const router = express.Router()
 
-router.post('/addproperty/:id', addPropertyController)
+router.post('/properties/:id', addPropertyController)
 
 export default router
