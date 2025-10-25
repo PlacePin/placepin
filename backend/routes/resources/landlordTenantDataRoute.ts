@@ -3,6 +3,6 @@ import { landlordTenantsController } from '../../controllers/resources/landlordT
 
 const router = express.Router()
 
-router.get('/landlordtenants/:id', landlordTenantsController)
+router.get('/landlordtenants', landlordTenantsController)
 
 export default router

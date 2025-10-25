@@ -2,16 +2,14 @@ import { useState } from 'react';
 import styles from './landlordTenants.module.css';
 import InviteTenantModal from '../../../../components/modals/InviteTenantModal';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
-import { useAuth } from '../../../../context/AuthContext';
 import { Info } from 'lucide-react';
 import { capitalizeWords } from '../../../../utils/stringUtils';
 
 const LandlordTenants = () => {
 
   const [showInviteModal, setShowInviteModal] = useState(false);
-  const { accessToken } = useAuth();
 
-  const { data, error } = useGetAxios(`/api/landlordtenants/${accessToken}`, [accessToken]);
+  const { data, error } = useGetAxios(`/api/landlordtenants/`);
 
   // Todo: Fix this so skeleton loading or cache so null doesn't render on each re-render
   if (!data) {

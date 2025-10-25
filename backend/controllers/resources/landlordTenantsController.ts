@@ -4,10 +4,19 @@ import jwt from "jsonwebtoken";
 import { LandlordModel } from "../../database/models/Landlord.model";
 import mongoose from "mongoose";
 
-export const landlordTenantsController = async (req: Request, res: Response) => {
-  const accessToken = req.params.id;
+export const landlordTenantsController = async (
+  req: Request,
+  res: Response
+) => {
+  const authHeader = req.headers.authorization
+  const accessToken = authHeader?.split(' ')[1]
 
   try {
+
+    if (!accessToken) {
+      return res.status(401).json({ message: 'Missing authorization token' });
+    }
+
     const decoded = verifyToken(accessToken)
     // const landlord = await LandlordModel.findById(decoded.userID).populate({
     //   path: 'properties.tenants.tenantId',

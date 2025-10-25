@@ -16,6 +16,7 @@ export const addPropertyController = async (req: Request, res: Response) => {
     if(!accessToken) {
       return res.status(401).json({ message: 'Missing authorization token' });
     } 
+    
     const decoded = verifyToken(accessToken);
 
     if (!decoded || typeof decoded !== 'object') {
