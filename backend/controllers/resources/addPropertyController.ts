@@ -6,12 +6,16 @@ import { parseAddress } from "../../utils/parseAddress";
 import { addressesEqual } from "../../utils/addressEqual";
 
 export const addPropertyController = async (req: Request, res: Response) => {
-  const accessToken = req.params.id;
   const { propertyName, propertyAddress, unitAmount } = req.body;
 
-  console.log(propertyName, propertyAddress, unitAmount);
-
+  const authHeader = req.headers.authorization
+  const accessToken = authHeader?.split(' ')[1]
+  
   try {
+
+    if(!accessToken) {
+      return res.status(401).json({ message: 'Missing authorization token' });
+    } 
     const decoded = verifyToken(accessToken);
 
     if (!decoded || typeof decoded !== 'object') {

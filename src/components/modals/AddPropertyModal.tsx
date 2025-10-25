@@ -15,42 +15,50 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
   const [unitAmount, setUnitAmount] = useState('');
   const [message, setMessage] = useState('');
 
-  const  { accessToken } = useAuth();
-  
+  const { accessToken } = useAuth();
+
   const handleAddPropertySubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     const property = {
       propertyName,
       propertyAddress,
       unitAmount,
     }
 
-    try{
-      if(Number(unitAmount) <= 0){
+    try {
+      if (Number(unitAmount) <= 0) {
         throw new Error("Number of units can't be less than or equal to zero!")
       }
 
-      const res = await axios.post(`/api/properties/${accessToken}`, property)
+      const res = await axios.post(
+        `/api/properties/`,
+        property,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      )
 
-      console.log(res)
+      // console.log(res)
 
-    } catch (err: unknown){
-      if(axios.isAxiosError(err)){
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
         setMessage(err.response?.data.message)
-      } else if(err instanceof Error){
+      } else if (err instanceof Error) {
         setMessage(err.message)
       }
     }
   }
 
-  return(
+  return (
     <FormModal title='Add Property' onClose={onClose}>
       <form onSubmit={handleAddPropertySubmit}>
         <div className={styles.formContainer}>
-          <label 
-          htmlFor='propertyName'
-          className={styles.labels}
+          <label
+            htmlFor='propertyName'
+            className={styles.labels}
           >
             Property Name
           </label>
@@ -62,9 +70,9 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
             className={styles.inputFields}
             required
           />
-          <label 
-          htmlFor='propertyAddress'
-          className={styles.labels}
+          <label
+            htmlFor='propertyAddress'
+            className={styles.labels}
           >
             Property Address
           </label>
@@ -76,9 +84,9 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
             className={styles.inputFields}
             required
           />
-          <label 
-          htmlFor='apartmentUnits'
-          className={styles.labels}
+          <label
+            htmlFor='apartmentUnits'
+            className={styles.labels}
           >
             Apartment Units
           </label>
