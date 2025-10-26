@@ -3,6 +3,6 @@ import { settingsBasicInfoController } from '../../controllers/settings/settings
 
 const router = express.Router()
 
-router.get('/settings', settingsBasicInfoController)
+router.get('/', settingsBasicInfoController)
 
 export default router

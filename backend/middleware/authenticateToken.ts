@@ -1,16 +1,29 @@
 import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config()
 
 export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
-  const token = authHeader?.split(' ')[1];
-  if (!token) return res.status(401).json({ message: 'Missing token' });
+  const accessToken = authHeader?.split(' ')[1];
+  const JWT_ACCESS_TOKEN = process.env.JWT_ACCESS_TOKEN!;
+
+  if (!accessToken) return res.status(401).json({ message: 'Missing authorization token' });
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_ACCESS_TOKEN!);
+    const decoded = jwt.verify(accessToken, JWT_ACCESS_TOKEN);
+
+    if (!decoded || typeof decoded !== 'object') {
+      return res.status(400).json({ message: "Something's wrong with your access token." })
+    }
+
     req.userId = (decoded as any).userID;
     next();
   } catch (err) {
-    res.status(403).json({ message: 'Invalid or expired token' });
+    if (err instanceof jwt.JsonWebTokenError) {
+      return res.status(403).json({ message: err.message });
+    }
+    res.status(500).json({ message: "Unexpected authentication error" });
   }
 };

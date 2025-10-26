@@ -1,43 +1,23 @@
 import type { Request, Response } from "express";
 import { LandlordModel } from "../../database/models/Landlord.model";
 import { TenantModel } from "../../database/models/Tenant.model";
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
 import mongoose from "mongoose";
-
-dotenv.config()
 
 export const settingsBasicInfoController = async (
   req: Request,
   res: Response
 ) => {
 
-  const authHeader = req.headers.authorization
-  const accessToken = authHeader?.split(' ')[1]
-  const JWT_ACCESS_TOKEN = process.env.JWT_ACCESS_TOKEN!;
-
   try {
-    if (!accessToken) {
-      return res.status(401).json({ message: 'Missing authorization token' });
-    }
-
-    const decoded = jwt.verify(accessToken, JWT_ACCESS_TOKEN);
-
-    if (!decoded || typeof decoded !== 'object') {
-      return res.status(400).json({ message: "Something's wrong with your access token." })
-    }
-
-    const user = await LandlordModel.findById(decoded.userID) || await TenantModel.findById(decoded.userID);
+    const user = await LandlordModel.findById(req.userId) || await TenantModel.findById(req.userId);
 
     if (!user) {
       return res.status(404).json({ message: "User doesn't exist." })
     }
 
-    res.status(200).json({ user })
+    return res.status(200).json({ user })
   } catch (err) {
-    if (err instanceof jwt.JsonWebTokenError) {
-      return res.status(400).json({ message: err.message });
-    } else if (err instanceof mongoose.Error.CastError) {
+    if (err instanceof mongoose.Error.CastError) {
       return res.status(404).json({ message: 'User not found.' })
     } else {
       console.error('Unexpected Error', err);

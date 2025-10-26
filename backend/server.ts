@@ -12,6 +12,7 @@ import inviteRoute from './routes/resources/inviteRoute';
 import userRoute from './routes/resources/userRoute';
 import landlordTenantDataRoute from './routes/resources/landlordTenantDataRoute';
 import landlordPropertyDataRoute from './routes/resources/landlordPropertyDataRoute';
+import { authenticateToken } from './middleware/authenticateToken';
 
 dotenv.config()
 
@@ -30,7 +31,7 @@ app.use('/api', stripeWebhookRoute)
 
 app.use(express.json())
 app.use('/api/auth', authRoutes)
-app.use('/api', settingsBasicInfoRoute)
+app.use('/api/settings', authenticateToken, settingsBasicInfoRoute)
 app.use('/api', stripeSubscriptionCheckoutFormRoute)
 app.use('/api', stripeSaveCardFormRoute)
 app.use('/api', subscriptionRoute)
