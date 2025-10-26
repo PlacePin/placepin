@@ -3,7 +3,7 @@ import axios from 'axios';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState, type FormEvent } from 'react';
 import { useAuth } from '../../../context/AuthContext';
-import { LANDLORD_ROUTES } from '../../../routes/landlordRoutes'; 
+import { LANDLORD_ROUTES } from '../../../routes/landlordRoutes';
 import { TENANT_ROUTES } from '../../../routes/tenantRoutes';
 
 const SignupPage = () => {
@@ -45,16 +45,20 @@ const SignupPage = () => {
       referral,
     }
 
-    // sending info to the backend, login to either landlord or dashboard. If failed show an error message.
+    // sending info to the backend, login to either landlord or tenant. If failed show an error message.
     try {
-      const res = await axios.post('/api/signup', signupInformation)
+      const res = await axios.post(
+        '/api/auth/signup',
+        signupInformation
+      )
+
       if (res.status === 201) {
         const { accessToken, accountType } = res.data
         login(accessToken, email, username)
-        if(accountType === 'landlord'){
+        if (accountType === 'landlord') {
           navigate(LANDLORD_ROUTES.DASHBOARD)
         }
-        if(accountType === 'tenant'){
+        if (accountType === 'tenant') {
           navigate(TENANT_ROUTES.DASHBOARD)
         }
       }
@@ -159,7 +163,7 @@ const SignupPage = () => {
               className={styles.inputFields}
               onChange={(e) => setReferral(e.target.value.toLowerCase().trim())}
               id='landlordReferral'
-              placeholder='Referral Code (Optional)'  />
+              placeholder='Referral Code (Optional)' />
           </>}
           <label
             className={styles.inputLabel}
