@@ -2,8 +2,6 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { connectToDB } from './config/mongoDatabase';
-// import signupRoute from './routes/auth/signupRoute';
-// import loginRoute from './routes/auth/loginRoute';
 import authRoutes from './routes/auth/authRoutes';
 import userBasicInfoRoute from './routes/settings/userBasicInfoRoute';
 import stripeSubscriptionCheckoutFormRoute from './routes/stripe/stripeSubscriptionCheckoutFormRoute';
@@ -31,8 +29,6 @@ app.use(cors())
 app.use('/api', stripeWebhookRoute)
 
 app.use(express.json())
-// app.use('/api', signupRoute)
-// app.use('/api', loginRoute)
 app.use('/api/auth', authRoutes)
 app.use('/api', userBasicInfoRoute)
 app.use('/api', stripeSubscriptionCheckoutFormRoute)
