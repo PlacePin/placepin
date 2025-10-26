@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 
 dotenv.config()
 
+// Makes sure the user is auth based on userId
+
 export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
   const accessToken = authHeader?.split(' ')[1];
