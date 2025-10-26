@@ -16,9 +16,6 @@ const BasicInfoForm = () => {
 
   const { accessToken } = useAuth();
 
-  const disabled = true
-  const disableStyle = disabled && styles.disabled
-
   if (!accessToken) {
     return <Navigate to="/login" replace />;
   }
@@ -26,7 +23,7 @@ const BasicInfoForm = () => {
   useEffect(() => {
     const fetchUserID = async () => {
       try {
-        const res = await axios.get(`/api/usersettings`, {
+        const res = await axios.get(`/api/settings`, {
           headers: {
             Authorization: `bearer ${accessToken}`
           }
@@ -135,12 +132,12 @@ const BasicInfoForm = () => {
             </label>
             <div className={styles.disabledField}>
               <input
-                className={`${styles.inputFields} ${disableStyle}`}
+                className={`${styles.inputFields} ${styles.disabled}`}
                 type='email'
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                disabled={disabled}
+                disabled={true}
               />
               <LockKeyhole />
             </div>

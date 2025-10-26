@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { connectToDB } from './config/mongoDatabase';
 import authRoutes from './routes/auth/authRoutes';
-import userBasicInfoRoute from './routes/settings/userBasicInfoRoute';
+import settingsBasicInfoRoute from './routes/settings/settingsBasicInfoRoute';
 import stripeSubscriptionCheckoutFormRoute from './routes/stripe/stripeSubscriptionCheckoutFormRoute';
 import stripeSaveCardFormRoute from './routes/stripe/stripeSaveCardFormRoute';
 import stripeWebhookRoute from './routes/stripe/webhooks/stripeWebhookRoute';
@@ -30,7 +30,7 @@ app.use('/api', stripeWebhookRoute)
 
 app.use(express.json())
 app.use('/api/auth', authRoutes)
-app.use('/api', userBasicInfoRoute)
+app.use('/api', settingsBasicInfoRoute)
 app.use('/api', stripeSubscriptionCheckoutFormRoute)
 app.use('/api', stripeSaveCardFormRoute)
 app.use('/api', subscriptionRoute)

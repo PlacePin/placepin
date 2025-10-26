@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 
 dotenv.config()
 
-export const userBasicInfoController = async (
+export const settingsBasicInfoController = async (
   req: Request,
   res: Response
 ) => {

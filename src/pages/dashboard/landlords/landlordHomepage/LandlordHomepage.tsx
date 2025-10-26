@@ -6,16 +6,12 @@ import RetentionHealthMeter from '../../../../components/cards/landlord/Retentio
 import InviteTenantModal from '../../../../components/modals/InviteTenantModal';
 import { useState } from 'react';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
-import { useAuth } from '../../../../context/AuthContext';
-
 
 const LandlordHomepage = () => {
 
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [showNudgeModal, setShowNudgeModal] = useState(false);
   const [showGiftModal, setShowGiftModal] = useState(false);
-
-  const { accessToken } = useAuth()
 
   const { data, error } = useGetAxios(`/api/user`)
 
