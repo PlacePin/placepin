@@ -11,8 +11,14 @@ interface FormModalProps {
 const FormModal = ({ children, title, onClose }: FormModalProps) => {
 
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modalContainer}>
+    <div
+      className={styles.modalOverlay}
+      onClick={onClose}
+    >
+      <div
+        className={styles.modalContainer}
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className={styles.exitWrapper}>
           <h2>{title}</h2>
           <X
