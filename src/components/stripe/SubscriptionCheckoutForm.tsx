@@ -32,7 +32,9 @@ const SubscriptionCheckoutForm = () => {
     try {
       // 1. Create Checkout Session on the server
       const { data } = await axios.post(
-        `/api/stripeSubscriptionCheckout`, {
+        `/api/stripe/subscription-checkout-form`,
+        null,
+        {
           headers: {
             Authorization: `bearer ${accessToken}`
           }
