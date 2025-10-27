@@ -1,8 +1,8 @@
 import express from 'express';
-import { settingsBasicInfoController } from '../../controllers/settings/settingsBasicInfoController';
+import { settingsBasicInfo } from '../../controllers/settings/settingsBasicInfoController';
 
 const router = express.Router()
 
-router.get('/', settingsBasicInfoController)
+router.get('/', settingsBasicInfo)
 
 export default router

@@ -1,15 +1,18 @@
 import type { Request, Response } from "express";
-import { LandlordModel } from "../../database/models/Landlord.model";
-import { TenantModel } from "../../database/models/Tenant.model";
-import mongoose from "mongoose";
+import { getUserById } from "../../utils/user";
 
-export const settingsBasicInfoController = async (
+export const settingsBasicInfo = async (
   req: Request,
   res: Response
 ) => {
+  const userId = req.userId
+
+  if (!userId) {
+    return res.status(401).json({ message: "Invalid token" });
+  }
 
   try {
-    const user = await LandlordModel.findById(req.userId) || await TenantModel.findById(req.userId);
+    const user = await getUserById(userId)
 
     if (!user) {
       return res.status(404).json({ message: "User doesn't exist." })
@@ -17,11 +20,7 @@ export const settingsBasicInfoController = async (
 
     return res.status(200).json({ user })
   } catch (err) {
-    if (err instanceof mongoose.Error.CastError) {
-      return res.status(404).json({ message: 'User not found.' })
-    } else {
-      console.error('Unexpected Error', err);
-      res.status(500).json({ message: "Unexpected Error" })
-    }
+    console.error('Unexpected Error', err);
+    res.status(500).json({ message: "Unexpected Error" })
   }
 }

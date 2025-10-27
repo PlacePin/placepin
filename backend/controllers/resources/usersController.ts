@@ -3,7 +3,8 @@ import { getUserById } from "../../utils/user";
 
 export const getUser = async (
   req: Request,
-  res: Response) => {
+  res: Response
+) => {
   const userId = req.userId
 
   if (!userId) {
@@ -19,6 +20,7 @@ export const getUser = async (
 
     return res.status(200).json({ user })
   } catch (err) {
+    console.error('Unexpected Error', err);
     return res.status(500).json({ message: 'Oops! Something went wrong!' })
   }
 }
