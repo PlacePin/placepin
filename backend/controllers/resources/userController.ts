@@ -6,23 +6,14 @@ import { getUserById } from "../../utils/user";
 dotenv.config();
 
 export const userController = async (req: Request, res: Response) => {
-  const authHeader = req.headers.authorization
-  const accessToken = authHeader?.split(' ')[1]
+  const userId = req.userId
 
-  const JWT_ACCESS_TOKEN = process.env.JWT_ACCESS_TOKEN!
+  if(!userId) {
+    return res.status(401).json({ message: "Invalid token" });
+  }
 
   try {
-    if (!accessToken) {
-      return res.status(401).json({ message: 'Missing authorization token' });
-    }
-
-    const decoded = jwt.verify(accessToken, JWT_ACCESS_TOKEN)
-
-    if (!decoded || typeof decoded !== 'object') {
-      return res.status(400).json({ message: "Something's wrong with your access token." })
-    }
-
-    const user = await getUserById(decoded.userID)
+    const user = await getUserById(userId)
 
     if (!user) {
       return res.status(404).json({ message: "User doesn't exist." })

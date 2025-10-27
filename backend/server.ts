@@ -36,7 +36,7 @@ app.use('/api', stripeSubscriptionCheckoutFormRoute)
 app.use('/api', stripeSaveCardFormRoute)
 app.use('/api', subscriptionRoute)
 app.use('/api', inviteRoute)
-app.use('/api', userRoute)
+app.use('/api/user', authenticateToken, userRoute)
 app.use('/api', landlordTenantDataRoute)
 app.use('/api', landlordPropertyDataRoute)
 
