@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { getUserById } from "../../utils/user";
 
-export const userController = async (
+export const getUser = async (
   req: Request,
   res: Response) => {
   const userId = req.userId
@@ -19,6 +19,6 @@ export const userController = async (
 
     return res.status(200).json({ user })
   } catch (err) {
-    return res.status(500).json({ message: 'Oops! Something went wrong looking for a subscription tier.' })
+    return res.status(500).json({ message: 'Oops! Something went wrong!' })
   }
 }
