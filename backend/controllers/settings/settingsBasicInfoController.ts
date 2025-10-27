@@ -7,18 +7,19 @@ export const settingsBasicInfo = async (
 ) => {
   const userId = req.userId
 
-  if (!userId) {
+  if(!userId){
     return res.status(401).json({ message: "Invalid token" });
   }
 
+  
   try {
-    const user = await getUserById(userId)
+    const user = await getUserById(userId, 'email fullName phoneNumber username')
 
     if (!user) {
       return res.status(404).json({ message: "User doesn't exist." })
     }
 
-    return res.status(200).json({ user })
+    res.status(200).json({ user })
   } catch (err) {
     console.error('Unexpected Error', err);
     res.status(500).json({ message: "Unexpected Error" })
