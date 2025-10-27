@@ -13,7 +13,7 @@ const LandlordHomepage = () => {
   const [showNudgeModal, setShowNudgeModal] = useState(false);
   const [showGiftModal, setShowGiftModal] = useState(false);
 
-  const { data, error } = useGetAxios(`/api/user`)
+  const { data, error } = useGetAxios(`/api/users`)
 
   if(!data){
     return <div>{'Loading Data'}</div>

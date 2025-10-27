@@ -1,7 +1,9 @@
 import type { Request, Response } from "express";
 import { getUserById } from "../../utils/user";
 
-export const userController = async (req: Request, res: Response) => {
+export const userController = async (
+  req: Request,
+  res: Response) => {
   const userId = req.userId
 
   if (!userId) {
