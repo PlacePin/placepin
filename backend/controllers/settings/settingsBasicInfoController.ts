@@ -10,7 +10,6 @@ export const settingsBasicInfo = async (
   if(!userId){
     return res.status(401).json({ message: "Invalid token" });
   }
-
   
   try {
     const user = await getUserById(userId, 'email fullName phoneNumber username')

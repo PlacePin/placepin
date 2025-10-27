@@ -28,8 +28,6 @@ const BasicInfoForm = () => {
             Authorization: `bearer ${accessToken}`
           }
         })
-
-        console.log(res)
         
         const { user } = res.data
         setFullName(user.fullName ?? '');
