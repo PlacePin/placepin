@@ -23,7 +23,6 @@ const LandlordProperties = () => {
 
   const properties = data.properties
   let buildingName = ''
-  console.log(properties)
 
   const propertyCards = properties.map((property: any, i: number) => {
 
