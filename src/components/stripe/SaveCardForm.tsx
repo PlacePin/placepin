@@ -49,8 +49,7 @@ const SaveCardForm = () => {
         // Send the paymentMethodId back to the same route to store it
         const res = await axios.post(
           "/api/settings/savecardform",
-          paymentMethodId
-          ,
+          paymentMethodId,
           {
             headers: {
               Authorization: `bearer ${accessToken}`
