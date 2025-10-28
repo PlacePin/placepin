@@ -32,7 +32,7 @@ const SubscriptionCheckoutForm = () => {
     try {
       // 1. Create Checkout Session on the server
       const { data } = await axios.post(
-        `/api/stripe/subscription-checkout-form`,
+        `/api/settings/stripe/subscription-checkout-form`,
         null,
         {
           headers: {

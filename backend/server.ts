@@ -4,7 +4,6 @@ import cors from 'cors';
 import { connectToDB } from './config/mongoDatabase';
 import authRoutes from './routes/auth/authRoutes';
 import settingsRoutes from './routes/settings/settingsRoutes';
-import stripeSubscriptionCheckoutFormRoute from './routes/stripe/stripeSubscriptionCheckoutFormRoute';
 import stripeSaveCardFormRoute from './routes/stripe/stripeSaveCardFormRoute';
 import stripeWebhookRoute from './routes/stripe/webhooks/stripeWebhookRoute';
 import subscriptionRoute from './routes/resources/subscriptionRoute';
@@ -32,7 +31,6 @@ app.use('/api', stripeWebhookRoute)
 app.use(express.json())
 app.use('/api/auth', authRoutes)
 app.use('/api/settings', authenticateToken, settingsRoutes)
-app.use('/api/stripe', authenticateToken, stripeSubscriptionCheckoutFormRoute)
 app.use('/api', stripeSaveCardFormRoute)
 app.use('/api', subscriptionRoute)
 app.use('/api', inviteRoute)
