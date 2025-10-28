@@ -46,16 +46,34 @@ const LandlordMessaging = () => {
         <div
           className={styles.convo}
         >
-          <h3 
-          className={styles.header}
+          <h3
+            className={styles.header}
           >
             {convoWith}
           </h3>
+          <div
+            className={styles.dialog}
+          >
+            Message Convo
+          </div>
+          <div
+            className={styles.messageText}
+          >
+            <input
+              type='text'
+              className={styles.inputMessage}
+              placeholder='Write Message'
+            />
+            <button
+              className={styles.button}
+            >
+              Send
+            </button>
+          </div>
         </div>
         <div
           className={styles.promo}
         >
-
         </div>
       </div>
     </div>
