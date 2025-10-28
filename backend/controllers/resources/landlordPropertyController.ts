@@ -58,3 +58,45 @@ export const addProperty = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 }
+
+export const getLandlordProperties = async (
+  req: Request,
+  res: Response
+) => {
+  const userId = req.userId;
+
+  try {
+    const properties = await LandlordModel.aggregate([
+      { $match: { _id: new mongoose.Types.ObjectId(userId) } },
+      {
+        $project: {
+          properties: 1
+        }
+      },
+      { $unwind: { path: "$properties", preserveNullAndEmptyArrays: true } },
+      {
+        $lookup: {
+          from: "tenants",
+          localField: "properties.tenants.tenantId",
+          foreignField: "_id",
+          as: "tenantData"
+        }
+      },
+      {
+        $project: {
+          "properties.name": 1,
+          "properties.address": 1,
+          "properties.numberOfUnits": 1,
+          tenantCount: { $size: "$tenantData" }
+        }
+      }
+    ]);
+
+    return res.status(200).json({
+      properties
+    });
+  } catch (err) {
+    console.error("Error fetching properties:", err);
+    return res.status(500).json({ message: "Oops! Something went wrong!" });
+  }
+};

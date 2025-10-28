@@ -1,5 +1,45 @@
 .container {
-  /* text-align: center; */
+  padding: 2rem 0 0 2rem;
+}
+
+.propertyCards {
+  border-radius: 1rem;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.propertyCardsContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 1rem 0 0 0;
+}
+
+.photoWrapper {
+  border-bottom: 1px solid black;
+}
+
+.descriptionWrapper {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.infoIcon {
+  padding-right: 0.25rem;
+}
+
+.infoButton {
+  color: gray;
+  background: #ffffff;
+  border: 1px solid black;
+  padding: 0.5rem 2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
 }
 
 .noData {

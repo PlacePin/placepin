@@ -15,8 +15,6 @@ export const stripeSaveCardForm = async (
   req: Request,
   res: Response
 ) => {
-
-  console.log(req.body)
   const paymentMethodId = req.body;
   const userId = req.userId;
 

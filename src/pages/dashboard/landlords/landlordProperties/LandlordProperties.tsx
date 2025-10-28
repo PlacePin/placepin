@@ -1,28 +1,91 @@
 import { useState } from 'react';
 import styles from './landlordProperties.module.css';
 import AddPropertyModal from '../../../../components/modals/AddPropertyModal';
+import { useGetAxios } from '../../../../hooks/useGetAxios';
+import { Info } from 'lucide-react';
 
 const LandlordProperties = () => {
 
   const [showAddPropertyModal, setShowAddPropertyModal] = useState(false);
 
-  return (
-    <div className={styles.container}>
-      <h2 className={styles.noData}>No Data</h2>
-      <div className={styles.noDataButtonContainer}>
-        <button
-          className={styles.button}
-          onClick={() => setShowAddPropertyModal(prev => !prev)}
+  const { data, error } = useGetAxios(`/api/landlords/properties`);
+
+  if (!data) {
+    return <div></div>;
+  }
+
+  if (error) {
+    return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
+  }
+
+  const properties = data.properties
+  console.log(properties[0].properties.name)
+
+  const propertiesCards = properties.map((property: any, i: number) => {
+    return (
+      <div
+        key={i}
+        className={styles.propertyCards}
+      >
+        <div
+          className={styles.photoWrapper}
         >
-          Add Property
-        </button>
+          <img
+            src='/emptyProfile.png'
+            alt='tenant photo'
+            width={150}
+            height={200}
+          />
+        </div>
+        <div
+          className={styles.descriptionWrapper}
+        >
+          <p>
+            {property.properties.name}
+          </p>
+          <button
+            className={styles.infoButton}
+          >
+            <Info
+              size={18}
+              className={styles.infoIcon}
+            />
+            Info
+          </button>
+        </div>
       </div>
-      {showAddPropertyModal && (
-        <AddPropertyModal
-          onClose={() => setShowAddPropertyModal(prev => !prev)}
-        />
-      )}
-    </div>
+    )
+  })
+
+  return (
+    <>
+      {properties.length
+        ?
+        <div className={styles.container}>
+          <h2>Properties</h2>
+          <div className={styles.propertyCardsContainer}>
+            {propertiesCards}
+          </div>
+        </div>
+        :
+        <div className={styles.container}>
+          <h2 className={styles.noData}>No Data</h2>
+          <div className={styles.noDataButtonContainer}>
+            <button
+              className={styles.button}
+              onClick={() => setShowAddPropertyModal(prev => !prev)}
+            >
+              Add Property
+            </button>
+          </div>
+          {showAddPropertyModal && (
+            <AddPropertyModal
+              onClose={() => setShowAddPropertyModal(prev => !prev)}
+            />
+          )}
+        </div>
+      }
+    </>
   )
 }
 

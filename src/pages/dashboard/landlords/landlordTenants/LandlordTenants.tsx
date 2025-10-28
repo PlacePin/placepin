@@ -67,7 +67,6 @@ const LandlordTenants = () => {
           <div className={styles.tenantCardsContainer}>
             {tenantsCards}
           </div>
-
         </div>
         :
         <div>

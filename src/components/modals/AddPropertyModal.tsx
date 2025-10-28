@@ -40,8 +40,7 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
           },
         },
       )
-
-      // console.log(res)
+      setMessage(res.data.message)
 
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
