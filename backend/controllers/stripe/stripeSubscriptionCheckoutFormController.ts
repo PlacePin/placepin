@@ -6,7 +6,7 @@ import { TenantModel, type TenantDocumentType } from "../../database/models/Tena
 
 dotenv.config();
 
-export const stripeSubscriptionCheckoutFormController = async (req: Request, res: Response) => {
+export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response) => {
   const userId = req.userId
 
   // Declaring Stripe secret key and JWT token

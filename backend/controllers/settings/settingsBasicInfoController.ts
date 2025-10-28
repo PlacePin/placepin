@@ -6,13 +6,14 @@ export const settingsBasicInfo = async (
   res: Response
 ) => {
   const userId = req.userId
+  const includeFields = 'email fullName phoneNumber username';
 
   if(!userId){
     return res.status(401).json({ message: "Invalid token" });
   }
   
   try {
-    const user = await getUserById(userId, 'email fullName phoneNumber username')
+    const user = await getUserById(userId, includeFields)
 
     if (!user) {
       return res.status(404).json({ message: "User doesn't exist." })
