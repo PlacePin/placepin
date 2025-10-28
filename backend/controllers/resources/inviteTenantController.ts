@@ -14,7 +14,6 @@ export const inviteTenant = async (req: Request, res: Response) => {
   const parsedAddress = parseAddress(tenantAddress)
 
   try {
-
     const landlord = await LandlordModel.findById(userId)
 
     if (!landlord) {

@@ -35,7 +35,7 @@ const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
           }
         },
       )
-      console.log(res)
+      setMessage(res.data.message)
     } catch (err: any) {
       setMessage('Failed to send invite!')
     }

@@ -1,29 +1,16 @@
 import type { Request, Response } from "express";
-import { verifyToken } from "../../utils/jwt";
-import jwt from "jsonwebtoken";
 import { LandlordModel } from "../../database/models/Landlord.model";
 import mongoose from "mongoose";
 
-export const landlordTenantsController = async (
+export const getLandlordTenants = async (
   req: Request,
   res: Response
 ) => {
-  const authHeader = req.headers.authorization
-  const accessToken = authHeader?.split(' ')[1]
+  const userId = req.userId
 
   try {
-    if (!accessToken) {
-      return res.status(401).json({ message: 'Missing authorization token' });
-    }
-
-    const decoded = verifyToken(accessToken)
-    // const landlord = await LandlordModel.findById(decoded.userID).populate({
-    //   path: 'properties.tenants.tenantId',
-    //   model: 'Tenants',
-    // }).select(excludeFields)
-
     const tenants = await LandlordModel.aggregate([
-      { $match: { _id: new mongoose.Types.ObjectId(`${decoded.userID}`) } },
+      { $match: { _id: new mongoose.Types.ObjectId(`${userId}`) } },
       { $unwind: '$properties' },
       { $unwind: '$properties.tenants' },
       {
@@ -49,12 +36,6 @@ export const landlordTenantsController = async (
 
     return res.status(200).json({ tenants })
   } catch (err) {
-    if (err instanceof jwt.JsonWebTokenError) {
-      return res.status(400).json({ message: err.message });
-    } else {
-      return res.status(500).json({ message: 'Oops! Something went wrong!' })
-    }
+    return res.status(500).json({ message: 'Oops! Something went wrong!' })
   }
-
-
 }

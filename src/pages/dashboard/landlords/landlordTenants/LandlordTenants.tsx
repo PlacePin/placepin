@@ -9,7 +9,7 @@ const LandlordTenants = () => {
 
   const [showInviteModal, setShowInviteModal] = useState(false);
 
-  const { data, error } = useGetAxios(`/api/landlordtenants/`);
+  const { data, error } = useGetAxios(`/api/landlords/tenants`);
 
   // Todo: Fix this so skeleton loading or cache so null doesn't render on each re-render
   if (!data) {

@@ -1,8 +1,8 @@
 import express from 'express';
-import { landlordTenantsController } from '../../controllers/resources/landlordTenantsController';
+import { getLandlordTenants } from '../../controllers/resources/landlordTenantsController';
 
 const router = express.Router()
 
-router.get('/landlordtenants', landlordTenantsController)
+router.get('/tenants', getLandlordTenants)
 
 export default router

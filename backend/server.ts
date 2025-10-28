@@ -33,7 +33,7 @@ app.use('/api/settings', authenticateToken, settingsRoutes)
 app.use('/api', stripeSaveCardFormRoute)
 app.use('/api/subscription', authenticateToken, subscriptionRoutes)
 app.use('/api/users', authenticateToken, usersRoutes)
-app.use('/api', landlordTenantDataRoute)
+app.use('/api/landlords', authenticateToken, landlordTenantDataRoute)
 app.use('/api', landlordPropertyDataRoute)
 
 app.listen(PORT, () => {
