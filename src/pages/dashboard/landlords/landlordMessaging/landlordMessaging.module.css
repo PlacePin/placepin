@@ -5,9 +5,31 @@
   height: calc(100vh - 8rem);
 }
 
-.messagesContainer {
+.leftContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.composeContainer {
   background: white;
-  border-radius: 1rem 0 0 1rem;
+  border-radius: 1rem 0 0 0;
+  width: 20%;
+  min-width: 220px;
+  max-width: 300px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+  transition: all 0.3s ease;
+  margin: 0 0 0 2rem;
+}
+
+.messagesList {
+  background: white;
+  border-radius: 0 0 0 1rem;
   width: 20%;
   min-width: 220px;
   max-width: 300px;
@@ -22,6 +44,26 @@
 }
 
 .compose {
+  font-weight: 500;
+  cursor: pointer;
+  background: #f5f0eb;
+  transition: all 0.3s ease;
+  padding: 0.5rem;
+  border-radius: 0.5rem 0 0 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.compose:hover {
+  transform: translatey(-2px);
+}
+
+.compose:active {
+  transform: translatey(4px);
+}
+
+.convo {
   flex: 1;
   background: #ffffff;
   border-radius: 0 1rem 1rem 0;
@@ -52,65 +94,23 @@
   margin: 2rem 0 1rem 2rem;
 }
 
-.startMessage {
+.person {
+  padding: 1rem;
+  font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  background: #f5f0eb;
-  transition: all 0.3s ease;
-  /* transform: translateX(4px); */
   border-radius: 1rem;
-  padding: 0.5rem;
-  border-radius: 0.5rem 0 0 0.5rem;
 }
 
-.startMessage:hover {
-  transform: translatey(-2px);
+.person:hover {
+  background: #f5f0eb;
+  transform: translateX(4px);
 }
 
-.startMessage:active {
-  transform: translatey(4px);
+.person:active {
+  transform: translate(4px, 4px);
 }
 
-.noDataButtonContainer {
-  text-align: center;
-  margin-top: 20rem;
-}
-
-.button {
-  width: 15%;
-  height: 3.5em;
-  background-image: linear-gradient(135deg, #00bfa5 0%, #4dd0e1 100%);
-  color: white;
-  border: none;
-  border-radius: 0.5em;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.button:hover {
-  animation: shake 0.4s ease;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-}
-
-@keyframes shake {
-
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-
-  25% {
-    transform: translateX(-3px);
-  }
-
-  75% {
-    transform: translateX(3px);
-  }
-}
-
-.button:active {
-  transform: translateY(2px);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+.activeMessage {
+  background: #f5f0eb
 }
