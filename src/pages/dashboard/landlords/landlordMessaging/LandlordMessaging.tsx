@@ -10,11 +10,7 @@ const LandlordMessaging = () => {
 
   const people = activeMessage.map((person, i) => {
 
-    if (activeIndex === null || activeIndex === undefined) {
-      convoWith = ''
-    } else {
-      convoWith = activeMessage[activeIndex]
-    }
+    convoWith = activeIndex !== null ? activeMessage[activeIndex] : '';
 
     return (
       <p
@@ -28,7 +24,7 @@ const LandlordMessaging = () => {
   });
 
   return (
-    <div>
+    <div className={styles.container}>
       <h2 className={styles.title}>Messages</h2>
       <div className={styles.wrapper}>
         <div className={styles.leftContainer}>
