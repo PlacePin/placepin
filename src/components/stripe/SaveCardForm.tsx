@@ -2,19 +2,16 @@ import { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import styles from './saveCardForm.module.css';
+import { useAuth } from "../../context/AuthContext";
 
-interface SaveCardFormProps {
-  userID: string;
-  accountType: string;
-  accessToken: string;
-}
-
-const SaveCardForm = ({ userID, accountType, accessToken }: SaveCardFormProps) => {
+const SaveCardForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('')
-  
+
+  const { accessToken } = useAuth();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!stripe || !elements) return;
@@ -23,7 +20,14 @@ const SaveCardForm = ({ userID, accountType, accessToken }: SaveCardFormProps) =
 
     try {
       // Create SetupIntent on the server
-      const { data } = await axios.post("/api/savecardform", { userID, accountType, accessToken });
+      const { data } = await axios.post(
+        "/api/settings/savecardform",
+        null,
+        {
+          headers: {
+            Authorization: `bearer ${accessToken}`
+          }
+        });
 
       const cardElement = elements.getElement(CardElement);
       if (!cardElement) return;
@@ -43,12 +47,16 @@ const SaveCardForm = ({ userID, accountType, accessToken }: SaveCardFormProps) =
         const paymentMethodId = result.setupIntent.payment_method;
 
         // Send the paymentMethodId back to the same route to store it
-        const res = await axios.post("/api/savecardform", {
-          userID,
-          accountType,
-          accessToken,
-          paymentMethodId: paymentMethodId
-        });
+        const res = await axios.post(
+          "/api/settings/savecardform",
+          paymentMethodId
+          ,
+          {
+            headers: {
+              Authorization: `bearer ${accessToken}`
+            }
+          }
+        );
 
         setMessage(res.data.message)
       }

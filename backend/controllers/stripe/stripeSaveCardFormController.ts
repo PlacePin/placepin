@@ -3,34 +3,26 @@ import Stripe from "stripe";
 import dotenv from "dotenv";
 import { TenantModel } from "../../database/models/Tenant.model";
 import { LandlordModel } from "../../database/models/Landlord.model";
-import jwt from "jsonwebtoken";
 
 dotenv.config();
 const STRIPE_TEST_SECRET_KEY = process.env.STRIPE_TEST_SECRET_KEY!;
-const JWT_ACCESS_TOKEN = process.env.JWT_ACCESS_TOKEN!;
 
 const stripe = new Stripe(STRIPE_TEST_SECRET_KEY, {
   apiVersion: "2025-09-30.clover",
 });
 
-export const stripeSaveCardFormController = async (
+export const stripeSaveCardForm = async (
   req: Request,
   res: Response
 ) => {
-  const { userID, accountType, accessToken, paymentMethodId } = req.body;
+
+  console.log(req.body)
+  const paymentMethodId = req.body;
+  const userId = req.userId;
 
   try {
-    const decoded = jwt.verify(accessToken, JWT_ACCESS_TOKEN);
-    if (!decoded || typeof decoded !== "object") {
-      return res
-        .status(400)
-        .json({ message: "Something's wrong with your access token." });
-    }
-
     // Get the user from DB
-    const user = accountType === "tenant"
-      ? await TenantModel.findById(userID)
-      : await LandlordModel.findById(userID);
+    const user = await TenantModel.findById(userId) || await LandlordModel.findById(userId);
 
     if (!user) {
       return res.status(404).json({ message: "User not found." });
@@ -41,6 +33,7 @@ export const stripeSaveCardFormController = async (
         isSubscribed: false,
         savedPaymentMethod: '',
         stripeCustomerId: '',
+        tier: '',
       };
     }
 
@@ -70,11 +63,7 @@ export const stripeSaveCardFormController = async (
       .status(200)
       .json({ message: "Payment method saved successfully" });
   } catch (err) {
-    if (err instanceof jwt.JsonWebTokenError) {
-      return res.status(400).json({ message: err.message });
-    } else {
-      console.error("Error in stripeSaveCardFormController:", err);
-      return res.status(500).json({ message: "Something went wrong with saving the card" });
-    }
+    console.error("Error in stripeSaveCardFormController:", err);
+    return res.status(500).json({ message: "Something went wrong with saving the card" });
   }
 };
