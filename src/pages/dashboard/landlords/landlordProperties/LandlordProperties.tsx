@@ -19,9 +19,16 @@ const LandlordProperties = () => {
   }
 
   const properties = data.properties
-  console.log(properties[0].properties.name)
+  let buildingName = ''
 
   const propertiesCards = properties.map((property: any, i: number) => {
+
+    if(property.properties.name === undefined || property.properties.name.trim() === ''){
+      buildingName = 'No Name'
+    } else {
+      buildingName = property.properties.name
+    }
+
     return (
       <div
         key={i}
@@ -41,7 +48,7 @@ const LandlordProperties = () => {
           className={styles.descriptionWrapper}
         >
           <p>
-            {property.properties.name}
+            {buildingName}
           </p>
           <button
             className={styles.infoButton}
