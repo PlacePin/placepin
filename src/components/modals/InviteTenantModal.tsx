@@ -24,11 +24,17 @@ const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
       tenantName,
       tenantAddress,
       tenantEmail,
-      accessToken
     }
 
     try {
-      const res = await axios.post('/api/invite/tenant/', tenantInfo)
+      const res = await axios.post('/api/users/invite/tenant/',
+        tenantInfo,
+        {
+          headers: {
+            Authorization: `bearer ${accessToken}`
+          }
+        },
+      )
       console.log(res)
     } catch (err: any) {
       setMessage('Failed to send invite!')
@@ -39,9 +45,9 @@ const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
     <FormModal title='Invite Tenant' onClose={onClose}>
       <form onSubmit={handleTenantInviteSubmit}>
         <div className={styles.formContainer}>
-          <label 
-          htmlFor='tenantName'
-          className={styles.labels}
+          <label
+            htmlFor='tenantName'
+            className={styles.labels}
           >
             Tenant Name
           </label>
@@ -53,9 +59,9 @@ const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
             className={styles.inputFields}
             required
           />
-          <label 
-          htmlFor='tenantAddress'
-          className={styles.labels}
+          <label
+            htmlFor='tenantAddress'
+            className={styles.labels}
           >
             Tenant Address
           </label>
@@ -67,9 +73,9 @@ const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
             className={styles.inputFields}
             required
           />
-          <label 
-          htmlFor='tenantEmail'
-          className={styles.labels}
+          <label
+            htmlFor='tenantEmail'
+            className={styles.labels}
           >
             Tenant Email
           </label>

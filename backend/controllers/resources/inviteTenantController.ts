@@ -1,14 +1,13 @@
 import type { Request, Response } from "express";
-import jwt from "jsonwebtoken";
 import { LandlordModel } from "../../database/models/Landlord.model";
 import { generateReferralCode } from "../../utils/generateReferralCode";
 import { emailInviteToTenant } from "../../utils/emailService";
 import { parseAddress } from "../../utils/parseAddress";
 import { addressesEqual } from "../../utils/addressEqual";
-import { verifyToken } from "../../utils/jwt";
 
-export const inviteTenantController = async (req: Request, res: Response) => {
-  const { tenantName, tenantAddress, tenantEmail, accessToken } = req.body
+export const inviteTenant = async (req: Request, res: Response) => {
+  const { tenantName, tenantAddress, tenantEmail } = req.body
+  const userId = req.userId
 
   let referralCode: string | undefined;
 
@@ -16,14 +15,7 @@ export const inviteTenantController = async (req: Request, res: Response) => {
 
   try {
 
-    const decoded = verifyToken(accessToken)
-
-    // extra defensive check
-    if (!decoded || typeof decoded !== 'object') {
-      return res.status(400).json({ message: "Invalid token format." });
-    }
-
-    const landlord = await LandlordModel.findById(decoded.userID)
+    const landlord = await LandlordModel.findById(userId)
 
     if (!landlord) {
       return res.status(404).json({ message: 'User not found!' })
@@ -31,7 +23,7 @@ export const inviteTenantController = async (req: Request, res: Response) => {
 
     if (landlord?.properties.length === 0) {
       const updatedLandlord = await LandlordModel.findByIdAndUpdate(
-        decoded.userID,
+        userId,
         {
           $push: {
             properties: {
@@ -54,18 +46,17 @@ export const inviteTenantController = async (req: Request, res: Response) => {
     } else {
       for (let property of landlord.properties) {
         // if there is a matching property run this condition
-        
         if (addressesEqual(property.address, parsedAddress)) {
           referralCode = property.referralCode
 
           emailInviteToTenant(referralCode, tenantName, tenantEmail)
-          
+
           return res.status(200).json({ message: 'Invite sent!' })
         }
       }
       // if there are properties but none match run this condition
       const updatedLandlord = await LandlordModel.findByIdAndUpdate(
-        decoded.userID,
+        userId,
         {
           $push: {
             properties: {
@@ -88,12 +79,7 @@ export const inviteTenantController = async (req: Request, res: Response) => {
     }
 
   } catch (err) {
-    // all tampering / invalid signature / expired token lands here
-    if (err instanceof jwt.JsonWebTokenError) {
-      return res.status(400).json({ message: 'Token Issue!' });
-    } else {
-      console.error('Unexpected Error:', err);
-      return res.status(500).json({ message: 'Unexpected Error' })
-    }
+    console.error('Unexpected Error:', err);
+    return res.status(500).json({ message: 'Unexpected Error' })
   }
 }
