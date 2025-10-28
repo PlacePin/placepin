@@ -18,7 +18,7 @@ const LandlordProperties = () => {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
 
-  const stockPhotos = ['/townhouse.png', '/triplex.png']
+  const stockPhotos = ['/townhouse.png', '/triplex.png', '/orangehouse.png']
 
 
   const properties = data.properties
