@@ -25,11 +25,12 @@ const LandlordProperties = () => {
   let buildingName = ''
   console.log(properties)
 
-  const propertiesCards = properties.map((property: any, i: number) => {
+  const propertyCards = properties.map((property: any, i: number) => {
 
     const randomImg = Math.floor(Math.random() * stockPhotos.length)
+    const address = `${property.properties.address.number} ${property.properties.address.street} ${property.properties.address.streetType}`
 
-    if(property.properties.name === undefined || property.properties.name.trim() === ''){
+    if (property.properties.name === undefined || property.properties.name.trim() === '') {
       buildingName = 'No Name'
     } else {
       buildingName = property.properties.name
@@ -56,6 +57,9 @@ const LandlordProperties = () => {
           <p>
             {buildingName}
           </p>
+          <p>
+            {address}
+          </p>
           <button
             className={styles.infoButton}
           >
@@ -77,7 +81,7 @@ const LandlordProperties = () => {
         <div className={styles.container}>
           <h2>Properties</h2>
           <div className={styles.propertyCardsContainer}>
-            {propertiesCards}
+            {propertyCards}
           </div>
         </div>
         :

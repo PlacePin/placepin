@@ -11,8 +11,7 @@
       #d18c96,
       #fbc2eb99,
       #8fd3f4,
-      #84fab0
-      );
+      #84fab0);
   background-size: 400% 400%;
   animation: holoShift 20s ease infinite;
   backdrop-filter: blur(10px);
@@ -21,13 +20,18 @@
   align-items: center;
   justify-content: center;
   border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: padding 0.3s ease;
+}
+
+.propertyCards:hover {
+  transform: translateY(-3px) scale(1.05);
 }
 
 .propertyCardsContainer {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
-  padding: 1rem 1rem 1rem 0;
+  padding: 1rem 2rem 1rem 0;
 }
 
 .descriptionWrapper {
@@ -64,7 +68,6 @@
 
 .infoButton {
   cursor: pointer;
-  transition: background-color 0.3s ease;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
