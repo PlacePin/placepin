@@ -62,7 +62,7 @@ const LandlordMessaging = () => {
             <input
               type='text'
               className={styles.inputMessage}
-              placeholder='Write Message'
+              placeholder='Write a Message...'
             />
             <button
               className={styles.button}
