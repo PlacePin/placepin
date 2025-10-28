@@ -18,10 +18,16 @@ const LandlordProperties = () => {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
 
+  const stockPhotos = ['/townhouse.png', '/triplex.png']
+
+
   const properties = data.properties
   let buildingName = ''
+  console.log(properties)
 
   const propertiesCards = properties.map((property: any, i: number) => {
+
+    const randomImg = Math.floor(Math.random() * stockPhotos.length)
 
     if(property.properties.name === undefined || property.properties.name.trim() === ''){
       buildingName = 'No Name'
@@ -38,7 +44,7 @@ const LandlordProperties = () => {
           className={styles.photoWrapper}
         >
           <img
-            src='/emptyProfile.png'
+            src={stockPhotos[randomImg]}
             alt='tenant photo'
             width={150}
             height={200}
