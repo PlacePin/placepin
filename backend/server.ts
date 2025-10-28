@@ -6,7 +6,7 @@ import authRoutes from './routes/auth/authRoutes';
 import settingsRoutes from './routes/settings/settingsRoutes';
 import stripeSaveCardFormRoute from './routes/stripe/stripeSaveCardFormRoute';
 import stripeWebhookRoute from './routes/stripe/webhooks/stripeWebhookRoute';
-import subscriptionRoute from './routes/resources/subscriptionRoute';
+import subscriptionRoutes from './routes/resources/subscriptionRoutes';
 import inviteRoute from './routes/resources/inviteRoute';
 import usersRoutes from './routes/resources/usersRoutes';
 import landlordTenantDataRoute from './routes/resources/landlordTenantDataRoute';
@@ -32,7 +32,7 @@ app.use(express.json())
 app.use('/api/auth', authRoutes)
 app.use('/api/settings', authenticateToken, settingsRoutes)
 app.use('/api', stripeSaveCardFormRoute)
-app.use('/api', subscriptionRoute)
+app.use('/api/subscription', authenticateToken, subscriptionRoutes)
 app.use('/api', inviteRoute)
 app.use('/api/users', authenticateToken, usersRoutes)
 app.use('/api', landlordTenantDataRoute)

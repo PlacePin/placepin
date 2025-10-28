@@ -52,7 +52,12 @@ const TenantHeader = ({ username }: TenantHeaderProps) => {
   const { logout, accessToken } = useAuth()
 
   useEffect(() => {
-    const res = axios.get(`/api/subscription/tier/${accessToken}`)
+    const res = axios.get(`/api/subscription/tier/`, {
+      headers: {
+        Authorization: `bearer ${accessToken}`,
+      },
+    })
+    
     res.then(data => {
       const subTier = data.data.subscriptionTier
       setTier(capitalizeWords(subTier))

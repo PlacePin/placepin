@@ -4,7 +4,7 @@ import { stripeSubscriptionCheckoutForm } from '../../controllers/stripe/stripeS
 
 const router = express.Router()
 
-router.get('/', settingsBasicInfo)
+router.get('/', settingsBasicInfo);
 router.post('/stripe/subscription-checkout-form', stripeSubscriptionCheckoutForm);
 
 export default router
