@@ -1,32 +1,18 @@
 import mongoose from "mongoose";
 import type { Request, Response } from "express";
-import { verifyToken } from "../../utils/jwt";
 import { LandlordModel } from "../../database/models/Landlord.model";
 import { parseAddress } from "../../utils/parseAddress";
 import { addressesEqual } from "../../utils/addressEqual";
 
-export const addPropertyController = async (req: Request, res: Response) => {
+export const addProperty = async (req: Request, res: Response) => {
   const { propertyName, propertyAddress, unitAmount } = req.body;
+  const userId = req.userId
 
-  const authHeader = req.headers.authorization
-  const accessToken = authHeader?.split(' ')[1]
-  
   try {
-
-    if(!accessToken) {
-      return res.status(401).json({ message: 'Missing authorization token' });
-    } 
-    
-    const decoded = verifyToken(accessToken);
-
-    if (!decoded || typeof decoded !== 'object') {
-      return res.status(400).json({ message: "Invalid token format." });
-    }
-
     const parsedAddress = parseAddress(propertyAddress)
 
     const properties = await LandlordModel.aggregate([
-      { $match: { _id: new mongoose.Types.ObjectId(`${decoded.userID}`) } },
+      { $match: { _id: new mongoose.Types.ObjectId(`${userId}`) } },
       { $unwind: '$properties' },
       {
         $project: {
@@ -44,9 +30,9 @@ export const addPropertyController = async (req: Request, res: Response) => {
       },
     ]);
 
-    for(let property of properties){
-      if(addressesEqual(property.address, parsedAddress)){
-        return res.status(422).json({ message: 'Property already exist!'})
+    for (let property of properties) {
+      if (addressesEqual(property.address, parsedAddress)) {
+        return res.status(422).json({ message: 'Property already exist!' })
       }
     }
 
@@ -57,7 +43,7 @@ export const addPropertyController = async (req: Request, res: Response) => {
     }
 
     await LandlordModel.findByIdAndUpdate(
-      decoded.userID,
+      userId,
       {
         $push: {
           properties: newProperty
@@ -65,15 +51,9 @@ export const addPropertyController = async (req: Request, res: Response) => {
       },
     )
 
-    return res.status(201).json({ message: "Property added!"})
+    return res.status(201).json({ message: "Property added!" })
 
   } catch (err: any) {
-    if (err.name === "TokenExpiredError") {
-      return res.status(401).json({ message: "Token expired" });
-    }
-    if (err.name === "JsonWebTokenError") {
-      return res.status(401).json({ message: "Invalid token" });
-    }
     console.error("Unexpected error:", err);
     return res.status(500).json({ message: "Internal Server Error" });
   }

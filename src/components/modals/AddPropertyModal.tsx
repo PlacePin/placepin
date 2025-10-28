@@ -32,7 +32,7 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
       }
 
       const res = await axios.post(
-        `/api/properties/`,
+        `/api/landlords/properties`,
         property,
         {
           headers: {
