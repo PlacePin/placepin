@@ -5,23 +5,22 @@
 .propertyCards {
   border-radius: 1rem;
   text-align: center;
-  background: linear-gradient(
-    45deg,
-    #ff9a9e,
-    #fad0c4,
-    #a18cd1,
-    #fbc2eb,
-    #8fd3f4,
-    #84fab0
-  );
+  background: linear-gradient(45deg,
+      #ff9a9e,
+      #fad0c4,
+      #d18c96,
+      #fbc2eb99,
+      #8fd3f4,
+      #84fab0
+      );
   background-size: 400% 400%;
   animation: holoShift 20s ease infinite;
   backdrop-filter: blur(10px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255,255,255,0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .propertyCardsContainer {
@@ -77,8 +76,11 @@
 .infoButton::before {
   content: '';
   position: absolute;
-  top:0; left:0; right:0; bottom:0;
-  background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
   pointer-events: none;
   border-radius: inherit;
 }
@@ -89,7 +91,15 @@
 }
 
 @keyframes holoShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
