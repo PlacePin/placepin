@@ -164,30 +164,6 @@ Performance isn't just a buzzword—it's the difference between a product people
 - Use streams for large file or network data processing.
 - Profile with `clinic.js`, `node --inspect`, or Chrome DevTools.
 
-#### Python
-
-- Use built-in data structures (`dict`, `set`, `deque`) for speed.
-- Profile with `cProfile`, `line_profiler`, or `Py-Spy`.
-- Use `multiprocessing` or `asyncio` for parallelism.
-- Avoid GIL bottlenecks in CPU-bound code; use C extensions or subprocesses.
-- Use `lru_cache` for memoization.
-
-#### Java
-
-- Use efficient collections (`ArrayList`, `HashMap`, etc.).
-- Profile with VisualVM, JProfiler, or YourKit.
-- Use thread pools (`Executors`) for concurrency.
-- Tune JVM options for heap and garbage collection (`-Xmx`, `-Xms`, `-XX:+UseG1GC`).
-- Use `CompletableFuture` for async programming.
-
-#### .NET
-
-- Use `async/await` for I/O-bound operations.
-- Use `Span<T>` and `Memory<T>` for efficient memory access.
-- Profile with dotTrace, Visual Studio Profiler, or PerfView.
-- Pool objects and connections where appropriate.
-- Use `IAsyncEnumerable<T>` for streaming data.
-
 ### Common Backend Pitfalls
 
 - Synchronous/blocking I/O in web servers.
@@ -287,7 +263,7 @@ Performance isn't just a buzzword—it's the difference between a product people
 ### Profiling and Benchmarking
 
 - **Profilers:** Use language-specific profilers (Chrome DevTools, Py-Spy, VisualVM, dotTrace, etc.) to identify bottlenecks.
-- **Microbenchmarks:** Write microbenchmarks for critical code paths. Use `benchmark.js`, `pytest-benchmark`, or JMH for Java.
+- **Microbenchmarks:** Write microbenchmarks for critical code paths. Use `benchmark.ts`,
 - **A/B Testing:** Measure real-world impact of optimizations with A/B or canary releases.
 - **Continuous Performance Testing:** Integrate performance tests into CI/CD. Use tools like k6, Gatling, or Locust.
 
@@ -430,16 +406,6 @@ function getCachedData(key, fetchFunction) {
 
 ---
 
-## References and Further Reading
-
-- [Google Web Fundamentals: Performance](https://web.dev/performance/)
-- [MDN Web Docs: Performance](https://developer.mozilla.org/en-US/docs/Web/Performance)
-- [MongoDB Best Practices](https://www.mongodb.com/resources/products/capabilities/performance-best-practices)
-- [OWASP: Performance Testing](https://owasp.org/www-project-performance-testing/)
-- [Microsoft Performance Best Practices](https://learn.microsoft.com/en-us/azure/architecture/best-practices/performance)
-- [Node.js Performance Best Practices](https://nodejs.org/en/docs/guides/simple-profiling/)
-- [WebPageTest](https://www.webpagetest.org/)
-- [Lighthouse](https://developers.google.com/web/tools/lighthouse)
 
 ---
 
