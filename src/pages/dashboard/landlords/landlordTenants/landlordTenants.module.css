@@ -3,14 +3,26 @@
 }
 
 .tenantCards {
-  border-radius: 1rem;
-  background-color: #ffffff;
+  width: 300px;
+  height: 200px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #0b3a42;
   text-align: center;
-  transition: padding 0.3s ease;
+  transition: 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f8f9ff, #e1ecf7);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.07);
+  border-radius: 1.5rem;
 }
 
 .tenantCards:hover {
-  transform: translateY(-3px) scale(1.05);
+  transform: scale(1.05) translateY(-3px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
 }
 
 .tenantCardsContainer {
@@ -18,10 +30,6 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   padding: 1rem 1rem 1rem 0;
-}
-
-.photoWrapper {
-  border-bottom: 1px solid black;
 }
 
 .descriptionWrapper {

@@ -28,9 +28,7 @@ const LandlordTenants = () => {
         key={i}
         className={styles.tenantCards}
       >
-        <div
-          className={styles.photoWrapper}
-        >
+        <div>
           <img
             src='/emptyProfile.png'
             alt='tenant photo'
