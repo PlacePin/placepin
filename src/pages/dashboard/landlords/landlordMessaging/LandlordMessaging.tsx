@@ -5,12 +5,12 @@ import { io, Socket } from 'socket.io-client';
 
 type Message = {
   sender: string;
-  text: string;
+  content: string;
   time: string;
 };
 
 const LandlordMessaging = () => {
-  const [people] = useState<string[]>([
+  const [people, setPeople] = useState<string[]>([
     'Isabella', 'Calvin', 'Kenji', 'Ralph', 'Aaron', 'Yves', 'Marcaine', 'Mirthaud', 'Caliyah'
   ]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -33,7 +33,7 @@ const LandlordMessaging = () => {
     });
 
     // Listen for private messages from the server
-    socket.on('private_message', (data: { senderId: string; recipientId: string; text: string; time: string }) => {
+    socket.on('private_message', (data: { senderId: string; recipientId: string; content: string; time: string }) => {
       console.log('Private message received:', data);
 
       const sender = data.senderId === currentUserId ? 'You' : data.senderId;
@@ -43,7 +43,7 @@ const LandlordMessaging = () => {
 
       setMessages((prev) => ({
         ...prev,
-        [chatPartner]: [...(prev[chatPartner] || []), { sender, text: data.text, time: new Date(data.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }],
+        [chatPartner]: [...(prev[chatPartner] || []), { sender, content: data.content, time: new Date(data.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }],
       }));
     });
 
@@ -62,14 +62,14 @@ const LandlordMessaging = () => {
     const messageData = {
       senderId: currentUserId,
       recipientId: convoWith, // recipient is whoever you’re chatting with
-      text: inputValue,
+      content: inputValue,
     };
 
     socketRef.current?.emit('private_message', messageData);
 
     setMessages((prev) => ({
       ...prev,
-      [convoWith]: [...(prev[convoWith] || []), { sender: 'You', text: inputValue, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }],
+      [convoWith]: [...(prev[convoWith] || []), { sender: 'You', content: inputValue, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }],
     }));
 
     setInputValue('');
@@ -107,7 +107,7 @@ const LandlordMessaging = () => {
               <div className={styles.dialog}>
                 {(messages[convoWith] || []).map((message, i) => (
                   <p key={i} className={message.sender === 'You' ? styles.outgoing : styles.incoming}>
-                    <strong>{message.sender}:</strong> {message.text}
+                    <strong>{message.sender}:</strong> {message.content}
                     <br />
                     <span className={styles.time}>{message.time}</span>
                   </p>

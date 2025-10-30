@@ -18,8 +18,8 @@ export function chatSocket(server: any) {
     });
 
     // Private 1-on-1 messaging
-    socket.on('private_message', ({ senderId, recipientId, text }) => {
-      const message = { senderId, recipientId, text, time: new Date().toISOString() };
+    socket.on('private_message', ({ senderId, recipientId, content }) => {
+      const message = { senderId, recipientId, content, time: new Date().toISOString() };
 
       console.log('Private message:', message);
 
