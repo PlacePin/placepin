@@ -15,6 +15,7 @@ import { chatSocket } from './chatSocket';
 dotenv.config()
 
 const app = express()
+const server = http.createServer(app);
 const PORT = process.env.PORT || 3000
 
 connectToDB()
@@ -34,12 +35,9 @@ app.use('/api/subscription', authenticateToken, subscriptionRoutes)
 app.use('/api/users', authenticateToken, usersRoutes)
 app.use('/api/landlords', authenticateToken, landlordDataRoute)
 
-// Create HTTP server
-const server = http.createServer(app);
-
 // Attach chat socket
 chatSocket(server);
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
