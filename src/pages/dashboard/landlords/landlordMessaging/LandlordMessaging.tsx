@@ -18,19 +18,32 @@ const LandlordMessaging = () => {
   const [inputValue, setInputValue] = useState('');
   const socketRef = useRef<Socket | null>(null);
 
-  // Persistent socket connection
+  // Set your current user (in production, you'd use user ID or JWT)
+  const currentUserId = 'landlord_1';
+
   useEffect(() => {
     const socket = io('http://localhost:3000');
     socketRef.current = socket;
 
     socket.on('connect', () => {
       console.log('Connected:', socket.id);
+
+      // Join your personal room (this is what allows 1-on-1 messaging)
+      socket.emit('join_room', currentUserId);
     });
 
-    socket.on('chat message', (data: { sender: string; recipient: string; text: string; time: string }) => {
+    // Listen for private messages from the server
+    socket.on('private_message', (data: { senderId: string; recipientId: string; text: string; time: string }) => {
+      console.log('Private message received:', data);
+
+      const sender = data.senderId === currentUserId ? 'You' : data.senderId;
+
+      // Update the chat for the appropriate person
+      const chatPartner = sender === 'You' ? data.recipientId : data.senderId;
+
       setMessages((prev) => ({
         ...prev,
-        [data.sender]: [...(prev[data.sender] || []), { sender: data.sender, text: data.text, time: data.time }],
+        [chatPartner]: [...(prev[chatPartner] || []), { sender, text: data.text, time: new Date(data.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }],
       }));
     });
 
@@ -47,19 +60,16 @@ const LandlordMessaging = () => {
     if (!inputValue.trim() || !convoWith) return;
 
     const messageData = {
-      sender: 'Landlord',
-      recipient: convoWith,
+      senderId: currentUserId,
+      recipientId: convoWith, // recipient is whoever you’re chatting with
       text: inputValue,
-      time: new Date().toLocaleTimeString(),
     };
 
-    // Emit message to backend
-    socketRef.current?.emit('chat message', messageData);
+    socketRef.current?.emit('private_message', messageData);
 
-    // Add message locally
     setMessages((prev) => ({
       ...prev,
-      [convoWith]: [...(prev[convoWith] || []), messageData],
+      [convoWith]: [...(prev[convoWith] || []), { sender: 'You', text: inputValue, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }],
     }));
 
     setInputValue('');
@@ -95,11 +105,11 @@ const LandlordMessaging = () => {
             <>
               <h3 className={`${activeIndex !== null && styles.header}`}>{convoWith}</h3>
               <div className={styles.dialog}>
-                {(messages[convoWith] || []).map((msg, i) => (
-                  <p key={i} className={msg.sender === 'Landlord' ? styles.outgoing : styles.incoming}>
-                    <strong>{msg.sender}:</strong> {msg.text}
+                {(messages[convoWith] || []).map((message, i) => (
+                  <p key={i} className={message.sender === 'You' ? styles.outgoing : styles.incoming}>
+                    <strong>{message.sender}:</strong> {message.text}
                     <br />
-                    <span className={styles.time}>{msg.time}</span>
+                    <span className={styles.time}>{message.time}</span>
                   </p>
                 ))}
               </div>
@@ -123,7 +133,6 @@ const LandlordMessaging = () => {
           )}
         </div>
 
-        {/* Right: Promo or additional info */}
         <div className={styles.promo}></div>
       </div>
     </div>

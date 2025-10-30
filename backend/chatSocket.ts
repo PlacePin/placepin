@@ -11,9 +11,21 @@ export function chatSocket(server: any) {
   io.on('connection', (socket) => {
     console.log(`User connected: ${socket.id}`);
 
-    socket.on('chat message', (message) => {
-      console.log('Message received:', message);
-      io.emit('chat message', message);
+    // Each user joins their personal "room"
+    socket.on('join_room', (userId) => {
+      socket.join(userId);
+      console.log(`${userId} joined their room`);
+    });
+
+    // Private 1-on-1 messaging
+    socket.on('private_message', ({ senderId, recipientId, text }) => {
+      const message = { senderId, recipientId, text, time: new Date().toISOString() };
+
+      console.log('Private message:', message);
+
+      // Send only to recipient
+      io.to(recipientId).emit('private_message', message);
+      // io.to(senderId).emit('private_message', message);
     });
 
     socket.on('disconnect', () => {
