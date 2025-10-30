@@ -47,7 +47,7 @@ const LandlordMessaging = () => {
           className={styles.convo}
         >
           <h3
-            className={styles.header}
+            className={`${activeIndex !== null && styles.header}`}
           >
             {convoWith}
           </h3>
