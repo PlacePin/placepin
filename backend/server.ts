@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import http from 'http';
 import { connectToDB } from './config/mongoDatabase';
 import authRoutes from './routes/auth/authRoutes';
 import settingsRoutes from './routes/settings/settingsRoutes';
@@ -9,6 +10,7 @@ import subscriptionRoutes from './routes/resources/subscriptionRoutes';
 import usersRoutes from './routes/resources/usersRoutes';
 import landlordDataRoute from './routes/resources/landlordDataRoute';
 import { authenticateToken } from './middleware/authenticateToken';
+import { chatSocket } from './chatSocket';
 
 dotenv.config()
 
@@ -31,6 +33,12 @@ app.use('/api/settings', authenticateToken, settingsRoutes)
 app.use('/api/subscription', authenticateToken, subscriptionRoutes)
 app.use('/api/users', authenticateToken, usersRoutes)
 app.use('/api/landlords', authenticateToken, landlordDataRoute)
+
+// Create HTTP server
+const server = http.createServer(app);
+
+// Attach chat socket
+chatSocket(server);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
