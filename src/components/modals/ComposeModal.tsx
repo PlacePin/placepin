@@ -25,7 +25,7 @@ const ComposeModal = ({ onClose }: InviteTenantModalProps) => {
     }
 
     try {
-      const res = await axios.post('/api/users',
+      const res = await axios.post('/api/messages/send',
         textMessage,
         {
           headers: {
@@ -33,6 +33,7 @@ const ComposeModal = ({ onClose }: InviteTenantModalProps) => {
           }
         },
       )
+      console.log(res)
       setErrorMessage(res.data.message)
     } catch (err: any) {
       setErrorMessage('Failed to send message!')

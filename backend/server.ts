@@ -11,6 +11,7 @@ import usersRoutes from './routes/resources/usersRoutes';
 import landlordDataRoute from './routes/resources/landlordDataRoute';
 import { authenticateToken } from './middleware/authenticateToken';
 import { chatSocket } from './chatSocket';
+import messageRoutes from './routes/messages/messageRoutes';
 
 dotenv.config()
 
@@ -34,6 +35,7 @@ app.use('/api/settings', authenticateToken, settingsRoutes)
 app.use('/api/subscription', authenticateToken, subscriptionRoutes)
 app.use('/api/users', authenticateToken, usersRoutes)
 app.use('/api/landlords', authenticateToken, landlordDataRoute)
+app.use('/api/messages', authenticateToken, messageRoutes)
 
 // Attach chat socket
 chatSocket(server);
