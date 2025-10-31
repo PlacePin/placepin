@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import styles from './landlordMessaging.module.css';
 import { Plus } from 'lucide-react';
 import { io, Socket } from 'socket.io-client';
+import ComposeModal from '../../../../components/modals/ComposeModal';
 
 type Message = {
   sender: string;
@@ -16,6 +17,7 @@ const LandlordMessaging = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [messages, setMessages] = useState<Record<string, Message[]>>({});
   const [inputValue, setInputValue] = useState('');
+  const [showCompose, setShowCompose] = useState(false);
   const socketRef = useRef<Socket | null>(null);
 
   // Set your current user (in production, you'd use user ID or JWT)
@@ -54,6 +56,10 @@ const LandlordMessaging = () => {
     };
   }, []);
 
+  const handleCompose = () => {
+    setShowCompose(prev => !prev)
+  }
+
   const convoWith = activeIndex !== null ? people[activeIndex] : '';
 
   const handleSend = () => {
@@ -82,7 +88,10 @@ const LandlordMessaging = () => {
         {/* Left: Contacts */}
         <div className={styles.leftContainer}>
           <div className={styles.composeContainer}>
-            <p className={styles.compose}>
+            <p
+              className={styles.compose}
+              onClick={handleCompose}
+            >
               <Plus /> Compose
             </p>
           </div>
@@ -135,6 +144,11 @@ const LandlordMessaging = () => {
 
         <div className={styles.promo}></div>
       </div>
+      {showCompose && (
+        <ComposeModal
+          onClose={() => setShowCompose(prev => !prev)}
+        />
+      )}
     </div>
   );
 };
