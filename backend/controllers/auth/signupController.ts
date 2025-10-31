@@ -36,7 +36,7 @@ export const signupController = async (req: Request, res: Response) => {
 
     let generatedUsername = username.split(' ').join('');
 
-    generatedUsername = generatedUsername + String(Math.floor(Math.random() * 999999))
+    generatedUsername = '@' + generatedUsername + String(Math.floor(Math.random() * 999999))
 
     const parsedAddress = parseAddress(address)
 
