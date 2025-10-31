@@ -73,7 +73,7 @@ export const getLandlordProperties = async (
           properties: 1
         }
       },
-      { $unwind: { path: "$properties", preserveNullAndEmptyArrays: true } },
+      { $unwind: "$properties" },
       {
         $lookup: {
           from: "tenants",

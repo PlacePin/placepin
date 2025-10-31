@@ -84,7 +84,7 @@ const LandlordProperties = () => {
           </div>
         </div>
         :
-        <div className={styles.container}>
+        <div>
           <h2 className={styles.noData}>No Data</h2>
           <div className={styles.noDataButtonContainer}>
             <button
