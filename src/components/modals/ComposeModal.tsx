@@ -10,7 +10,7 @@ interface InviteTenantModalProps {
 
 const ComposeModal = ({ onClose }: InviteTenantModalProps) => {
 
-  const [recipient, setRecipient] = useState('');
+  const [recipientUsername, setrecipientUsername] = useState('');
   const [directMessage, setDirectMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -20,7 +20,7 @@ const ComposeModal = ({ onClose }: InviteTenantModalProps) => {
     e.preventDefault()
 
     const textMessage = {
-      recipient,
+      recipientUsername,
       directMessage,
     }
 
@@ -44,16 +44,16 @@ const ComposeModal = ({ onClose }: InviteTenantModalProps) => {
       <form onSubmit={handleDirectMessageSubmit}>
         <div className={styles.formContainer}>
           <label
-            htmlFor='recipient'
+            htmlFor='recipientUsername'
             className={styles.labels}
           >
             Recipient:
           </label>
           <input
             type="text"
-            id='recipient'
+            id='recipientUsername'
             placeholder='@username'
-            onChange={(e) => setRecipient(e.target.value)}
+            onChange={(e) => setrecipientUsername(e.target.value)}
             className={styles.inputFields}
             required
           />

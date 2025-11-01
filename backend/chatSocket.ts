@@ -19,7 +19,6 @@ export function chatSocket(server: any) {
       console.log(`${userId} joined their room`);
     });
 
-    // Private 1-on-1 messaging
     // Handle private messages
     socket.on(
       'private_message',
