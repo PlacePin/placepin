@@ -35,7 +35,7 @@ const ComposeModal = ({ onClose }: InviteTenantModalProps) => {
       )
 
       if (res.status === 201) {
-        // Add timer later to render for 3 secs
+        // Todo: Add timer later to render for 3 secs
         setErrorMessage(res.data.message)
         onClose?.()
       }
