@@ -33,7 +33,11 @@ const ComposeModal = ({ onClose }: InviteTenantModalProps) => {
           }
         },
       )
-      console.log(res)
+
+      if (res.status === 201) {
+        return onClose?.()
+      }
+
     } catch (err: any) {
       setErrorMessage('Failed to send message!')
     }
