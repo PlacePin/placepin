@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import styles from './inviteTenantModal.module.css';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
@@ -35,7 +35,9 @@ const ComposeModal = ({ onClose }: InviteTenantModalProps) => {
       )
 
       if (res.status === 201) {
-        return onClose?.()
+        // Add timer later to render for 3 secs
+        setErrorMessage(res.data.message)
+        onClose?.()
       }
 
     } catch (err: any) {
