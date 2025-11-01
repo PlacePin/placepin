@@ -3,6 +3,7 @@ import styles from './landlordMessaging.module.css';
 import { Plus } from 'lucide-react';
 import { io, Socket } from 'socket.io-client';
 import ComposeModal from '../../../../components/modals/ComposeModal';
+import { useGetAxios } from '../../../../hooks/useGetAxios';
 
 type Message = {
   sender: string;
@@ -55,6 +56,18 @@ const LandlordMessaging = () => {
       socket.disconnect();
     };
   }, []);
+
+  const { data, error } = useGetAxios('/api/messages/conversations')
+
+  if (!data) {
+    return <div>{'Loading Data'}</div>
+  }
+
+  if (error) {
+    return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
+  }
+
+  console.log(data)
 
   const handleCompose = () => {
     setShowCompose(prev => !prev)

@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import styles from './inviteTenantModal.module.css';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
