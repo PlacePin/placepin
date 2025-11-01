@@ -57,7 +57,13 @@ const LandlordMessaging = () => {
     };
   }, []);
 
-  const { data, error } = useGetAxios('/api/messages/conversations')
+  const { data, error } = useGetAxios('/api/messages/conversations');
+
+  useEffect(() => {
+    if (data?.usernames) {
+      setPeople(data.usernames);
+    }
+  }, [data]);
 
   if (!data) {
     return <div>{'Loading Data'}</div>
@@ -66,8 +72,6 @@ const LandlordMessaging = () => {
   if (error) {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
-
-  console.log(data)
 
   const handleCompose = () => {
     setShowCompose(prev => !prev)
