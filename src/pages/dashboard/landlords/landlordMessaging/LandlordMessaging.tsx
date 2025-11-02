@@ -12,9 +12,7 @@ type Message = {
 };
 
 const LandlordMessaging = () => {
-  const [people, setPeople] = useState<string[]>([
-    'Isabella', 'Calvin', 'Kenji', 'Ralph', 'Aaron', 'Yves', 'Marcaine', 'Mirthaud', 'Caliyah'
-  ]);
+  const [people, setPeople] = useState<string[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [messages, setMessages] = useState<Record<string, Message[]>>({});
   const [inputValue, setInputValue] = useState('');
