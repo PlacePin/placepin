@@ -1,9 +1,11 @@
+import { useGetAxios } from '../../../../hooks/useGetAxios';
+import { useAuth } from '../../../../context/AuthContext';
 import { useEffect, useRef, useState } from 'react';
-import styles from './landlordMessaging.module.css';
 import { Plus } from 'lucide-react';
 import { io, Socket } from 'socket.io-client';
+import axios from 'axios';
+import styles from './landlordMessaging.module.css';
 import ComposeModal from '../../../../components/modals/ComposeModal';
-import { useGetAxios } from '../../../../hooks/useGetAxios';
 
 type Message = {
   sender: string;
@@ -18,6 +20,8 @@ const LandlordMessaging = () => {
   const [inputValue, setInputValue] = useState('');
   const [showCompose, setShowCompose] = useState(false);
   const socketRef = useRef<Socket | null>(null);
+
+  const { accessToken } = useAuth();
 
   // Set your current user (in production, you'd use user ID or JWT)
   const currentUserId = 'landlord_1';
@@ -63,22 +67,39 @@ const LandlordMessaging = () => {
     }
   }, [data]);
 
-  if (!data) {
-    return <div>{'Loading Data'}</div>
-  }
-
-  if (error) {
-    return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
-  }
+  const isLoading = !data;
+  const hasError = !!error;
 
   const convoWith = activeIndex !== null ? people[activeIndex] : '';
+
+  useEffect(() => {
+    if (!convoWith) return;
+
+    const conversation = async () => {
+      try {
+        const res = await axios.get(`/api/messages/conversations?username=${convoWith}`, {
+          headers: { Authorization: `bearer ${accessToken}` },
+        });
+        setMessages((prev) => ({
+          ...prev,
+          [convoWith]: res.data.messages,
+        }));
+        console.log('convo', res)
+      } catch (err) {
+        console.error('Error fetching conversation', err);
+      }
+    };
+
+    conversation();
+  }, [convoWith]);
+
 
   const handleSend = () => {
     if (!inputValue.trim() || !convoWith) return;
 
     const messageData = {
       senderId: currentUserId,
-      recipientId: convoWith, // recipient is whoever you’re chatting with
+      recipientId: convoWith,
       content: inputValue,
     };
 
@@ -94,6 +115,15 @@ const LandlordMessaging = () => {
 
   return (
     <div className={styles.container}>
+      {isLoading &&
+        <div>
+        </div>
+      }
+      {hasError &&
+        <div>
+          Something went wrong, but don't panic, we'll fix it!
+        </div>
+      }
       <h2 className={styles.title}>Messages</h2>
       <div className={styles.wrapper}>
         {/* Left: Contacts */}
