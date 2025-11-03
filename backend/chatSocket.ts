@@ -1,6 +1,14 @@
 import mongoose from 'mongoose';
 import { Server } from 'socket.io';
 import { DirectMessageModel } from './database/models/Message.model';
+import { LandlordModel } from './database/models/Landlord.model';
+import { TenantModel } from './database/models/Tenant.model';
+
+interface DMData {
+  senderId: string;
+  recipientUsername: string;
+  content: string;
+}
 
 export function chatSocket(server: any) {
   const io = new Server(server, {
@@ -24,26 +32,32 @@ export function chatSocket(server: any) {
       'private_message',
       async ({
         senderId,
-        recipientId,
+        recipientUsername,
         content,
-      }: {
-        senderId: string;
-        recipientId: string;
-        content: string;
-      }) => {
+      }: DMData
+      ) => {
         try {
           const time = new Date();
+          const receiver =
+            await LandlordModel.findOne({ username: recipientUsername }) || await TenantModel.findOne({ username: recipientUsername })
+
+          if (!receiver) {
+            return 'User not found!'
+          }
+
+          const receiverId = String(receiver._id)
 
           // Look for an existing conversation between the two
           let conversation = await DirectMessageModel.findOne({
-            participants: { $all: [senderId, recipientId] },
+            participants: { $all: [senderId, receiverId] },
           });
+          console.log('convo', conversation)
 
           if (!conversation) {
             // Create new conversation if none exists
             conversation = new DirectMessageModel({
-              participants: [senderId, recipientId],
-              participantsModel: ['Landlords', 'Tenants'], // ⚠️ Adjust this logic later to detect type dynamically
+              participants: [senderId, receiverId],
+              participantsModel: ['Landlords', receiver.accountType], // Adjust this logic later to detect type dynamically
               messages: [],
             });
           }
@@ -61,13 +75,13 @@ export function chatSocket(server: any) {
           // Prepare the message for client emit
           const message = {
             senderId,
-            recipientId,
+            receiverId,
             content,
             time: time.toISOString(),
           };
 
           // Emit to both recipient and sender
-          io.to(recipientId).emit('private_message', message);
+          io.to(receiverId).emit('private_message', message);
           io.to(senderId).emit('private_message', message);
 
           console.log('Message saved & emitted:', message);

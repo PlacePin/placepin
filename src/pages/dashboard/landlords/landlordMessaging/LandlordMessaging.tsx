@@ -110,7 +110,7 @@ const LandlordMessaging = () => {
 
     const messageData = {
       senderId: currentUserId,
-      recipientId: convoWith,
+      recipientUsername: convoWith,
       content: inputValue,
     };
 
