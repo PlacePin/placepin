@@ -71,6 +71,7 @@ const LandlordMessaging = () => {
   const hasError = !!error;
 
   const convoWith = activeIndex !== null ? people[activeIndex] : '';
+  console.log('msg', messages['@johndoe817848'])
 
   useEffect(() => {
     if (!convoWith) return;
@@ -156,10 +157,23 @@ const LandlordMessaging = () => {
               <h3 className={`${activeIndex !== null && styles.header}`}>{convoWith}</h3>
               <div className={styles.dialog}>
                 {(messages[convoWith] || []).map((message, i) => (
-                  <p key={i} className={message.sender === 'You' ? styles.outgoing : styles.incoming}>
-                    <strong>{message.sender}:</strong> {message.content}
+                  <p
+                    key={i}
+                    className={message.sender === convoWith ? styles.outgoing : styles.incoming}
+                  >
+                    <strong>
+                      {message.sender}
+                    </strong>
                     <br />
-                    <span className={styles.time}>{message.time}</span>
+                    <span>
+                      {message.content}
+                    </span>
+                    <br />
+                    <span
+                      className={styles.time}
+                    >
+                      {message.time}
+                    </span>
                   </p>
                 ))}
               </div>
