@@ -14,7 +14,7 @@ type Message = {
   time: string;
 };
 
-interface MyJwtPayload extends JwtPayload  {
+interface MyJwtPayload extends JwtPayload {
   userID?: string
 }
 
@@ -28,38 +28,50 @@ const LandlordMessaging = () => {
 
   const { accessToken } = useAuth();
 
-  if(!accessToken) {
-    return 
-  } 
+  if (!accessToken) {
+    return
+  }
 
   const decoded = jwtDecode<MyJwtPayload>(accessToken)
-  
+
   // Set your current user (in production, you'd use user ID or JWT)
   const currentUserId = decoded.userID;
+  const convoWith = activeIndex !== null ? people[activeIndex] : '';
 
   useEffect(() => {
+    if (!currentUserId) return;
+
     const socket = io('http://localhost:3000');
     socketRef.current = socket;
 
     socket.on('connect', () => {
-      console.log('Connected:', socket.id);
-
       // Join your personal room (this is what allows 1-on-1 messaging)
       socket.emit('join_room', currentUserId);
     });
 
     // Listen for private messages from the server
-    socket.on('private_message', (data: { senderId: string; recipientId: string; content: string; time: string }) => {
-      console.log('Private message received:', data);
+    socket.on('private_message', (data: {
+      senderId: string;
+      receiverId: string;
+      content: string;
+      time: string
+    }) => {
+      const isSelf = data.senderId === currentUserId;
+      const chatPartnerId = isSelf ? data.receiverId : data.senderId;
 
-      const sender = data.senderId === currentUserId ? 'You' : data.senderId;
-
-      // Update the chat for the appropriate person
-      const chatPartner = sender === 'You' ? data.recipientId : data.senderId;
+      const chatPartnerUsername = people.find((person) => person === convoWith) || convoWith || chatPartnerId;
 
       setMessages((prev) => ({
         ...prev,
-        [chatPartner]: [...(prev[chatPartner] || []), { sender, content: data.content, time: new Date(data.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }],
+        [chatPartnerUsername]: [...(prev[chatPartnerUsername] || []),
+        {
+          sender: isSelf ? 'You' : chatPartnerUsername,
+          content: data.content,
+          time: new Date(data.time).toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit'
+          })
+        }],
       }));
     });
 
@@ -68,7 +80,7 @@ const LandlordMessaging = () => {
     return () => {
       socket.disconnect();
     };
-  }, []);
+  }, [currentUserId, people, convoWith]);
 
   const { data, error } = useGetAxios('/api/messages/usernames');
 
@@ -80,8 +92,6 @@ const LandlordMessaging = () => {
 
   const isLoading = !data;
   const hasError = !!error;
-
-  const convoWith = activeIndex !== null ? people[activeIndex] : '';
 
   useEffect(() => {
     if (!convoWith) return;
@@ -95,7 +105,6 @@ const LandlordMessaging = () => {
           ...prev,
           [convoWith]: res.data.messages,
         }));
-        console.log('convo', res)
       } catch (err) {
         console.error('Error fetching conversation', err);
       }
@@ -116,10 +125,10 @@ const LandlordMessaging = () => {
 
     socketRef.current?.emit('private_message', messageData);
 
-    setMessages((prev) => ({
-      ...prev,
-      [convoWith]: [...(prev[convoWith] || []), { sender: 'You', content: inputValue, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }],
-    }));
+    // setMessages((prev) => ({
+    //   ...prev,
+    //   [convoWith]: [...(prev[convoWith] || []), { sender: 'You', content: inputValue, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }],
+    // }));
 
     setInputValue('');
   };
