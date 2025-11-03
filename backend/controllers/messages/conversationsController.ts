@@ -18,8 +18,7 @@ export const getUserConversations = async (
     })
       .select('participants')
       .lean()
-    // .populate('participants')
-    // .sort({ lastUpdated: -1 });
+      .sort({ lastUpdated: -1 });
 
     const usernames = await Promise.all(
       conversations.map((convo) => {
