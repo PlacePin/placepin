@@ -71,10 +71,6 @@ const LandlordMessaging = () => {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
 
-  const handleCompose = () => {
-    setShowCompose(prev => !prev)
-  }
-
   const convoWith = activeIndex !== null ? people[activeIndex] : '';
 
   const handleSend = () => {
@@ -105,7 +101,7 @@ const LandlordMessaging = () => {
           <div className={styles.composeContainer}>
             <p
               className={styles.compose}
-              onClick={handleCompose}
+              onClick={() => setShowCompose(prev => !prev)}
             >
               <Plus /> Compose
             </p>
