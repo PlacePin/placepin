@@ -3,6 +3,7 @@ import { useAuth } from '../../../../context/AuthContext';
 import { useEffect, useRef, useState } from 'react';
 import { Plus } from 'lucide-react';
 import { io, Socket } from 'socket.io-client';
+import { jwtDecode, type JwtPayload } from 'jwt-decode';
 import axios from 'axios';
 import styles from './landlordMessaging.module.css';
 import ComposeModal from '../../../../components/modals/ComposeModal';
@@ -12,6 +13,10 @@ type Message = {
   content: string;
   time: string;
 };
+
+interface MyJwtPayload extends JwtPayload  {
+  userID?: string
+}
 
 const LandlordMessaging = () => {
   const [people, setPeople] = useState<string[]>([]);
@@ -23,8 +28,14 @@ const LandlordMessaging = () => {
 
   const { accessToken } = useAuth();
 
+  if(!accessToken) {
+    return 
+  } 
+
+  const decoded = jwtDecode<MyJwtPayload>(accessToken)
+  
   // Set your current user (in production, you'd use user ID or JWT)
-  const currentUserId = 'landlord_1';
+  const currentUserId = decoded.userID;
 
   useEffect(() => {
     const socket = io('http://localhost:3000');
@@ -71,7 +82,6 @@ const LandlordMessaging = () => {
   const hasError = !!error;
 
   const convoWith = activeIndex !== null ? people[activeIndex] : '';
-  console.log('msg', messages['@johndoe817848'])
 
   useEffect(() => {
     if (!convoWith) return;
