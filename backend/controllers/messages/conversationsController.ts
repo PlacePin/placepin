@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import { excludeFields, getUserById } from "../../utils/user";
 import { DirectMessageModel } from "../../database/models/Message.model";
 
-export const getUserConversations = async (
+export const getUsernames = async (
   req: Request,
   res: Response
 ) => {
@@ -52,4 +52,8 @@ export const getUserConversations = async (
     console.error('Unexpected Error', err);
     return res.status(500).json({ message: 'Oops! Something went wrong!' })
   }
+}
+
+export const getConversations = async (req: Request, res: Response) => {
+
 }

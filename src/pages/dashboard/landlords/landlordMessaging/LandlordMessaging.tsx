@@ -55,7 +55,7 @@ const LandlordMessaging = () => {
     };
   }, []);
 
-  const { data, error } = useGetAxios('/api/messages/conversations');
+  const { data, error } = useGetAxios('/api/messages/usernames');
 
   useEffect(() => {
     if (data?.usernames) {
