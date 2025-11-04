@@ -22,6 +22,7 @@ const LandlordMessaging = () => {
   const [inputValue, setInputValue] = useState('');
   const [showCompose, setShowCompose] = useState(false);
   const socketRef = useRef<Socket | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const { accessToken } = useAuth();
 
@@ -107,6 +108,13 @@ const LandlordMessaging = () => {
     conversation();
   }, [convoWith]);
 
+  useEffect(() => {
+    const position = scrollRef.current
+    if(position){
+      position.scrollTop = position.scrollHeight
+    }
+  }, [messages])
+
 
   const handleSend = () => {
     if (!inputValue.trim() || !convoWith) return;
@@ -162,7 +170,10 @@ const LandlordMessaging = () => {
           {convoWith ? (
             <>
               <h3 className={`${activeIndex !== null && styles.header}`}>{convoWith}</h3>
-              <div className={styles.dialog}>
+              <div 
+              className={styles.dialog}
+              ref={scrollRef}
+              >
                 {(messages[convoWith] || []).map((message, i) => (
                   <p
                     key={i}
