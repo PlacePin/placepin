@@ -181,9 +181,11 @@ const LandlordMessaging = () => {
                 ref={scrollRef}
               >
                 {(messages[convoWith] || []).map((message, i) => (
-                  <>
+                  <div
+                    className={styles.messageWrapper}
+                    key={i}
+                  >
                     <p
-                      key={i}
                       className={message.sender === convoWith ? styles.outgoing : styles.incoming}
                     >
                       <strong>
@@ -203,7 +205,7 @@ const LandlordMessaging = () => {
                         minute: '2-digit'
                       })}
                     </span>
-                  </>
+                  </div>
                 ))}
               </div>
               <div className={styles.messageText}>
