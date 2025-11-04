@@ -30,7 +30,7 @@ const LandlordMessaging = () => {
     return
   }
 
-  const decoded = jwtDecode<DecodedAccessToken>(accessToken)
+  const decoded = jwtDecode<DecodedAccessToken>(accessToken);
 
   // Set your current user (in production, you'd use user ID or JWT)
   const currentUserId = decoded.userID;
@@ -115,6 +115,11 @@ const LandlordMessaging = () => {
     }
   }, [messages])
 
+  const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if(e.key === 'Enter'){
+      handleSend()
+    }
+  }
 
   const handleSend = () => {
     if (!inputValue.trim() || !convoWith) return;
@@ -205,6 +210,7 @@ const LandlordMessaging = () => {
                   onChange={(e) => setInputValue(e.target.value)}
                   className={styles.inputMessage}
                   placeholder="Write a message..."
+                  onKeyDown={handleEnter}
                 />
                 <button onClick={handleSend} className={styles.button}>
                   Send
