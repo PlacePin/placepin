@@ -4,7 +4,7 @@ import { DirectMessageModel } from './database/models/Message.model';
 import { LandlordModel } from './database/models/Landlord.model';
 import { TenantModel } from './database/models/Tenant.model';
 
-interface DMData {
+interface DMDataProps {
   senderId: string;
   recipientUsername: string;
   content: string;
@@ -19,12 +19,9 @@ export function chatSocket(server: any) {
   });
 
   io.on('connection', (socket) => {
-    console.log(`User connected: ${socket.id}`);
-
     // Each user joins their personal "room"
     socket.on('join_room', (userId) => {
       socket.join(userId);
-      console.log(`${userId} joined their room`);
     });
 
     // Handle private messages
@@ -34,7 +31,7 @@ export function chatSocket(server: any) {
         senderId,
         recipientUsername,
         content,
-      }: DMData
+      }: DMDataProps
       ) => {
         try {
           const time = new Date();
@@ -51,7 +48,6 @@ export function chatSocket(server: any) {
           let conversation = await DirectMessageModel.findOne({
             participants: { $all: [senderId, receiverId] },
           });
-          console.log('convo', conversation)
 
           if (!conversation) {
             // Create new conversation if none exists
@@ -77,14 +73,13 @@ export function chatSocket(server: any) {
             senderId,
             receiverId,
             content,
-            time: time.toISOString(),
+            sentAt: time,
           };
 
           // Emit to both recipient and sender
           io.to(receiverId).emit('private_message', message);
           io.to(senderId).emit('private_message', message);
 
-          console.log('Message saved & emitted:', message);
         } catch (err) {
           console.error('Error saving message:', err);
         }

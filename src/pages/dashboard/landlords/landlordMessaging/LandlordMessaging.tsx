@@ -3,20 +3,17 @@ import { useAuth } from '../../../../context/AuthContext';
 import { useEffect, useRef, useState } from 'react';
 import { Plus } from 'lucide-react';
 import { io, Socket } from 'socket.io-client';
-import { jwtDecode, type JwtPayload } from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import styles from './landlordMessaging.module.css';
 import ComposeModal from '../../../../components/modals/ComposeModal';
+import type { DecodedAccessToken } from '../../../../interfaces/interfaces';
 
 type Message = {
   sender: string;
   content: string;
-  time: string;
+  sentAt: string;
 };
-
-interface MyJwtPayload extends JwtPayload {
-  userID?: string
-}
 
 const LandlordMessaging = () => {
   const [people, setPeople] = useState<string[]>([]);
@@ -32,7 +29,7 @@ const LandlordMessaging = () => {
     return
   }
 
-  const decoded = jwtDecode<MyJwtPayload>(accessToken)
+  const decoded = jwtDecode<DecodedAccessToken>(accessToken)
 
   // Set your current user (in production, you'd use user ID or JWT)
   const currentUserId = decoded.userID;
@@ -54,7 +51,7 @@ const LandlordMessaging = () => {
       senderId: string;
       receiverId: string;
       content: string;
-      time: string
+      sentAt: string
     }) => {
       const isSelf = data.senderId === currentUserId;
       const chatPartnerId = isSelf ? data.receiverId : data.senderId;
@@ -67,10 +64,7 @@ const LandlordMessaging = () => {
         {
           sender: isSelf ? 'You' : chatPartnerUsername,
           content: data.content,
-          time: new Date(data.time).toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit'
-          })
+          sentAt: data.sentAt
         }],
       }));
     });
@@ -124,12 +118,6 @@ const LandlordMessaging = () => {
     };
 
     socketRef.current?.emit('private_message', messageData);
-
-    // setMessages((prev) => ({
-    //   ...prev,
-    //   [convoWith]: [...(prev[convoWith] || []), { sender: 'You', content: inputValue, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }],
-    // }));
-
     setInputValue('');
   };
 
@@ -191,7 +179,10 @@ const LandlordMessaging = () => {
                     <span
                       className={styles.time}
                     >
-                      {message.time}
+                      {new Date(message.sentAt).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      })}
                     </span>
                   </p>
                 ))}
