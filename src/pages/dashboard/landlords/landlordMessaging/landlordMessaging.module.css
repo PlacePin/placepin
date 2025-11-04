@@ -21,7 +21,7 @@
   background: white;
   border-radius: 1rem 0 0 0;
   width: 20%;
-  min-width: 220px;
+  min-width: 300px;
   max-width: 300px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   padding: 1.5rem;
@@ -37,7 +37,7 @@
   background: white;
   border-radius: 0 0 0 0.5rem;
   width: 20%;
-  min-width: 220px;
+  min-width: 300px;
   max-width: 300px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   padding: 1rem;
@@ -99,7 +99,6 @@
 
 .outgoing,
 .incoming {
-  border-radius: 0.5rem;
   margin: 0.25rem 1rem;
   padding: 0.5rem 0.75rem;
   word-wrap: break-word;
@@ -108,11 +107,13 @@
 }
 
 .outgoing {
+  border-radius: 0.5rem 0.5rem 0 0.5rem;
   background: #f5f0eb;
   align-self: flex-end;
 }
 
 .incoming {
+  border-radius: 0.5rem 0.5rem 0.5rem 0;
   color: white;
   background: #00bfa5;
   align-self: flex-start;
