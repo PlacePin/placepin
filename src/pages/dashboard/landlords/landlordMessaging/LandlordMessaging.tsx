@@ -45,6 +45,7 @@ const LandlordMessaging = () => {
     socket.on('connect', () => {
       // Join your personal room (this is what allows 1-on-1 messaging)
       socket.emit('join_room', currentUserId);
+
     });
 
     // Listen for private messages from the server
@@ -110,13 +111,13 @@ const LandlordMessaging = () => {
 
   useEffect(() => {
     const position = scrollRef.current
-    if(position){
+    if (position) {
       position.scrollTop = position.scrollHeight
     }
   }, [messages])
 
   const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if(e.key === 'Enter'){
+    if (e.key === 'Enter') {
       handleSend()
     }
   }
@@ -175,32 +176,34 @@ const LandlordMessaging = () => {
           {convoWith ? (
             <>
               <h3 className={`${activeIndex !== null && styles.header}`}>{convoWith}</h3>
-              <div 
-              className={styles.dialog}
-              ref={scrollRef}
+              <div
+                className={styles.dialog}
+                ref={scrollRef}
               >
                 {(messages[convoWith] || []).map((message, i) => (
-                  <p
-                    key={i}
-                    className={message.sender === convoWith ? styles.outgoing : styles.incoming}
-                  >
-                    <strong>
-                      {message.sender}
-                    </strong>
-                    <br />
-                    <span>
-                      {message.content}
-                    </span>
-                    <br />
+                  <>
+                    <p
+                      key={i}
+                      className={message.sender === convoWith ? styles.outgoing : styles.incoming}
+                    >
+                      <strong>
+                        {message.sender}
+                      </strong>
+                      <br />
+                      <span>
+                        {message.content}
+                      </span>
+                      <br />
+                    </p>
                     <span
-                      className={styles.time}
+                      className={`${styles.time} ${message.sender === convoWith ? styles.out : styles.in}`}
                     >
                       {new Date(message.sentAt).toLocaleTimeString([], {
                         hour: '2-digit',
                         minute: '2-digit'
                       })}
                     </span>
-                  </p>
+                  </>
                 ))}
               </div>
               <div className={styles.messageText}>
