@@ -22,7 +22,7 @@ const LandlordMessaging = () => {
   const [inputValue, setInputValue] = useState('');
   const [showCompose, setShowCompose] = useState(false);
   const socketRef = useRef<Socket | null>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
 
   const { accessToken } = useAuth();
 
