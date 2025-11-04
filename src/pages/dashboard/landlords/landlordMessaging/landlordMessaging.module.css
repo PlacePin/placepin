@@ -200,3 +200,7 @@
 .activeMessage {
   background: #f5f0eb
 }
+
+.placeholder {
+  text-align: center;
+}

@@ -225,7 +225,6 @@ const LandlordMessaging = () => {
             </div>
           )}
         </div>
-
         <div className={styles.promo}></div>
       </div>
       {showCompose && (
