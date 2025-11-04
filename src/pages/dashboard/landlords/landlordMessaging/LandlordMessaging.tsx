@@ -45,7 +45,6 @@ const LandlordMessaging = () => {
     socket.on('connect', () => {
       // Join your personal room (this is what allows 1-on-1 messaging)
       socket.emit('join_room', currentUserId);
-
     });
 
     // Listen for private messages from the server

@@ -3,6 +3,7 @@ import { Server } from 'socket.io';
 import { DirectMessageModel } from './database/models/Message.model';
 import { LandlordModel } from './database/models/Landlord.model';
 import { TenantModel } from './database/models/Tenant.model';
+import { excludeFields, getUserById } from './utils/user';
 
 interface DMDataProps {
   senderId: string;
@@ -35,11 +36,18 @@ export function chatSocket(server: any) {
       ) => {
         try {
           const time = new Date();
+
+          const user = await getUserById(senderId, excludeFields);
+
+          if (!user) {
+            throw new Error('User not found!')
+          }
+
           const receiver =
             await LandlordModel.findOne({ username: recipientUsername }) || await TenantModel.findOne({ username: recipientUsername })
 
           if (!receiver) {
-            return 'User not found!'
+            throw new Error('User not found!')
           }
 
           const receiverId = String(receiver._id)
@@ -53,7 +61,7 @@ export function chatSocket(server: any) {
             // Create new conversation if none exists
             conversation = new DirectMessageModel({
               participants: [senderId, receiverId],
-              participantsModel: ['Landlords', receiver.accountType], // Adjust this logic later to detect type dynamically
+              participantsModel: [user.accountType, receiver.accountType],
               messages: [],
             });
           }
@@ -85,10 +93,6 @@ export function chatSocket(server: any) {
         }
       }
     );
-
-    socket.on('disconnect', () => {
-      console.log(`User disconnected: ${socket.id}`);
-    });
   });
 
   return io;
