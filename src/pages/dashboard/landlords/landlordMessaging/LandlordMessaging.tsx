@@ -70,8 +70,6 @@ const LandlordMessaging = () => {
       }));
     });
 
-    socket.on('disconnect', () => console.log('Disconnected'));
-
     return () => {
       socket.disconnect();
     };

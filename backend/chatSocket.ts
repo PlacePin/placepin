@@ -44,7 +44,7 @@ export function chatSocket(server: any) {
           }
 
           const receiver =
-            await LandlordModel.findOne({ username: recipientUsername }) || await TenantModel.findOne({ username: recipientUsername })
+            await LandlordModel.findOne({ username: recipientUsername }).lean() || await TenantModel.findOne({ username: recipientUsername }).lean()
 
           if (!receiver) {
             throw new Error('User not found!')
