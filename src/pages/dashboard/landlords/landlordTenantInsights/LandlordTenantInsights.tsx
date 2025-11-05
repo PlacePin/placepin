@@ -18,12 +18,17 @@ const LandlordTenantInsights = () => {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
 
+  const isLoading = !data;
+  const hasError = !!error;
+
   const tenants = data.tenants
 
   console.log(tenants)
 
   return (
     <>
+      {isLoading && <div></div>}
+      {hasError && <div></div>}
       {tenants.length
         ?
         <div className={styles.container}>
