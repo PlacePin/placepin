@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowUp, CircleDollarSign, Users, Wallet } from 'lucide-react';
+import { CircleDollarSign, Minus, TrendingDown, TrendingUp, Users, Wallet } from 'lucide-react';
 import styles from './statsOverviewCard.module.css';
 import StatOverview from './StatOverview';
 
@@ -17,14 +17,14 @@ const StatsOverviewCard = () => {
         }
         className={styles.dollarSignIcon}
         trend={
-          <ArrowDown
+          <TrendingDown
             size={24}
           />
         }
         arrowClassName={styles.arrowDown}
       />
       <StatOverview
-        title='Expected Income'
+        title='Tenants'
         value={`2`}
         changeThisMonth={'0 new'}
         icon={
@@ -34,9 +34,15 @@ const StatsOverviewCard = () => {
           />
         }
         className={styles.usersIcon}
+        trend={
+          <Minus
+            size={24}
+          />
+        }
+        arrowClassName={styles.neutral}
       />
       <StatOverview
-        title='Expected Income'
+        title='Expenses'
         value={`$500`}
         changeThisMonth={'~6%'}
         icon={
@@ -47,7 +53,7 @@ const StatsOverviewCard = () => {
         }
         className={styles.expensesIcon}
         trend={
-          <ArrowUp
+          <TrendingUp
             size={24}
           />
         }
