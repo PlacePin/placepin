@@ -1,0 +1,29 @@
+.sectionContainer {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem 0;
+}
+
+.iconWrapper {
+  display: flex;
+  border-radius: 5rem;
+  padding: 1.75rem;
+}
+
+.sectionContent {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1rem;
+}
+
+.title {
+  color: #ACACAC;
+}
+
+.trend {
+  display: flex;
+}
+
+.arrow {
+  display: flex;
+}
