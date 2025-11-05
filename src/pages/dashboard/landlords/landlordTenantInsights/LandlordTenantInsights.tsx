@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from './landlordTenantInsights.module.css'
 import InviteTenantModal from '../../../../components/modals/InviteTenantModal';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
+import StatsOverviewCard from '../../../../components/cards/landlord/StatsOverviewCard';
 
 const LandlordTenantInsights = () => {
 
@@ -34,6 +35,7 @@ const LandlordTenantInsights = () => {
         <div className={styles.container}>
           <h2>Tenant Insights</h2>
           <div>
+            <StatsOverviewCard />
           </div>
         </div>
         :

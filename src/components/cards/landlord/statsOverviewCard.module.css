@@ -1,0 +1,41 @@
+.wrapper {
+  display: flex;
+  justify-content: space-around;
+  background: rgb(255, 255, 255);
+  margin: 1rem 2rem 0 0;
+  border-radius: 1rem;
+}
+
+.sectionContainer {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem 0;
+}
+
+.iconWrapper {
+  display: flex;
+  border-radius: 5rem;
+  padding: 1.75rem;
+}
+
+.dollarSignIcon {
+  background: #99ffc8;
+}
+
+.usersIcon {
+  background: #CAF1FF;
+}
+
+.expensesIcon {
+  background: linear-gradient(#FFA3CF 0%, #FFD4F3 100%);
+}
+
+.sectionContent {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1rem;
+}
+
+.title {
+  color: #ACACAC;
+}
