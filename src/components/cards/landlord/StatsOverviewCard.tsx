@@ -9,55 +9,55 @@ const StatsOverviewCard = () => {
         title='Expected Income'
         value={`$5000`}
         changeThisMonth={'~8%'}
+        arrowClassName={styles.arrowDown}
+        className={styles.dollarSignIcon}
         icon={
           <CircleDollarSign
             size={50}
             color='#00AC4F'
           />
         }
-        className={styles.dollarSignIcon}
         trend={
           <TrendingDown
             size={24}
           />
         }
-        arrowClassName={styles.arrowDown}
       />
       <StatOverview
         title='Tenants'
         value={`2`}
         changeThisMonth={'0 new'}
+        arrowClassName={styles.neutral}
+        className={styles.usersIcon}
         icon={
           <Users
             size={50}
             color='#0F5FC2'
           />
         }
-        className={styles.usersIcon}
         trend={
           <Minus
             size={24}
           />
         }
-        arrowClassName={styles.neutral}
       />
       <StatOverview
         title='Expenses'
         value={`$500`}
         changeThisMonth={'~6%'}
+        arrowClassName={styles.arrowUp}
+        className={styles.expensesIcon}
         icon={
           <Wallet
             size={50}
             color='#DA001A'
           />
         }
-        className={styles.expensesIcon}
         trend={
           <TrendingUp
             size={24}
           />
         }
-        arrowClassName={styles.arrowUp}
       />
     </div>
   )
