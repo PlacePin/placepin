@@ -1,5 +1,5 @@
 .container {
-  /* text-align: center; */
+  padding: 2rem 0 0 2rem;
 }
 
 .noData {
@@ -30,9 +30,19 @@
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-3px); }
-  75% { transform: translateX(3px); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-3px);
+  }
+
+  75% {
+    transform: translateX(3px);
+  }
 }
 
 .button:active {
