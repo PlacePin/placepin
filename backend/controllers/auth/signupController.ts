@@ -124,6 +124,7 @@ export const signupController = async (req: Request, res: Response) => {
     };
 
     // Save again to update the Stripe Customer ID
+    newUser.lastActive = new Date();
     await newUser.save();
 
     // Grabbing the userId transforming it to a string
@@ -142,9 +143,9 @@ export const signupController = async (req: Request, res: Response) => {
     )
 
     // Respond with the token and account type
-    res.status(201).json({ message: 'User Created Successfully', accessToken, accountType })
+    return res.status(201).json({ message: 'User Created Successfully', accessToken, accountType })
   } catch (err) {
     console.error('Failed to create user', err)
-    res.status(500).json({ message: 'Failed to create new user' })
+    return res.status(500).json({ message: 'Failed to create new user' })
   }
 }
