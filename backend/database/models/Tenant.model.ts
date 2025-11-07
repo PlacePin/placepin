@@ -25,6 +25,7 @@ const tenantSchema = new mongoose.Schema({
   gender: String,
   hasAcceptedPrivacyPolicy: Boolean,
   landlordReferral: String,
+  lastActive: { type: Date, default: null },
   password: { type: String, required: true },
   phoneNumber: Number,
   referredByLandlord: {

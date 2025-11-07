@@ -20,6 +20,7 @@ const landlordSchema = new mongoose.Schema({
   fullName: String,
   gender: String,
   hasAcceptedPrivacyPolicy: Boolean,
+  lastActive: { type: Date, default: null },
   password: { type: String, required: true },
   phoneNumber: Number,
   properties: [

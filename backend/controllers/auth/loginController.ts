@@ -19,8 +19,7 @@ export const loginController = async (req: Request, res: Response) => {
 
     // If the user does not exist in either database return error
     if (!user) {
-      res.status(401).json({ message: 'Invalid credentials. Try again.' })
-      return
+      return res.status(401).json({ message: 'Invalid credentials. Try again.' })
     }
 
     // Comparing the entered password with a password in the database
@@ -28,8 +27,7 @@ export const loginController = async (req: Request, res: Response) => {
 
     // If the password is not a match throw error
     if (!isPasswordAMatch) {
-      res.status(401).send({ message: 'Invalid credentials. Try again.' })
-      return
+      return res.status(401).send({ message: 'Invalid credentials. Try again.' })
     }
 
     // Creating an accessToke and encoding it with info. Expires in 30 days
@@ -44,9 +42,11 @@ export const loginController = async (req: Request, res: Response) => {
       { expiresIn: '30d' }
     )
 
-    // Respond with token, email, username, user, accountType
-    res.status(200).json({ message: 'Success', accessToken, email, username: user.username, accountType: user.accountType })
+    user.lastActive = new Date()
+    user.save()
 
+    // Respond with token, email, username, user, accountType
+    return res.status(200).json({ accessToken, email, username: user.username, accountType: user.accountType })
   } catch (err) {
     console.log('Could not login', err)
     res.status(500).json({ error: "Could not login" })
