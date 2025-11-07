@@ -4,6 +4,7 @@ import InviteTenantModal from '../../../../components/modals/InviteTenantModal';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
 import StatsOverviewCard from './StatsOverviewCard';
 import PaymentReliability from './PaymentReliability';
+import { firstNameLastInitial } from '../../../../utils/stringUtils';
 
 const LandlordTenantInsights = () => {
 
@@ -25,6 +26,9 @@ const LandlordTenantInsights = () => {
 
   const tenants = data.tenants
   const numberOfTenants = tenants.length
+  const tenantNames = tenants.map((tenant: {fullName: string}) => {
+    return firstNameLastInitial(tenant.fullName)
+  })
 
   console.log(tenants)
 
@@ -41,7 +45,7 @@ const LandlordTenantInsights = () => {
               numberOfTenants={numberOfTenants}
             />
           </div>
-            <PaymentReliability />
+            <PaymentReliability tenants={tenantNames}/>
         </div>
         :
         <div>

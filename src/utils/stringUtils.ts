@@ -40,3 +40,16 @@ export const streetTypeMap: Record<string, string> = {
   pkwy: "Parkway",
   parkway: "Parkway"
 };
+
+export const firstNameLastInitial = (name: string) => {
+  let nameArray = name.split(' ')
+  if (!nameArray.length) return 'No Name';
+
+  const first = nameArray[0];
+  const last = nameArray[nameArray.length - 1];
+
+  const firstNameCap = first[0].toUpperCase() + first.slice(1);
+  const lastNameInitial = last[0].toUpperCase() + '.';
+
+  return `${firstNameCap} ${lastNameInitial}`
+}
