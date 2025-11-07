@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const messageSchema = new mongoose.Schema({
   sender: {
     type: mongoose.Schema.Types.ObjectId,
-    refPath: 'participantsModel', // dynamic reference
+    refPath: 'participantsModel',
     required: true,
   },
   content: { type: String, required: true },
@@ -21,7 +21,7 @@ const directMessageSchema = new mongoose.Schema({
   participantsModel: {
     type: [String],
     required: true,
-    enum: ['Landlords', 'Tenants'], // models you already have
+    enum: ['Landlords', 'Tenants'],
   },
   messages: [messageSchema],
   lastUpdated: { type: Date, default: Date.now },

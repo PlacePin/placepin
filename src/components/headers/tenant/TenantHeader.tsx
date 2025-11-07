@@ -16,6 +16,7 @@ const TenantHeader = ({ username }: TenantHeaderProps) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [tier, setTier] = useState('');
   const wrapperRef = useRef<HTMLDivElement>(null);
+  let upperCaseUsername: string;
 
   // Click outside the modal and header to close
   useEffect(() => {
@@ -57,14 +58,16 @@ const TenantHeader = ({ username }: TenantHeaderProps) => {
         Authorization: `bearer ${accessToken}`,
       },
     })
-    
+
     res.then(data => {
       const subTier = data.data.subscriptionTier
       setTier(capitalizeWords(subTier))
     })
   }, [accessToken])
 
-  const upperCaseUsername = capitalizeWords(username)
+  !username
+    ? upperCaseUsername = 'No Username'
+    : upperCaseUsername = capitalizeWords(username)
 
   return (
     <div className={styles.tenantHeaderContainer} ref={wrapperRef}>
