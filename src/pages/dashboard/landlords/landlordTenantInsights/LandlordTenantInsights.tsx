@@ -14,8 +14,13 @@ const LandlordTenantInsights = () => {
 
   // Todo: Fix this so skeleton loading or cache so null doesn't render on each re-render
 
-  const isLoading = !data;
-  const hasError = !!error;
+  if(!data){
+    return <div>{'Loading Data'}</div>
+  }
+
+  if(error){
+    return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
+  }
 
   const tenants = data?.tenants ?? [];
   const numberOfTenants = tenants.length
@@ -27,8 +32,6 @@ const LandlordTenantInsights = () => {
 
   return (
     <>
-      {isLoading && <div></div>}
-      {hasError && <div></div>}
       {numberOfTenants
         ?
         <div className={styles.container}>

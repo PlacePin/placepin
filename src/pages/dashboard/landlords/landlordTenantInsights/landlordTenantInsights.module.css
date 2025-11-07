@@ -29,6 +29,11 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
+.button:active {
+  transform: translateY(2px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
 @keyframes shake {
 
   0%,
@@ -43,69 +48,4 @@
   75% {
     transform: translateX(3px);
   }
-}
-
-.button:active {
-  transform: translateY(2px);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-}
-
-.tenantinsights {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.metricsgrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
-}
-
-.metriccard {
-  background: #fff;
-  border-radius: 12px;
-  padding: 1rem;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-  text-align: center;
-}
-
-.chartplaceholder {
-  background: #f7f7f7;
-  padding: 3rem;
-  border-radius: 10px;
-  text-align: center;
-  color: #999;
-}
-
-.paymenttable {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.paymenttable th, .paymenttable td {
-  padding: 0.8rem;
-  border-bottom: 1px solid #eaeaea;
-  text-align: left;
-}
-
-.status, .good { color: green; }
-.status, .warn { color: #c97a00; }
-
-.renewalgrid {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.renewalcard {
-  flex: 1;
-  min-width: 220px;
-  background: #f9f9f9;
-  padding: 1.2rem;
-  border-radius: 10px;
-}
-
-.renewalcard .risk {
-  border: 1px solid #ffb800;
 }
