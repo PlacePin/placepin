@@ -13,18 +13,11 @@ const LandlordTenantInsights = () => {
   const { data, error } = useGetAxios(`/api/landlords/tenants`);
 
   // Todo: Fix this so skeleton loading or cache so null doesn't render on each re-render
-  if (!data) {
-    return <div></div>;
-  }
-
-  if (error) {
-    return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
-  }
 
   const isLoading = !data;
   const hasError = !!error;
 
-  const tenants = data.tenants
+  const tenants = data?.tenants ?? [];
   const numberOfTenants = tenants.length
   const tenantNames = tenants.map((tenant: {fullName: string}) => {
     return firstNameLastInitial(tenant.fullName)
