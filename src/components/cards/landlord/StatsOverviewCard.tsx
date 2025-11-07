@@ -2,7 +2,13 @@ import { CircleDollarSign, Minus, TrendingDown, TrendingUp, Users, Wallet } from
 import styles from './statsOverviewCard.module.css';
 import StatOverview from './StatOverview';
 
-const StatsOverviewCard = () => {
+interface StatsOverviewCardProps {
+  numberOfTenants: number,
+}
+
+const StatsOverviewCard = ({
+  numberOfTenants 
+}: StatsOverviewCardProps) => {
   return (
     <div className={styles.wrapper}>
       <StatOverview
@@ -25,7 +31,7 @@ const StatsOverviewCard = () => {
       />
       <StatOverview
         title='Tenants'
-        value={`2`}
+        value={`${numberOfTenants}`}
         changeThisMonth={'0 new'}
         arrowClassName={styles.neutral}
         className={styles.usersIcon}

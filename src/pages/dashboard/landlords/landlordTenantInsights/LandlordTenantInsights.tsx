@@ -23,6 +23,7 @@ const LandlordTenantInsights = () => {
   const hasError = !!error;
 
   const tenants = data.tenants
+  const numberOfTenants = tenants.length
 
   console.log(tenants)
 
@@ -30,12 +31,14 @@ const LandlordTenantInsights = () => {
     <>
       {isLoading && <div></div>}
       {hasError && <div></div>}
-      {tenants.length
+      {numberOfTenants
         ?
         <div className={styles.container}>
           <h2>Tenant Insights</h2>
           <div>
-            <StatsOverviewCard />
+            <StatsOverviewCard
+              numberOfTenants={numberOfTenants}
+            />
           </div>
         </div>
         :
