@@ -8,6 +8,7 @@
   overflow-x: auto;
   margin-top: 1rem;
   width: 45%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 .reliabilityTable {
