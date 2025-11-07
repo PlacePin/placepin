@@ -2,7 +2,8 @@ import { useState } from 'react';
 import styles from './landlordTenantInsights.module.css'
 import InviteTenantModal from '../../../../components/modals/InviteTenantModal';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
-import StatsOverviewCard from '../../../../components/cards/landlord/StatsOverviewCard';
+import StatsOverviewCard from './StatsOverviewCard';
+import PaymentReliability from './PaymentReliability';
 
 const LandlordTenantInsights = () => {
 
@@ -40,6 +41,7 @@ const LandlordTenantInsights = () => {
               numberOfTenants={numberOfTenants}
             />
           </div>
+            <PaymentReliability />
         </div>
         :
         <div>
