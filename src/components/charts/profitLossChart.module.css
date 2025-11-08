@@ -2,9 +2,20 @@
   margin-top: 1rem;
 }
 
+.profitLossHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .chartContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border-radius: 1rem;
   background: #fff;
   margin-top: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  max-height: 500px;
+  padding-bottom: 1rem;
 }

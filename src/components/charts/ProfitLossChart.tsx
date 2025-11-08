@@ -17,7 +17,6 @@ const ProfitLossChart = () => {
     labels: ['Profit', 'Tenant Upgrades', 'Expenses'],
     datasets: [
       {
-        label: 'My First Dataset',
         data: [5000, 50, 500],
         backgroundColor: [
           '#00bfa5',
@@ -33,6 +32,9 @@ const ProfitLossChart = () => {
 
   const options: ChartOptions<"doughnut"> = {
     responsive: true,
+    layout: {
+      padding: 30,
+    },
     plugins: {
       legend: {
         position: 'top' as const,
@@ -61,9 +63,12 @@ const ProfitLossChart = () => {
 
   return (
     <section className={styles.profitLossSection}>
-      <h3>
-        Profit & Loss
-      </h3>
+      <div className={styles.profitLossHeader}>
+        <h3>
+          Profit & Loss
+        </h3>
+        <span>Year-To-Date</span>
+      </div>
       <div className={styles.chartContainer}>
         <Doughnut
           options={options}
