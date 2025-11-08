@@ -2,6 +2,13 @@
   padding: 2rem 0 0 2rem;
 }
 
+.finances {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-right: 2rem;
+}
+
 .noData {
   margin: 2rem 0 0 2rem;
 }

@@ -5,6 +5,7 @@ import { useGetAxios } from '../../../../hooks/useGetAxios';
 import StatsOverviewCard from './StatsOverviewCard';
 import PaymentReliability from './PaymentReliability';
 import { firstNameLastInitial } from '../../../../utils/stringUtils';
+import ProfitLossChart from '../../../../components/charts/ProfitLossChart';
 
 const LandlordTenantInsights = () => {
 
@@ -14,17 +15,17 @@ const LandlordTenantInsights = () => {
 
   // Todo: Fix this so skeleton loading or cache so null doesn't render on each re-render
 
-  if(!data){
+  if (!data) {
     return <div>{'Loading Data'}</div>
   }
 
-  if(error){
+  if (error) {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
 
   const tenants = data?.tenants ?? [];
   const numberOfTenants = tenants.length
-  const tenantNames = tenants.map((tenant: {fullName: string}) => {
+  const tenantNames = tenants.map((tenant: { fullName: string }) => {
     return firstNameLastInitial(tenant.fullName)
   })
 
@@ -41,7 +42,10 @@ const LandlordTenantInsights = () => {
               numberOfTenants={numberOfTenants}
             />
           </div>
-            <PaymentReliability tenants={tenantNames}/>
+          <div className={styles.finances}>
+            <PaymentReliability tenants={tenantNames} />
+            <ProfitLossChart />
+          </div>
         </div>
         :
         <div>
