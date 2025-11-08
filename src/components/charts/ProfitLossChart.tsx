@@ -28,7 +28,11 @@ const ProfitLossChart = () => {
     ],
   };
 
-  const descriptions = ["Gross Profits", "Miscellaneous Income", "Total Expenses"];
+  const descriptions = [
+    "Gross Profits",
+    "Miscellaneous Income",
+    "Total Expenses"
+  ];
 
   const options: ChartOptions<"doughnut"> = {
     responsive: true,
