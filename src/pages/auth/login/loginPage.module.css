@@ -152,7 +152,7 @@
 .photoBadges {
   position: relative;
   width: 100%;
-  max-width: 400px;
+  max-width: 490px;
   margin: 1.5rem auto 0;
   overflow: hidden;
   display: flex;
@@ -165,7 +165,12 @@
   align-items: center;
   gap: 1rem;
   white-space: nowrap;
-  animation: scroll-left 12s linear infinite;
+  animation: scroll-left 30s linear infinite;
+  width: max-content;
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform;
 }
 
 .scrollRow:hover {
@@ -173,7 +178,7 @@
 }
 
 .scrollRow.reverse {
-  animation: scroll-right 12s linear infinite;
+  animation: scroll-right 30s linear infinite;
 }
 
 .scrollRow.reverse:hover {
@@ -192,6 +197,25 @@
 
 .reverse span {
   margin-bottom: 0.25rem
+}
+
+/* Updated keyframes for seamless looping */
+@keyframes scroll-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(calc(-33.33%), 0, 0);
+  }
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translate3d(calc(-33.33%), 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .animatedBorderWrapper {
@@ -221,6 +245,25 @@
   overflow: hidden;
 }
 
+
+/* @keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+} */
+
 @keyframes gradientBorder {
   0% {
     background-position: 0% 50%;
@@ -230,23 +273,5 @@
   }
   100% {
     background-position: 0% 50%;
-  }
-}
-
-@keyframes scroll-left {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes scroll-right {
-  0% {
-    transform: translateX(-50%);
-  }
-  100% {
-    transform: translateX(0);
   }
 }

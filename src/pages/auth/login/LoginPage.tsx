@@ -92,7 +92,12 @@ const LoginPage = () => {
                     <span>Seamless Communication</span>
                     <span>Easy Management</span>
                     <span>High Retention</span>
-                    {/* Duplicate for seamless looping */}
+                    <span>Comfort-Driven</span>
+                    <span>Simple Setup</span>
+                    <span>Trusted Platform</span>
+                    <span>Seamless Communication</span>
+                    <span>Easy Management</span>
+                    <span>High Retention</span>
                     <span>Comfort-Driven</span>
                     <span>Simple Setup</span>
                     <span>Trusted Platform</span>
@@ -101,19 +106,24 @@ const LoginPage = () => {
                     <span>High Retention</span>
                   </div>
                   <div className={`${styles.scrollRow} ${styles.reverse}`}>
-                    <span>Comfort-Driven</span>
-                    <span>Simple Setup</span>
-                    <span>Trusted Platform</span>
-                    <span>Seamless Communication</span>
-                    <span>Easy Management</span>
-                    <span>High Retention</span>
-                    {/* Duplicate for seamless looping */}
-                    <span>Comfort-Driven</span>
-                    <span>Simple Setup</span>
-                    <span>Trusted Platform</span>
-                    <span>Seamless Communication</span>
-                    <span>Easy Management</span>
-                    <span>High Retention</span>
+                    <span>Tenant Support</span>
+                    <span>Maintenance Requests</span>
+                    <span>Community Events</span>
+                    <span>Elevated Living</span>
+                    <span>Perks & Services</span>
+                    <span>Smarter Management</span>
+                    <span>Tenant Support</span>
+                    <span>Maintenance Requests</span>
+                    <span>Community Events</span>
+                    <span>Energy Efficiency</span>
+                    <span>Smart Home Features</span>
+                    <span>Flexible Payments</span>
+                    <span>Tenant Support</span>
+                    <span>Maintenance Requests</span>
+                    <span>Community Events</span>
+                    <span>Energy Efficiency</span>
+                    <span>Smart Home Features</span>
+                    <span>Flexible Payments</span>
                   </div>
                 </div>
               </div>
