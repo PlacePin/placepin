@@ -1,7 +1,7 @@
 import { useGetAxios } from '../../../../hooks/useGetAxios';
 import { useAuth } from '../../../../context/AuthContext';
 import { useEffect, useRef, useState } from 'react';
-import { Plus } from 'lucide-react';
+import { MessageCircleMore, Plus } from 'lucide-react';
 import { io, Socket } from 'socket.io-client';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
@@ -169,9 +169,9 @@ const LandlordMessaging = () => {
         </div>
 
         {/* Middle: Chat Window */}
-        <div className={styles.convo}>
+        <>
           {convoWith ? (
-            <>
+            <div className={styles.convo}>
               <h3 className={`${activeIndex !== null && styles.header}`}>{convoWith}</h3>
               <div
                 className={styles.dialog}
@@ -218,13 +218,24 @@ const LandlordMessaging = () => {
                   Send
                 </button>
               </div>
-            </>
+            </div>
           ) : (
             <div className={styles.placeholder}>
-              <p>Select a conversation to start chatting.</p>
+              <div className={styles.messageBubble}>
+                <MessageCircleMore
+                size={48}
+                color='#00bfa5'
+                />
+              </div>
+              <h4>Select a conversation</h4>
+              <p
+                className={styles.selectConvo}
+              >
+                Choose a contact from the sidebar to start chatting or continue a previous conversation.
+              </p>
             </div>
           )}
-        </div>
+        </>
         <div className={styles.promo}></div>
       </div>
       {showCompose && (
