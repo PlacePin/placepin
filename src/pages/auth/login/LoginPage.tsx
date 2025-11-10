@@ -47,49 +47,55 @@ const LoginPage = () => {
 
   return (
     <div className={styles.entireContainer}>
-      <div className={styles.wrapperContainer}>
-        <form onSubmit={handleLoginUser} className={styles.loginHeroForm}>
-          <h4>Welcome Back</h4>
-          <label className={styles.inputLabel} htmlFor="email">Email</label>
-          <input
-            type="text"
-            className={styles.inputFields}
-            onChange={(e) => setEmail(e.target.value.toLowerCase().trim())}
-            id="email"
-            required
-          />
-          <label className={styles.inputLabel} htmlFor="password">Password</label>
-          <input
-            type="password"
-            className={styles.inputFields}
-            onChange={(e) => setPassword(e.target.value)}
-            id="password"
-            required
-          />
-          <NavLink className={styles.navLink} to="/">
-            <p className={styles.forgotPassword}>Forgot Password?</p>
-          </NavLink>
-          <button>Login</button>
-          <p className={`${styles.errorMessage} ${styles.inputLabel}`}>{errorMessage}</p>
-          <p>
-            Don’t have an account? <NavLink to="/signup">Sign up</NavLink>
-          </p>
-        </form>
-        <div className={styles.photo}>
-          <img
-            src="/groupPhoto.png"
-            alt="cartoon group photo"
-          />
-          <h3>Connect anytime, anywhere</h3>
-          <div className={styles.photoBadges}>
-            <span className={styles.badge}>Free</span>
-            <span className={styles.badge}>Easy Setup</span>
-            <span className={styles.badge}>Secure</span>
+      <div className={styles.animatedBorderWrapper}>
+        <div className={styles.animatedBorderContent}>
+          <div className={styles.wrapperContainer}>
+            <form onSubmit={handleLoginUser} className={styles.loginHeroForm}>
+              <h4>Welcome Back</h4>
+              <label className={styles.inputLabel} htmlFor="email">Email</label>
+              <input
+                type="text"
+                className={styles.inputFields}
+                onChange={(e) => setEmail(e.target.value.toLowerCase().trim())}
+                id="email"
+                required
+              />
+              <label className={styles.inputLabel} htmlFor="password">Password</label>
+              <input
+                type="password"
+                className={styles.inputFields}
+                onChange={(e) => setPassword(e.target.value)}
+                id="password"
+                required
+              />
+              <NavLink className={styles.navLink} to="/">
+                <p className={styles.forgotPassword}>Forgot Password?</p>
+              </NavLink>
+              <button>Login</button>
+              <p className={`${styles.errorMessage} ${styles.inputLabel}`}>{errorMessage}</p>
+              <p>
+                Don’t have an account? <NavLink to="/signup">Sign up</NavLink>
+              </p>
+            </form>
+            <div className={styles.photo}>
+              <img
+                src="/groupPhoto.png"
+                alt="cartoon group photo"
+              />
+              <h3>Better living starts with better connections</h3>
+              <div className={styles.photoBadges}>
+                <span className={styles.badge}>Simple Setup</span>
+                <span className={styles.badge}>Secure Platform</span>
+                <span className={styles.badge}>Built for Comfort</span>
+                <span className={styles.badge}>Seamless Communication</span>
+                <span className={styles.badge}>Easy Management</span>
+                <span className={styles.badge}>High Retention</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
   )
 }
 
