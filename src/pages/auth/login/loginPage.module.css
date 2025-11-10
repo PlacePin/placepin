@@ -199,38 +199,17 @@
   margin-bottom: 0.25rem
 }
 
-/* Updated keyframes for seamless looping */
-@keyframes scroll-left {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(calc(-33.33%), 0, 0);
-  }
-}
-
-@keyframes scroll-right {
-  0% {
-    transform: translate3d(calc(-33.33%), 0, 0);
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-}
-
 .animatedBorderWrapper {
   position: relative;
   width: 100%;
   max-width: 1100px;
   border-radius: 1rem;
   padding: 3px;
-  background: linear-gradient(
-    120deg,
-  #00bfa5,
-  #2dd4bf,
-  #0ea5e9,
-  #00bfa5
-  );
+  background: linear-gradient(120deg,
+      #00bfa5,
+      #2dd4bf,
+      #0ea5e9,
+      #00bfa5);
   background-size: 300% 300%;
   animation: gradientBorder 10s ease infinite;
   overflow: hidden;
@@ -245,33 +224,36 @@
   overflow: hidden;
 }
 
-
-/* @keyframes scroll-left {
+@keyframes gradientBorder {
   0% {
-    transform: translateX(0);
+    background-position: 0% 50%;
   }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
   100% {
-    transform: translateX(-100%);
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(calc(-33.33%), 0, 0);
   }
 }
 
 @keyframes scroll-right {
   0% {
-    transform: translateX(-100%);
+    transform: translate3d(calc(-33.33%), 0, 0);
   }
-  100% {
-    transform: translateX(0);
-  }
-} */
 
-@keyframes gradientBorder {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
   100% {
-    background-position: 0% 50%;
+    transform: translate3d(0, 0, 0);
   }
 }
