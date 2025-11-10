@@ -115,6 +115,15 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  max-width: 50%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .photo {
+    max-width: 100%;
+  }
 }
 
 .photo img {
@@ -133,61 +142,48 @@
   text-align: center;
 }
 
+.carouselContainer {
+  text-align: center;
+  overflow: hidden;
+  padding: 1.5rem 0;
+  width: 100%;
+}
+
 .photoBadges {
   position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 1.5rem auto 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  width: 100%;
-  max-width: 450px;
-  margin: 1rem auto 0;
 }
 
-/* Each row wrapper */
-.badgeRow {
-  display: flex;
-  gap: 0.75rem;
+.scrollRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
   white-space: nowrap;
+  animation: scroll-left 30s linear infinite;
 }
 
-/* Animation for top row (→) */
-.badgeRow:nth-child(1) {
-  animation: scrollRight 18s linear infinite;
+.scrollRow:hover {
+  animation-play-state: paused;
 }
 
-/* Animation for bottom row (←) */
-.badgeRow:nth-child(2) {
-  animation: scrollLeft 18s linear infinite;
+.scrollRow.reverse {
+  animation: scroll-right 30s linear infinite;
 }
 
-/* Individual badge style (same as before) */
-.badge {
-  background-color: #00bfa5;
-  color: white;
-  padding: 0.4rem 0.9rem;
-  border-radius: 9999px;
-  font-size: 0.8rem;
+.scrollRow span {
   display: inline-block;
-}
-
-/* Animations */
-@keyframes scrollRight {
-  0% {
-    transform: translateX(-50%);
-  }
-  100% {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes scrollLeft {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  background: #e0f2f1;
+  color: #004d40;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .animatedBorderWrapper {
@@ -226,5 +222,23 @@
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
