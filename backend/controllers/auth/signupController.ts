@@ -105,9 +105,7 @@ export const signupController = async (req: Request, res: Response) => {
     // Save the user to the database
     await newUser.save();
 
-    const stripeAccess = new Stripe(STRIPE_TEST_SECRET_KEY, {
-      apiVersion: '2025-09-30.clover',
-    })
+    const stripeAccess = new Stripe(STRIPE_TEST_SECRET_KEY)
 
     // If the user already has a stripe customer id save it here
     let stripeCustomerId = newUser.subscription!.stripeCustomerId;
