@@ -21,12 +21,13 @@
 .leftSide {
   flex: 1;
   padding: 3em 2em;
-  color: #fff;
+  color: #1e293b;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   overflow-y: auto;
   gap: 1.5em;
+  background: linear-gradient(145deg, #ffffff, #f2f5fa);
 }
 
 .signupLogo {
@@ -37,7 +38,7 @@
 
 .h1 {
   font-size: 2rem;
-  font-family: 'Martian Mono', monospace;
+  /* font-family: 'Martian Mono', monospace; */
   margin-bottom: 1em;
 }
 
@@ -64,6 +65,7 @@
   justify-content: center;
   align-items: flex-start;
   overflow-y: auto;
+  color: #1e293b;
 }
 
 .heroForm {

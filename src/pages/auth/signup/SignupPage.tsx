@@ -70,7 +70,6 @@ const SignupPage = () => {
   return (
     <div className={styles.topContainer}>
       <div className={styles.mainContainer}>
-        {/* LEFT SIDE */}
         <section className={styles.leftSide}>
           <NavLink to='/' className={styles.navLink}>
             <div className={styles.signupLogo}>PlacePin</div>
@@ -95,12 +94,9 @@ const SignupPage = () => {
             </li>
           </ul>
         </section>
-
-        {/* RIGHT SIDE - Form */}
         <div className={styles.rightSide}>
           <form onSubmit={handleCreateAccount} className={styles.heroForm}>
             <h4>Create your PlacePin account</h4>
-
             <label className={styles.inputLabel} htmlFor='name'>Full Name</label>
             <input
               type="text"
@@ -110,7 +106,6 @@ const SignupPage = () => {
               placeholder='Dinah Johnson'
               required
             />
-
             <label className={styles.inputLabel} htmlFor='email'>Email</label>
             <input
               type="email"
@@ -120,7 +115,6 @@ const SignupPage = () => {
               placeholder="djohnson@gmail.com"
               required
             />
-
             <label className={styles.inputLabel} htmlFor='accountType'>Account Type</label>
             <select
               className={styles.inputFields}
@@ -132,7 +126,6 @@ const SignupPage = () => {
               <option value="tenant">Tenant</option>
               <option value="landlord">Landlord</option>
             </select>
-
             {accountType === 'tenant' && <>
               <label className={styles.inputLabel} htmlFor='landlordReferral'>Landlord Referral Code</label>
               <input
@@ -142,7 +135,6 @@ const SignupPage = () => {
                 id='landlordReferral'
                 placeholder='Referral Code (Optional)' />
             </>}
-
             <label className={styles.inputLabel} htmlFor='address'>Address</label>
             <input
               type="text"
@@ -152,7 +144,6 @@ const SignupPage = () => {
               placeholder='123 Main Street, Boston MA, 02136'
               required
             />
-
             <label className={styles.inputLabel} htmlFor='phoneNumber'>Phone Number</label>
             <input
               type="tel"
@@ -162,7 +153,6 @@ const SignupPage = () => {
               placeholder='617-555-5555'
               required
             />
-
             <label className={styles.inputLabel} htmlFor='password'>Password</label>
             <input
               type="password"
@@ -172,7 +162,6 @@ const SignupPage = () => {
               placeholder='********'
               required
             />
-
             <button type="submit">Submit</button>
             <p
               className={styles.login}

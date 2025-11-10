@@ -83,7 +83,7 @@ const LoginPage = () => {
                 alt="cartoon group photo"
               />
               <div className={styles.carouselContainer}>
-                <h3>Where tenants feel at home — every day</h3>
+                <h3>Where tenants feel at home, every day!</h3>
                 <div className={styles.photoBadges}>
                   <div className={styles.scrollRow}>
                     <span>Comfort-Driven</span>
