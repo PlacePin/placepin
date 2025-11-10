@@ -84,12 +84,18 @@ const LoginPage = () => {
               />
               <h3>Better living starts with better connections</h3>
               <div className={styles.photoBadges}>
+                <div className={styles.badgeRow}>
+
                 <span className={styles.badge}>Simple Setup</span>
                 <span className={styles.badge}>Secure Platform</span>
                 <span className={styles.badge}>Built for Comfort</span>
+                </div>
+                <div className={styles.badgeRow}>
+
                 <span className={styles.badge}>Seamless Communication</span>
                 <span className={styles.badge}>Easy Management</span>
                 <span className={styles.badge}>High Retention</span>
+                </div>
               </div>
             </div>
           </div>
