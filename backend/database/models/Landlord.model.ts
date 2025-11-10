@@ -23,6 +23,10 @@ const landlordSchema = new mongoose.Schema({
   lastActive: { type: Date, default: null },
   password: { type: String, required: true },
   phoneNumber: Number,
+  profilePic: {
+    type: String,
+    default: "",
+  },
   properties: [
     {
       name: String,

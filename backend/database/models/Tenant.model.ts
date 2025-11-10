@@ -28,6 +28,10 @@ const tenantSchema = new mongoose.Schema({
   lastActive: { type: Date, default: null },
   password: { type: String, required: true },
   phoneNumber: Number,
+  profilePic: {
+    type: String,
+    default: "",
+  },
   referredByLandlord: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Landlords",
