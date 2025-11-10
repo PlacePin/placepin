@@ -1,89 +1,103 @@
-.primarySection {
-  padding: 3em 6em;
+.topContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   background: linear-gradient(135deg, #00bfa5 0%, #4dd0e1 100%);
-  width: 60%;
-  border-radius: 0 0 1em 1em;
-  height: auto;
+  font-family: 'PT Serif Caption', serif;
 }
 
-.li {
-  list-style-type: none;
-  color: #fff;
-  margin: 0 0 2em 0;
+.mainContainer {
+  display: flex;
+  width: 90%;
+  max-width: 1200px;
+  min-height: 80vh;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1em;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
 }
 
-.h1 {
-  font-family: 'Martian Mono', sans-serif;
+.leftSide {
+  flex: 1;
+  padding: 3em 2em;
   color: #fff;
-  font-size: 35px;
-  margin: 0 5em 1em 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: auto;
+  gap: 1.5em;
 }
 
 .signupLogo {
-  margin: 0 0 2em 0;
-  color: #fff;
-  font-size: 25px;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1em;
 }
 
-.p {
-  padding: 0 10em 0 0;
-  font-family: "PT Serif Caption", serif;
+.h1 {
+  font-size: 2rem;
+  font-family: 'Martian Mono', monospace;
+  margin-bottom: 1em;
+}
+
+.li {
+  list-style: none;
+  margin-bottom: 1.5em;
 }
 
 .h4 {
-  margin: 0 0 1em 0;
-  font-family: "PT Serif Caption", serif;
-  font-size: 18px;
+  font-size: 1.1rem;
+  margin-bottom: 0.3em;
 }
 
-.topContainer {
+.p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.rightSide {
+  flex: 1;
+  padding: 3em 2em;
+  background: #ffffff;
   display: flex;
-  align-items: stretch;
-  background: #f5f0eb;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
 }
 
 .heroForm {
-  width: 40rem;
-  padding: 2em;
-  border-radius: 1em;
-  background: linear-gradient(145deg, #ffffff, #f2f5fa);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-  z-index: 10;
+  width: 100%;
+  max-width: 28rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 1em;
-  margin: 3rem 0 3rem -8rem;
-  align-self: flex-start;
-}
-
-.inputFields {
-  width: 80%;
-  height: 2.5em;
-  padding: 0.5em;
-  font-size: 1em;
-  border-radius: 0.5em;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
 }
 
 .inputLabel {
-  width: 80%;
-  font-family: "PT Serif Caption";
-  font-size: 0.9em;
-  margin: 0.5em 0 0.2em;
+  font-size: 0.9rem;
+  margin-bottom: 0.2em;
+}
+
+.inputFields {
+  width: 100%;
+  padding: 0.5em;
+  height: 2.5em;
+  border-radius: 0.5em;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  box-sizing: border-box;
 }
 
 .heroForm button {
-  width: 80%;
+  width: 100%;
   height: 2.5em;
-  background-image: linear-gradient(135deg, #00bfa5 0%, #4dd0e1 100%);
-  color: white;
   border: none;
   border-radius: 0.5em;
-  font-size: 1em;
+  background-image: linear-gradient(135deg, #00bfa5 0%, #4dd0e1 100%);
+  color: white;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .errorMessage {
@@ -96,12 +110,19 @@
   color: inherit;
 }
 
-@media (min-width: 1360px) {
-  .primarySection {
-    padding: 3em 6em;
-    background: linear-gradient(135deg, #00bfa5 0%, #4dd0e1 100%);
-    width: 60%;
-    border-radius: 0 0 1em 1em;
-    min-height: 100vh;
+.login {
+  text-align: center;
+}
+
+@media (max-width: 1024px) {
+  .mainContainer {
+    flex-direction: column;
+  }
+
+  .leftSide,
+  .rightSide {
+    flex: unset;
+    width: 100%;
+    padding: 2em;
   }
 }
