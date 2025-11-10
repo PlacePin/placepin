@@ -7,9 +7,12 @@ import { TenantModel } from "../../../database/models/Tenant.model";
 dotenv.config();
 const STRIPE_TEST_SECRET_KEY = process.env.STRIPE_TEST_SECRET_KEY!;
 const STRIPE_TEST_WEBHOOK_SECRET = process.env.STRIPE_TEST_WEBHOOK_SECRET!;
-const stripe = new Stripe(STRIPE_TEST_SECRET_KEY, { apiVersion: "2025-09-30.clover" });
+const stripe = new Stripe(STRIPE_TEST_SECRET_KEY);
 
-export const stripeWebhookController = async (req: Request, res: Response) => {
+export const stripeWebhookController = async (
+  req: Request,
+  res: Response
+) => {
   const sig = req.headers["stripe-signature"] as string | undefined;
   if (!sig || !STRIPE_TEST_WEBHOOK_SECRET) {
     return res.status(400).send("Missing signature or webhook secret");

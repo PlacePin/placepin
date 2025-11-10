@@ -29,9 +29,7 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
     }
 
     // Instantiating a new Stripe object for stripe interactions
-    const stripeAccess = new Stripe(STRIPE_TEST_SECRET_KEY, {
-      apiVersion: '2025-09-30.clover',
-    })
+    const stripeAccess = new Stripe(STRIPE_TEST_SECRET_KEY)
 
     if (user && user.accountType === 'tenant') {
       user.subscription = {

@@ -22,7 +22,7 @@ const SaveCardForm = () => {
       // Create SetupIntent on the server
       const { data } = await axios.post(
         "/api/settings/savecardform",
-        null,
+        {},
         {
           headers: {
             Authorization: `bearer ${accessToken}`
@@ -49,18 +49,17 @@ const SaveCardForm = () => {
         // Send the paymentMethodId back to the same route to store it
         const res = await axios.post(
           "/api/settings/savecardform",
-          paymentMethodId,
+          {
+            paymentMethodId
+          },
           {
             headers: {
               Authorization: `bearer ${accessToken}`
             }
           }
         );
-
         setMessage(res.data.message)
       }
-
-      console.log("Card saved and stored in database!");
     } catch (err) {
       console.error(err);
     } finally {

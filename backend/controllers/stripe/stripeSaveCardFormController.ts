@@ -7,15 +7,13 @@ import { LandlordModel } from "../../database/models/Landlord.model";
 dotenv.config();
 const STRIPE_TEST_SECRET_KEY = process.env.STRIPE_TEST_SECRET_KEY!;
 
-const stripe = new Stripe(STRIPE_TEST_SECRET_KEY, {
-  apiVersion: "2025-09-30.clover",
-});
+const stripe = new Stripe(STRIPE_TEST_SECRET_KEY);
 
 export const stripeSaveCardForm = async (
   req: Request,
   res: Response
 ) => {
-  const paymentMethodId = req.body;
+  const { paymentMethodId } = req.body || {};
   const userId = req.userId;
 
   try {
