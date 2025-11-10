@@ -165,7 +165,7 @@
   align-items: center;
   gap: 1rem;
   white-space: nowrap;
-  animation: scroll-left 30s linear infinite;
+  animation: scroll-left 12s linear infinite;
 }
 
 .scrollRow:hover {
@@ -173,7 +173,11 @@
 }
 
 .scrollRow.reverse {
-  animation: scroll-right 30s linear infinite;
+  animation: scroll-right 12s linear infinite;
+}
+
+.scrollRow.reverse:hover {
+  animation-play-state: paused;
 }
 
 .scrollRow span {
@@ -184,6 +188,10 @@
   border-radius: 9999px;
   font-weight: 500;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.reverse span {
+  margin-bottom: 0.25rem
 }
 
 .animatedBorderWrapper {
