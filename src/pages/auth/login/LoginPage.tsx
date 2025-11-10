@@ -32,10 +32,10 @@ const LoginPage = () => {
       if (res.status === 200) {
         const { accessToken, accountType, email, username } = res.data
         login(accessToken, email, username)
-        if(accountType === 'landlord'){
+        if (accountType === 'landlord') {
           navigate(LANDLORD_ROUTES.DASHBOARD)
         }
-        if(accountType === 'tenant'){
+        if (accountType === 'tenant') {
           navigate(TENANT_ROUTES.DASHBOARD)
         }
       }
@@ -47,42 +47,49 @@ const LoginPage = () => {
 
   return (
     <div className={styles.entireContainer}>
-      <form onSubmit={handleLoginUser} className={styles.loginHeroForm}>
-        <h4>
-          Login
-        </h4>
-        <label
-          className={styles.inputLabel}
-          htmlFor='email'
-        >
-          Email
-        </label>
-        <input
-          type="text"
-          className={styles.inputFields}
-          onChange={(e) => setEmail(e.target.value.toLowerCase().trim())}
-          id='email'
-          required
-        />
-        <label
-          className={styles.inputLabel}
-          htmlFor='password'
-        >
-          Password
-        </label>
-        <input
-          type="password"
-          className={styles.inputFields}
-          onChange={(e) => setPassword(e.target.value)}
-          id='password'
-          required
-        />
-        <NavLink className={styles.navLink} to='/'><p className={styles.forgotPassword}>Forgot Password?</p></NavLink>
-        <button>Submit</button>
-        <p className={`${styles.errorMessage} ${styles.inputLabel}`}>{errorMessage}</p>
-        <p>Don't have an account? <NavLink to='/signup'>Sign up</NavLink></p>
-      </form>
+      <div className={styles.wrapperContainer}>
+        <form onSubmit={handleLoginUser} className={styles.loginHeroForm}>
+          <h4>Welcome Back</h4>
+          <label className={styles.inputLabel} htmlFor="email">Email</label>
+          <input
+            type="text"
+            className={styles.inputFields}
+            onChange={(e) => setEmail(e.target.value.toLowerCase().trim())}
+            id="email"
+            required
+          />
+          <label className={styles.inputLabel} htmlFor="password">Password</label>
+          <input
+            type="password"
+            className={styles.inputFields}
+            onChange={(e) => setPassword(e.target.value)}
+            id="password"
+            required
+          />
+          <NavLink className={styles.navLink} to="/">
+            <p className={styles.forgotPassword}>Forgot Password?</p>
+          </NavLink>
+          <button>Login</button>
+          <p className={`${styles.errorMessage} ${styles.inputLabel}`}>{errorMessage}</p>
+          <p>
+            Don’t have an account? <NavLink to="/signup">Sign up</NavLink>
+          </p>
+        </form>
+        <div className={styles.photo}>
+          <img
+            src="/groupPhoto.png"
+            alt="cartoon group photo"
+          />
+          <h3>Connect anytime, anywhere</h3>
+          <div className={styles.photoBadges}>
+            <span className={styles.badge}>Free</span>
+            <span className={styles.badge}>Easy Setup</span>
+            <span className={styles.badge}>Secure</span>
+          </div>
+        </div>
+      </div>
     </div>
+
   )
 }
 
