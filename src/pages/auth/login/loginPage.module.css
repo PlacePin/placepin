@@ -222,7 +222,7 @@
   overflow: hidden;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .photo {
     max-width: 100%;
   }
@@ -236,7 +236,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 767px) {
   .wrapperContainer {
     flex-direction: row;
     height: 80vh;
