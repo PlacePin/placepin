@@ -7,14 +7,6 @@
   padding: 1rem;
 }
 
-@media (max-width: 768px) {
-  .entireContainer {
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-direction: column;
-  }
-}
-
 .wrapperContainer {
   display: flex;
   flex-direction: column;
@@ -24,13 +16,6 @@
   overflow: hidden;
   background: #f7fafc;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
-}
-
-@media (min-width: 768px) {
-  .wrapperContainer {
-    flex-direction: row;
-    height: 80vh;
-  }
 }
 
 .loginHeroForm {
@@ -45,12 +30,6 @@
   flex-direction: column;
   align-items: center;
   margin-top: 5rem;
-}
-
-@media(max-width: 768px){
-  .loginContent {
-    margin-top: 0;
-  }
 }
 
 .loginLogo {
@@ -143,12 +122,6 @@
   max-width: 50%;
   box-sizing: border-box;
   overflow: hidden;
-}
-
-@media (max-width: 768px) {
-  .photo {
-    max-width: 100%;
-  }
 }
 
 .photo img {
@@ -247,6 +220,27 @@
   height: 100%;
   width: 100%;
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .photo {
+    max-width: 100%;
+  }
+  .loginContent {
+    margin-top: 0;
+  }
+  .entireContainer {
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 768px) {
+  .wrapperContainer {
+    flex-direction: row;
+    height: 80vh;
+  }
 }
 
 @keyframes gradientBorder {
