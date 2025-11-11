@@ -51,31 +51,36 @@ const LoginPage = () => {
         <div className={styles.animatedBorderContent}>
           <div className={styles.wrapperContainer}>
             <form onSubmit={handleLoginUser} className={styles.loginHeroForm}>
-              <h4>Welcome Back</h4>
-              <label className={styles.inputLabel} htmlFor="email">Email</label>
-              <input
-                type="text"
-                className={styles.inputFields}
-                onChange={(e) => setEmail(e.target.value.toLowerCase().trim())}
-                id="email"
-                required
-              />
-              <label className={styles.inputLabel} htmlFor="password">Password</label>
-              <input
-                type="password"
-                className={styles.inputFields}
-                onChange={(e) => setPassword(e.target.value)}
-                id="password"
-                required
-              />
-              <NavLink className={styles.navLink} to="/">
-                <p className={styles.forgotPassword}>Forgot Password?</p>
+              <NavLink to='/' className={styles.navLink}>
+                <div className={styles.loginLogo}>PlacePin</div>
               </NavLink>
-              <button>Login</button>
-              <p className={`${styles.errorMessage} ${styles.inputLabel}`}>{errorMessage}</p>
-              <p>
-                Don’t have an account? <NavLink to="/signup">Sign up</NavLink>
-              </p>
+              <div className={styles.loginContent}>
+                <h4>Welcome Back</h4>
+                <label className={styles.inputLabel} htmlFor="email">Email</label>
+                <input
+                  type="text"
+                  className={styles.inputFields}
+                  onChange={(e) => setEmail(e.target.value.toLowerCase().trim())}
+                  id="email"
+                  required
+                />
+                <label className={styles.inputLabel} htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  className={styles.inputFields}
+                  onChange={(e) => setPassword(e.target.value)}
+                  id="password"
+                  required
+                />
+                <NavLink className={styles.navLink} to="/">
+                  <p className={styles.forgotPassword}>Forgot Password?</p>
+                </NavLink>
+                <button>Login</button>
+                <p className={`${styles.errorMessage} ${styles.inputLabel}`}>{errorMessage}</p>
+                <p>
+                  Don’t have an account? <NavLink to="/signup">Sign up</NavLink>
+                </p>
+              </div>
             </form>
             <div className={styles.photo}>
               <img

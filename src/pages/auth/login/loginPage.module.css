@@ -7,6 +7,14 @@
   padding: 1rem;
 }
 
+@media (max-width: 768px) {
+  .entireContainer {
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+}
+
 .wrapperContainer {
   display: flex;
   flex-direction: column;
@@ -29,11 +37,28 @@
   flex: 1;
   padding: 3rem 2rem;
   background: linear-gradient(145deg, #ffffff, #f2f5fa);
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.loginContent {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  margin-top: 5rem;
+}
+
+@media(max-width: 768px){
+  .loginContent {
+    margin-top: 0;
+  }
+}
+
+.loginLogo {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1em;
+  color: #00bfa5;
+  font-family: 'PT Serif Caption', serif;
 }
 
 .loginHeroForm h4 {
