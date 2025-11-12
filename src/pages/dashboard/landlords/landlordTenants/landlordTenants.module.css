@@ -96,6 +96,11 @@
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
+.portalBody {
+  display: grid;
+  grid-template-columns: 0.8fr 2fr 0.8fr;
+}
+
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-3px); }

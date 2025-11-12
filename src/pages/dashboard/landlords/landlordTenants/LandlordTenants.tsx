@@ -6,6 +6,7 @@ import { Info } from 'lucide-react';
 import { capitalizeWords } from '../../../../utils/stringUtils';
 import TenantPortal from './tenantPortal/TenantPortal';
 import PortalHeader from './tenantPortal/PortalHeader';
+import TenantSummary from './tenantPortal/Tenantsummary';
 
 const LandlordTenants = () => {
 
@@ -81,6 +82,11 @@ const LandlordTenants = () => {
             tenantName={selectedTenant.fullName}
             onClose={() => setSelectedTenant(null)}
           />
+          <div className={styles.portalBody}>
+            <TenantSummary />
+            <div>bbbbb</div>
+            <div>ccccc</div>
+          </div>
         </TenantPortal>) : numberOfTenants
         ?
         <div className={styles.container}>
