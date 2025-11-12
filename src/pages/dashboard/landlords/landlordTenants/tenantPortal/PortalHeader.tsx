@@ -32,17 +32,19 @@ const PortalHeader = ({
   };
 
   const getVisibleImages = () => {
-    const visible = [];
-    for (let i = 0; i < imagesToShow; i++) {
-      const index = (currentIndex + i) % profilePic.length;
-      visible.push(
-        <div key={index} className={styles.picContainers}>
-          {profilePic[index]}
-        </div>
-      );
-    }
-    return visible;
-  };
+  const visible = [];
+  const count = Math.min(imagesToShow, profilePic.length);
+  
+  for (let i = 0; i < count; i++) {
+    const index = (currentIndex + i) % profilePic.length;
+    visible.push(
+      <div key={index} className={styles.picContainers}>
+        {profilePic[index]}
+      </div>
+    );
+  }
+  return visible;
+};
 
   return (
     <section className={styles.wrapper}>
