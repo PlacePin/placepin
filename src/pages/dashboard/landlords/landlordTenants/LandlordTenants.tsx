@@ -5,6 +5,7 @@ import { useGetAxios } from '../../../../hooks/useGetAxios';
 import { Info } from 'lucide-react';
 import { capitalizeWords } from '../../../../utils/stringUtils';
 import TenantPortal from './tenantPortal/TenantPortal';
+import PortalHeader from './tenantPortal/PortalHeader';
 
 const LandlordTenants = () => {
 
@@ -25,6 +26,7 @@ const LandlordTenants = () => {
   console.log(data)
 
   const tenants = data.tenants
+  const numberOfTenants = tenants.length
 
   const tenantsCards = tenants.map((tenant: any) => {
     return (
@@ -65,8 +67,18 @@ const LandlordTenants = () => {
     <>
       {selectedTenant ? (
         <TenantPortal>
-          {selectedTenant.fullName}
-        </TenantPortal>) : tenants.length
+          <PortalHeader
+            profilePic={[
+              <img src='/emptyProfile.png' />,
+              <img src='/emptyProfile.png' />,
+              <img src='/emptyProfile.png' />,
+              <img src='/emptyProfile.png' />,
+              <img src='/emptyProfile.png' />
+            ]}
+            numberOfTenants={numberOfTenants}
+            tenantName={selectedTenant.fullName}
+          />
+        </TenantPortal>) : numberOfTenants
         ?
         <div className={styles.container}>
           <h2>Tenants</h2>
