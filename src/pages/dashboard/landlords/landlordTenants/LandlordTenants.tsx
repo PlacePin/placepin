@@ -9,7 +9,7 @@ import TenantPortal from './tenantPortal/TenantPortal';
 const LandlordTenants = () => {
 
   const [showInviteModal, setShowInviteModal] = useState(false);
-  const [showTenantPort, setShowTenantPortal] = useState(false);
+  const [selectedTenant, setSelectedTenant] = useState<any>(null);
 
   const { data, error } = useGetAxios(`/api/landlords/tenants`);
 
@@ -22,14 +22,14 @@ const LandlordTenants = () => {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
 
-  console.log(showTenantPort)
+  console.log(data)
 
   const tenants = data.tenants
 
-  const tenantsCards = tenants.map((tenant: any, i: number) => {
+  const tenantsCards = tenants.map((tenant: any) => {
     return (
       <div
-        key={i}
+        key={tenant._id}
         className={styles.tenantCards}
       >
         <div>
@@ -48,7 +48,7 @@ const LandlordTenants = () => {
           </p>
           <button
             className={styles.infoButton}
-            onClick={() => setShowTenantPortal(prev => !prev)}
+            onClick={() => setSelectedTenant(tenant)}
           >
             <Info
               size={18}
@@ -63,7 +63,10 @@ const LandlordTenants = () => {
 
   return (
     <>
-      {tenants.length
+      {selectedTenant ? (
+        <TenantPortal>
+          {selectedTenant.fullName}
+        </TenantPortal>) : tenants.length
         ?
         <div className={styles.container}>
           <h2>Tenants</h2>
@@ -89,11 +92,6 @@ const LandlordTenants = () => {
           )}
         </div>
       }
-      {showTenantPort && (
-        <TenantPortal>
-          {tenants[0].fullName}
-        </TenantPortal>
-      )}
     </>
   )
 }
