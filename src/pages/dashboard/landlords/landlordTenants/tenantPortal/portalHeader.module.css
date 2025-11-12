@@ -9,6 +9,24 @@
   flex-direction: column;
 }
 
+.backSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  width: 50%;
+  justify-content: center;
+  border: 1px solid black;
+  background: #00bfa5;
+  color: #fff;
+}
+
 .picWrapper {
   display: flex;
   align-items: center;

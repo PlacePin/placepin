@@ -79,6 +79,7 @@ const LandlordTenants = () => {
             ]}
             numberOfTenants={numberOfTenants}
             tenantName={selectedTenant.fullName}
+            onClose={() => setSelectedTenant(null)}
           />
         </TenantPortal>) : numberOfTenants
         ?

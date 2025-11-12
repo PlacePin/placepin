@@ -7,15 +7,17 @@ interface PortalHeaderProps {
   profilePic: any[],
   numberOfTenants: number,
   tenantName: string,
+  onClose: () => void,
 }
 
 const PortalHeader = ({
   profilePic,
   numberOfTenants,
   tenantName,
+  onClose,
 }: PortalHeaderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-   const imagesToShow = 5;
+  const imagesToShow = 5;
 
   const handlePrevious = () => {
     setCurrentIndex((prevIndex) =>
@@ -42,22 +44,23 @@ const PortalHeader = ({
     return visible;
   };
 
-  const pics = profilePic.map((pic, i) => {
-    return (
-      <div
-        key={i}
-        className={styles.picContainers}
-      >
-        {pic}
-      </div>
-    )
-  })
-
   return (
     <section className={styles.wrapper}>
       <div className={styles.tenantInfo}>
         <h3>{capitalizeWords(tenantName)} • Tenant</h3>
-        <span>{numberOfTenants} Tenants</span>
+        <div className={styles.backSection}>
+          <span>{numberOfTenants} Tenants</span>
+          <button
+           className={styles.backButton}
+           onClick={onClose}
+           >
+            <ChevronLeft
+            size={20}
+            />
+            <h3>Back</h3>
+          </button>
+        </div>
+
       </div>
       <div
         className={styles.picWrapper}
@@ -65,7 +68,7 @@ const PortalHeader = ({
         <ChevronLeft
           size={24}
           className={styles.chevron}
-           onClick={handlePrevious}
+          onClick={handlePrevious}
         />
         {getVisibleImages()}
         <ChevronRight
