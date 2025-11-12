@@ -70,10 +70,12 @@ const LandlordTenants = () => {
           <PortalHeader
             profilePic={[
               <img src='/emptyProfile.png' />,
+              <img src='/charts.png' />,
               <img src='/emptyProfile.png' />,
+              <img src='/triplex.png' />,
               <img src='/emptyProfile.png' />,
-              <img src='/emptyProfile.png' />,
-              <img src='/emptyProfile.png' />
+              <img src='/groupPhoto.png' />,
+              <img src='/housing.jpg' />
             ]}
             numberOfTenants={numberOfTenants}
             tenantName={selectedTenant.fullName}
