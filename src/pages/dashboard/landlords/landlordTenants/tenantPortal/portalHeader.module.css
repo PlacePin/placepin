@@ -27,6 +27,10 @@
   color: #fff;
 }
 
+.backButton span {
+  font-size: 1rem;
+}
+
 .picWrapper {
   display: flex;
   align-items: center;

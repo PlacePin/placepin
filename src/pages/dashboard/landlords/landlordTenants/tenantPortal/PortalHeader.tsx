@@ -59,7 +59,7 @@ const PortalHeader = ({
             <ChevronLeft
             size={20}
             />
-            <h3>Back</h3>
+            <span>Back</span>
           </button>
         </div>
 
