@@ -4,10 +4,12 @@ import InviteTenantModal from '../../../../components/modals/InviteTenantModal';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
 import { Info } from 'lucide-react';
 import { capitalizeWords } from '../../../../utils/stringUtils';
+import TenantPortal from './tenantPortal/TenantPortal';
 
 const LandlordTenants = () => {
 
   const [showInviteModal, setShowInviteModal] = useState(false);
+  const [showTenantPort, setShowTenantPortal] = useState(false);
 
   const { data, error } = useGetAxios(`/api/landlords/tenants`);
 
@@ -19,6 +21,8 @@ const LandlordTenants = () => {
   if (error) {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
+
+  console.log(showTenantPort)
 
   const tenants = data.tenants
 
@@ -44,10 +48,11 @@ const LandlordTenants = () => {
           </p>
           <button
             className={styles.infoButton}
+            onClick={() => setShowTenantPortal(prev => !prev)}
           >
             <Info
-            size={18}
-            className={styles.infoIcon}
+              size={18}
+              className={styles.infoIcon}
             />
             Info
           </button>
@@ -84,6 +89,11 @@ const LandlordTenants = () => {
           )}
         </div>
       }
+      {showTenantPort && (
+        <TenantPortal>
+          {tenants[0].fullName}
+        </TenantPortal>
+      )}
     </>
   )
 }
