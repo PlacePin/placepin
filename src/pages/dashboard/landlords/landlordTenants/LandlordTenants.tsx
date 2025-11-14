@@ -8,6 +8,7 @@ import TenantPortal from './tenantPortal/TenantPortal';
 import PortalHeader from './tenantPortal/PortalHeader';
 import TenantSummary from './tenantPortal/Tenantsummary';
 import TenantActivity from './tenantPortal/TenantActivity';
+import TenantLogbook from './tenantPortal/TenantLogBook';
 
 const LandlordTenants = () => {
 
@@ -86,7 +87,7 @@ const LandlordTenants = () => {
           <div className={styles.portalBody}>
             <TenantSummary />
             <TenantActivity />
-            <div>ccccc</div>
+            <TenantLogbook />
           </div>
         </TenantPortal>) : numberOfTenants
         ?
