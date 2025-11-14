@@ -17,7 +17,7 @@ const LandlordTenants = () => {
 
   const { data, error } = useGetAxios(`/api/landlords/tenants`);
 
-  // Todo: Fix this so skeleton loading or cache so null doesn't render on each re-render
+  // Todo: Fix this to skeleton loading or cache so null doesn't render on each re-render
   if (!data) {
     return <div></div>;
   }
