@@ -99,6 +99,7 @@
 .portalBody {
   display: grid;
   grid-template-columns: 0.8fr 2fr 0.8fr;
+  height: 80vh;
 }
 
 @keyframes shake {
