@@ -9,15 +9,18 @@
   gap: 0.5rem
 }
 
-.payment, .maintenance {
-  border: 1px solid black;
-  border-radius: 1rem;
+.payment,
+.maintenance {
   height: 30vh;
 }
 
 .engagement {
-  border: 1px solid black;
-  border-radius: 1rem;
   margin-top: 0.5rem;
   height: 60%;
+}
+
+.defaultCardStyles {
+  border: 1px solid black;
+  border-radius: 1rem;
+  background: #fff;
 }
