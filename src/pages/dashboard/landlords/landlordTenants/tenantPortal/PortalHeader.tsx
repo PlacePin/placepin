@@ -2,6 +2,7 @@ import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
 import styles from './portalHeader.module.css';
 import { capitalizeWords } from '../../../../../utils/stringUtils';
 import { useState } from 'react';
+import InviteTenantModal from '../../../../../components/modals/InviteTenantModal';
 
 interface PortalHeaderProps {
   profilePic: any[],
@@ -17,6 +18,7 @@ const PortalHeader = ({
   onClose,
 }: PortalHeaderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showInviteModal, setShowInviteModal] = useState(false);
   const imagesToShow = 5;
 
   const handlePrevious = () => {
@@ -32,19 +34,19 @@ const PortalHeader = ({
   };
 
   const getVisibleImages = () => {
-  const visible = [];
-  const count = Math.min(imagesToShow, profilePic.length);
-  
-  for (let i = 0; i < count; i++) {
-    const index = (currentIndex + i) % profilePic.length;
-    visible.push(
-      <div key={index} className={styles.picContainers}>
-        {profilePic[index]}
-      </div>
-    );
-  }
-  return visible;
-};
+    const visible = [];
+    const count = Math.min(imagesToShow, profilePic.length);
+
+    for (let i = 0; i < count; i++) {
+      const index = (currentIndex + i) % profilePic.length;
+      visible.push(
+        <div key={index} className={styles.picContainers}>
+          {profilePic[index]}
+        </div>
+      );
+    }
+    return visible;
+  };
 
   return (
     <section className={styles.wrapper}>
@@ -53,11 +55,11 @@ const PortalHeader = ({
         <div className={styles.backSection}>
           <span>{numberOfTenants} Tenants</span>
           <button
-           className={styles.backButton}
-           onClick={onClose}
-           >
+            className={styles.backButton}
+            onClick={onClose}
+          >
             <ChevronLeft
-            size={20}
+              size={20}
             />
             <span>Back</span>
           </button>
@@ -79,12 +81,20 @@ const PortalHeader = ({
           onClick={handleNext}
         />
       </div>
-      <div className={styles.button}>
+      <div
+        className={styles.inviteButton}
+        onClick={() => setShowInviteModal(prev => !prev)}
+      >
         <Plus size={24} />
         <span>
           Invite Tenant
         </span>
       </div>
+      {showInviteModal && (
+        <InviteTenantModal
+          onClose={() => setShowInviteModal(prev => !prev)}
+        />
+      )}
     </section>
   )
 }
