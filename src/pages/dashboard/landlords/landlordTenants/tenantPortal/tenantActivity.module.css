@@ -1,0 +1,23 @@
+.activityWrapper {
+  padding-top: 1rem;
+  padding-left: 0.5rem;
+}
+
+.paymentMaintenance {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem
+}
+
+.payment, .maintenance {
+  border: 1px solid black;
+  border-radius: 1rem;
+  height: 30vh;
+}
+
+.engagement {
+  border: 1px solid black;
+  border-radius: 1rem;
+  margin-top: 0.5rem;
+  height: 45vh;
+}

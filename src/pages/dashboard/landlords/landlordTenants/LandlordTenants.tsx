@@ -7,6 +7,7 @@ import { capitalizeWords } from '../../../../utils/stringUtils';
 import TenantPortal from './tenantPortal/TenantPortal';
 import PortalHeader from './tenantPortal/PortalHeader';
 import TenantSummary from './tenantPortal/Tenantsummary';
+import TenantActivity from './tenantPortal/TenantActivity';
 
 const LandlordTenants = () => {
 
@@ -84,7 +85,7 @@ const LandlordTenants = () => {
           />
           <div className={styles.portalBody}>
             <TenantSummary />
-            <div>bbbbb</div>
+            <TenantActivity />
             <div>ccccc</div>
           </div>
         </TenantPortal>) : numberOfTenants
