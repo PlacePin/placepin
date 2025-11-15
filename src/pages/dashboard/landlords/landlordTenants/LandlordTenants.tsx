@@ -6,9 +6,9 @@ import { Info } from 'lucide-react';
 import { capitalizeWords } from '../../../../utils/stringUtils';
 import TenantPortal from './tenantPortal/TenantPortal';
 import PortalHeader from './tenantPortal/PortalHeader';
-import TenantSummary from './tenantPortal/Tenantsummary';
+import TenantSummary from './tenantPortal/TenantSummary';
 import TenantActivity from './tenantPortal/TenantActivity';
-import TenantLogbook from './tenantPortal/TenantLogBook';
+import TenantLogbook from './tenantPortal/TenantLogbook';
 
 const LandlordTenants = () => {
 
