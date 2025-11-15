@@ -48,19 +48,22 @@ const TenantSummary = ({
           <div
             className={`${styles.defaultCardStyles} ${styles.daysAsTenant}`}
           >
-            Days as Tenant
+            <span className={styles.defaultCardSpanNum}>{300}</span>
+            <span className={styles.defaultCardSpanText}>Days as Tenant</span>
           </div>
           <div
             className={`${styles.defaultCardStyles} ${styles.expenses}`}
           >
-            Expenses
+            <span className={styles.defaultCardSpanNum}>{`$${Math.round(1579.82)}`}</span>
+            <span className={styles.defaultCardSpanText}>Expenses</span>
           </div>
         </div>
         <div>
           <div
             className={`${styles.defaultCardStyles} ${styles.rent}`}
           >
-            Rent Payment
+            <span className={styles.defaultCardSpanNum}>{`$${3800}`}</span>
+            <span className={styles.defaultCardSpanText}>Rent Payment</span>
           </div>
         </div>
       </div>
