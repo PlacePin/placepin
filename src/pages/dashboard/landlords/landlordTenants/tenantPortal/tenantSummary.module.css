@@ -4,6 +4,8 @@
 
 .photoSection {
   height: 30vh;
+  position: relative;
+  display: inline-block;
 }
 
 .profilePic {
@@ -29,4 +31,30 @@
   display: flex;
   gap: 0.5rem;
   flex-direction: column;
+}
+
+.contact {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  animation: fadeIn 0.15s ease-out;
+  width: 95%;
+}
+
+.messageCircle {
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(5px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }

@@ -1,18 +1,43 @@
+import { MessageCircleMore } from 'lucide-react';
 import styles from './tenantSummary.module.css';
+import { useState } from 'react';
+import { capitalizeWords } from '../../../../../utils/stringUtils';
 
-const TenantSummary = () => {
+interface TenantSummaryProps {
+  tenantName: string,
+}
+
+const TenantSummary = ({
+  tenantName
+}: TenantSummaryProps) => {
+  const [showContact, setShowContact] = useState(false);
+
+  const ContactTenant = () => {
+    return (
+      <div className={styles.contact}>
+        <span>{capitalizeWords(tenantName)}</span>
+        <MessageCircleMore
+          className={styles.messageCircle}
+        />
+      </div>
+    )
+  }
+
   return (
     <div
       className={`${styles.wrapperDisplays} ${styles.summaryWrapper}`}
     >
       <div
         className={styles.photoSection}
+        onMouseEnter={() => setShowContact(true)}
+        onMouseLeave={() => setShowContact(false)}
       >
         <img
           src='/housing.jpg'
           alt='profile pic'
           className={styles.profilePic}
         />
+        {showContact && <ContactTenant />}
       </div>
       <div
         className={styles.wrapperDisplays}
