@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Trash2 } from 'lucide-react';
 import styles from './portalHeader.module.css';
 import { capitalizeWords } from '../../../../../utils/stringUtils';
 import { useState } from 'react';
@@ -85,10 +85,10 @@ const PortalHeader = ({
         className={styles.inviteButton}
         onClick={() => setShowInviteModal(prev => !prev)}
       >
-        <Plus size={24} />
         <span>
-          Invite Tenant
+          Delete Tenant
         </span>
+        <Trash2 size={24}/>
       </div>
       {showInviteModal && (
         <InviteTenantModal
