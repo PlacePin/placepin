@@ -1,7 +1,26 @@
 .logbookWrapper {
-  border: 1px solid black;
   border-radius: 1rem;
   margin-left: 0.5rem;
   margin-top: 1rem;
   background: #fff;
+}
+
+.title {
+  padding: 1rem;
+  font-weight: bold;
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.infoContainer p {
+  color: #00bfa5;
+}
+
+.infoContainer span {
+  color: #000;
 }
