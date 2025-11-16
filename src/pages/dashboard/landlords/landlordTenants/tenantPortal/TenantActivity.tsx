@@ -7,6 +7,7 @@ import {
   Legend,
 } from "chart.js";
 import { PolarArea } from "react-chartjs-2";
+import EngagementPatternsChart from '../../../../../components/charts/EngagementPatternsChart';
 
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
@@ -65,7 +66,8 @@ const TenantActivity = () => {
         </div>
       </div>
       <div className={`${styles.defaultCardStyles} ${styles.engagement}`}>
-        Engagement Patterns
+        <p className={styles.title}>Engagement Patterns</p>
+        <EngagementPatternsChart />
       </div>
     </div>
   )

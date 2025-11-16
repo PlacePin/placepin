@@ -1,0 +1,4 @@
+.wrapper {
+  height: calc(100% - 60px);
+  padding: 0 1rem 1rem 1rem;
+}
