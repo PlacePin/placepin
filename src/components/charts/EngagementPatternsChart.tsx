@@ -25,7 +25,7 @@ const engagementData = {
     {
       label: 'Food',
       data: [12, 15, 18, 14, 20, 16, 22, 19, 17, 21, 18, 23],
-      backgroundColor: '#00bfa5',
+      backgroundColor: '#008fbfff',
       borderRadius: 8,
       barThickness: 20,
     },

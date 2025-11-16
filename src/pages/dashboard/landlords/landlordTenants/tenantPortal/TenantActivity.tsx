@@ -1,31 +1,6 @@
 import styles from './tenantActivity.module.css';
-import {
-  Chart as ChartJS,
-  RadialLinearScale,
-  ArcElement,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { PolarArea } from "react-chartjs-2";
 import EngagementPatternsChart from '../../../../../components/charts/EngagementPatternsChart';
-
-ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
-
-const data = {
-  labels: ["Electrician", "Plumbing", "Carpentry", "Misc."],
-  datasets: [
-    {
-      label: "Tradesmen",
-      data: [11, 16, 7, 3],
-      backgroundColor: [
-        "#00bfa5",
-        "#0F5FC2",
-        "#FFCF56",
-        "#DA001A",
-      ],
-    },
-  ],
-};
+import MaintenanceRequestChart from '../../../../../components/charts/MaintenanceRequestChart';
 
 const TenantActivity = () => {
 
@@ -59,9 +34,7 @@ const TenantActivity = () => {
         <div className={`${styles.defaultCardStyles} ${styles.maintenance}`}>
           <p className={styles.title}>Maintenance Request</p>
           <div className={styles.chartSection}>
-            <PolarArea
-              data={data}
-            />
+            <MaintenanceRequestChart />
           </div>
         </div>
       </div>
