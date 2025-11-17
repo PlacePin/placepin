@@ -2,7 +2,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import styles from './portalHeader.module.css';
 import { capitalizeWords } from '../../../../../utils/stringUtils';
 import { useState } from 'react';
-import DeleteLandlordTenant from '../../../../../components/modals/DeleteLandlordTenant';
+import RemoveLandlordTenant from '../../../../../components/modals/RemoveLandlordTenant';
 
 interface PortalHeaderProps {
   profilePic: any[],
@@ -90,7 +90,7 @@ const PortalHeader = ({
         </span>
       </div>
       {showInviteModal && (
-        <DeleteLandlordTenant
+        <RemoveLandlordTenant
           onClose={() => setShowInviteModal(prev => !prev)}
         />
       )}

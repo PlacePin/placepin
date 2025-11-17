@@ -1,15 +1,15 @@
 import PrimaryButton from "../buttons/PrimaryButton";
 import SecondaryDangerButton from "../buttons/SecondaryDangerButton";
 import FormModal from "./FormModal";
-import styles from './deleteLandlordTenant.module.css';
+import styles from './removeLandlordTenant.module.css';
 
-interface DeleteLandlordTenantProps {
+interface RemoveLandlordTenantProps {
   onClose: () => void,
 }
 
-const DeleteLandlordTenant = ({
+const RemoveLandlordTenant = ({
   onClose
-}: DeleteLandlordTenantProps) => {
+}: RemoveLandlordTenantProps) => {
   return (
     <div>
       <FormModal title={"Remove Tenant"} onClose={onClose}>
@@ -28,4 +28,4 @@ const DeleteLandlordTenant = ({
   )
 }
 
-export default DeleteLandlordTenant
+export default RemoveLandlordTenant
