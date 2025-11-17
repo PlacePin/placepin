@@ -1,8 +1,8 @@
-import { ChevronLeft, ChevronRight, Trash2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import styles from './portalHeader.module.css';
 import { capitalizeWords } from '../../../../../utils/stringUtils';
 import { useState } from 'react';
-import InviteTenantModal from '../../../../../components/modals/InviteTenantModal';
+import DeleteLandlordTenant from '../../../../../components/modals/DeleteLandlordTenant';
 
 interface PortalHeaderProps {
   profilePic: any[],
@@ -86,12 +86,11 @@ const PortalHeader = ({
         onClick={() => setShowInviteModal(prev => !prev)}
       >
         <span>
-          Delete Tenant
+          Remove Tenant
         </span>
-        <Trash2 size={24}/>
       </div>
       {showInviteModal && (
-        <InviteTenantModal
+        <DeleteLandlordTenant
           onClose={() => setShowInviteModal(prev => !prev)}
         />
       )}

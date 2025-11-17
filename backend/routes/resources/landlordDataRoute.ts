@@ -7,5 +7,6 @@ const router = express.Router();
 router.get('/tenants', getLandlordTenants);
 router.post('/properties', addProperty);
 router.get('/properties', getLandlordProperties)
+// router.delete('/tenant', deleteTenant);
 
 export default router
