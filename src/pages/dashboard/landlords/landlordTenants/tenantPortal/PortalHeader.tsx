@@ -8,6 +8,7 @@ interface PortalHeaderProps {
   profilePic: any[],
   numberOfTenants: number,
   tenantName: string,
+  tenantId: string,
   onClose: () => void,
 }
 
@@ -15,6 +16,7 @@ const PortalHeader = ({
   profilePic,
   numberOfTenants,
   tenantName,
+  tenantId,
   onClose,
 }: PortalHeaderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -92,6 +94,7 @@ const PortalHeader = ({
       {showInviteModal && (
         <RemoveLandlordTenant
           onClose={() => setShowInviteModal(prev => !prev)}
+          tenantId={tenantId}
         />
       )}
     </section>

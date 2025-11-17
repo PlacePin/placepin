@@ -82,6 +82,7 @@ const LandlordTenants = () => {
             ]}
             numberOfTenants={numberOfTenants}
             tenantName={selectedTenant.fullName}
+            tenantId={selectedTenant._id}
             onClose={() => setSelectedTenant(null)}
           />
           <div className={styles.portalBody}>
