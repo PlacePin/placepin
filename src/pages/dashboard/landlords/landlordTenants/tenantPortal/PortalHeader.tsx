@@ -82,7 +82,7 @@ const PortalHeader = ({
         />
       </div>
       <div
-        className={styles.inviteButton}
+        className={styles.removeButton}
         onClick={() => setShowInviteModal(prev => !prev)}
       >
         <span>

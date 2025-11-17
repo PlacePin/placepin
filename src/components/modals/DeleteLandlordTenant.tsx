@@ -1,5 +1,5 @@
+import DangerButton from "../buttons/DangerButton";
 import PrimaryButton from "../buttons/PrimaryButton";
-import SecondaryButton from "../buttons/SecondaryButton";
 import FormModal from "./FormModal";
 import styles from './deleteLandlordTenant.module.css';
 
@@ -15,11 +15,11 @@ const DeleteLandlordTenant = ({
       <FormModal title={"Remove Tenant"} onClose={onClose}>
         <p>{`Are you sure you want to remove this tenant from your account?`}</p>
         <div className={styles.buttonWrapper}>
-          <SecondaryButton
+          <PrimaryButton
             title={"No"}
             onClick={onClose}
           />
-          <PrimaryButton
+          <DangerButton
             title='Yes'
           />
         </div>
