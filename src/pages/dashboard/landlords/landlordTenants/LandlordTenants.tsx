@@ -86,7 +86,10 @@ const LandlordTenants = () => {
             onClose={() => setSelectedTenant(null)}
           />
           <div className={styles.portalBody}>
-            <TenantSummary tenantName={selectedTenant.fullName} />
+            <TenantSummary
+              tenantName={selectedTenant.fullName}
+              username={selectedTenant.username}
+            />
             <TenantActivity />
             <TenantLogbook />
           </div>

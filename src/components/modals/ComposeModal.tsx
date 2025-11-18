@@ -6,11 +6,15 @@ import FormModal from './FormModal';
 
 interface InviteTenantModalProps {
   onClose?: () => void;
+  username?: string;
 }
 
-const ComposeModal = ({ onClose }: InviteTenantModalProps) => {
+const ComposeModal = ({
+  onClose,
+  username,
+}: InviteTenantModalProps) => {
 
-  const [recipientUsername, setrecipientUsername] = useState('');
+  const [recipientUsername, setrecipientUsername] = useState(username || '');
   const [directMessage, setDirectMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -61,6 +65,7 @@ const ComposeModal = ({ onClose }: InviteTenantModalProps) => {
             placeholder='@username'
             onChange={(e) => setrecipientUsername(e.target.value)}
             className={styles.inputFields}
+            value={username}
             required
           />
           <label

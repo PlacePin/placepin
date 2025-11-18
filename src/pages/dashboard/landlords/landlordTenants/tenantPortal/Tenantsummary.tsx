@@ -2,15 +2,19 @@ import { MessageCircleMore } from 'lucide-react';
 import styles from './tenantSummary.module.css';
 import { useState } from 'react';
 import { capitalizeWords } from '../../../../../utils/stringUtils';
+import ComposeModal from '../../../../../components/modals/ComposeModal';
 
 interface TenantSummaryProps {
   tenantName: string,
+  username: string,
 }
 
 const TenantSummary = ({
-  tenantName
+  tenantName,
+  username
 }: TenantSummaryProps) => {
   const [showContact, setShowContact] = useState(false);
+  const [showCompose, setShowCompose] = useState(false);
 
   const ContactTenant = () => {
     return (
@@ -18,6 +22,7 @@ const TenantSummary = ({
         <span>{capitalizeWords(tenantName)}</span>
         <MessageCircleMore
           className={styles.messageCircle}
+          onClick={() => setShowCompose(prev => !prev)}
         />
       </div>
     )
@@ -72,6 +77,12 @@ const TenantSummary = ({
       >
         Promos
       </div>
+      {showCompose && (
+        <ComposeModal
+          onClose={() => setShowCompose(prev => !prev)}
+          username={username}
+        />
+      )}
     </div>
   )
 }
