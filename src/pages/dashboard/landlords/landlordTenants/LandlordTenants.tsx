@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './landlordTenants.module.css';
 import InviteTenantModal from '../../../../components/modals/InviteTenantModal';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
-import { Info } from 'lucide-react';
+import { Info, Plus } from 'lucide-react';
 import { capitalizeWords } from '../../../../utils/stringUtils';
 import TenantPortal from './tenantPortal/TenantPortal';
 import PortalHeader from './tenantPortal/PortalHeader';
@@ -99,8 +99,8 @@ const LandlordTenants = () => {
               className={styles.inviteButton}
               onClick={() => setShowInviteModal(prev => !prev)}
             >
-              <span>
-                Invite Tenant
+              <span className={styles.inviteButtonText}>
+                <Plus /> Invite Tenant
               </span>
             </div>
           </div>

@@ -20,6 +20,11 @@
   background: #fff;
 }
 
+.inviteButtonText {
+  display: flex;
+  align-items: center;
+}
+
 .tenantCards {
   height: 200px;
   padding: 1rem;
