@@ -93,10 +93,25 @@ const LandlordTenants = () => {
         </TenantPortal>) : numberOfTenants
         ?
         <div className={styles.container}>
-          <h2>Tenants</h2>
+          <div className={styles.headerWrapper}>
+            <h2>Tenants</h2>
+            <div
+              className={styles.inviteButton}
+              onClick={() => setShowInviteModal(prev => !prev)}
+            >
+              <span>
+                Invite Tenant
+              </span>
+            </div>
+          </div>
           <div className={styles.tenantCardsContainer}>
             {tenantsCards}
           </div>
+          {showInviteModal && (
+            <InviteTenantModal
+              onClose={() => setShowInviteModal(prev => !prev)}
+            />
+          )}
         </div>
         :
         <div>
