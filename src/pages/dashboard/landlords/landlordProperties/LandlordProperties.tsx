@@ -7,6 +7,7 @@ import { Info } from 'lucide-react';
 const LandlordProperties = () => {
 
   const [showAddPropertyModal, setShowAddPropertyModal] = useState(false);
+  const [selectedProperty, setSelectedProperty] = useState<any>(null);
 
   const { data, error } = useGetAxios(`/api/landlords/properties`);
 
@@ -18,16 +19,19 @@ const LandlordProperties = () => {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
 
+  console.log(selectedProperty)
+
   const stockPhotos = ['/townhouse.png', '/triplex.png', '/orangehouse.png']
 
-
   const properties = data.properties
+  const numberOfProperties = properties.length
   let buildingName = ''
 
-  const propertyCards = properties.map((property: any, i: number) => {
+  const propertyCards = properties.map((property: any) => {
 
     const randomImg = Math.floor(Math.random() * stockPhotos.length)
     const address = `${property.properties.address.number} ${property.properties.address.street} ${property.properties.address.streetType}`
+    const addressId = property.properties.address._id
 
     if (property.properties.name === undefined || property.properties.name.trim() === '') {
       buildingName = 'No Name'
@@ -37,7 +41,7 @@ const LandlordProperties = () => {
 
     return (
       <div
-        key={i}
+        key={addressId}
         className={styles.propertyCards}
       >
         <div
@@ -61,6 +65,7 @@ const LandlordProperties = () => {
           </p>
           <button
             className={styles.infoButton}
+            onClick={() => setSelectedProperty(property)}
           >
             <Info
               size={18}
@@ -75,7 +80,7 @@ const LandlordProperties = () => {
 
   return (
     <>
-      {properties.length
+      {numberOfProperties
         ?
         <div className={styles.container}>
           <h2>Properties</h2>

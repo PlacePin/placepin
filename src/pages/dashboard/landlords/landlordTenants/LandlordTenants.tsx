@@ -93,46 +93,48 @@ const LandlordTenants = () => {
             <TenantActivity />
             <TenantLogbook />
           </div>
-        </TenantPortal>) : numberOfTenants
-        ?
-        <div className={styles.container}>
-          <div className={styles.headerWrapper}>
-            <h2>Tenants</h2>
-            <div
-              className={styles.inviteButton}
-              onClick={() => setShowInviteModal(prev => !prev)}
-            >
-              <span className={styles.inviteButtonText}>
-                <Plus /> Invite Tenant
-              </span>
+        </TenantPortal>
+      ) : numberOfTenants
+        ? (
+          <div className={styles.container}>
+            <div className={styles.headerWrapper}>
+              <h2>Tenants</h2>
+              <div
+                className={styles.inviteButton}
+                onClick={() => setShowInviteModal(prev => !prev)}
+              >
+                <span className={styles.inviteButtonText}>
+                  <Plus /> Invite Tenant
+                </span>
+              </div>
             </div>
+            <div className={styles.tenantCardsContainer}>
+              {tenantsCards}
+            </div>
+            {showInviteModal && (
+              <InviteTenantModal
+                onClose={() => setShowInviteModal(prev => !prev)}
+              />
+            )}
           </div>
-          <div className={styles.tenantCardsContainer}>
-            {tenantsCards}
+        ) : (
+          <div>
+            <h2 className={styles.noData}>No Data</h2>
+            <div className={styles.noDataButtonContainer}>
+              <button
+                className={styles.button}
+                onClick={() => setShowInviteModal(prev => !prev)}
+              >
+                Invite Tenants
+              </button>
+            </div>
+            {showInviteModal && (
+              <InviteTenantModal
+                onClose={() => setShowInviteModal(prev => !prev)}
+              />
+            )}
           </div>
-          {showInviteModal && (
-            <InviteTenantModal
-              onClose={() => setShowInviteModal(prev => !prev)}
-            />
-          )}
-        </div>
-        :
-        <div>
-          <h2 className={styles.noData}>No Data</h2>
-          <div className={styles.noDataButtonContainer}>
-            <button
-              className={styles.button}
-              onClick={() => setShowInviteModal(prev => !prev)}
-            >
-              Invite Tenants
-            </button>
-          </div>
-          {showInviteModal && (
-            <InviteTenantModal
-              onClose={() => setShowInviteModal(prev => !prev)}
-            />
-          )}
-        </div>
+        )
       }
     </>
   )

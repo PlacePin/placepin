@@ -31,7 +31,6 @@ const landlordSchema = new mongoose.Schema({
     {
       name: String,
       address: {
-        _id: false,
         type: {
           number: String,
           street: String,
