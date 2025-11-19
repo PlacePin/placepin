@@ -3,6 +3,7 @@ import styles from './landlordProperties.module.css';
 import AddPropertyModal from '../../../../components/modals/AddPropertyModal';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
 import { Info } from 'lucide-react';
+import LandlordPortal from './landlordPortal/LandlordPortal';
 
 const LandlordProperties = () => {
 
@@ -80,31 +81,36 @@ const LandlordProperties = () => {
 
   return (
     <>
-      {numberOfProperties
-        ?
-        <div className={styles.container}>
-          <h2>Properties</h2>
-          <div className={styles.propertyCardsContainer}>
-            {propertyCards}
+      {selectedProperty ? (
+        <LandlordPortal>
+          Landlord Portal
+        </LandlordPortal>
+      ) : numberOfProperties
+        ? (
+          <div className={styles.container}>
+            <h2>Properties</h2>
+            <div className={styles.propertyCardsContainer}>
+              {propertyCards}
+            </div>
           </div>
-        </div>
-        :
-        <div>
-          <h2 className={styles.noData}>No Data</h2>
-          <div className={styles.noDataButtonContainer}>
-            <button
-              className={styles.button}
-              onClick={() => setShowAddPropertyModal(prev => !prev)}
-            >
-              Add Property
-            </button>
+        ) : (
+          <div>
+            <h2 className={styles.noData}>No Data</h2>
+            <div className={styles.noDataButtonContainer}>
+              <button
+                className={styles.button}
+                onClick={() => setShowAddPropertyModal(prev => !prev)}
+              >
+                Add Property
+              </button>
+            </div>
+            {showAddPropertyModal && (
+              <AddPropertyModal
+                onClose={() => setShowAddPropertyModal(prev => !prev)}
+              />
+            )}
           </div>
-          {showAddPropertyModal && (
-            <AddPropertyModal
-              onClose={() => setShowAddPropertyModal(prev => !prev)}
-            />
-          )}
-        </div>
+        )
       }
     </>
   )
