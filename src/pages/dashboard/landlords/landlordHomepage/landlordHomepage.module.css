@@ -1,16 +1,12 @@
 .landlordHomepageContainer {
   display: flex;
   height: 100%;
-  padding: 1rem;
-}
-
-.level3Header {
-  margin: 1em 0 0 1em;
+  padding: 2rem;
 }
 
 .statsCards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
-  padding: 1rem; 
+  padding: 1rem 0; 
 }
