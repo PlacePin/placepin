@@ -83,7 +83,7 @@ const LandlordProperties = () => {
     <>
       {selectedProperty ? (
         <LandlordPortal>
-          Landlord Portal
+          Landlord Portal Design
         </LandlordPortal>
       ) : numberOfProperties
         ? (
