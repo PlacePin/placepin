@@ -30,7 +30,7 @@ const TenantSummary = ({
 
   return (
     <div
-      className={`${styles.wrapperDisplays} ${styles.summaryWrapper}`}
+      className={styles.wrapperDisplays}
     >
       <div
         className={styles.photoSection}

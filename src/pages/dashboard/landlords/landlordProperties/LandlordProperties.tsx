@@ -4,6 +4,7 @@ import AddPropertyModal from '../../../../components/modals/AddPropertyModal';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
 import { Info } from 'lucide-react';
 import PropertyPortal from './propertyPortal/PropertyPortal';
+import PropertySummary from './propertyPortal/PropertySummary';
 
 const LandlordProperties = () => {
 
@@ -83,7 +84,7 @@ const LandlordProperties = () => {
     <>
       {selectedProperty ? (
         <PropertyPortal>
-          Landlord Portal
+          <PropertySummary />
         </PropertyPortal>
       ) : numberOfProperties
         ? (
