@@ -2,3 +2,9 @@
   border: 1px solid black;
   width: 30%;
 }
+
+.image {
+  border-radius: 1rem 1rem 0 0;
+  height: 30vh;
+  width: 100%;
+}
