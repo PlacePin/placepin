@@ -3,7 +3,7 @@ import styles from './landlordProperties.module.css';
 import AddPropertyModal from '../../../../components/modals/AddPropertyModal';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
 import { Info } from 'lucide-react';
-import LandlordPortal from './landlordPortal/LandlordPortal';
+import PropertyPortal from './propertyPortal/PropertyPortal';
 
 const LandlordProperties = () => {
 
@@ -82,9 +82,9 @@ const LandlordProperties = () => {
   return (
     <>
       {selectedProperty ? (
-        <LandlordPortal>
+        <PropertyPortal>
           Landlord Portal
-        </LandlordPortal>
+        </PropertyPortal>
       ) : numberOfProperties
         ? (
           <div className={styles.container}>

@@ -1,13 +1,13 @@
 import type { ReactNode } from "react";
-import styles from './landlordPortal.module.css';
+import styles from './propertyPortal.module.css';
 
-interface LandlordPortalProps {
+interface PropertyPortalProps {
   children: ReactNode,
 }
 
-const LandlordPortal = ({
+const PropertyPortal = ({
   children
-}: LandlordPortalProps) => {
+}: PropertyPortalProps) => {
   return (
     <div className={styles.wrapperContainer}>
       {children}
@@ -15,4 +15,4 @@ const LandlordPortal = ({
   )
 }
 
-export default LandlordPortal
+export default PropertyPortal
