@@ -1,112 +1,90 @@
-import { Line } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler
-} from 'chart.js';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import styles from './WorkOrdersChart.module.css';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler
-);
+export default function WorkOrdersChart() {
+  const data = [
+    { month: 'Jan', orders: 12 },
+    { month: 'Feb', orders: 19 },
+    { month: 'Mar', orders: 15 },
+    { month: 'Apr', orders: 25 },
+    { month: 'May', orders: 22 },
+    { month: 'Jun', orders: 30 },
+    { month: 'Jul', orders: 28 },
+    { month: 'Aug', orders: 24 },
+    { month: 'Sep', orders: 20 },
+    { month: 'Oct', orders: 27 },
+    { month: 'Nov', orders: 23 },
+    { month: 'Dec', orders: 18 },
+  ];
 
-const WorkOrdersChart = () => {
-  const data = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    datasets: [
-      {
-        label: 'Work Orders',
-        data: [12, 19, 15, 25, 22, 30, 28, 24, 20, 27, 23, 18],
-        fill: true,
-        backgroundColor: 'rgba(59, 130, 246, 0.2)',
-        borderColor: 'rgb(59, 130, 246)',
-        borderWidth: 2,
-        tension: 0.4,
-        pointBackgroundColor: 'rgb(59, 130, 246)',
-        pointBorderColor: '#fff',
-        pointBorderWidth: 2,
-        pointRadius: 4,
-        pointHoverRadius: 6,
-      },
-    ],
-  };
-
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: true,
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: 'Property Work Orders - 2024',
-        font: {
-          size: 18,
-          weight: 'bold',
-        },
-      },
-      tooltip: {
-        mode: 'index',
-        intersect: false,
-      },
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-        ticks: {
-          stepSize: 5,
-        },
-        title: {
-          display: true,
-          text: 'Number of Work Orders',
-        },
-      },
-      x: {
-        title: {
-          display: true,
-          text: 'Month',
-        },
-      },
-    },
-  };
+  const totalOrders = data.reduce((sum, item) => sum + item.orders, 0);
+  const avgOrders = Math.round(totalOrders / data.length);
+  const peakMonth = data.reduce((max, item) => item.orders > max.orders ? item : max, data[0]);
 
   return (
-    <div className="w-full h-screen bg-gray-50 p-8">
-      <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-6">
-        <div className="h-96">
-          <Line data={data} />
+    <div className={styles.container}>
+      <div className={styles.card}>
+        <h2 className={styles.title}>Property Work Orders - {2025}</h2>
+        <div className={styles.chartWrapper}>
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+              <defs>
+                <linearGradient id="colorOrders" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+              <XAxis
+                dataKey="month"
+                stroke="#6b7280"
+                style={{ fontSize: '14px' }}
+              />
+              <YAxis
+                stroke="#6b7280"
+                style={{ fontSize: '14px' }}
+                label={{
+                  value: 'Number of Work Orders',
+                  angle: -90,
+                  position: 'insideLeft',
+                  offset: 15,
+                  dy: 100,
+                }}
+              />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: 'white',
+                  border: '1px solid #e5e7eb',
+                  borderRadius: '8px',
+                  padding: '8px 12px'
+                }}
+              />
+              <Area
+                type="monotone"
+                dataKey="orders"
+                stroke="#3b82f6"
+                strokeWidth={2}
+                fillOpacity={1}
+                fill="url(#colorOrders)"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
         </div>
-        <div className="mt-6 grid grid-cols-3 gap-4 text-center">
-          <div className="bg-blue-50 p-4 rounded-lg">
-            <p className="text-sm text-gray-600">Total Work Orders</p>
-            <p className="text-2xl font-bold text-blue-600">263</p>
+        <div className={styles.statsGrid}>
+          <div className={styles.statCard + ' ' + styles.statCardBlue}>
+            <p className={styles.statLabel}>Total Work Orders</p>
+            <p className={styles.statValue + ' ' + styles.statValueBlue}>{totalOrders}</p>
           </div>
-          <div className="bg-green-50 p-4 rounded-lg">
-            <p className="text-sm text-gray-600">Monthly Average</p>
-            <p className="text-2xl font-bold text-green-600">22</p>
+          <div className={styles.statCard + ' ' + styles.statCardGreen}>
+            <p className={styles.statLabel}>Monthly Average</p>
+            <p className={styles.statValue + ' ' + styles.statValueGreen}>{avgOrders}</p>
           </div>
-          <div className="bg-purple-50 p-4 rounded-lg">
-            <p className="text-sm text-gray-600">Peak Month</p>
-            <p className="text-2xl font-bold text-purple-600">June (30)</p>
+          <div className={styles.statCard + ' ' + styles.statCardPurple}>
+            <p className={styles.statLabel}>Peak Month</p>
+            <p className={styles.statValue + ' ' + styles.statValuePurple}>{peakMonth.month} ({peakMonth.orders})</p>
           </div>
         </div>
       </div>
     </div>
   );
 }
-
-export default WorkOrdersChart

@@ -1,6 +1,6 @@
 .summaryWrapper {
-  border: 1px solid black;
-  width: 30%;
+  border-radius: 1rem;
+  width: 25%;
   background: #fff;
 }
 

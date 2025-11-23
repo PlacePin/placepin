@@ -37,7 +37,7 @@ const PropertySummary = () => {
           </h3>
         </div>
       </div>
-      <div><WorkOrdersChart /></div>
+      <WorkOrdersChart />
       <div>retainers</div>
     </section>
   )
