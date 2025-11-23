@@ -12,7 +12,10 @@ export default defineConfig({
         changeOrigin: true,
         secure: false
       }
-    }
+    },
+    hmr: {
+      overlay: true,
+    },
   },
   test: {
     globals: true,
