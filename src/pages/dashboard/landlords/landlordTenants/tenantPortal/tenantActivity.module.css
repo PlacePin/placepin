@@ -15,14 +15,20 @@
 }
 
 .engagement {
-  margin-top: 0.5rem;
-  height: 60%;
+  margin-top: 1.5rem;
+  height: 59%;
 }
 
 .defaultCardStyles {
   border-radius: 1rem;
   background: #fff;
   overflow-y: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.defaultCardStyles::-webkit-scrollbar {
+  display: none;
 }
 
 .title {
