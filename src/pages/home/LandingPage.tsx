@@ -35,14 +35,6 @@ const LandingPage = () => {
               </NavLink>
               <a href="#features"><button className={styles.secondaryButton}>Learn More</button></a>
             </div>
-            {/* <div className="social-proof">
-              <div className="avatars">
-                <div className="avatar">👤</div>
-                <div className="avatar">👤</div>
-                <div className="avatar">👤</div>
-              </div>
-              <span>100+ Happy Customers</span>
-            </div> */}
           </div>
           <div className={styles.heroVisual}>
             <div>
