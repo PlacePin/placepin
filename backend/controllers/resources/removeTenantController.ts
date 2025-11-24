@@ -27,8 +27,6 @@ export const removeTenant = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Tenant not found in this landlord’s properties" });
     }
 
-    console.log(result)
-
     return res.status(200).json({ message: "Tenant removed successfully" })
   } catch (err) {
     return res.status(500).json({ message: 'Unexpected Error' })

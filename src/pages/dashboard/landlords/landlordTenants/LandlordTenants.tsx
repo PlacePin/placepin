@@ -71,7 +71,7 @@ const LandlordTenants = () => {
       {selectedTenant ? (
         <TenantPortal>
           <PortalHeader
-            profilePic={[
+            resourcePic={[
               <img src='/emptyProfile.png' />,
               <img src='/charts.png' />,
               <img src='/emptyProfile.png' />,
@@ -80,9 +80,9 @@ const LandlordTenants = () => {
               <img src='/groupPhoto.png' />,
               <img src='/housing.jpg' />
             ]}
-            numberOfTenants={numberOfTenants}
-            tenantName={selectedTenant.fullName}
-            tenantId={selectedTenant._id}
+            numberOfResources={numberOfTenants}
+            resourceName={selectedTenant.fullName}
+            resourceId={selectedTenant._id}
             onClose={() => setSelectedTenant(null)}
           />
           <div className={styles.portalBody}>

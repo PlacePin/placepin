@@ -5,18 +5,18 @@ import { useState } from 'react';
 import RemoveLandlordTenant from '../../../../../components/modals/RemoveLandlordTenant';
 
 interface PortalHeaderProps {
-  profilePic: any[],
-  numberOfTenants: number,
-  tenantName: string,
-  tenantId: string,
+  resourcePic: any[],
+  numberOfResources: number,
+  resourceName: string,
+  resourceId: string,
   onClose: () => void,
 }
 
 const PortalHeader = ({
-  profilePic,
-  numberOfTenants,
-  tenantName,
-  tenantId,
+  resourcePic,
+  numberOfResources,
+  resourceName,
+  resourceId,
   onClose,
 }: PortalHeaderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -25,25 +25,25 @@ const PortalHeader = ({
 
   const handlePrevious = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? profilePic.length - 1 : prevIndex - 1
+      prevIndex === 0 ? resourcePic.length - 1 : prevIndex - 1
     );
   };
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === profilePic.length - 1 ? 0 : prevIndex + 1
+      prevIndex === resourcePic.length - 1 ? 0 : prevIndex + 1
     );
   };
 
   const getVisibleImages = () => {
     const visible = [];
-    const count = Math.min(imagesToShow, profilePic.length);
+    const count = Math.min(imagesToShow, resourcePic.length);
 
     for (let i = 0; i < count; i++) {
-      const index = (currentIndex + i) % profilePic.length;
+      const index = (currentIndex + i) % resourcePic.length;
       visible.push(
         <div key={index} className={styles.picContainers}>
-          {profilePic[index]}
+          {resourcePic[index]}
         </div>
       );
     }
@@ -53,9 +53,9 @@ const PortalHeader = ({
   return (
     <section className={styles.wrapper}>
       <div className={styles.tenantInfo}>
-        <h3>{capitalizeWords(tenantName)} • Tenant</h3>
+        <h3>{capitalizeWords(resourceName)} • Tenant</h3>
         <div className={styles.backSection}>
-          <span>{numberOfTenants} Tenants</span>
+          <span>{numberOfResources} Tenants</span>
           <button
             className={styles.backButton}
             onClick={onClose}
@@ -94,7 +94,7 @@ const PortalHeader = ({
       {showInviteModal && (
         <RemoveLandlordTenant
           onClose={() => setShowInviteModal(prev => !prev)}
-          tenantId={tenantId}
+          tenantId={resourceId}
         />
       )}
     </section>
