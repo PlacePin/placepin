@@ -1,7 +1,14 @@
 .summaryWrapper {
   border-radius: 1rem;
-  width: 25%;
   background: #fff;
+  overflow-y: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  display: grid;
+}
+
+.summaryWrapper::-webkit-scrollbar {
+  display: none;
 }
 
 .image {
