@@ -26,7 +26,7 @@ export default function WorkOrdersChart() {
       <div className={styles.card}>
         <h2 className={styles.title}>Property Work Orders - {2025}</h2>
         <div className={styles.chartWrapper}>
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height={300}>
             <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
               <defs>
                 <linearGradient id="colorOrders" x1="0" y1="0" x2="0" y2="1">

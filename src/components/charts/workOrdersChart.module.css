@@ -39,9 +39,12 @@
 
 .statCard {
   padding: 1rem;
-  border-radius: 0.5rem;
   min-width: 0;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 1rem;
 }
 
 .statCardBlue {

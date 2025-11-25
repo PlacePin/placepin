@@ -1,6 +1,6 @@
 .wrapperContainer {
   padding: 2rem;
-   display: grid;
-  grid-template-columns: 1fr 2fr;
+  display: grid;
+  grid-template-columns: 1fr 2.5fr;
   height: 95vh;
 }
