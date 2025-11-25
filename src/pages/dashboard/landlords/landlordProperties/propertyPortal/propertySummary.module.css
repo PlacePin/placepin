@@ -21,7 +21,7 @@
   display: grid;
   gap: 1rem;
   justify-items: center;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   padding: 1rem 0;
 }
 
@@ -39,4 +39,10 @@
 .miniPropertyInfo h3:nth-child(2) {
   font-weight: lighter;
   color: #ACACAC;
+}
+
+@media (max-width: 1401px) {
+  .miniPropertyInfoContainer > div:nth-child(3) {
+    grid-column: 1 / -1;
+  }
 }
