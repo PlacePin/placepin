@@ -61,25 +61,3 @@
   height: 50px;
   border-radius: 5rem;
 }
-
-.removeButton {
-  display: flex;
-  align-items: center;
-  border: 1px solid black;
-  padding: 0.5rem;
-  border-radius: 5rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  white-space: nowrap;
-  background: #fff;
-}
-
-.inviteButton:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-}
-
-.inviteButton:active {
-  transform: translateY(1px);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-}

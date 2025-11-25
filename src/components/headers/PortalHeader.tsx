@@ -4,6 +4,7 @@ import { capitalizeWords } from '../../utils/stringUtils';
 import { useState, type ReactNode } from 'react';
 import RemoveLandlordTenant from '../modals/RemoveLandlordTenant';
 import RemoveLandlordProperty from '../modals/RemoveLandlordProperty';
+import PrimaryButton from '../buttons/PrimaryButton';
 
 interface PortalHeaderProps {
   resourcePic: any[],
@@ -108,14 +109,10 @@ const PortalHeader = ({
           onClick={handleNext}
         />
       </div>
-      <div
-        className={styles.removeButton}
+      <PrimaryButton
+        title={`Remove ${resourceType}`}
         onClick={() => setShowRemoveModal(prev => !prev)}
-      >
-        <span>
-          Remove {resourceType}
-        </span>
-      </div>
+      />
       {showRemoveModal && (
         removeResourceModal
       )}
