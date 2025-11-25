@@ -9,6 +9,7 @@ interface PortalHeaderProps {
   numberOfResources: number,
   resourceName: string,
   resourceId: string,
+  resourceType: string,
   onClose: () => void,
 }
 
@@ -17,11 +18,13 @@ const PortalHeader = ({
   numberOfResources,
   resourceName,
   resourceId,
+  resourceType,
   onClose,
 }: PortalHeaderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showInviteModal, setShowInviteModal] = useState(false);
   const imagesToShow = 5;
+  let resourceTypePlural = ''
 
   const handlePrevious = () => {
     setCurrentIndex((prevIndex) =>
@@ -50,12 +53,20 @@ const PortalHeader = ({
     return visible;
   };
 
+  if (resourceType === 'Property') {
+    resourceTypePlural = 'Properties'
+  } else if (resourceType === 'Tenant') {
+    resourceTypePlural = 'Tenants'
+  } else {
+    resourceTypePlural = 'N/A'
+  }
+
   return (
     <section className={styles.wrapper}>
       <div className={styles.tenantInfo}>
-        <h3>{capitalizeWords(resourceName)} • Tenant</h3>
+        <h3>{capitalizeWords(resourceName)} • {resourceType}</h3>
         <div className={styles.backSection}>
-          <span>{numberOfResources} Tenants</span>
+          <span>{numberOfResources} {resourceTypePlural}</span>
           <button
             className={styles.backButton}
             onClick={onClose}

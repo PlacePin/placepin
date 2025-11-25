@@ -53,3 +53,9 @@ export const firstNameLastInitial = (name: string) => {
 
   return `${firstNameCap} ${lastNameInitial}`
 }
+
+export const firstLetterCapitalize = (word: string) => {
+  let capitalize = [word[0].toLocaleUpperCase()];
+  const slice = word.slice(1);
+  return capitalize.concat(slice).join('')
+}

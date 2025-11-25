@@ -3,7 +3,7 @@ import styles from './landlordTenants.module.css';
 import InviteTenantModal from '../../../../components/modals/InviteTenantModal';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
 import { Info, Plus } from 'lucide-react';
-import { capitalizeWords } from '../../../../utils/stringUtils';
+import { capitalizeWords, firstLetterCapitalize } from '../../../../utils/stringUtils';
 import TenantPortal from './tenantPortal/TenantPortal';
 import PortalHeader from '../../../../components/headers/PortalHeader';
 import TenantSummary from './tenantPortal/TenantSummary';
@@ -26,7 +26,7 @@ const LandlordTenants = () => {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
 
-  console.log(data)
+  console.log(selectedTenant)
 
   const tenants = data.tenants
   const numberOfTenants = tenants.length
@@ -83,6 +83,7 @@ const LandlordTenants = () => {
             numberOfResources={numberOfTenants}
             resourceName={selectedTenant.fullName}
             resourceId={selectedTenant._id}
+            resourceType={firstLetterCapitalize(selectedTenant.accountType)}
             onClose={() => setSelectedTenant(null)}
           />
           <div className={styles.portalBody}>

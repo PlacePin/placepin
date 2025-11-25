@@ -22,13 +22,23 @@ const LandlordProperties = () => {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
 
-  console.log(selectedProperty)
+  console.log('sp', selectedProperty)
 
   const stockPhotos = ['/townhouse.png', '/triplex.png', '/orangehouse.png']
 
   const properties = data.properties
+  const building = selectedProperty?.properties
   const numberOfProperties = properties.length
   let buildingName = ''
+  let resourceType = ''
+
+  if(selectedProperty === null){
+    resourceType = ''
+  } else if (selectedProperty.hasOwnProperty('properties')) {
+    resourceType = 'Property'
+  } else {
+    resourceType = 'N/A'
+  }
 
   const propertyCards = properties.map((property: any) => {
 
@@ -85,9 +95,21 @@ const LandlordProperties = () => {
     <>
       {selectedProperty ? (
         <PropertyPortal>
-          <PortalHeader resourcePic={['']} numberOfResources={0} resourceName={'The Palace'} resourceId={''} onClose={function (): void {
-            throw new Error('Function not implemented.');
-          }} />
+          <PortalHeader
+            resourcePic={[<img src='/emptyProfile.png' />,
+            <img src='/charts.png' />,
+            <img src='/emptyProfile.png' />,
+            <img src='/triplex.png' />,
+            <img src='/emptyProfile.png' />,
+            <img src='/groupPhoto.png' />,
+            <img src='/housing.jpg' />
+            ]}
+            numberOfResources={numberOfProperties}
+            resourceName={building.name || 'No Name'}
+            resourceId={''}
+            resourceType={resourceType}
+            onClose={() => setSelectedProperty(null)}
+          />
           <div className={styles.portalBody}>
             <PropertySummary />
           </div>
