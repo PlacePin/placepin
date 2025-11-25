@@ -5,6 +5,7 @@ import { useGetAxios } from '../../../../hooks/useGetAxios';
 import { Info } from 'lucide-react';
 import PropertyPortal from './propertyPortal/PropertyPortal';
 import PropertySummary from './propertyPortal/PropertySummary';
+import PortalHeader from '../../../../components/headers/PortalHeader';
 
 const LandlordProperties = () => {
 
@@ -84,6 +85,9 @@ const LandlordProperties = () => {
     <>
       {selectedProperty ? (
         <PropertyPortal>
+          <PortalHeader resourcePic={['']} numberOfResources={0} resourceName={'The Palace'} resourceId={''} onClose={function (): void {
+            throw new Error('Function not implemented.');
+          }} />
           <PropertySummary />
         </PropertyPortal>
       ) : numberOfProperties

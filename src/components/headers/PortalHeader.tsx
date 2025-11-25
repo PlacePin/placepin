@@ -1,8 +1,8 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import styles from './portalHeader.module.css';
-import { capitalizeWords } from '../../../../../utils/stringUtils';
+import { capitalizeWords } from '../../utils/stringUtils';
 import { useState } from 'react';
-import RemoveLandlordTenant from '../../../../../components/modals/RemoveLandlordTenant';
+import RemoveLandlordTenant from '../modals/RemoveLandlordTenant';
 
 interface PortalHeaderProps {
   resourcePic: any[],

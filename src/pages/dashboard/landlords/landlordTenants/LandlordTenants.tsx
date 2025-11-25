@@ -5,7 +5,7 @@ import { useGetAxios } from '../../../../hooks/useGetAxios';
 import { Info, Plus } from 'lucide-react';
 import { capitalizeWords } from '../../../../utils/stringUtils';
 import TenantPortal from './tenantPortal/TenantPortal';
-import PortalHeader from './tenantPortal/PortalHeader';
+import PortalHeader from '../../../../components/headers/PortalHeader';
 import TenantSummary from './tenantPortal/TenantSummary';
 import TenantActivity from './tenantPortal/TenantActivity';
 import TenantLogbook from './tenantPortal/TenantLogbook';
