@@ -26,8 +26,6 @@ const LandlordTenants = () => {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
 
-  console.log(selectedTenant)
-
   const tenants = data.tenants
   const numberOfTenants = tenants.length
 

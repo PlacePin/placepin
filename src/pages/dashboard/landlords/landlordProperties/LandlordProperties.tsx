@@ -33,7 +33,6 @@ const LandlordProperties = () => {
   let vacancyAmount: number;
   let buildingName = ''
   let resourceType = ''
-
   
   if(!selectedProperty || !building){
     vacancyAmount = 0
@@ -42,7 +41,6 @@ const LandlordProperties = () => {
     vacancyAmount = building.numberOfUnits - selectedProperty.tenantCount
     propertyId = selectedProperty.properties._id
   }
-  console.log('string', propertyId)
   
   if(selectedProperty === null){
     resourceType = ''
