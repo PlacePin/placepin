@@ -99,7 +99,7 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
           />
         </div>
         <button className={styles.button}>
-          Add Property!
+          Add Property
         </button>
         <p className={styles.message}>{message}</p>
       </form>

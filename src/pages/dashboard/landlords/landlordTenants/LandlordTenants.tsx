@@ -9,6 +9,7 @@ import PortalHeader from '../../../../components/headers/PortalHeader';
 import TenantSummary from './tenantPortal/TenantSummary';
 import TenantActivity from './tenantPortal/TenantActivity';
 import TenantLogbook from './tenantPortal/TenantLogbook';
+import PrimaryButton from '../../../../components/buttons/PrimaryButton';
 
 const LandlordTenants = () => {
 
@@ -98,14 +99,11 @@ const LandlordTenants = () => {
           <div className={styles.container}>
             <div className={styles.headerWrapper}>
               <h2>Tenants</h2>
-              <div
-                className={styles.inviteButton}
+              <PrimaryButton
+                title={'Invite Tenant'}
                 onClick={() => setShowInviteModal(prev => !prev)}
-              >
-                <span className={styles.inviteButtonText}>
-                  <Plus /> Invite Tenant
-                </span>
-              </div>
+                icon={<Plus />}
+              />
             </div>
             <div className={styles.tenantCardsContainer}>
               {tenantsCards}

@@ -17,8 +17,7 @@ const PrimaryButton = ({
       onClick={onClick}
       className={styles.button}
     >
-      {icon}
-      {title}
+      {icon}{title}
     </button>
   )
 }

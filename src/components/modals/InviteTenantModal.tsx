@@ -89,7 +89,7 @@ const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
           />
         </div>
         <button className={styles.button}>
-          Send Invite!
+          Send Invite
         </button>
         <p className={styles.message}>{message}</p>
       </form>
