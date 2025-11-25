@@ -40,7 +40,7 @@ const LandlordProperties = () => {
     propertyId = ''
   } else {
     vacancyAmount = building.numberOfUnits - selectedProperty.tenantCount
-    propertyId = selectedProperty._id
+    propertyId = selectedProperty.properties._id
   }
   console.log('string', propertyId)
   
@@ -56,7 +56,7 @@ const LandlordProperties = () => {
 
     const randomImg = Math.floor(Math.random() * stockPhotos.length)
     const address = `${property.properties.address.number} ${property.properties.address.street} ${property.properties.address.streetType}`
-    const addressId = property.properties.address._id
+    const id = property.properties._id
 
     if (property.properties.name === undefined || property.properties.name.trim() === '') {
       buildingName = 'No Name'
@@ -66,7 +66,7 @@ const LandlordProperties = () => {
 
     return (
       <div
-        key={addressId}
+        key={id}
         className={styles.propertyCards}
       >
         <div
@@ -108,7 +108,8 @@ const LandlordProperties = () => {
       {selectedProperty ? (
         <PropertyPortal>
           <PortalHeader
-            resourcePic={[<img src='/emptyProfile.png' />,
+            resourcePic={[
+            <img src='/emptyProfile.png' />,
             <img src='/charts.png' />,
             <img src='/emptyProfile.png' />,
             <img src='/triplex.png' />,

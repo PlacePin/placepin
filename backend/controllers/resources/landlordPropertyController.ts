@@ -84,6 +84,7 @@ export const getLandlordProperties = async (
       },
       {
         $project: {
+          "properties._id": 1,
           "properties.name": 1,
           "properties.address": 1,
           "properties.numberOfUnits": 1,
