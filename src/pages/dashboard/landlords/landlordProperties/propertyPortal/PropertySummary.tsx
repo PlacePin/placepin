@@ -1,7 +1,24 @@
 import WorkOrdersChart from '../../../../../components/charts/WorkOrdersChart';
 import styles from './propertySummary.module.css';
 
-const PropertySummary = () => {
+interface PropertySummaryProps {
+  residents: number;
+  numberOfUnits: number;
+  vacancy: number;
+}
+
+const PropertySummary = ({
+  residents,
+  numberOfUnits,
+  vacancy,
+}: PropertySummaryProps) => {
+  let residentFallback: string;
+  if(numberOfUnits && vacancy){
+    residentFallback = `${(numberOfUnits - vacancy)}`
+  } else {
+    residentFallback = '-'
+  }
+
   return (
     <section className={styles.summaryWrapper}>
       <div>
@@ -14,7 +31,7 @@ const PropertySummary = () => {
       <div className={styles.miniPropertyInfoContainer}>
         <div className={styles.miniPropertyInfo}>
           <span>
-            {2}
+            {residents || residentFallback}
           </span>
           <h3>
             Residents
@@ -22,7 +39,7 @@ const PropertySummary = () => {
         </div>
         <div className={styles.miniPropertyInfo}>
           <span>
-            {1}
+            {vacancy || '-'}
           </span>
           <h3>
             Vacancy
@@ -30,7 +47,7 @@ const PropertySummary = () => {
         </div>
         <div className={styles.miniPropertyInfo}>
           <span>
-            {3}
+            {numberOfUnits || '-'}
           </span>
           <h3>
             Units

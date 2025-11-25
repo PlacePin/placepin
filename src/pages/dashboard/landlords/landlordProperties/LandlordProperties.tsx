@@ -26,11 +26,18 @@ const LandlordProperties = () => {
 
   const stockPhotos = ['/townhouse.png', '/triplex.png', '/orangehouse.png']
 
-  const properties = data.properties
-  const building = selectedProperty?.properties
-  const numberOfProperties = properties.length
+  const properties = data.properties;
+  const building = selectedProperty?.properties;
+  const numberOfProperties = properties.length;
+  let vacancyAmount: number;
   let buildingName = ''
   let resourceType = ''
+
+  if(!selectedProperty || !building){
+    vacancyAmount = 0
+  } else {
+    vacancyAmount = building.numberOfUnits - selectedProperty.tenantCount 
+  }
 
   if(selectedProperty === null){
     resourceType = ''
@@ -111,7 +118,11 @@ const LandlordProperties = () => {
             onClose={() => setSelectedProperty(null)}
           />
           <div className={styles.portalBody}>
-            <PropertySummary />
+            <PropertySummary
+            residents={selectedProperty.tenantCount}
+            numberOfUnits={building.numberOfUnits}
+            vacancy={vacancyAmount}
+            />
           </div>
         </PropertyPortal>
       ) : numberOfProperties
