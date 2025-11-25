@@ -6,6 +6,7 @@ import { Info, Plus } from 'lucide-react';
 import PropertyPortal from './propertyPortal/PropertyPortal';
 import PropertySummary from './propertyPortal/PropertySummary';
 import PortalHeader from '../../../../components/headers/PortalHeader';
+import PrimaryButton from '../../../../components/buttons/PrimaryButton';
 
 const LandlordProperties = () => {
 
@@ -134,14 +135,11 @@ const LandlordProperties = () => {
           <div className={styles.container}>
             <div className={styles.headerWrapper}>
               <h2>Properties</h2>
-              <div
-                className={styles.addButton}
+              <PrimaryButton
+                title={'Add Property'}
                 onClick={() => setShowAddPropertyModal(prev => !prev)}
-              >
-                <span className={styles.addButtonText}>
-                  <Plus /> Add Property
-                </span>
-              </div>
+                icon={<Plus />}
+              />
             </div>
             <div className={styles.propertyCardsContainer}>
               {propertyCards}
