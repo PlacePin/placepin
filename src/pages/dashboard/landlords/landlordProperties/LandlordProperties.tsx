@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './landlordProperties.module.css';
 import AddPropertyModal from '../../../../components/modals/AddPropertyModal';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
-import { Info } from 'lucide-react';
+import { Info, Plus } from 'lucide-react';
 import PropertyPortal from './propertyPortal/PropertyPortal';
 import PropertySummary from './propertyPortal/PropertySummary';
 import PortalHeader from '../../../../components/headers/PortalHeader';
@@ -33,16 +33,16 @@ const LandlordProperties = () => {
   let vacancyAmount: number;
   let buildingName = ''
   let resourceType = ''
-  
-  if(!selectedProperty || !building){
+
+  if (!selectedProperty || !building) {
     vacancyAmount = 0
     propertyId = ''
   } else {
     vacancyAmount = building.numberOfUnits - selectedProperty.tenantCount
     propertyId = selectedProperty.properties._id
   }
-  
-  if(selectedProperty === null){
+
+  if (selectedProperty === null) {
     resourceType = ''
   } else if (selectedProperty.hasOwnProperty('properties')) {
     resourceType = 'Property'
@@ -107,13 +107,13 @@ const LandlordProperties = () => {
         <PropertyPortal>
           <PortalHeader
             resourcePic={[
-            <img src='/emptyProfile.png' />,
-            <img src='/charts.png' />,
-            <img src='/emptyProfile.png' />,
-            <img src='/triplex.png' />,
-            <img src='/emptyProfile.png' />,
-            <img src='/groupPhoto.png' />,
-            <img src='/housing.jpg' />
+              <img src='/emptyProfile.png' />,
+              <img src='/charts.png' />,
+              <img src='/emptyProfile.png' />,
+              <img src='/triplex.png' />,
+              <img src='/emptyProfile.png' />,
+              <img src='/groupPhoto.png' />,
+              <img src='/housing.jpg' />
             ]}
             numberOfResources={numberOfProperties}
             resourceName={building.name || 'No Name'}
@@ -123,19 +123,34 @@ const LandlordProperties = () => {
           />
           <div className={styles.portalBody}>
             <PropertySummary
-            residents={selectedProperty.tenantCount}
-            numberOfUnits={building.numberOfUnits}
-            vacancy={vacancyAmount}
+              residents={selectedProperty.tenantCount}
+              numberOfUnits={building.numberOfUnits}
+              vacancy={vacancyAmount}
             />
           </div>
         </PropertyPortal>
       ) : numberOfProperties
         ? (
           <div className={styles.container}>
-            <h2>Properties</h2>
+            <div className={styles.headerWrapper}>
+              <h2>Properties</h2>
+              <div
+                className={styles.addButton}
+                onClick={() => setShowAddPropertyModal(prev => !prev)}
+              >
+                <span className={styles.addButtonText}>
+                  <Plus /> Add Property
+                </span>
+              </div>
+            </div>
             <div className={styles.propertyCardsContainer}>
               {propertyCards}
             </div>
+            {showAddPropertyModal && (
+              <AddPropertyModal
+                onClose={() => setShowAddPropertyModal(prev => !prev)}
+              />
+            )}
           </div>
         ) : (
           <div>
