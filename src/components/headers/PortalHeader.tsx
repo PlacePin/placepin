@@ -22,7 +22,7 @@ const PortalHeader = ({
   onClose,
 }: PortalHeaderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [showInviteModal, setShowInviteModal] = useState(false);
+  const [showRemoveModal, setShowRemoveModal] = useState(false);
   const imagesToShow = 5;
   let resourceTypePlural = ''
 
@@ -96,15 +96,15 @@ const PortalHeader = ({
       </div>
       <div
         className={styles.removeButton}
-        onClick={() => setShowInviteModal(prev => !prev)}
+        onClick={() => setShowRemoveModal(prev => !prev)}
       >
         <span>
-          Remove Tenant
+          Remove {resourceType}
         </span>
       </div>
-      {showInviteModal && (
+      {showRemoveModal && (
         <RemoveLandlordTenant
-          onClose={() => setShowInviteModal(prev => !prev)}
+          onClose={() => setShowRemoveModal(prev => !prev)}
           tenantId={resourceId}
         />
       )}
