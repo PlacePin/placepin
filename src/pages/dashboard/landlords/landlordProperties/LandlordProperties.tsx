@@ -88,7 +88,9 @@ const LandlordProperties = () => {
           <PortalHeader resourcePic={['']} numberOfResources={0} resourceName={'The Palace'} resourceId={''} onClose={function (): void {
             throw new Error('Function not implemented.');
           }} />
-          <PropertySummary />
+          <div className={styles.portalBody}>
+            <PropertySummary />
+          </div>
         </PropertyPortal>
       ) : numberOfProperties
         ? (
