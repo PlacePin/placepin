@@ -60,7 +60,7 @@ const PortalHeader = ({
     removeResourceModal = (
       <RemoveLandlordProperty
         onClose={() => setShowRemoveModal(prev => !prev)}
-        propertyId={''}
+        propertyId={resourceId}
       />
     )
   } else if (resourceType === 'Tenant') {

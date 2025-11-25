@@ -29,16 +29,21 @@ const LandlordProperties = () => {
   const properties = data.properties;
   const building = selectedProperty?.properties;
   const numberOfProperties = properties.length;
+  let propertyId: string;
   let vacancyAmount: number;
   let buildingName = ''
   let resourceType = ''
 
+  
   if(!selectedProperty || !building){
     vacancyAmount = 0
+    propertyId = ''
   } else {
-    vacancyAmount = building.numberOfUnits - selectedProperty.tenantCount 
+    vacancyAmount = building.numberOfUnits - selectedProperty.tenantCount
+    propertyId = selectedProperty._id
   }
-
+  console.log('string', propertyId)
+  
   if(selectedProperty === null){
     resourceType = ''
   } else if (selectedProperty.hasOwnProperty('properties')) {
@@ -113,7 +118,7 @@ const LandlordProperties = () => {
             ]}
             numberOfResources={numberOfProperties}
             resourceName={building.name || 'No Name'}
-            resourceId={''}
+            resourceId={propertyId}
             resourceType={resourceType}
             onClose={() => setSelectedProperty(null)}
           />

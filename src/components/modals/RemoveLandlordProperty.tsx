@@ -6,15 +6,15 @@ import styles from './removeLandlordProperty.module.css';
 import axios from 'axios';
 import { useAuth } from "../../context/AuthContext";
 
-interface RemoveLandlordTenantProps {
+interface RemoveLandlordPropertyProps {
   onClose: () => void,
   propertyId: string,
 }
 
-const RemoveLandlordTenant = ({
+const RemoveLandlordProperty = ({
   onClose,
   propertyId
-}: RemoveLandlordTenantProps) => {
+}: RemoveLandlordPropertyProps) => {
   const [message, setMessage] = useState('')
 
   const { accessToken } = useAuth();
@@ -61,4 +61,4 @@ const RemoveLandlordTenant = ({
   )
 }
 
-export default RemoveLandlordTenant
+export default RemoveLandlordProperty
