@@ -1,8 +1,9 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import styles from './portalHeader.module.css';
 import { capitalizeWords } from '../../utils/stringUtils';
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import RemoveLandlordTenant from '../modals/RemoveLandlordTenant';
+import RemoveLandlordProperty from '../modals/RemoveLandlordProperty';
 
 interface PortalHeaderProps {
   resourcePic: any[],
@@ -25,6 +26,7 @@ const PortalHeader = ({
   const [showRemoveModal, setShowRemoveModal] = useState(false);
   const imagesToShow = 5;
   let resourceTypePlural = ''
+  let removeResourceModal: ReactNode
 
   const handlePrevious = () => {
     setCurrentIndex((prevIndex) =>
@@ -55,8 +57,20 @@ const PortalHeader = ({
 
   if (resourceType === 'Property') {
     resourceTypePlural = 'Properties'
+    removeResourceModal = (
+      <RemoveLandlordProperty
+        onClose={() => setShowRemoveModal(prev => !prev)}
+        propertyId={''}
+      />
+    )
   } else if (resourceType === 'Tenant') {
     resourceTypePlural = 'Tenants'
+    removeResourceModal = (
+      <RemoveLandlordTenant
+        onClose={() => setShowRemoveModal(prev => !prev)}
+        tenantId={resourceId}
+      />
+    )
   } else {
     resourceTypePlural = 'N/A'
   }
@@ -103,10 +117,7 @@ const PortalHeader = ({
         </span>
       </div>
       {showRemoveModal && (
-        <RemoveLandlordTenant
-          onClose={() => setShowRemoveModal(prev => !prev)}
-          tenantId={resourceId}
-        />
+        removeResourceModal
       )}
     </section>
   )
