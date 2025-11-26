@@ -7,6 +7,7 @@ import PropertyPortal from './propertyPortal/PropertyPortal';
 import PropertySummary from './propertyPortal/PropertySummary';
 import PortalHeader from '../../../../components/headers/PortalHeader';
 import PrimaryButton from '../../../../components/buttons/PrimaryButton';
+import PropertyAnalytics from './propertyPortal/PropertyAnalytics';
 
 const LandlordProperties = () => {
 
@@ -134,6 +135,7 @@ const LandlordProperties = () => {
               vacancy={vacancyAmount}
               address={propertyAddress}
             />
+            <PropertyAnalytics />
           </div>
         </PropertyPortal>
       ) : numberOfProperties

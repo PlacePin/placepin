@@ -127,6 +127,7 @@
   grid-template-columns: 1fr 2.5fr;
   height: 80vh;
   padding-top: 1rem;
+  gap: 0.5rem;
 }
 
 @keyframes shake {
