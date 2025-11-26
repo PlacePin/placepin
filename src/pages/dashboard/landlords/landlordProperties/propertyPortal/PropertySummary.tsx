@@ -5,12 +5,14 @@ interface PropertySummaryProps {
   residents: number;
   numberOfUnits: number;
   vacancy: number;
+  address: string;
 }
 
 const PropertySummary = ({
   residents,
   numberOfUnits,
   vacancy,
+  address
 }: PropertySummaryProps) => {
   let residentFallback: string;
   if(numberOfUnits && vacancy){
@@ -55,7 +57,13 @@ const PropertySummary = ({
         </div>
       </div>
       <WorkOrdersChart />
-      <div>retainers</div>
+      <div>
+        <h3>Site Staff</h3>
+        <p>{`Address: ${address}`}</p>
+        <div>
+          <p>None</p>
+        </div>
+      </div>
     </section>
   )
 }

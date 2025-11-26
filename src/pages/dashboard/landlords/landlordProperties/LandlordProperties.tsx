@@ -32,15 +32,20 @@ const LandlordProperties = () => {
   const numberOfProperties = properties.length;
   let propertyId: string;
   let vacancyAmount: number;
+  let propertyAddress: string;
   let buildingName = ''
   let resourceType = ''
+
 
   if (!selectedProperty || !building) {
     vacancyAmount = 0
     propertyId = ''
+    propertyAddress = ''
   } else {
     vacancyAmount = building.numberOfUnits - selectedProperty.tenantCount
     propertyId = selectedProperty.properties._id
+    const {number, street, streetType} = selectedProperty.properties.address
+    propertyAddress = `${number} ${street} ${streetType}`
   }
 
   if (selectedProperty === null) {
@@ -127,6 +132,7 @@ const LandlordProperties = () => {
               residents={selectedProperty.tenantCount}
               numberOfUnits={building.numberOfUnits}
               vacancy={vacancyAmount}
+              address={propertyAddress}
             />
           </div>
         </PropertyPortal>

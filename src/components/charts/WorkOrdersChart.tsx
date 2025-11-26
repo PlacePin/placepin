@@ -24,7 +24,7 @@ export default function WorkOrdersChart() {
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <h2 className={styles.title}>Property Work Orders - {2025}</h2>
+        <h3 className={styles.title}>Property Work Orders - {2025}</h3>
         <div className={styles.chartWrapper}>
           <ResponsiveContainer width="100%" height={300}>
             <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
