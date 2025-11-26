@@ -41,6 +41,20 @@
   color: #ACACAC;
 }
 
+.siteStaffContainer {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.siteStaffBody {
+  width: 100%;
+  padding: 3rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 32px;
+  font-weight: 900;
+}
+
 @media (max-width: 1401px) {
   .miniPropertyInfoContainer > div:nth-child(3) {
     grid-column: 1 / -1;

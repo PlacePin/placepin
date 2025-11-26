@@ -57,10 +57,10 @@ const PropertySummary = ({
         </div>
       </div>
       <WorkOrdersChart />
-      <div>
+      <div className={styles.siteStaffContainer}>
         <h3>Site Staff</h3>
         <p>{`Address: ${address}`}</p>
-        <div>
+        <div className={styles.siteStaffBody}>
           <p>None</p>
         </div>
       </div>
