@@ -11,29 +11,29 @@ const PropertyAnalytics = () => {
       </div>
       <div className={styles.analyticsWrapper}>
         <div className={styles.sectionContainers}>
-          <span>
+          <span className={styles.numbers}>
             {'$800,000'}
           </span>
           <Tooltip
             text={'This is an estimate.'}
-            position={'top'}
+            position={'bottom'}
           >
             <p>Outstanding Principal</p>
           </Tooltip>
         </div>
         <div className={styles.sectionContainers}>
-          <span>
+          <span className={styles.numbers}>
             {'$4,000'}
           </span>
           <Tooltip
             text={'This is an estimate.'}
-            position={'top'}
+            position={'bottom'}
           >
             <p>Mortgage</p>
           </Tooltip>
         </div>
         <div className={styles.sectionContainers}>
-          <span>
+          <span className={styles.numbers}>
             {'3.75%'}
           </span>
           <p>
@@ -41,12 +41,12 @@ const PropertyAnalytics = () => {
           </p>
         </div>
         <div className={styles.sectionContainers}>
-          <span>
+          <span className={styles.numbers}>
             {'$10,000'}
           </span>
           <Tooltip
             text={'This is an estimate.'}
-            position={'top'}
+            position={'bottom'}
           >
             <p>
               Projected Equity
