@@ -8,6 +8,7 @@ import PropertySummary from './propertyPortal/PropertySummary';
 import PortalHeader from '../../../../components/headers/PortalHeader';
 import PrimaryButton from '../../../../components/buttons/PrimaryButton';
 import PropertyAnalytics from './propertyPortal/PropertyAnalytics';
+import PropertyDetails from './propertyPortal/PropertyDetails';
 
 const LandlordProperties = () => {
 
@@ -45,7 +46,7 @@ const LandlordProperties = () => {
   } else {
     vacancyAmount = building.numberOfUnits - selectedProperty.tenantCount
     propertyId = selectedProperty.properties._id
-    const {number, street, streetType} = selectedProperty.properties.address
+    const { number, street, streetType } = selectedProperty.properties.address
     propertyAddress = `${number} ${street} ${streetType}`
   }
 
@@ -135,7 +136,10 @@ const LandlordProperties = () => {
               vacancy={vacancyAmount}
               address={propertyAddress}
             />
-            <PropertyAnalytics />
+            <div className={styles.portalMainSection}>
+              <PropertyAnalytics />
+              <PropertyDetails />
+            </div>
           </div>
         </PropertyPortal>
       ) : numberOfProperties

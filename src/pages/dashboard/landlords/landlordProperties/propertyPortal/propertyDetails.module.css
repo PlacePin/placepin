@@ -1,0 +1,7 @@
+.detailsWrapper {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 1rem;
+  height: 15vh;
+}
