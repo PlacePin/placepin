@@ -20,7 +20,7 @@ const PropertyWorkOrdersList = ({
     <section className={styles.paymentSection}>
       <h3>Work Orders</h3>
       <div className={styles.paymentContainer}>
-        <table className={styles.reliabilityTable}>
+        <table className={styles.workOrdersTable}>
           <thead>
             <tr>
               <th>Tradesman</th>
@@ -31,15 +31,23 @@ const PropertyWorkOrdersList = ({
             </tr>
           </thead>
           <tbody>
-            {allTradesmen.map((tradesman, i) => (
-              <tr key={i}>
-                <td>{tradesman}</td>
-                <td>{'1'}</td>
-                <td>{'Electrician'}</td>
-                <td>{'Dec 1'}</td>
-                <td>{'No'}</td>
+            {allTradesmen.length === 0 ? (
+              <tr>
+                <td colSpan={5} className={styles.emptyMessage}>
+                  No work orders found
+                </td>
               </tr>
-            ))}
+            ) : (
+              allTradesmen.map((tradesman, i) => (
+                <tr key={i}>
+                  <td>{tradesman}</td>
+                  <td>1</td>
+                  <td>Electrician</td>
+                  <td>Dec 1</td>
+                  <td>No</td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

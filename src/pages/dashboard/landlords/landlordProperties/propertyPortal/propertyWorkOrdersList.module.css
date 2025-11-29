@@ -14,27 +14,35 @@
   margin-top: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   max-height: 300px;
+  min-height: 300px;
 }
 
-.reliabilityTable {
+.workOrdersTable {
   width: 100%;
   border-collapse: collapse;
   font-weight: 500;
   text-align: left;
 }
 
-.reliabilityTable thead {
+.workOrdersTable thead {
   background-color: #00bfa5;
   color: #fff;
   font-weight: 600;
 }
 
-.reliabilityTable th,
-.reliabilityTable td {
+.workOrdersTable th,
+.workOrdersTable td {
   padding: 1rem;
   border-bottom: 1px solid #eee;
 }
 
-.reliabilityTable tbody tr:nth-child(even) {
+.workOrdersTable tbody tr:nth-child(even) {
   background-color: #f9f9f9;
+}
+
+.emptyMessage {
+  text-align: center;
+  padding: 2rem;
+  color: #999;
+  font-style: italic;
 }
