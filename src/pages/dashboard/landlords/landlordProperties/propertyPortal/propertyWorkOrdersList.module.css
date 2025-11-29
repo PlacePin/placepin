@@ -13,8 +13,8 @@
   overflow-y: auto;
   margin-top: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  max-height: 300px;
-  min-height: 300px;
+  max-height: 29rem;
+  min-height: 29rem;
 }
 
 .workOrdersTable {

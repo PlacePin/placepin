@@ -52,7 +52,6 @@ const PropertyWorkOrdersList = ({
         </table>
       </div>
     </section>
-
   )
 }
 
