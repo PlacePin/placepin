@@ -1,7 +1,33 @@
-.detailsWrapper {
+.detailsContainer {
   display: flex;
   flex-direction: column;
   background: #fff;
   border-radius: 1rem;
   height: 15vh;
+}
+
+.header {
+  width: 100%;
+  padding: 0.5rem 1rem;
+}
+
+.detailsWrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+}
+
+.sectionContainers {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sectionContainers .values {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.sectionContainers p {
+  color: #ACACAC
 }
