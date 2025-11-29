@@ -11,6 +11,10 @@
   padding: 0.5rem 1rem;
 }
 
+.header h4 {
+  font-weight: lighter;
+}
+
 .analyticsWrapper {
   display: flex;
   justify-content: space-between;

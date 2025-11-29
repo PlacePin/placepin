@@ -14,11 +14,11 @@ const PropertyWorkOrdersList = ({
   //   )
   // })
 
-  const allTradesmen = ['John', 'Shawn', 'Edgar', 'Chris']
+  const allTradesmen = ['John', 'Shawn', 'Edgar', 'Chris', 'James', 'Tyler', 'Jacob', 'Daquan']
 
   return (
     <section className={styles.paymentSection}>
-      {/* <h3>Work Orders</h3> */}
+      <h3>Work Orders</h3>
       <div className={styles.paymentContainer}>
         <table className={styles.reliabilityTable}>
           <thead>

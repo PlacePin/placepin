@@ -2,12 +2,18 @@
   margin-top: 1rem;
 }
 
+.paymentSection h3 {
+  margin-left: 1rem;
+}
+
 .paymentContainer {
   background: #fff;
   border-radius: 1rem;
   overflow-x: auto;
+  overflow-y: auto;
   margin-top: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  max-height: 300px;
 }
 
 .reliabilityTable {
