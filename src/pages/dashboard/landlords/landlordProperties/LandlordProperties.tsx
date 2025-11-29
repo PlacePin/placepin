@@ -9,6 +9,7 @@ import PortalHeader from '../../../../components/headers/PortalHeader';
 import PrimaryButton from '../../../../components/buttons/PrimaryButton';
 import PropertyAnalytics from './propertyPortal/PropertyAnalytics';
 import PropertyDetails from './propertyPortal/PropertyDetails';
+import PropertyWorkOrdersList from './propertyPortal/PropertyWorkOrdersList';
 
 const LandlordProperties = () => {
 
@@ -139,6 +140,7 @@ const LandlordProperties = () => {
             <div className={styles.portalMainSection}>
               <PropertyAnalytics />
               <PropertyDetails />
+              <PropertyWorkOrdersList />
             </div>
           </div>
         </PropertyPortal>
