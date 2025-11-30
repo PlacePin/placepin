@@ -15,6 +15,12 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   max-height: 29rem;
   min-height: 29rem;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.paymentContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .workOrdersTable {
