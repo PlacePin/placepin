@@ -6,18 +6,18 @@ const AddReceiptCard = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <section 
+    <section
       className={styles.cardContainer}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Animated background gradient */}
       <div className={styles.backgroundGradient} />
-      
+
       {/* Floating particles effect */}
       <div className={styles.particle1} />
       <div className={styles.particle2} />
-      
+
       <div className={styles.content}>
         {/* Header */}
         <div className={styles.header}>
@@ -31,7 +31,7 @@ const AddReceiptCard = () => {
         <div className={styles.imageContainer}>
           {/* Glow effect behind image */}
           <div className={`${styles.imageGlow} ${isHovered ? styles.imageGlowActive : ''}`} />
-          
+
           {/* Image wrapper with animation */}
           <div className={styles.imageWrapper}>
             <img
@@ -45,10 +45,15 @@ const AddReceiptCard = () => {
               }}
             />
           </div>
-          
+
           {/* Decorative elements */}
-          <div className={styles.decorativeDot1} />
-          <div className={styles.decorativeDot2} />
+          <img
+            src='/coin.png'
+            className={styles.decorativeDot1}
+          />
+          <img
+            src='/dollar.png'
+            className={styles.decorativeDot2} />
         </div>
 
         {/* Supportive text */}
