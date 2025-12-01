@@ -1,15 +1,15 @@
 import styles from './createReceiptModal.module.css';
 import FormModal from './FormModal';
 
-interface CreateReceiptModalProps {
+interface AddReceiptModalProps {
   onClose: () => void,
 }
 
-const CreateReceiptModal = ({
+const AddReceiptModal = ({
   onClose
-}: CreateReceiptModalProps) => {
+}: AddReceiptModalProps) => {
   return (
-    <FormModal title={'Create Receipt'} onClose={onClose}>
+    <FormModal title={'Add Receipt'} onClose={onClose}>
       <form>
 
       </form>
@@ -17,4 +17,4 @@ const CreateReceiptModal = ({
   )
 }
 
-export default CreateReceiptModal
+export default AddReceiptModal

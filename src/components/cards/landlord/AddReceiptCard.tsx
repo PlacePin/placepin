@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PrimaryButton from '../../buttons/PrimaryButton';
 import styles from './addReceiptCard.module.css';
-import CreateReceiptModal from '../../modals/CreateReceiptModal';
+import AddReceiptModal from '../../modals/AddReceiptModal';
 
 const AddReceiptCard = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -87,7 +87,7 @@ const AddReceiptCard = () => {
         </div>
       </div>
       {showCreateReceipt && (
-        <CreateReceiptModal
+        <AddReceiptModal
           onClose={() => setShowCreateReceipt(prev => !prev)}
         />
       )}
