@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import PrimaryButton from '../../buttons/PrimaryButton';
 import styles from './addReceiptCard.module.css';
+import CreateReceiptModal from '../../modals/CreateReceiptModal';
 
 const AddReceiptCard = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const [showCreateReceipt, setShowCreateReceipt] = useState(false)
 
   return (
     <section
@@ -21,7 +23,7 @@ const AddReceiptCard = () => {
       <div className={styles.content}>
         {/* Header */}
         <div className={styles.header}>
-          <h2 className={styles.title}>Add Receipt</h2>
+          <h2 className={styles.title}>Add Receipts</h2>
           <p className={styles.subtitle}>
             Upload and organize your receipts instantly
           </p>
@@ -66,7 +68,10 @@ const AddReceiptCard = () => {
 
         {/* Button */}
         <div className={styles.buttonWrapper}>
-          <PrimaryButton title="Select" />
+          <PrimaryButton
+            title="Add Receipts"
+            onClick={() => {setShowCreateReceipt(prev => !prev)}}
+          />
         </div>
 
         {/* Subtle hint text */}
@@ -79,6 +84,9 @@ const AddReceiptCard = () => {
           </p>
         </div> */}
       </div>
+      {showCreateReceipt && (
+        <CreateReceiptModal />
+      )}
     </section>
   );
 };
