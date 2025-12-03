@@ -211,7 +211,7 @@ body {
   border-radius: 1.25rem;
   padding: 2rem;
   width: 280px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: transform 0.2s ease;
 }
 
@@ -350,15 +350,6 @@ body {
   margin-bottom: 0.5rem;
 }
 
-.content-block {
-  background: #ff6b9d;
-  color: white;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  text-align: center;
-}
-
 .alignment-ui {
   text-align: center;
 }
@@ -369,14 +360,6 @@ body {
   border-radius: 4px;
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
-}
-
-.centered-element {
-  width: 40px;
-  height: 40px;
-  background: #ef4444;
-  border-radius: 4px;
-  margin: 0 auto;
 }
 
 .publishButton {
@@ -683,6 +666,28 @@ body {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+
+.launchSection .container,
+.pricingSection .container,
+.ctaSection .container 
+{
+animation: appear linear;
+animation-timeline: view();
+animation-range: entry 0 cover 20%;
+}
+
+/* Keyframe Animations */
+@keyframes appear {
+  from {
+    opacity: 0;
+    scale: 0.5;
+  }
+
+  to {
+    opacity: 1;
+    scale: 1;
+  }
 }
 
 /* Responsive Design */
