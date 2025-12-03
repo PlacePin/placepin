@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import styles from './inviteTenantModal.module.css';
+import styles from './composeModal.module.css';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
 import FormModal from './FormModal';
@@ -84,7 +84,7 @@ const ComposeModal = ({
           />
         </div>
         <button className={styles.button}>
-          Send Message!
+          Send Message
         </button>
         <p className={styles.errorMessage}>{errorMessage}</p>
       </form>
