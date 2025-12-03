@@ -22,11 +22,14 @@
   text-align: center;
   width: 90%;
   max-width: 600px;
+  max-height: 90vh;
   box-shadow: 
     0 20px 60px rgba(0, 191, 165, 0.15),
     0 10px 30px rgba(0, 0, 0, 0.2);
   animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .modalContainer::before {
@@ -111,7 +114,26 @@
 
 .childrenWrapper {
   padding: 0;
-  background-color: white;
+  background: #fff;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.childrenWrapper::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.childrenWrapper::-webkit-scrollbar-track {
+  background: #f5f0eb;
+}
+
+.childrenWrapper::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #00bfa5 0%, #00e0b2 100%);
+  border-radius: 4px;
+}
+
+.childrenWrapper::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #00a890 0%, #00c99e 100%);
 }
 
 @keyframes fadeIn {
