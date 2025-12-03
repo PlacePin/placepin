@@ -46,6 +46,8 @@
   background: #fff;
   transition: all 0.2s ease;
   font-family: inherit;
+  box-sizing: border-box;
+  height: 48px;
 }
 
 .input:hover,
@@ -73,6 +75,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  height: 48px;
 }
 
 .currencySymbol {
@@ -98,6 +101,7 @@
   background: #fff;
   transition: all 0.2s ease;
   width: 100%;
+  height: 100%;
 }
 
 .inputWithIcon:hover {
@@ -115,6 +119,7 @@
   resize: vertical;
   min-height: 100px;
   line-height: 1.5;
+  height: auto;
 }
 
 .buttonGroup {
