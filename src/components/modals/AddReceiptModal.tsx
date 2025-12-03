@@ -4,12 +4,16 @@ import FormModal from './FormModal';
 
 interface AddReceiptModalProps {
   onClose: () => void,
+  properties?: any[],
 }
 
 const AddReceiptModal = ({
-  onClose
+  onClose,
+  properties = []
 }: AddReceiptModalProps) => {
   const [formData, setFormData] = useState({
+    taxYear: new Date().getFullYear().toString(),
+    propertyId: '',
     category: '',
     amount: '',
     date: '',
@@ -53,6 +57,46 @@ const AddReceiptModal = ({
   return (
     <FormModal title={'Add Receipt'} onClose={onClose}>
       <form className={styles.form} onSubmit={handleSubmit}>
+        <div className={styles.formRow}>
+          <div className={styles.formGroup}>
+            <label htmlFor="taxYear" className={styles.label}>
+              Tax Year *
+            </label>
+            <input
+              type="number"
+              id="taxYear"
+              name="taxYear"
+              value={formData.taxYear}
+              onChange={handleChange}
+              className={styles.input}
+              placeholder="2024"
+              min="2000"
+              max="2100"
+              required
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label htmlFor="propertyId" className={styles.label}>
+              Physical Address *
+            </label>
+            <select
+              id="propertyId"
+              name="propertyId"
+              value={formData.propertyId}
+              onChange={handleChange}
+              className={styles.select}
+              required
+            >
+              <option value="">Select a property</option>
+              {properties.map((property) => (
+                <option key={property.id} value={property.id}>
+                  {property.address}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className={styles.divider}/>
         <div className={styles.formGroup}>
           <label htmlFor="category" className={styles.label}>
             Expense Category *
@@ -73,7 +117,6 @@ const AddReceiptModal = ({
             ))}
           </select>
         </div>
-
         <div className={styles.formRow}>
           <div className={styles.formGroup}>
             <label htmlFor="amount" className={styles.label}>
@@ -95,7 +138,6 @@ const AddReceiptModal = ({
               />
             </div>
           </div>
-
           <div className={styles.formGroup}>
             <label htmlFor="date" className={styles.label}>
               Date *
@@ -111,7 +153,6 @@ const AddReceiptModal = ({
             />
           </div>
         </div>
-
         <div className={styles.formGroup}>
           <label htmlFor="paymentMethod" className={styles.label}>
             Payment Method
@@ -132,7 +173,6 @@ const AddReceiptModal = ({
             <option value="other">Other</option>
           </select>
         </div>
-
         <div className={styles.formGroup}>
           <label htmlFor="description" className={styles.label}>
             Description
@@ -147,7 +187,6 @@ const AddReceiptModal = ({
             rows={4}
           />
         </div>
-
         <div className={styles.buttonGroup}>
           <button
             type="button"

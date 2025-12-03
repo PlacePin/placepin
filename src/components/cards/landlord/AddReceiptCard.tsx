@@ -89,6 +89,7 @@ const AddReceiptCard = () => {
       {showCreateReceipt && (
         <AddReceiptModal
           onClose={() => setShowCreateReceipt(prev => !prev)}
+          properties={[]}
         />
       )}
     </section>
