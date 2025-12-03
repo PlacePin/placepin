@@ -1,40 +1,179 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .modalOverlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  backdrop-filter: blur(5px);
-  background-color: rgba(0, 0, 0, 0.4); 
+  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10; 
-  pointer-events: auto; 
+  z-index: 10;
+  pointer-events: auto;
+  animation: fadeIn 0.3s ease;
 }
 
 .modalContainer {
-  background-color: white;
-  border-radius: 0.5em;
+  background: linear-gradient(135deg, #ffffff 0%, #f5f0eb 100%);
+  border-radius: 20px;
   z-index: 11;
   position: relative;
   text-align: center;
-  width: 40%;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 
+    0 20px 60px rgba(0, 191, 165, 0.15),
+    0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+.modalContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #00bfa5 0%, #00e0b2 100%);
+  box-shadow: 0 2px 8px rgba(0, 191, 165, 0.3);
 }
 
 .exitWrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 2px solid rgb(159, 159, 159);
-  padding: 1rem;
+  background: linear-gradient(135deg, rgba(0, 191, 165, 0.05) 0%, rgba(0, 224, 178, 0.05) 100%);
+  border-bottom: 1px solid rgba(0, 191, 165, 0.15);
+  padding: 1.5rem 2rem;
+  position: relative;
+}
+
+.exitWrapper h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #00bfa5 0%, #00e0b2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  letter-spacing: -0.02em;
 }
 
 .exit {
   cursor: pointer;
   text-align: right;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: rgba(0, 191, 165, 0.1);
+  color: #00bfa5;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.exit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #00bfa5 0%, #00e0b2 100%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.exit:hover {
+  background-color: transparent;
+  transform: rotate(90deg) scale(1.1);
+}
+
+.exit:hover::before {
+  opacity: 1;
+}
+
+.exit:active {
+  transform: rotate(90deg) scale(0.95);
+}
+
+.exit svg {
+  position: relative;
+  z-index: 1;
+  transition: color 0.2s ease;
+}
+
+.exit:hover svg {
+  color: white;
 }
 
 .childrenWrapper {
-  padding: 1rem 0 1rem 0;
+  padding: 0;
+  background-color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modalContainer {
+    width: 95%;
+    max-width: none;
+    margin: 1rem;
+    border-radius: 16px;
+  }
+
+  .exitWrapper {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .exitWrapper h2 {
+    font-size: 1.25rem;
+  }
+
+  .exit {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modalContainer {
+    width: 100%;
+    margin: 0.5rem;
+    border-radius: 12px;
+  }
+
+  .exitWrapper {
+    padding: 1rem 1.25rem;
+  }
+
+  .exitWrapper h2 {
+    font-size: 1.125rem;
+  }
+
+  .exit {
+    width: 28px;
+    height: 28px;
+  }
 }
