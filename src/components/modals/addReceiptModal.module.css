@@ -32,7 +32,7 @@
 }
 
 .formGroup:focus-within .label {
-  color: #2563eb;
+  color: #00bfa5;
 }
 
 .input,
@@ -41,9 +41,9 @@
   padding: 0.75rem 1rem;
   border: 2px solid #e5e7eb;
   border-radius: 8px;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   color: #1f2937;
-  background-color: #ffffff;
+  background: #fff;
   transition: all 0.2s ease;
   font-family: inherit;
 }
@@ -58,7 +58,7 @@
 .select:focus,
 .textarea:focus {
   outline: none;
-  border-color: #2563eb;
+  border-color: #00bfa5;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
   transform: translateY(-1px);
 }
@@ -78,7 +78,7 @@
 .currencySymbol {
   position: absolute;
   left: 1rem;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #6b7280;
   pointer-events: none;
@@ -90,15 +90,12 @@
 }
 
 .inputWithIcon {
-  padding-left: 2rem;
-  padding-right: 1rem;
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
+  padding: 0.75rem 1rem 0.75rem 2rem;
   border: 2px solid #e5e7eb;
   border-radius: 8px;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   color: #1f2937;
-  background-color: #ffffff;
+  background: #fff;
   transition: all 0.2s ease;
   width: 100%;
 }
@@ -109,7 +106,7 @@
 
 .inputWithIcon:focus {
   outline: none;
-  border-color: #2563eb;
+  border-color: #00bfa5;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
   transform: translateY(-1px);
 }
@@ -141,7 +138,7 @@
 }
 
 .cancelButton {
-  background-color: #f3f4f6;
+  background: #f3f4f6;
   color: #4b5563;
 }
 
@@ -156,14 +153,14 @@
 }
 
 .submitButton {
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, #00bfa5 0%, #00e0b2 100%);
+  color: #fff;
 }
 
 .submitButton:hover {
-  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  background: linear-gradient(135deg, #00e0b2 0%, #00bfa5 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 6px 16px rgba(37, 235, 212, 0.5);
 }
 
 .submitButton:active {
