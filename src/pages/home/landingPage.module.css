@@ -667,11 +667,10 @@ body {
 
 .launchSection .container,
 .pricingSection .container,
-.ctaSection .container 
-{
-animation: appear linear;
-animation-timeline: view();
-animation-range: entry 0 cover 20%;
+.ctaSection .container {
+  animation: appear linear;
+  animation-timeline: view();
+  animation-range: entry 0 cover 20%;
 }
 
 /* Keyframe Animations */
@@ -697,6 +696,10 @@ animation-range: entry 0 cover 20%;
     grid-template-columns: 1fr;
     gap: 2rem;
     text-align: center;
+  }
+
+  .heroContent {
+    margin-top: 2rem;
   }
 
   .heroContent h1 {
@@ -745,6 +748,10 @@ animation-range: entry 0 cover 20%;
 }
 
 @media (max-width: 480px) {
+  .heroContent {
+    margin-top: 2rem;
+  }
+
   .heroContent h1 {
     font-size: 2rem;
   }

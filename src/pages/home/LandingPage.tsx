@@ -190,7 +190,7 @@ const LandingPage = () => {
               <div className={styles.features}>
                 <h4>Great for small households</h4>
                 <ul>
-                  <li>✓ Everything in Comfort</li>
+                  <li>✓ Everything in Essential</li>
                   <li>✓ More frequent laundry</li>
                   <li>✓ Higher partner discounts</li>
                   <li>✓ Early access to new perks</li>
@@ -205,7 +205,7 @@ const LandingPage = () => {
               <div className={styles.features}>
                 <h4>Made for premium living</h4>
                 <ul>
-                  <li>✓ Everything in Premium</li>
+                  <li>✓ Everything in Balanced</li>
                   <li>✓ Concierge services</li>
                   <li>✓ Priority scheduling</li>
                   <li>✓ VIP experiences & events</li>
