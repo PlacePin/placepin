@@ -46,7 +46,7 @@ export const emailInviteToTenant = async (referralCode: string, tenantName: stri
   });
 
   // If you want to see the message object uncomment!
-  // console.log("Message sent:", info);
+  console.log("Message sent:", info);
 
 
 }

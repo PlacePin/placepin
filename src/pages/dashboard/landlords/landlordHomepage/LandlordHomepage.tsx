@@ -10,8 +10,8 @@ import { useGetAxios } from '../../../../hooks/useGetAxios';
 const LandlordHomepage = () => {
 
   const [showInviteModal, setShowInviteModal] = useState(false);
-  const [showNudgeModal, setShowNudgeModal] = useState(false);
-  const [showGiftModal, setShowGiftModal] = useState(false);
+  // const [showNudgeModal, setShowNudgeModal] = useState(false);
+  // const [showGiftModal, setShowGiftModal] = useState(false);
 
   const { data, error } = useGetAxios(`/api/users`)
 
