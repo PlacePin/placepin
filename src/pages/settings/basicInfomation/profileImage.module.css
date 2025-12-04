@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f5f0eb;
+  background: var(--color-bg);
   border-radius: 50%;
   width: 10vw;
   height: 10vw;

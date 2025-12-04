@@ -1,0 +1,31 @@
+:root {
+  /* Brand */
+  --color-primary: #00bfa5;
+  --color-secondary: #4dd0e1;
+
+  /* Neutrals */
+  --color-bg: #f5f0eb;
+  --color-surface: #fff;
+  --color-text: #000;
+
+  /* Semantic (optional) */
+  --color-success: #16a34a;
+  --color-warning: #eab308;
+  --color-error: #dc2626;
+}
+
+:root[data-theme='dark'] {
+  /* Adjust brand colors for dark mode if needed */
+  --color-primary: #00e5c3; /* slightly brighter version */
+  --color-secondary: #72e8f3;
+
+  /* Neutrals */
+  --color-bg: #121212;
+  --color-surface: #000;
+  --color-text: #f5f0eb;
+
+  /* Semantic variants for dark mode */
+  --color-success: #22c55e;
+  --color-warning: #facc15;
+  --color-error: #ef4444;
+}
