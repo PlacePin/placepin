@@ -20,3 +20,7 @@
 ## MAILING INVITES
  - mailtrap.io is the smtp
  - Currently using gmail smtp because its free
+
+## Responsive Web Design
+ - qrcode plugin allows you to scan qrcode in dev env terminal to see changes on mobile screens
+ - Download ResponsivelyApp to be able to see media quieries on multiple machines (It uses sockets under the hood so if you have it running it will prioritize the apps sockets and stop hmr from working.)

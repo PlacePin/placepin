@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import { configDefaults } from 'vitest/config';
+import { qrcode } from 'vite-plugin-qrcode';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), qrcode()],
   server: {
     proxy: {
       '/api': {
