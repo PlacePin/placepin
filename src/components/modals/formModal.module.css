@@ -102,16 +102,6 @@
   transform: rotate(90deg) scale(0.95);
 }
 
-.exit svg {
-  position: relative;
-  z-index: 1;
-  transition: color 0.2s ease;
-}
-
-.exit:hover svg {
-  color: white;
-}
-
 .childrenWrapper {
   padding: 0;
   background: #fff;
