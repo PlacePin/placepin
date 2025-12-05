@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Sun, Moon } from 'lucide-react';
 import styles from './ThemeToggle.module.css';
@@ -26,7 +25,9 @@ export default function ThemeToggle() {
       className={`${styles.toggleButton} ${theme === 'dark' ? styles.dark : styles.light}`}
       aria-label="Toggle theme"
     >
-      <div className={`${styles.iconCircle} ${theme === 'dark' ? styles.iconCircleDark : styles.iconCircleLight}`}>
+      <div
+        className={`${styles.iconCircle}`}
+      >
         {theme === 'light' ? (
           <Sun className={styles.icon} />
         ) : (

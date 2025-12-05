@@ -20,3 +20,8 @@
 .settingsIcon:hover {
   transform: rotate(90deg);
 }
+
+.theme {
+  display: flex;
+  align-items: center;
+}

@@ -2,26 +2,20 @@
   position: relative;
   display: flex;
   align-items: center;
-  padding: 8px 16px 8px 8px;
+  padding: 0.25rem 0.5rem 0.25rem 0.25rem;
   border: none;
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: system-ui, -apple-system, sans-serif;
+  margin-right: 1rem;
 }
 
 .light {
   background: #e8ecf1;
-  box-shadow: 
-    8px 8px 16px rgba(163, 177, 198, 0.6),
-    -8px -8px 16px rgba(255, 255, 255, 0.9);
 }
 
 .dark {
   background: #3d4451;
-  box-shadow: 
-    8px 8px 16px rgba(0, 0, 0, 0.4),
-    -8px -8px 16px rgba(80, 90, 110, 0.3);
 }
 
 .toggleButton:hover {
@@ -36,25 +30,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  margin-right: 12px;
   transition: all 0.3s ease;
-}
+  margin-right: 0.75rem;
 
-.iconCircleLight {
-  background: linear-gradient(145deg, #ffffff, #e0e5ea);
-  box-shadow: 
-    6px 6px 12px rgba(163, 177, 198, 0.5),
-    -6px -6px 12px rgba(255, 255, 255, 0.9);
-}
-
-.iconCircleDark {
-  background: linear-gradient(145deg, #565e6f, #2f3542);
-  box-shadow: 
-    6px 6px 12px rgba(0, 0, 0, 0.5),
-    -6px -6px 12px rgba(80, 90, 110, 0.4);
 }
 
 .icon {

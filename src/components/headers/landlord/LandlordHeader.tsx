@@ -57,7 +57,7 @@ const LandlordHeader = ({ username }: LandlordHeaderProps) => {
       <h2 className={styles.headerTitle}>
         Welcome, {upperCaseUsername}
       </h2>
-      <div>
+      <div className={styles.theme}>
         <ThemeToggle />
         <Settings
           size={30}
