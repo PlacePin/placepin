@@ -1,6 +1,6 @@
 @import './variables.css';
 
 html, body {
-  font-family: 'Poppins', sans-serif;
-  color: #000;
+  font-family: var(--font-family);
+  color: var(--color-font);
 }

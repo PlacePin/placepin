@@ -6,12 +6,15 @@
   /* Neutrals */
   --color-bg: #f5f0eb;
   --color-surface: #fff;
-  --color-text: #000;
+  --color-font: #000;
 
   /* Semantic (optional) */
   --color-success: #16a34a;
   --color-warning: #eab308;
   --color-error: #dc2626;
+
+  /* Fonts */
+  --font-family: 'Poppins', sans-serif;
 }
 
 :root[data-theme='dark'] {
@@ -22,7 +25,7 @@
   /* Neutrals */
   --color-bg: #121212;
   --color-surface: #000;
-  --color-text: #f5f0eb;
+  --color-font: #f5f0eb;
 
   /* Semantic variants for dark mode */
   --color-success: #22c55e;

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 import { LANDLORD_ROUTES } from "../../../routes/landlordRoutes";
 import { capitalizeWords } from "../../../utils/stringUtils";
+import ThemeToggle from "../../../themes/ThemeToggle";
 
 interface LandlordHeaderProps {
   username: string,
@@ -56,12 +57,15 @@ const LandlordHeader = ({ username }: LandlordHeaderProps) => {
       <h2 className={styles.headerTitle}>
         Welcome, {upperCaseUsername}
       </h2>
-      <Settings
-        size={30}
-        color={'black'}
-        className={styles.settingsIcon}
-        onClick={handleToggle}
-      />
+      <div>
+        <ThemeToggle />
+        <Settings
+          size={30}
+          color={'black'}
+          className={styles.settingsIcon}
+          onClick={handleToggle}
+        />
+      </div>
       {showDropdown && (
         <DropdownModal
           selections={['Settings', 'Sign out']}
