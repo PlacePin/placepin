@@ -28,7 +28,7 @@
   cursor: pointer;
   width: 50%;
   justify-content: center;
-  border: 1px solid black;
+  border: 1px solid var(--color-border-4);
   background: #00bfa5;
   color: #fff;
 }
@@ -47,7 +47,11 @@
   border-radius: 5rem;
   cursor: pointer;
   margin: 0 1rem;
-  background: #fff;
+  background: var(--color-surface-4);
+}
+
+.chevron:hover {
+  background: var(--color-surface-5);
 }
 
 .picContainers {

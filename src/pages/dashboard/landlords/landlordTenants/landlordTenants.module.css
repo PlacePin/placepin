@@ -15,19 +15,20 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  color: #0b3a42;
+  color: var(--color-text-2);
   text-align: center;
   transition: 0.3s ease;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #f8f9ff, #e1ecf7);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.07);
+  background: var(--color-surface-3);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.07);
   border-radius: 1.5rem;
+  border: 1px solid var(--color-border-4);
 }
 
 .tenantCards:hover {
   transform: scale(1.05) translateY(-3px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
 .tenantCardsContainer {
@@ -49,9 +50,9 @@
 }
 
 .infoButton {
-  color: gray;
-  background: #ffffff;
-  border: 1px solid black;
+  color: var(--color-text-2);
+  background: var(--color-surface-5);
+  border: 1px solid var(--color-border-5);
   padding: 0.5rem 2rem;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -70,7 +71,6 @@
 }
 
 .infoButton:hover {
-  transform: translateY(-3px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -82,7 +82,7 @@
 .button {
   width: 15%;
   height: 3.5em;
-  background-image: linear-gradient(135deg, #00bfa5 0%, #4dd0e1 100%);
+  background: #00bfa5;
   color: white;
   border: none;
   border-radius: 0.5em;
@@ -109,7 +109,17 @@
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-3px); }
-  75% { transform: translateX(3px); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-3px);
+  }
+
+  75% {
+    transform: translateX(3px);
+  }
 }

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './landlordTenants.module.css';
 import InviteTenantModal from '../../../../components/modals/InviteTenantModal';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
-import { Info, Plus } from 'lucide-react';
+import { Info, Plus, User } from 'lucide-react';
 import { capitalizeWords, firstLetterCapitalize } from '../../../../utils/stringUtils';
 import TenantPortal from './tenantPortal/TenantPortal';
 import PortalHeader from '../../../../components/headers/PortalHeader';
@@ -36,14 +36,11 @@ const LandlordTenants = () => {
         key={tenant._id}
         className={styles.tenantCards}
       >
-        <div>
-          <img
-            src='/emptyProfile.png'
-            alt='tenant photo'
-            width={150}
-            height={200}
-          />
-        </div>
+        <User
+          width={150}
+          height={200}
+          strokeWidth={1}
+        />
         <div
           className={styles.descriptionWrapper}
         >
