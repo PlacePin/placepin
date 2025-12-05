@@ -11,8 +11,10 @@
   padding: 0.5rem;
   font-size: 1rem;
   border-radius: 0.5rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border-1);
   box-sizing: border-box;
+  background: var(--color-surface-1);
+  color: var(--color-text-2);
 }
 
 .formRow {
@@ -39,7 +41,7 @@
 }
 
 .disabled {
-  background: rgb(186, 186, 186);
+  background: rgb(125, 125, 125);
   width: 100%;
 }
 

@@ -2,8 +2,6 @@
   margin: 2rem;
   display: flex;
   flex-direction: column;
-  font-family: 'Poppins', sans-serif;
-  color: #333;
 }
 
 .entireContainer h2 {
@@ -21,7 +19,7 @@
 
 /* LEFT: Settings Navigation */
 .settingsNav {
-  background: white;
+  background: var(--color-surface-2);
   border-radius: 1rem;
   width: 20%;
   min-width: 220px; 
@@ -38,21 +36,20 @@
 .settingsNav p {
   font-weight: 500;
   cursor: pointer;
-  color: #444;
   padding: 0.5rem;
   border-radius: 0.5rem;
   transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .settingsNav p:hover {
-  background: #f5f0eb;
+  background: var(--color-surface-5);
   transform: translateX(4px);
 }
 
 /* RIGHT: Dynamic Content */
 .mainContent {
   flex: 1;
-  background: #ffffff;
+  background: var(--color-surface-2);
   border-radius: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   padding: 2rem;
@@ -61,7 +58,7 @@
 }
 
 .activeTab {
-  background: #f5f0eb
+  background: var(--color-surface-4);
 }
 
 /* Responsive: stack on smaller screens */
