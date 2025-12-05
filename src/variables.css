@@ -16,7 +16,7 @@
   --color-border-strong: hsl(180, 12%, 70%);  /* Stronger border for emphasis */
 
   /* Text */
-  --color-text-primary: hsl(180, 10%, 12%);   /* Main text (read me) */
+  --color-text-primary: hsl(180, 10%, 0%);   /* Main text (read me) */
   --color-text-secondary: hsl(180, 8%, 38%);  /* Secondary text (understand me) */
   --color-text-tertiary: hsl(180, 5%, 58%);   /* Optional info */
 
@@ -53,7 +53,7 @@
   --color-border-strong: hsl(180, 12%, 35%);  /* Stronger border for emphasis */
 
   /* Text */
-  --color-text-primary: hsl(180, 10%, 96%);   /* Main text (read me) */
+  --color-text-primary: hsl(180, 10%, 100%);   /* Main text (read me) */
   --color-text-secondary: hsl(180, 8%, 68%);  /* Secondary text (understand me) */
   --color-text-tertiary: hsl(180, 5%, 52%);   /* Optional info */
 

@@ -61,7 +61,6 @@ const LandlordHeader = ({ username }: LandlordHeaderProps) => {
         <ThemeToggle />
         <Settings
           size={30}
-          color={'black'}
           className={styles.settingsIcon}
           onClick={handleToggle}
         />
