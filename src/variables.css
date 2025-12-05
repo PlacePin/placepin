@@ -2,29 +2,62 @@
   /* Brand Colors */
   --color-primary: hsl(172, 100%, 37%);       /* Vibrant teal - primary actions */
   --color-primary-hover: hsl(172, 100%, 33%); /* Darker teal - hover state */
-  --color-secondary: hsl(187, 71%, 59%);      /* Light cyan-blue - secondary elements */
-  --color-tertiary: hsl(232, 80%, 20%);       /* Deep blue - tertiary elements */
-
-  /* Backgrounds */
-  --color-bg: hsl(180, 15%, 96%);             /* Cool light gray - app background */
-  --color-surface: hsl(180, 15%, 99%);        /* Almost white with cyan tint - cards, panels & outlined buttons */
-  --color-surface-2: hsl(180, 15%, 94%);      /* Sidebar & headers */
-  --color-surface-3: hsl(180, 18%, 90%);      /* Modals, dropdowns & popups */
+  --color-primary-active: hsl(172, 100%, 29%); /* Even darker - active/pressed state */
+  --color-primary-light: hsl(172, 100%, 45%); /* Lighter teal - backgrounds/highlights */
+  --color-primary-lighter: hsl(172, 100%, 85%); /* Very light teal - subtle backgrounds */
   
-  /* Borders */
-  --color-border: hsl(180, 10%, 82%);         /* Subtle cool border */
-  --color-border-strong: hsl(180, 12%, 70%);  /* Stronger border for emphasis */
+  --color-secondary: hsl(187, 71%, 59%);      /* Light cyan-blue - secondary elements */
+  --color-secondary-hover: hsl(187, 71%, 54%); /* Darker cyan - hover state */
+  --color-secondary-active: hsl(187, 71%, 49%); /* Even darker - active state */
+  --color-secondary-light: hsl(187, 71%, 70%); /* Lighter cyan - backgrounds */
+  --color-secondary-lighter: hsl(187, 71%, 88%); /* Very light cyan - subtle backgrounds */
+  
+  --color-tertiary: hsl(232, 80%, 20%);       /* Deep blue - tertiary elements */
+  --color-tertiary-hover: hsl(232, 80%, 25%); /* Slightly lighter - hover state */
+  --color-tertiary-active: hsl(232, 80%, 30%); /* Even lighter - active state */
+  --color-tertiary-light: hsl(232, 80%, 50%); /* Medium blue */
+  --color-tertiary-lighter: hsl(232, 80%, 85%); /* Light blue - backgrounds */
 
-  /* Text */
-  --color-text-primary: hsl(180, 10%, 0%);   /* Main text (read me) */
-  --color-text-secondary: hsl(180, 8%, 38%);  /* Secondary text (understand me) */
-  --color-text-tertiary: hsl(180, 5%, 58%);   /* Optional info */
+  /* Surfaces - 5 levels from lightest to darkest */
+  --color-surface-1: hsl(180, 15%, 99%);      /* Lightest - cards, main content areas */
+  --color-surface-2: hsl(180, 15%, 96%);      /* Very light - elevated panels */
+  --color-surface-3: hsl(180, 15%, 94%);      /* Light - sidebar & headers */
+  --color-surface-4: hsl(180, 18%, 90%);      /* Medium - modals, dropdowns */
+  --color-surface-5: hsl(180, 18%, 82%);      /* Darker - hover states, accents */
+  
+  /* Background */
+  --color-bg: hsl(180, 15%, 96%);             /* Cool light gray - app background */
+  
+  /* Borders - 5 levels */
+  --color-border-1: hsl(180, 8%, 92%);        /* Subtlest border */
+  --color-border-2: hsl(180, 10%, 86%);       /* Very subtle border */
+  --color-border-3: hsl(180, 10%, 82%);       /* Standard border */
+  --color-border-4: hsl(180, 12%, 75%);       /* Medium border */
+  --color-border-5: hsl(180, 12%, 70%);       /* Strongest border for emphasis */
+
+  /* Text - 5 levels */
+  --color-text-1: hsl(180, 10%, 10%);         /* Darkest - primary headings */
+  --color-text-2: hsl(180, 10%, 20%);         /* Dark - main body text */
+  --color-text-3: hsl(180, 8%, 38%);          /* Medium - secondary text */
+  --color-text-4: hsl(180, 6%, 52%);          /* Light - tertiary text */
+  --color-text-5: hsl(180, 5%, 64%);          /* Lightest - disabled/placeholder text */
 
   /* Semantic */
   --color-success: hsl(142, 71%, 45%);        /* Green - success states */
+  --color-success-hover: hsl(142, 71%, 40%);  /* Darker green - hover */
+  --color-success-light: hsl(142, 71%, 85%);  /* Light green - backgrounds */
+  
   --color-warning: hsl(48, 96%, 53%);         /* Yellow - warning states */
+  --color-warning-hover: hsl(48, 96%, 48%);   /* Darker yellow - hover */
+  --color-warning-light: hsl(48, 96%, 85%);   /* Light yellow - backgrounds */
+  
   --color-error: hsl(0, 84%, 60%);            /* Red - error states */
-  --color-info: hsl(187, 71%, 59%);           /* Cyan - info (matches secondary) */
+  --color-error-hover: hsl(0, 84%, 55%);      /* Darker red - hover */
+  --color-error-light: hsl(0, 84%, 90%);      /* Light red - backgrounds */
+  
+  --color-info: hsl(187, 71%, 59%);           /* Cyan - info */
+  --color-info-hover: hsl(187, 71%, 54%);     /* Darker cyan - hover */
+  --color-info-light: hsl(187, 71%, 88%);     /* Light cyan - backgrounds */
 
   /* Shadows */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -37,33 +70,66 @@
 
 :root[data-theme='dark'] {
   /* Brand Colors */
-  --color-primary: hsl(172, 100%, 37%);       /* Vibrant teal - stays consistent */
-  --color-primary-hover: hsl(172, 100%, 41%); /* Lighter teal - hover state for dark bg */
-  --color-secondary: hsl(187, 71%, 41%);      /* Darker cyan-blue - secondary elements */
-  --color-tertiary: hsl(232, 80%, 80%);       /* Light blue - tertiary elements */
+  --color-primary: hsl(172, 100%, 50%);       /* Vibrant teal - adjusted for dark bg */
+  --color-primary-hover: hsl(172, 100%, 55%); /* Lighter teal - hover state */
+  --color-primary-active: hsl(172, 100%, 60%); /* Even lighter - active state */
+  --color-primary-light: hsl(172, 100%, 35%); /* Darker teal - backgrounds */
+  --color-primary-lighter: hsl(172, 100%, 20%); /* Very dark teal - subtle backgrounds */
+  
+  --color-secondary: hsl(187, 71%, 50%);      /* Cyan-blue - secondary elements */
+  --color-secondary-hover: hsl(187, 71%, 55%); /* Lighter cyan - hover state */
+  --color-secondary-active: hsl(187, 71%, 60%); /* Even lighter - active state */
+  --color-secondary-light: hsl(187, 71%, 35%); /* Darker cyan - backgrounds */
+  --color-secondary-lighter: hsl(187, 71%, 20%); /* Very dark cyan - subtle backgrounds */
+  
+  --color-tertiary: hsl(232, 80%, 75%);       /* Light blue - tertiary elements */
+  --color-tertiary-hover: hsl(232, 80%, 80%); /* Lighter blue - hover state */
+  --color-tertiary-active: hsl(232, 80%, 85%); /* Even lighter - active state */
+  --color-tertiary-light: hsl(232, 80%, 45%); /* Medium blue */
+  --color-tertiary-lighter: hsl(232, 80%, 25%); /* Dark blue - backgrounds */
 
-  /* Backgrounds (cool dark tones) */
+  /* Surfaces - 5 levels from darkest to lightest */
+  --color-surface-1: hsl(180, 15%, 14%);      /* Darkest - cards, main content areas */
+  --color-surface-2: hsl(180, 15%, 16%);      /* Very dark - elevated panels */
+  --color-surface-3: hsl(180, 15%, 18%);      /* Dark - sidebar & headers */
+  --color-surface-4: hsl(180, 18%, 22%);      /* Medium - modals, dropdowns */
+  --color-surface-5: hsl(180, 18%, 34%);      /* Lighter - hover states, accents */
+  
+  /* Background */
   --color-bg: hsl(180, 15%, 10%);             /* Dark cool gray - app background */
-  --color-surface: hsl(180, 15%, 14%);        /* Slightly lighter - cards, panels & outlined buttons */
-  --color-surface-2: hsl(180, 15%, 18%);      /* Sidebar & headers */
-  --color-surface-3: hsl(180, 18%, 22%);      /* Modals, dropdowns & popups */
 
-  /* Borders */
-  --color-border: hsl(180, 10%, 26%);         /* Subtle cool border */
-  --color-border-strong: hsl(180, 12%, 35%);  /* Stronger border for emphasis */
+  /* Borders - 5 levels */
+  --color-border-1: hsl(180, 8%, 20%);        /* Subtlest border */
+  --color-border-2: hsl(180, 10%, 24%);       /* Very subtle border */
+  --color-border-3: hsl(180, 10%, 28%);       /* Standard border */
+  --color-border-4: hsl(180, 12%, 32%);       /* Medium border */
+  --color-border-5: hsl(180, 12%, 38%);       /* Strongest border for emphasis */
 
-  /* Text */
-  --color-text-primary: hsl(180, 10%, 100%);   /* Main text (read me) */
-  --color-text-secondary: hsl(180, 8%, 68%);  /* Secondary text (understand me) */
-  --color-text-tertiary: hsl(180, 5%, 52%);   /* Optional info */
+  /* Text - 5 levels */
+  --color-text-1: hsl(180, 10%, 98%);         /* Lightest - primary headings */
+  --color-text-2: hsl(180, 10%, 90%);         /* Light - main body text */
+  --color-text-3: hsl(180, 8%, 75%);          /* Medium - secondary text */
+  --color-text-4: hsl(180, 6%, 58%);          /* Dark - tertiary text */
+  --color-text-5: hsl(180, 5%, 45%);          /* Darkest - disabled/placeholder text */
 
   /* Semantic (dark-friendly shades) */
-  --color-success: hsl(142, 71%, 50%);        /* Brighter green for dark bg */
-  --color-warning: hsl(48, 96%, 60%);         /* Brighter yellow for dark bg */
-  --color-error: hsl(0, 84%, 65%);            /* Brighter red for dark bg */
-  --color-info: hsl(187, 71%, 59%);           /* Cyan - info (matches secondary) */
+  --color-success: hsl(142, 71%, 55%);        /* Brighter green for dark bg */
+  --color-success-hover: hsl(142, 71%, 60%);  /* Even brighter - hover */
+  --color-success-light: hsl(142, 71%, 20%);  /* Dark green - backgrounds */
+  
+  --color-warning: hsl(48, 96%, 65%);         /* Brighter yellow for dark bg */
+  --color-warning-hover: hsl(48, 96%, 70%);   /* Even brighter - hover */
+  --color-warning-light: hsl(48, 96%, 25%);   /* Dark yellow - backgrounds */
+  
+  --color-error: hsl(0, 84%, 68%);            /* Brighter red for dark bg */
+  --color-error-hover: hsl(0, 84%, 73%);      /* Even brighter - hover */
+  --color-error-light: hsl(0, 84%, 25%);      /* Dark red - backgrounds */
+  
+  --color-info: hsl(187, 71%, 60%);           /* Brighter cyan - info */
+  --color-info-hover: hsl(187, 71%, 65%);     /* Even brighter - hover */
+  --color-info-light: hsl(187, 71%, 20%);     /* Dark cyan - backgrounds */
 
-  /* Shadows (minimal on dark) */
+  /* Shadows (enhanced for dark mode) */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 2px 10px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.5);

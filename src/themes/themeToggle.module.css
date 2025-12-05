@@ -11,11 +11,11 @@
 }
 
 .light {
-  background: var(--color-secondary);
+  background: var(--color-surface-5);
 }
 
 .dark {
-  background: var(--color-secondary);
+  background: var(--color-surface-5);
 }
 
 .toggleButton:hover {
@@ -44,11 +44,11 @@
 }
 
 .light .icon {
-  color: var(--color-text-primary);
+  color: var(--color-text-2);
 }
 
 .dark .icon {
-  color: var(--color-text-primary);
+  color: var(--color-text-2);
 }
 
 .label {
@@ -59,9 +59,9 @@
 }
 
 .light .label {
-  color: var(--color-text-primary);
+  color: var(--color-text-2);
 }
 
 .dark .label {
-  color: var(--color-text-primary);
+  color: var(--color-text-2);
 }
