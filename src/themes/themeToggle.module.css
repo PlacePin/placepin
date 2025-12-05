@@ -11,11 +11,11 @@
 }
 
 .light {
-  background: var(--color-surface-5);
+  background: var(--color-surface-4);
 }
 
 .dark {
-  background: var(--color-surface-5);
+  background: var(--color-surface-4);
 }
 
 .toggleButton:hover {

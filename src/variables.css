@@ -89,10 +89,10 @@
   --color-tertiary-lighter: hsl(232, 80%, 25%); /* Dark blue - backgrounds */
 
   /* Surfaces - 5 levels from darkest to lightest */
-  --color-surface-1: hsl(180, 15%, 14%);      /* Darkest - cards, main content areas */
-  --color-surface-2: hsl(180, 15%, 16%);      /* Very dark - elevated panels */
-  --color-surface-3: hsl(180, 15%, 18%);      /* Dark - sidebar & headers */
-  --color-surface-4: hsl(180, 18%, 22%);      /* Medium - modals, dropdowns */
+  --color-surface-1: hsl(180, 15%, 10%);      /* Darkest - cards, main content areas */
+  --color-surface-2: hsl(180, 15%, 14%);      /* Very dark - elevated panels */
+  --color-surface-3: hsl(180, 15%, 20%);      /* Dark - sidebar & headers */
+  --color-surface-4: hsl(180, 18%, 26%);      /* Medium - modals, dropdowns */
   --color-surface-5: hsl(180, 18%, 34%);      /* Lighter - hover states, accents */
   
   /* Background */
