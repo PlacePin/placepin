@@ -1,6 +1,6 @@
 .landlordHeaderContainer {
   height: 3.5rem;
-  background: var(--color-surface);
+  background: var(--color-surface-2);
   box-shadow: var(--shadow-md);
   display: flex;
   justify-content: space-between;

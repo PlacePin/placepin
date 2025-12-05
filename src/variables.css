@@ -1,29 +1,30 @@
 :root {
-  /* Brand */
-  --color-primary: #00bfa5;
-  --color-primary-hover: #00a68f;
-  --color-secondary: #4dd0e1;
+  /* Brand Colors */
+  --color-primary: hsl(172, 100%, 37%);       /* Vibrant teal - primary actions */
+  --color-primary-hover: hsl(172, 100%, 33%); /* Darker teal - hover state */
+  --color-secondary: hsl(187, 71%, 59%);      /* Light cyan-blue - secondary elements */
+  --color-tertiary: hsl(232, 80%, 20%);       /* Deep blue - tertiary elements */
 
   /* Backgrounds */
-  --color-bg: #f5f0eb;          /* App background */
-  --color-surface: #fff;      /* Cards, panels & Outlined Buttons */
-  --color-surface-2: #f8f6f4;    /* Sidebar & Headers */
-  --color-surface-3: #eadacb;    /* Modals, Dropdowns & Popups */
+  --color-bg: hsl(180, 15%, 96%);             /* Cool light gray - app background */
+  --color-surface: hsl(180, 15%, 99%);        /* Almost white with cyan tint - cards, panels & outlined buttons */
+  --color-surface-2: hsl(180, 15%, 94%);      /* Sidebar & headers */
+  --color-surface-3: hsl(180, 18%, 90%);      /* Modals, dropdowns & popups */
   
   /* Borders */
-  --color-border: #d8d3cc;
-  --color-border-strong: #bdb7ae;
+  --color-border: hsl(180, 10%, 82%);         /* Subtle cool border */
+  --color-border-strong: hsl(180, 12%, 70%);  /* Stronger border for emphasis */
 
-   /* Text */
-  --color-text-primary: #000;     /* Main text (Read me) */
-  --color-text-secondary: #4a4a4a;   /* Secondary text (understand me)*/
-  --color-text-tertiary: #acacac;  /* optional info */
+  /* Text */
+  --color-text-primary: hsl(180, 10%, 12%);   /* Main text (read me) */
+  --color-text-secondary: hsl(180, 8%, 38%);  /* Secondary text (understand me) */
+  --color-text-tertiary: hsl(180, 5%, 58%);   /* Optional info */
 
   /* Semantic */
-  --color-success: #16a34a;
-  --color-warning: #eab308;
-  --color-error: #ef4444;
-  --color-info: #4dd0e1;
+  --color-success: hsl(142, 71%, 45%);        /* Green - success states */
+  --color-warning: hsl(48, 96%, 53%);         /* Yellow - warning states */
+  --color-error: hsl(0, 84%, 60%);            /* Red - error states */
+  --color-info: hsl(187, 71%, 59%);           /* Cyan - info (matches secondary) */
 
   /* Shadows */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -35,34 +36,35 @@
 }
 
 :root[data-theme='dark'] {
-  /* Brand */
-  --color-primary: #00bfa5;
-  --color-primary-hover: #00d3b8;
-  --color-secondary: #4dd0e1;
+  /* Brand Colors */
+  --color-primary: hsl(172, 100%, 37%);       /* Vibrant teal - stays consistent */
+  --color-primary-hover: hsl(172, 100%, 41%); /* Lighter teal - hover state for dark bg */
+  --color-secondary: hsl(187, 71%, 41%);      /* Darker cyan-blue - secondary elements */
+  --color-tertiary: hsl(232, 80%, 80%);       /* Light blue - tertiary elements */
 
-  /* Backgrounds (tinted neutrals) */
-  --color-bg: #0d1110;           /* App background */
-  --color-surface: #131716;     /* Cards, panels & Outlined Buttons */
-  --color-surface-2: #1a201f;    /* Sidebar & Headers */
-  --color-surface-3: #1a201f;    /* Modals, Dropdowns & Popups */
+  /* Backgrounds (cool dark tones) */
+  --color-bg: hsl(180, 15%, 10%);             /* Dark cool gray - app background */
+  --color-surface: hsl(180, 15%, 14%);        /* Slightly lighter - cards, panels & outlined buttons */
+  --color-surface-2: hsl(180, 15%, 18%);      /* Sidebar & headers */
+  --color-surface-3: hsl(180, 18%, 22%);      /* Modals, dropdowns & popups */
 
   /* Borders */
-  --color-border: #262c2b;
-  --color-border-strong: #323938;
+  --color-border: hsl(180, 10%, 26%);         /* Subtle cool border */
+  --color-border-strong: hsl(180, 12%, 35%);  /* Stronger border for emphasis */
 
-   /* Text */
-  --color-text-primary: #fff;     /* Main text (Read me) */
-  --color-text-secondary: #8892a6;   /* Secondary text (Understand me) */
-  --color-text-tertiary: #a3a3a3;    /* optional info */
+  /* Text */
+  --color-text-primary: hsl(180, 10%, 96%);   /* Main text (read me) */
+  --color-text-secondary: hsl(180, 8%, 68%);  /* Secondary text (understand me) */
+  --color-text-tertiary: hsl(180, 5%, 52%);   /* Optional info */
 
   /* Semantic (dark-friendly shades) */
-  --color-success: #22c55e;
-  --color-warning: #facc15;
-  --color-error: #f87171;
-  --color-info: #5edff1;
+  --color-success: hsl(142, 71%, 50%);        /* Brighter green for dark bg */
+  --color-warning: hsl(48, 96%, 60%);         /* Brighter yellow for dark bg */
+  --color-error: hsl(0, 84%, 65%);            /* Brighter red for dark bg */
+  --color-info: hsl(187, 71%, 59%);           /* Cyan - info (matches secondary) */
 
-   /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0);
-  --shadow-md: 0 2px 10px rgba(0, 0, 0, 0);
-  --shadow-lg: 0 4px 20px rgba(0, 0, 0, 0);
+  /* Shadows (minimal on dark) */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 2px 10px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
