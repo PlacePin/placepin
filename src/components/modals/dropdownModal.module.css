@@ -2,7 +2,7 @@
   position: absolute;
   top: 40px;
   right: 0;
-  background-color: #fff;
+  background: var(--color-surface-4);
   border: 1px solid rgba(0,0,0,0.1);
   border-radius: 0.5rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -22,7 +22,7 @@
 }
 
 .item:hover {
-  background-color: rgba(0,0,0,0.05);
+  background: var(--color-surface-5);
 }
 
 /* small fade + slide in animation */
