@@ -126,7 +126,7 @@
 }
 
 .cardContainer:hover .imageWrapper {
-  transform: scale(1.1) rotate(3deg);
+  transform: scale(1.1) rotate(-3deg);
   box-shadow: var(--shadow-lg);
   border-color: var(--color-border-3);
 }
