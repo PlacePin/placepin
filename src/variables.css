@@ -1,34 +1,68 @@
 :root {
   /* Brand */
   --color-primary: #00bfa5;
+  --color-primary-hover: #00a68f;
   --color-secondary: #4dd0e1;
 
-  /* Neutrals */
-  --color-bg: #f5f0eb;
-  --color-surface: #fff;
-  --color-font: #000;
+  /* Backgrounds */
+  --color-bg: #f5f0eb;          /* App background */
+  --color-surface: #fff;      /* Cards, panels & Outlined Buttons */
+  --color-surface-2: #f8f6f4;    /* Sidebar & Headers */
+  --color-surface-3: #eadacb;    /* Modals, Dropdowns & Popups */
+  
+  /* Borders */
+  --color-border: #d8d3cc;
+  --color-border-strong: #bdb7ae;
 
-  /* Semantic (optional) */
+   /* Text */
+  --color-text-primary: #000;     /* Main text (Read me) */
+  --color-text-secondary: #4a4a4a;   /* Secondary text (understand me)*/
+  --color-text-tertiary: #acacac;  /* optional info */
+
+  /* Semantic */
   --color-success: #16a34a;
   --color-warning: #eab308;
-  --color-error: #dc2626;
+  --color-error: #ef4444;
+  --color-info: #4dd0e1;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 2px 10px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.3);
 
   /* Fonts */
   --font-family: 'Poppins', sans-serif;
 }
 
 :root[data-theme='dark'] {
-  /* Adjust brand colors for dark mode if needed */
-  --color-primary: #00e5c3; /* slightly brighter version */
-  --color-secondary: #72e8f3;
+  /* Brand */
+  --color-primary: #00bfa5;
+  --color-primary-hover: #00d3b8;
+  --color-secondary: #4dd0e1;
 
-  /* Neutrals */
-  --color-bg: #121212;
-  --color-surface: #000;
-  --color-font: #f5f0eb;
+  /* Backgrounds (tinted neutrals) */
+  --color-bg: #0d1110;           /* App background */
+  --color-surface: #131716;     /* Cards, panels & Outlined Buttons */
+  --color-surface-2: #1a201f;    /* Sidebar & Headers */
+  --color-surface-3: #1a201f;    /* Modals, Dropdowns & Popups */
 
-  /* Semantic variants for dark mode */
+  /* Borders */
+  --color-border: #262c2b;
+  --color-border-strong: #323938;
+
+   /* Text */
+  --color-text-primary: #fff;     /* Main text (Read me) */
+  --color-text-secondary: #8892a6;   /* Secondary text (Understand me) */
+  --color-text-tertiary: #a3a3a3;    /* optional info */
+
+  /* Semantic (dark-friendly shades) */
   --color-success: #22c55e;
   --color-warning: #facc15;
-  --color-error: #ef4444;
+  --color-error: #f87171;
+  --color-info: #5edff1;
+
+   /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0);
+  --shadow-md: 0 2px 10px rgba(0, 0, 0, 0);
+  --shadow-lg: 0 4px 20px rgba(0, 0, 0, 0);
 }
