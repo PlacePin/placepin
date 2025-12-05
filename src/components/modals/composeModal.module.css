@@ -3,16 +3,27 @@
   padding: 0.5rem;
   font-size: 1rem;
   border-radius: 0.5rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border-5);
   box-sizing: border-box;
+  background: var(--color-surface-3);
+  color: var(--color-text-3);
+  outline: none;
 }
 
 .textArea {
   padding: 0.5rem;
   font-size: 1rem;
   border-radius: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border-5);
   box-sizing: border-box;
+  background: var(--color-surface-3);
+  color: var(--color-text-3);
+  outline: none;
+}
+
+.inputFields:focus, .textArea:focus {
+  border-color: #00bfa5;
+  box-shadow: 0 0 0 3px rgba(0, 191, 165, 0.2);
 }
 
 .formContainer {
@@ -32,12 +43,11 @@
   margin: 0 0 1rem 0;
   font-size: 1rem;
   border-radius: 0.5rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border-5);
   box-sizing: border-box;
   cursor: pointer;
   color: #ffffff;
   background: #00bfa5;
-  box-shadow: 2px 2px 8px rgb(198, 198, 198);
   transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 

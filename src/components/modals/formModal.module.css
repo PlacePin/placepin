@@ -104,7 +104,7 @@
 
 .childrenWrapper {
   padding: 0;
-  background: #fff;
+  background: var(--color-surface-5);
   overflow-y: auto;
   overflow-x: hidden;
 }
