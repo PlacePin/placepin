@@ -27,7 +27,7 @@
 .label {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #374151;
+  color: var(--color-text-3);
   transition: color 0.2s ease;
 }
 
@@ -39,11 +39,11 @@
 .select,
 .textarea {
   padding: 0 1rem;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--color-border-5);
   border-radius: 8px;
   font-size: 1rem;
-  color: #1f2937;
-  background: #fff;
+  color: var(--color-text-2);
+  background: var(--color-surface-3);
   transition: all 0.2s ease;
   font-family: inherit;
   box-sizing: border-box;
@@ -53,7 +53,7 @@
 .input:hover,
 .select:hover,
 .textarea:hover {
-  border-color: #d1d5db;
+  border-color: var(--color-secondary-hover);
 }
 
 .input:focus,
@@ -88,24 +88,20 @@
   transition: color 0.2s ease;
 }
 
-.inputWrapper:focus-within .currencySymbol {
-  color: #2563eb;
-}
-
 .inputWithIcon {
   padding: 0.75rem 1rem 0.75rem 2rem;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--color-border-5);
   border-radius: 8px;
   font-size: 1rem;
-  color: #1f2937;
-  background: #fff;
+  color: var(--color-text-2);
+  background: var(--color-surface-3);
   transition: all 0.2s ease;
   width: 100%;
   height: 100%;
 }
 
 .inputWithIcon:hover {
-  border-color: #d1d5db;
+  border-color: var(--color-secondary-hover);
 }
 
 .inputWithIcon:focus {
@@ -158,14 +154,12 @@
 }
 
 .submitButton {
-  background: linear-gradient(135deg, #00bfa5 0%, #00e0b2 100%);
+  background: #00bfa5;
   color: #fff;
 }
 
 .submitButton:hover {
-  background: linear-gradient(135deg, #00e0b2 0%, #00bfa5 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(37, 235, 212, 0.5);
 }
 
 .submitButton:active {
