@@ -44,7 +44,7 @@ const LandlordHomepage = () => {
 
   return (
     <div className={styles.landlordHomepageContainer}>
-      <div className={styles.statsContainer}>
+      <div>
         <h2>Stats / KPI's</h2>
         <div className={styles.statsCards}>
           <StatsKPICard

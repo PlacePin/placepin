@@ -1,6 +1,6 @@
 .landlordDashboardContainer {
   display: flex;
-  background: #f5f0eb;
+  background: var(--color-bg);
 }
 
 .landlordHeaderBody {

@@ -26,7 +26,7 @@
   --color-surface-5: hsl(180, 18%, 82%);      /* Darker - hover states, accents */
   
   /* Background */
-  --color-bg: hsl(180, 15%, 96%);             /* Cool light gray - app background */
+  --color-bg: hsl(30, 33%, 94%);             /* Sandy - app background */
   
   /* Borders - 5 levels */
   --color-border-1: hsl(180, 8%, 92%);        /* Subtlest border */

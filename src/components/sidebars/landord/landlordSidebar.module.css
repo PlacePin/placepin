@@ -70,7 +70,7 @@
 }
 
 .sidebarItem.active {
-  background: rgba(255,255,255,0.25);
-  box-shadow: inset 3px 0px 0 #ffffff;
+  background: var(--color-surface-5);
+  box-shadow: inset 3px 0px 0 var(--color-text-1);
   border-radius: 0 0.5rem 0.5rem 0;
 }

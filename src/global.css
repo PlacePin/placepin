@@ -2,5 +2,5 @@
 
 html, body {
   font-family: var(--font-family);
-  color: var(--color-font);
+  color: var(--color-text-1);
 }
