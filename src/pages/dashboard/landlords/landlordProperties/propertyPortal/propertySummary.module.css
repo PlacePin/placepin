@@ -1,10 +1,11 @@
 .summaryWrapper {
   border-radius: 1rem;
-  background: #fff;
+  background: var(--color-surface-3);
   overflow-y: auto;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   display: grid;
+  border: 1px solid var(--color-border-4);
 }
 
 .summaryWrapper::-webkit-scrollbar {
@@ -38,7 +39,7 @@
 
 .miniPropertyInfo h3:nth-child(2) {
   font-weight: lighter;
-  color: #ACACAC;
+  color: var(--color-text-3);
 }
 
 .siteStaffContainer {
@@ -46,6 +47,9 @@
   margin-top: 0.5rem;
 }
 
+.siteStaffContainer > p {
+  color: var(--color-text-3);
+}
 .siteStaffBody {
   width: 100%;
   padding: 3rem;

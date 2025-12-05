@@ -1,9 +1,9 @@
 .analyticsContainer {
   display: flex;
   flex-direction: column;
-  background: #fff;
+  background: var(--color-surface-3);
   border-radius: 1rem;
-  /* height: 15vh; */
+  border: 1px solid var(--color-border-4);
 }
 
 .header {
@@ -33,5 +33,5 @@
 }
 
 .sectionContainers p {
-  color: #ACACAC
+  color: var(--color-text-3)
 }
