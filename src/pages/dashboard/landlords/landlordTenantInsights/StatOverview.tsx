@@ -29,7 +29,7 @@ const StatOverview = ({
         <span className={styles.title}>
           {title}
         </span>
-        <h2>
+        <h2 className={styles.value}>
           {value}
         </h2>
         <p className={styles.trend}>

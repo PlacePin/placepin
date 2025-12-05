@@ -3,7 +3,7 @@
 }
 
 .paymentContainer {
-  background: #fff;
+  background: var(--color-surface-3);
   border-radius: 1rem;
   overflow-x: auto;
   margin-top: 1rem;
@@ -18,7 +18,7 @@
 }
 
 .reliabilityTable thead {
-  background-color: #00bfa5;
+  background: #00bfa5;
   color: #fff;
   font-weight: 600;
 }
@@ -26,9 +26,8 @@
 .reliabilityTable th,
 .reliabilityTable td {
   padding: 1rem;
-  border-bottom: 1px solid #eee;
 }
 
 .reliabilityTable tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background: var(--color-surface-5);
 }

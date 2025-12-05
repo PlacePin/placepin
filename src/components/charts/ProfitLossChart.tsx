@@ -60,7 +60,7 @@ const ProfitLossChart = () => {
           size: 18,
           weight: "bold",
         },
-        color: "#333",
+        color: "#606665ff",
       },
     },
   } as const;

@@ -17,7 +17,11 @@
 }
 
 .title {
-  color: #ACACAC;
+  color: var(--color-text-2);
+}
+
+.value {
+  color: var(--color-text-1)
 }
 
 .trend {
