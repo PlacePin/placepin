@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  padding: 0.25rem 0.5rem 0.25rem 0.25rem;
+  padding: 0.25rem 1rem 0.25rem 0.25rem;
   border: none;
   border-radius: 50px;
   cursor: pointer;
@@ -11,11 +11,11 @@
 }
 
 .light {
-  background: #e8ecf1;
+  background: var(--color-secondary);
 }
 
 .dark {
-  background: #3d4451;
+  background: var(--color-secondary);
 }
 
 .toggleButton:hover {
@@ -44,11 +44,11 @@
 }
 
 .light .icon {
-  color: #64748b;
+  color: var(--color-text-primary);
 }
 
 .dark .icon {
-  color: #94a3b8;
+  color: var(--color-text-primary);
 }
 
 .label {
@@ -59,9 +59,9 @@
 }
 
 .light .label {
-  color: #64748b;
+  color: var(--color-text-primary);
 }
 
 .dark .label {
-  color: #8892a6;
+  color: var(--color-text-primary);
 }
