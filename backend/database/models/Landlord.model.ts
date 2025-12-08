@@ -1,7 +1,7 @@
 import mongoose, { type InferSchemaType, type HydratedDocument } from 'mongoose';
 import { generateReferralCode } from '../../utils/generateReferralCode';
 
-// This is the shape of the landlord database object
+// This is the shape of the landlord collection object
 
 const landlordSchema = new mongoose.Schema({
   accountType: String,
