@@ -4,3 +4,24 @@ html, body {
   font-family: var(--font-family);
   color: var(--color-text-1);
 }
+
+/* Fix Chrome autofill so it respects light/dark theme input styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  /* Force your background to override the yellow Chrome autofill */
+  -webkit-box-shadow: 0 0 0 1000px var(--color-surface-3) inset !important;
+  box-shadow: 0 0 0 1000px var(--color-surface-3) inset !important;
+
+  /* Force your text color */
+  -webkit-text-fill-color: var(--color-text-1) !important;
+
+  /* Prevent Chrome from animating its autofill colors */
+  transition: background-color 9999s ease-out, color 9999s ease-out !important;
+  transition-delay: 9999s !important;
+}
+
+/* Ensure the cursor stays visible */
+input:-webkit-autofill {
+  caret-color: var(--color-text-1) !important;
+}
