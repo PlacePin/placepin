@@ -15,9 +15,8 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
     street: '',
     city: '',
     state: '',
-    zip: ''
+    zip: 0
   });
-  console.log(propertyAddress)
   const [unitAmount, setUnitAmount] = useState('');
   const [message, setMessage] = useState('');
 
@@ -25,7 +24,6 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log('name', name, 'value', value, 'e', e)
     setPropertyAddress(prev => ({
       ...prev,
       [name]: value
@@ -136,7 +134,7 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
             Zip Code
           </label>
           <input
-            type="text"
+            type="number"
             id='zip'
             name="zip"
             placeholder='12345'
