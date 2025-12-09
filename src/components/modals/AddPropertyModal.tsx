@@ -143,7 +143,7 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
             type="number"
             id='zip'
             name="zip"
-            placeholder='12345'
+            placeholder='02136'
             onChange={handleChange}
             className={styles.inputFields}
             required
