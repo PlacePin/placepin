@@ -33,8 +33,6 @@ const SignupPage = () => {
     }))
   }
 
-  console.log(address)
-
   const handleCreateAccount = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -228,7 +226,7 @@ const SignupPage = () => {
                 />
                 <label className={styles.inputLabel} htmlFor='phoneNumber'>Phone Number</label>
                 <input
-                  type="tel"
+                  type="number"
                   className={styles.inputFields}
                   onChange={(e) => setPhoneNumber(e.target.value.toLowerCase().trim())}
                   id='phoneNumber'
