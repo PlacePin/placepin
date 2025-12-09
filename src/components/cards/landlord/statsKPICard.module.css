@@ -57,7 +57,7 @@
 .cardBody {
   flex: 1;
   padding: 1.5rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--color-border-5);
   color: var(--color-text-3);
 }
 
