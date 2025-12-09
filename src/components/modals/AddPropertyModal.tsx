@@ -125,7 +125,7 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
               <input
                 type="text"
                 id='state'
-                name="State"
+                name="state"
                 placeholder='Massachusetts'
                 onChange={handleChange}
                 className={styles.inputFields}

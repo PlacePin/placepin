@@ -10,6 +10,8 @@ export const addProperty = async (req: Request, res: Response) => {
 
   try {
     const parsedAddress = parseAddress(propertyAddress)
+    console.log('pa', propertyAddress)
+
 
     const properties = await LandlordModel.aggregate([
       { $match: { _id: new mongoose.Types.ObjectId(`${userId}`) } },
