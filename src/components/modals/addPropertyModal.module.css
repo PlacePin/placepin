@@ -15,6 +15,10 @@
   box-shadow: 0 0 0 3px rgba(0, 191, 165, 0.2);
 }
 
+.split {
+  display: flex;
+}
+
 .formContainer {
   padding: 1rem 2rem;
   display: grid;
@@ -47,4 +51,17 @@
 .message {
   padding-top: 0.5rem;
   color: red;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.inputFields::-webkit-outer-spin-button,
+.inputFields::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.inputFields[type=number] {
+  appearance: textfield;
+  -moz-appearance: textfield;
 }
