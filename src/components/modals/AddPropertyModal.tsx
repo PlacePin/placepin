@@ -15,7 +15,7 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
     street: '',
     city: '',
     state: '',
-    zip: 0
+    zip: ''
   });
   const [unitAmount, setUnitAmount] = useState('');
   const [message, setMessage] = useState('');

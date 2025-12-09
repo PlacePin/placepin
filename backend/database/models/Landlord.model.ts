@@ -33,9 +33,7 @@ const landlordSchema = new mongoose.Schema({
       address: {
         _id: false,
         type: {
-          number: String,
           street: String,
-          streetType: String,
           unit: { type: String, default: undefined },
           city: String,
           state: String,

@@ -5,7 +5,6 @@ import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import Stripe from 'stripe';
-import { parseAddress } from '../../utils/parseAddress';
 
 dotenv.config();
 
@@ -38,15 +37,13 @@ export const signupController = async (req: Request, res: Response) => {
 
     generatedUsername = '@' + generatedUsername + String(Math.floor(Math.random() * 999999))
 
-    const parsedAddress = parseAddress(address)
-
     // Create a new user document depending on account type
     if (accountType === 'tenant') {
       newUser = new TenantModel({
         fullName: username,
         username: generatedUsername,
         email,
-        address: parsedAddress,
+        address,
         accountType,
         password: hashedPassword,
         phoneNumber,
@@ -65,7 +62,7 @@ export const signupController = async (req: Request, res: Response) => {
         fullName: username,
         username: generatedUsername,
         email,
-        address: parsedAddress,
+        address,
         accountType,
         password: hashedPassword,
         phoneNumber,

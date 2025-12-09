@@ -5,9 +5,7 @@ import mongoose, { type HydratedDocument, type InferSchemaType } from 'mongoose'
 const tenantSchema = new mongoose.Schema({
   accountType: String,
   address: {
-    number: String,
     street: String,
-    streetType: String,
     unit: { type: String, default: undefined },
     city: String,
     state: String,
