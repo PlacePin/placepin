@@ -12,12 +12,28 @@ const SignupPage = () => {
 
   const [username, setUserName] = useState('')
   const [email, setEmail] = useState('')
-  const [address, setAddress] = useState('')
+  const [address, setAddress] = useState({
+    street: '',
+    apt: '',
+    city: '',
+    state: '',
+    zip: '',
+  })
   const [password, setPassword] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
   const [accountType, setAccountType] = useState('tenant')
   const [referral, setReferral] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+
+  const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setAddress(prev => ({
+      ...prev,
+      [name]: value.toLocaleLowerCase().trim()
+    }))
+  }
+
+  console.log(address)
 
   const handleCreateAccount = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -145,14 +161,15 @@ const SignupPage = () => {
                     id='landlordReferral'
                     placeholder='Referral Code (Optional)' />
                 </>}
-                <label className={styles.inputLabel} htmlFor='address'>
+                <label className={styles.inputLabel} htmlFor='street'>
                   Street Address
                 </label>
                 <input
                   type="text"
                   className={styles.inputFields}
-                  onChange={(e) => setAddress(e.target.value.toLowerCase().trim())}
-                  id='address'
+                  onChange={handleAddressChange}
+                  id='street'
+                  name='street'
                   placeholder='123 Main Street'
                   required
                 />
@@ -162,8 +179,9 @@ const SignupPage = () => {
                 <input
                   type="text"
                   className={styles.inputFields}
-                  onChange={(e) => setAddress(e.target.value.toLowerCase().trim())}
+                  onChange={handleAddressChange}
                   id='apt'
+                  name='apt'
                   placeholder='Suite 101'
                 />
                 <div className={styles.split}>
@@ -174,8 +192,9 @@ const SignupPage = () => {
                     <input
                       type="text"
                       className={styles.inputFields}
-                      onChange={(e) => setAddress(e.target.value.toLowerCase().trim())}
+                      onChange={handleAddressChange}
                       id='city'
+                      name='city'
                       placeholder='Boston'
                       required
                     />
@@ -187,8 +206,9 @@ const SignupPage = () => {
                     <input
                       type="text"
                       className={styles.inputFields}
-                      onChange={(e) => setAddress(e.target.value.toLowerCase().trim())}
+                      onChange={handleAddressChange}
                       id='state'
+                      name='state'
                       placeholder='Massachusetts'
                       required
                     />
@@ -200,8 +220,9 @@ const SignupPage = () => {
                 <input
                   type="number"
                   className={styles.inputFields}
-                  onChange={(e) => setAddress(e.target.value.toLowerCase().trim())}
+                  onChange={handleAddressChange}
                   id='zip'
+                  name='zip'
                   placeholder='02136'
                   required
                 />
