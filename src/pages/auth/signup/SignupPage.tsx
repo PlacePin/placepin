@@ -99,25 +99,31 @@ const SignupPage = () => {
             <div className={styles.rightSide}>
               <form onSubmit={handleCreateAccount} className={styles.heroForm}>
                 <h4>Create your PlacePin account</h4>
-                <label className={styles.inputLabel} htmlFor='name'>Full Name</label>
+                <label className={styles.inputLabel} htmlFor='name'>
+                  Full Name
+                </label>
                 <input
                   type="text"
                   className={styles.inputFields}
                   onChange={(e) => setUserName(e.target.value.toLowerCase())}
                   id='name'
-                  placeholder='Dinah Johnson'
+                  placeholder='Dinah Augustin'
                   required
                 />
-                <label className={styles.inputLabel} htmlFor='email'>Email</label>
+                <label className={styles.inputLabel} htmlFor='email'>
+                  Email
+                </label>
                 <input
                   type="email"
                   className={styles.inputFields}
                   onChange={(e) => setEmail(e.target.value.toLowerCase().trim())}
                   id='email'
-                  placeholder="djohnson@gmail.com"
+                  placeholder="daugustin@gmail.com"
                   required
                 />
-                <label className={styles.inputLabel} htmlFor='accountType'>Account Type</label>
+                <label className={styles.inputLabel} htmlFor='accountType'>
+                  Account Type
+                </label>
                 <select
                   className={styles.inputFields}
                   onChange={(e) => setAccountType(e.target.value)}
@@ -129,7 +135,9 @@ const SignupPage = () => {
                   <option value="landlord">Landlord</option>
                 </select>
                 {accountType === 'tenant' && <>
-                  <label className={styles.inputLabel} htmlFor='landlordReferral'>Landlord Referral Code</label>
+                  <label className={styles.inputLabel} htmlFor='landlordReferral'>
+                    Landlord Referral Code
+                  </label>
                   <input
                     type="text"
                     className={styles.inputFields}
@@ -137,13 +145,64 @@ const SignupPage = () => {
                     id='landlordReferral'
                     placeholder='Referral Code (Optional)' />
                 </>}
-                <label className={styles.inputLabel} htmlFor='address'>Address</label>
+                <label className={styles.inputLabel} htmlFor='address'>
+                  Street Address
+                </label>
                 <input
                   type="text"
                   className={styles.inputFields}
                   onChange={(e) => setAddress(e.target.value.toLowerCase().trim())}
                   id='address'
-                  placeholder='123 Main Street, Boston MA, 02136'
+                  placeholder='123 Main Street'
+                  required
+                />
+                <label className={styles.inputLabel} htmlFor='apt'>
+                  Apt, Suite, etc (Optional)
+                </label>
+                <input
+                  type="text"
+                  className={styles.inputFields}
+                  onChange={(e) => setAddress(e.target.value.toLowerCase().trim())}
+                  id='apt'
+                  placeholder='Suite 101'
+                />
+                <div className={styles.split}>
+                  <div className={styles.city}>
+                    <label className={styles.inputLabel} htmlFor='city'>
+                      City
+                    </label>
+                    <input
+                      type="text"
+                      className={styles.inputFields}
+                      onChange={(e) => setAddress(e.target.value.toLowerCase().trim())}
+                      id='city'
+                      placeholder='Boston'
+                      required
+                    />
+                  </div>
+                  <div className={styles.state}>
+                    <label className={styles.inputLabel} htmlFor='state'>
+                      State
+                    </label>
+                    <input
+                      type="text"
+                      className={styles.inputFields}
+                      onChange={(e) => setAddress(e.target.value.toLowerCase().trim())}
+                      id='state'
+                      placeholder='Massachusetts'
+                      required
+                    />
+                  </div>
+                </div>
+                <label className={styles.inputLabel} htmlFor='zip'>
+                  Zip Code
+                </label>
+                <input
+                  type="number"
+                  className={styles.inputFields}
+                  onChange={(e) => setAddress(e.target.value.toLowerCase().trim())}
+                  id='zip'
+                  placeholder='02136'
                   required
                 />
                 <label className={styles.inputLabel} htmlFor='phoneNumber'>Phone Number</label>

@@ -160,6 +160,16 @@
   overflow: hidden;
 }
 
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.city, .state {
+  display: grid;
+}
+
 @keyframes gradientBorder {
   0% {
     background-position: 0% 50%;
