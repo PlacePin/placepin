@@ -1,18 +1,37 @@
 import mongoose from "mongoose";
 import type { Request, Response } from "express";
 import { LandlordModel } from "../../database/models/Landlord.model";
-import { parseAddress } from "../../utils/parseAddress";
-import { addressesEqual } from "../../utils/addressEqual";
+import { PropertyModel } from "../../database/models/Property.model";
 
 export const addProperty = async (req: Request, res: Response) => {
-  const { propertyName, propertyAddress, unitAmount } = req.body;
-  const userId = req.userId
+  const { propertyName, propertyAddress, unitAmount } = req.body; // Changed propertyAddress to address
+  const userId = req.userId;
 
   try {
-    const parsedAddress = parseAddress(propertyAddress)
-    console.log('pa', propertyAddress)
+    // Normalize address fields for comparison
+    const normalizedAddress = {
+      street: propertyAddress.street.toLowerCase().trim(),
+      unit: propertyAddress.unit?.toLowerCase().trim() || undefined,
+      city: propertyAddress.city.toLowerCase().trim(),
+      state: propertyAddress.state.toLowerCase().trim(),
+      zip: propertyAddress.zip.trim()
+    };
 
+    // Check if property already exists in Property collection
+    const existingProperty = await PropertyModel.findOne({
+      'address.street': normalizedAddress.street,
+      'address.city': normalizedAddress.city,
+      'address.state': normalizedAddress.state,
+      'address.zip': normalizedAddress.zip
+    });
 
+    if (existingProperty) {
+      return res.status(409).json({ 
+        message: 'This property address is already registered in our system.' 
+      });
+    }
+
+    // Check if landlord already has this property in their embedded properties array
     const properties = await LandlordModel.aggregate([
       { $match: { _id: new mongoose.Types.ObjectId(`${userId}`) } },
       { $unwind: '$properties' },
@@ -20,9 +39,7 @@ export const addProperty = async (req: Request, res: Response) => {
         $project: {
           _id: 0,
           address: {
-            number: "$properties.address.number",
             street: "$properties.address.street",
-            streetType: "$properties.address.streetType",
             unit: '$properties.address.unit',
             city: "$properties.address.city",
             state: "$properties.address.state",
@@ -32,17 +49,41 @@ export const addProperty = async (req: Request, res: Response) => {
       },
     ]);
 
+    // Check if this landlord already added this property
     for (let property of properties) {
-      if (addressesEqual(property.address, parsedAddress)) {
-        return res.status(422).json({ message: 'Property already exist!' })
+      const propAddressNormalized = {
+        street: property.address.street?.toLowerCase().trim(),
+        unit: property.address.unit?.toLowerCase().trim() || undefined,
+        city: property.address.city?.toLowerCase().trim(),
+        state: property.address.state?.toLowerCase().trim(),
+        zip: property.address.zip?.trim()
+      };
+
+      if (
+        propAddressNormalized.street === normalizedAddress.street &&
+        propAddressNormalized.city === normalizedAddress.city &&
+        propAddressNormalized.state === normalizedAddress.state &&
+        propAddressNormalized.zip === normalizedAddress.zip
+      ) {
+        return res.status(422).json({ message: 'You have already added this property!' });
       }
     }
 
+    // Create new property in Property collection
+    const newPropertyDoc = new PropertyModel({
+      landlord: userId,
+      address: normalizedAddress,
+      taxYears: []
+    });
+
+    await newPropertyDoc.save();
+
+    // Also add to landlord's embedded properties array (for backward compatibility)
     const newProperty = {
       name: propertyName,
-      address: parsedAddress,
+      address: normalizedAddress,
       numberOfUnits: unitAmount,
-    }
+    };
 
     await LandlordModel.findByIdAndUpdate(
       userId,
@@ -51,15 +92,15 @@ export const addProperty = async (req: Request, res: Response) => {
           properties: newProperty
         }
       },
-    )
+    );
 
-    return res.status(201).json({ message: "Property added!" })
+    return res.status(201).json({ message: "Property added!" });
 
   } catch (err: any) {
     console.error("Unexpected error:", err);
     return res.status(500).json({ message: "Internal Server Error" });
   }
-}
+};
 
 export const getLandlordProperties = async (
   req: Request,

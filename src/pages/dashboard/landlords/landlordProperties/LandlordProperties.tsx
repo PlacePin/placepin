@@ -47,8 +47,8 @@ const LandlordProperties = () => {
   } else {
     vacancyAmount = building.numberOfUnits - selectedProperty.tenantCount
     propertyId = selectedProperty.properties._id
-    const { number, street, streetType } = selectedProperty.properties.address
-    propertyAddress = `${number} ${street} ${streetType}`
+    const { street } = selectedProperty.properties.address
+    propertyAddress = `${street}`
   }
 
   if (selectedProperty === null) {
@@ -62,7 +62,7 @@ const LandlordProperties = () => {
   const propertyCards = properties.map((property: any) => {
 
     const randomImg = Math.floor(Math.random() * stockPhotos.length)
-    const address = `${property.properties.address.number} ${property.properties.address.street} ${property.properties.address.streetType}`
+    const address = `${property.properties.address.street}`
     const id = property.properties._id
 
     if (property.properties.name === undefined || property.properties.name.trim() === '') {
