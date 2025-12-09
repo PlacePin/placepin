@@ -1,6 +1,7 @@
 import type { Request, Response } from 'express';
 import { TenantModel, type TenantDocumentType } from '../../database/models/Tenant.model';
 import { LandlordModel, type LandlordDocumentType } from '../../database/models/Landlord.model';
+import { PropertyModel } from '../../database/models/Property.model';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
@@ -21,12 +22,11 @@ export const signupController = async (req: Request, res: Response) => {
   let matchingLandlord: LandlordDocumentType | TenantDocumentType | null = null
 
   try {
-
     // Check if user already exists in either collection
     existingEmail = await TenantModel.findOne({ email }) || await LandlordModel.findOne({ email })
 
     if (existingEmail) {
-      res.status(400).json({ message: 'Email already in use. Please use a different email address.' })
+      res.status(409).json({ message: 'Email already in use. Please use a different email address.' })
       return
     }
 
@@ -72,6 +72,35 @@ export const signupController = async (req: Request, res: Response) => {
           stripeCustomerId: null,
         },
       })
+
+      // Check if property already exists with this address
+      const existingProperty = await PropertyModel.findOne({
+        'address.street': address.street.toLowerCase().trim(),
+        'address.city': address.city.toLowerCase().trim(),
+        'address.state': address.state.toLowerCase().trim(),
+        'address.zip': address.zip
+      });
+
+      // Throw error if property already exists
+      if (existingProperty) {
+        return res.status(409).json({
+          message: 'A property with this address already exists in our system.'
+        });
+      }
+
+      // Create new property since it doesn't exist
+      const property = new PropertyModel({
+        landlord: newUser._id,
+        address: {
+          street: address.street,
+          city: address.city,
+          state: address.state,
+          zip: address.zip,
+        },
+        taxYears: []
+      });
+
+      await property.save();
     }
 
     if (!newUser) {

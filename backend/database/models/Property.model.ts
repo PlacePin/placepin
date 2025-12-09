@@ -3,27 +3,28 @@ import mongoose, { type InferSchemaType, type HydratedDocument } from 'mongoose'
 // This is the shape of the property collection object
 
 const propertySchema = new mongoose.Schema({
-address: {
-    number: String,
+  address: {
     street: String,
-    streetType: String,
     unit: { type: String, default: undefined },
     city: String,
     state: String,
     zip: String
   },
-  taxYear: {
-    year: {
-      year: Number,
-      receipts: {
-        expenseCategory: String,
-        amount: Number,
-        date: Date,
-        paymentMethod: String,
-        description: String,
-      }
-    }
-  }
+  landlord: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Landlords',
+    required: true
+  },
+  taxYears: [{
+    year: Number,
+    receipts: [{
+      expenseCategory: String,
+      amount: Number,
+      date: Date,
+      paymentMethod: String,
+      description: String,
+    }]
+  }]
 });
 
 // This is the type as a js object

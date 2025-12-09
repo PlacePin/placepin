@@ -92,7 +92,7 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
             type="text"
             id='streetAddress'
             name="street"
-            placeholder='123 Main St.'
+            placeholder='123 Main Street'
             onChange={handleChange}
             className={styles.inputFields}
             required
