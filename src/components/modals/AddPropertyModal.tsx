@@ -98,36 +98,40 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
             required
           />
           <div className={styles.split}>
-            <label
-              htmlFor='city'
-              className={styles.labels}
-            >
-              City
-            </label>
-            <input
-              type="text"
-              id='city'
-              name="city"
-              placeholder='Boston'
-              onChange={handleChange}
-              className={styles.inputFields}
-              required
-            />
-            <label
-              htmlFor='state'
-              className={styles.labels}
-            >
-              State
-            </label>
-            <input
-              type="text"
-              id='state'
-              name="State"
-              placeholder='Massachusetts'
-              onChange={handleChange}
-              className={styles.inputFields}
-              required
-            />
+            <div className={styles.city}>
+              <label
+                htmlFor='city'
+                className={styles.labels}
+              >
+                City
+              </label>
+              <input
+                type="text"
+                id='city'
+                name="city"
+                placeholder='Boston'
+                onChange={handleChange}
+                className={styles.inputFields}
+                required
+              />
+            </div>
+            <div className={styles.state}>
+              <label
+                htmlFor='state'
+                className={styles.labels}
+              >
+                State
+              </label>
+              <input
+                type="text"
+                id='state'
+                name="State"
+                placeholder='Massachusetts'
+                onChange={handleChange}
+                className={styles.inputFields}
+                required
+              />
+            </div>
           </div>
           <label
             htmlFor='zip'
