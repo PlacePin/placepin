@@ -11,11 +11,26 @@ interface AddPropertyModalProps {
 const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
 
   const [propertyName, setPropertyName] = useState('');
-  const [propertyAddress, setPropertyAddress] = useState('');
+  const [propertyAddress, setPropertyAddress] = useState({
+    street: '',
+    city: '',
+    state: '',
+    zip: ''
+  });
+  console.log(propertyAddress)
   const [unitAmount, setUnitAmount] = useState('');
   const [message, setMessage] = useState('');
 
   const { accessToken } = useAuth();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    console.log('name', name, 'value', value, 'e', e)
+    setPropertyAddress(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   const handleAddPropertySubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -70,16 +85,62 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
             required
           />
           <label
-            htmlFor='propertyAddress'
+            htmlFor='streetAddress'
             className={styles.labels}
           >
-            Property Address
+            Street Address
           </label>
           <input
             type="text"
-            id='propertyAddress'
-            placeholder='123 Main St. Boston MA, 02136'
-            onChange={(e) => setPropertyAddress(e.target.value)}
+            id='streetAddress'
+            name="street"
+            placeholder='123 Main St.'
+            onChange={handleChange}
+            className={styles.inputFields}
+            required
+          />
+          <label
+            htmlFor='city'
+            className={styles.labels}
+          >
+            City
+          </label>
+          <input
+            type="text"
+            id='city'
+            name="city"
+            placeholder='Boston'
+            onChange={handleChange}
+            className={styles.inputFields}
+            required
+          />
+          <label
+            htmlFor='state'
+            className={styles.labels}
+          >
+            State
+          </label>
+          <input
+            type="text"
+            id='state'
+            name="State"
+            placeholder='Massachusetts'
+            onChange={handleChange}
+            className={styles.inputFields}
+            required
+          />
+          <label
+            htmlFor='zip'
+            className={styles.labels}
+          >
+            Zip Code
+          </label>
+          <input
+            type="text"
+            id='zip'
+            name="zip"
+            placeholder='12345'
+            onChange={handleChange}
             className={styles.inputFields}
             required
           />
