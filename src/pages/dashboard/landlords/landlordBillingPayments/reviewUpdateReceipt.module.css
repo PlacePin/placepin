@@ -1,0 +1,298 @@
+.container {
+  min-height: 100vh;
+  background: var(--color-bg);
+  padding: 1.5rem;
+}
+
+.wrapper {
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color-text-1);
+  margin-bottom: 1.5rem;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.filterGroup {
+  flex: 1;
+}
+
+.filterLabel {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-2);
+  margin-bottom: 0.5rem;
+}
+
+.select {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-border-3);
+  border-radius: 0.5rem;
+  background: var(--color-surface-1);
+  color: var(--color-text-2);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-lighter);
+}
+
+/* Main Content */
+.mainContent {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Excel Sheet - 70% */
+.excelContainer {
+  flex: 0 0 70%;
+  background: var(--color-surface-1);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  max-height: calc(100vh - 250px);
+  overflow-y: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+/* Header */
+.headerRow {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.headerCell {
+  padding: 0.75rem 1rem;
+  text-align: right;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-surface-1);
+  border-right: 1px solid var(--color-primary-hover);
+  min-width: 100px;
+  white-space: nowrap;
+}
+
+.headerCell:first-child {
+  text-align: left;
+  min-width: 200px;
+}
+
+.stickyColumn {
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  background: inherit;
+}
+
+.futureMonth {
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* Body Rows */
+.evenRow {
+  background: var(--color-surface-2);
+}
+
+.oddRow {
+  background: var(--color-surface-1);
+}
+
+.cell {
+  padding: 0.5rem 1rem;
+  text-align: right;
+  font-size: 0.875rem;
+  color: var(--color-text-2);
+  border-right: 1px solid var(--color-border-2);
+  border-bottom: 1px solid var(--color-border-1);
+}
+
+.categoryCell {
+  text-align: left;
+  font-weight: 500;
+  color: var(--color-text-1);
+}
+
+.totalCell {
+  font-weight: 600;
+  color: var(--color-text-1);
+}
+
+.valueCell {
+  color: var(--color-text-2);
+}
+
+.hasValue {
+  color: var(--color-text-1);
+}
+
+.noValue {
+  color: var(--color-text-4);
+}
+
+/* Total Row */
+.totalRow {
+  background: linear-gradient(135deg, var(--color-primary-lighter) 0%, var(--color-secondary-lighter) 100%);
+  font-weight: 700;
+  border-top: 2px solid var(--color-primary);
+  position: sticky;
+  bottom: 0;
+  z-index: 15;
+}
+
+.totalRowLabel {
+  color: var(--color-text-1);
+  font-weight: 700;
+}
+
+.totalRowValue {
+  color: var(--color-text-1);
+  font-weight: 700;
+}
+
+/* Receipt List - 30% */
+.receiptContainer {
+  flex: 0 0 30%;
+  background: var(--color-surface-1);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 250px);
+}
+
+.receiptTitle {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--color-text-1);
+  margin-bottom: 1rem;
+}
+
+.receiptList {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.receiptCard {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 2px solid var(--color-border-2);
+  background: var(--color-surface-1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.receiptCard:hover {
+  border-color: var(--color-primary-light);
+  background: var(--color-primary-lighter);
+}
+
+.receiptCardSelected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-lighter);
+}
+
+.receiptHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.receiptCategory {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-1);
+}
+
+.receiptAmount {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.receiptDetails {
+  font-size: 0.75rem;
+  color: var(--color-text-3);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.receiptDescription {
+  color: var(--color-text-4);
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+.receiptActions {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-border-2);
+}
+
+.editButton {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: var(--color-surface-1);
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.editButton:hover {
+  background: linear-gradient(135deg, var(--color-primary-hover) 0%, var(--color-secondary-hover) 100%);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.editButton:active {
+  background: linear-gradient(135deg, var(--color-primary-active) 0%, var(--color-secondary-active) 100%);
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .mainContent {
+    flex-direction: column;
+  }
+
+  .excelContainer,
+  .receiptContainer {
+    flex: 1;
+    max-height: 500px;
+  }
+}
