@@ -1,7 +1,9 @@
 import type { Request, Response } from "express";
 import { LandlordModel } from "../../database/models/Landlord.model";
+import { PropertyModel } from "../../database/models/Property.model";
 import { generateReferralCode } from "../../utils/generateReferralCode";
 import { emailInviteToTenant } from "../../utils/emailService";
+import { normalizeAddress, addressesEqual } from "../../utils/normalizeAddress";
 
 export const inviteTenant = async (req: Request, res: Response) => {
   const { tenantName, tenantAddress, tenantEmail } = req.body;
@@ -10,19 +12,30 @@ export const inviteTenant = async (req: Request, res: Response) => {
   let referralCode: string | undefined;
 
   // Normalize the tenant address for comparison
-  const normalizedAddress = {
-    street: tenantAddress.street.toLowerCase().trim(),
-    unit: tenantAddress.unit?.toLowerCase().trim() || undefined,
-    city: tenantAddress.city.toLowerCase().trim(),
-    state: tenantAddress.state.toLowerCase().trim(),
-    zip: tenantAddress.zip.trim()
-  };
+  const normalizedAddress = normalizeAddress(tenantAddress);
 
   try {
     const landlord = await LandlordModel.findById(userId);
 
     if (!landlord) {
       return res.status(404).json({ message: 'User not found!' });
+    }
+
+    // Check if property exists in Property collection
+    let existingProperty = await PropertyModel.findOne({
+      'address.street': normalizedAddress.street,
+      'address.city': normalizedAddress.city,
+      'address.state': normalizedAddress.state,
+      'address.zip': normalizedAddress.zip
+    });
+
+    if (!existingProperty) {
+      const newPropertyDoc = new PropertyModel({
+        landlord: userId,
+        address: normalizedAddress,
+        taxYears: []
+      });
+      await newPropertyDoc.save();
     }
 
     if (landlord?.properties.length === 0) {
@@ -42,32 +55,14 @@ export const inviteTenant = async (req: Request, res: Response) => {
       );
 
       referralCode = updatedLandlord?.properties[0].referralCode!;
-
       emailInviteToTenant(referralCode, tenantName, tenantEmail);
-
       return res.status(200).json({ message: 'Email sent! Your first invite!' });
     } else {
-      // Check if property already exists
+      // Check if property already exists using addressesEqual
       for (let property of landlord.properties) {
-        const propAddressNormalized = {
-          street: property.address.street?.toLowerCase().trim(),
-          unit: property.address.unit?.toLowerCase().trim() || undefined,
-          city: property.address.city?.toLowerCase().trim(),
-          state: property.address.state?.toLowerCase().trim(),
-          zip: property.address.zip?.trim()
-        };
-
-        // Compare addresses
-        if (
-          propAddressNormalized.street === normalizedAddress.street &&
-          propAddressNormalized.city === normalizedAddress.city &&
-          propAddressNormalized.state === normalizedAddress.state &&
-          propAddressNormalized.zip === normalizedAddress.zip
-        ) {
+        if (addressesEqual(property.address, normalizedAddress)) {
           referralCode = property.referralCode;
-
           emailInviteToTenant(referralCode, tenantName, tenantEmail);
-
           return res.status(200).json({ message: 'Invite sent!' });
         }
       }
@@ -90,9 +85,7 @@ export const inviteTenant = async (req: Request, res: Response) => {
 
       const updatedPropertyListLength = updatedLandlord?.properties.length! - 1;
       referralCode = updatedLandlord?.properties[updatedPropertyListLength].referralCode!;
-
       emailInviteToTenant(referralCode, tenantName, tenantEmail);
-
       return res.status(200).json({ message: 'Email invite sent!' });
     }
 
