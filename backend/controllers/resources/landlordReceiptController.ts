@@ -14,3 +14,17 @@ export const getReceipt = async (
     return res.status(500).json({ message: 'Internal Server Error' });
   }
 };
+
+export const addReceipt = async (
+  req: Request,
+  res: Response
+) => {
+  const userId = req.userId
+  console.log(userId)
+  try {
+    return res.status(201).json({ message: 'Success' })
+  } catch (err) {
+    console.error(err)
+    return res.status(500).json({ message: `Internal server error ${err}` })
+  }
+};

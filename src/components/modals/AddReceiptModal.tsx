@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import styles from './addReceiptModal.module.css';
 import FormModal from './FormModal';
+import axios from 'axios';
+import { useAuth } from '../../context/AuthContext';
 
 interface AddReceiptModalProps {
   onClose: () => void,
@@ -11,6 +13,7 @@ const AddReceiptModal = ({
   onClose,
   properties = []
 }: AddReceiptModalProps) => {
+  const [errorMessage, setErrorMessage] = useState('')
   const [formData, setFormData] = useState({
     taxYear: new Date().getFullYear().toString(),
     propertyId: '',
@@ -20,6 +23,8 @@ const AddReceiptModal = ({
     description: '',
     paymentMethod: '',
   });
+
+  const { accessToken } = useAuth();
 
   const expenseCategories = [
     'Advertising',
@@ -47,14 +52,29 @@ const AddReceiptModal = ({
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    // Add your form submission logic here
-    onClose();
+    try {
+      const res = await axios.post(
+        '/api/landlords/receipts',
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      )
+      console.log(res.data)
+      onClose();
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        setErrorMessage(err.response?.data.message)
+      } else if (err instanceof Error) {
+        setErrorMessage(err.message)
+      }
+    }
   };
-
-  console.log('props', properties)
 
   return (
     <FormModal title={'Add Receipt'} onClose={onClose}>
@@ -98,7 +118,7 @@ const AddReceiptModal = ({
             </select>
           </div>
         </div>
-        <div className={styles.divider}/>
+        <div className={styles.divider} />
         <div className={styles.formGroup}>
           <label htmlFor="category" className={styles.label}>
             Expense Category *
@@ -204,6 +224,7 @@ const AddReceiptModal = ({
             Add Receipt
           </button>
         </div>
+        <p>{errorMessage}</p>
       </form>
     </FormModal>
   )
