@@ -4,7 +4,7 @@ import FormModal from './FormModal';
 
 interface AddReceiptModalProps {
   onClose: () => void,
-  properties?: any[],
+  properties: Record<string, any>[],
 }
 
 const AddReceiptModal = ({
@@ -54,6 +54,8 @@ const AddReceiptModal = ({
     onClose();
   };
 
+  console.log('props', properties)
+
   return (
     <FormModal title={'Add Receipt'} onClose={onClose}>
       <form className={styles.form} onSubmit={handleSubmit}>
@@ -89,8 +91,8 @@ const AddReceiptModal = ({
             >
               <option value="">Select a property</option>
               {properties.map((property) => (
-                <option key={property.id} value={property.id}>
-                  {property.address}
+                <option key={property._id} value={property._id}>
+                  {property.address.street}
                 </option>
               ))}
             </select>

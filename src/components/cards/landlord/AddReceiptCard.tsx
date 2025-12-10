@@ -3,7 +3,13 @@ import PrimaryButton from '../../buttons/PrimaryButton';
 import styles from './addReceiptCard.module.css';
 import AddReceiptModal from '../../modals/AddReceiptModal';
 
-const AddReceiptCard = () => {
+interface AddReceiptCardProp {
+  properties: Record<string, any>[]
+}
+
+const AddReceiptCard = ({
+  properties
+}: AddReceiptCardProp) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showCreateReceipt, setShowCreateReceipt] = useState(false)
 
@@ -89,7 +95,7 @@ const AddReceiptCard = () => {
       {showCreateReceipt && (
         <AddReceiptModal
           onClose={() => setShowCreateReceipt(prev => !prev)}
-          properties={[]}
+          properties={properties}
         />
       )}
     </section>

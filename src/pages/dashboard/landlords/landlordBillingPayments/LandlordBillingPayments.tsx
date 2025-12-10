@@ -7,12 +7,14 @@ const LandlordBillingPayments = () => {
 
   const { data } = useGetAxios('/api/landlords/receipts');
 
-  console.log(data)
+  if(!data){
+    return <div>{'Loading Data'}</div>
+  }
 
   return (
     <div className={styles.billingContainer}>
       <ReviewUpdateReceiptCard />
-      <AddReceiptCard />
+      <AddReceiptCard properties={data.properties}/>
     </div>
   )
 }
