@@ -5,20 +5,24 @@ interface PrimaryButtonProps {
   title: string,
   onClick?: () => void,
   icon?: ReactNode;
+  className?: string
 }
 
 const PrimaryButton = ({
   title,
   onClick,
   icon,
+  className,
 }: PrimaryButtonProps) => {
   return (
-    <button
-      onClick={onClick}
-      className={styles.button}
-    >
-      {icon}{title}
-    </button>
+    <div className={className}>
+      <button
+        onClick={onClick}
+        className={styles.button}
+      >
+        {icon}{title}
+      </button>
+    </div>
   )
 }
 

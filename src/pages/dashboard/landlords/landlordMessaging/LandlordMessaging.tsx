@@ -4,10 +4,11 @@ import { useEffect, useRef, useState } from 'react';
 import { MessageCircleMore, Plus } from 'lucide-react';
 import { io, Socket } from 'socket.io-client';
 import { jwtDecode } from 'jwt-decode';
+import type { DecodedAccessToken } from '../../../../interfaces/interfaces';
 import axios from 'axios';
 import styles from './landlordMessaging.module.css';
 import ComposeModal from '../../../../components/modals/ComposeModal';
-import type { DecodedAccessToken } from '../../../../interfaces/interfaces';
+import PrimaryButton from '../../../../components/buttons/PrimaryButton';
 
 type Message = {
   sender: string;
@@ -214,17 +215,19 @@ const LandlordMessaging = () => {
                   placeholder="Write a message..."
                   onKeyDown={handleEnter}
                 />
-                <button onClick={handleSend} className={styles.button}>
-                  Send
-                </button>
+                <PrimaryButton
+                  title='Send'
+                  onClick={handleSend}
+                  className={styles.button}
+                />
               </div>
             </div>
           ) : (
             <div className={styles.messageContainer}>
               <div className={styles.messageBubble}>
                 <MessageCircleMore
-                size={48}
-                color='#00bfa5'
+                  size={48}
+                  color='#00bfa5'
                 />
               </div>
               <h4>Select a conversation</h4>
