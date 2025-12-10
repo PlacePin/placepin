@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import styles from './reviewUpdateReceipt.module.css';
 
-const ReviewUpdateReceipt = () => {
+interface ReviewUpdateReceiptProps {
+  onClose: () => void;
+}
+
+const ReviewUpdateReceipt = ({
+  onClose
+}: ReviewUpdateReceiptProps) => {
   const [selectedYear, setSelectedYear] = useState('2024');
   const [selectedProperty, setSelectedProperty] = useState('1');
   const [selectedReceipt, setSelectedReceipt] = useState(null);
@@ -68,8 +74,11 @@ const ReviewUpdateReceipt = () => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
+        <button onClick={onClose} className={styles.backButton}>
+          ← Back to Cards
+        </button>
         <h1 className={styles.title}>Rental Property Statement</h1>
-        
+
         {/* Filters */}
         <div className={styles.filters}>
           <div className={styles.filterGroup}>
@@ -129,8 +138,8 @@ const ReviewUpdateReceipt = () => {
                         ${calculateTotal(expense.values).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
                       {expense.values.map((value, monthIdx) => (
-                        <td 
-                          key={monthIdx} 
+                        <td
+                          key={monthIdx}
                           className={`${styles.cell} ${styles.valueCell} ${monthIdx >= 8 ? styles.futureMonth : ''} ${value > 0 ? styles.hasValue : styles.noValue}`}
                         >
                           ${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
