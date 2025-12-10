@@ -20,6 +20,7 @@
 .composeContainer {
   background: var(--color-surface-2);
   border-radius: 1rem 0 0 0;
+  border: 1px solid var(--color-border-5);
   width: 20%;
   min-width: 300px;
   max-width: 300px;
@@ -36,6 +37,7 @@
 .messagesList {
   background: var(--color-surface-2);
   border-radius: 0 0 0 0.5rem;
+  border: 1px solid var(--color-border-5);
   width: 20%;
   min-width: 300px;
   max-width: 300px;
@@ -164,6 +166,7 @@
 .promo {
   background: var(--color-surface-2);
   border-radius: 1rem;
+  border: 1px solid var(--color-border-5);
   width: 20%;
   min-width: 220px;
   max-width: 300px;
@@ -205,10 +208,11 @@
   background: var(--color-surface-4)
 }
 
-.placeholder {
+.messageContainer {
   flex: 1;
   background: var(--color-surface-2);
   border-radius: 0 1rem 1rem 0;
+  border: 1px solid var(--color-border-5);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   padding: 1rem 0;
   height: 100%;

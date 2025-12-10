@@ -220,7 +220,7 @@ const LandlordMessaging = () => {
               </div>
             </div>
           ) : (
-            <div className={styles.placeholder}>
+            <div className={styles.messageContainer}>
               <div className={styles.messageBubble}>
                 <MessageCircleMore
                 size={48}
