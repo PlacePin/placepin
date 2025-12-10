@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
 import styles from './addReceiptModal.module.css';
 import FormModal from './FormModal';
 import axios from 'axios';
-import { useAuth } from '../../context/AuthContext';
 
 interface AddReceiptModalProps {
   onClose: () => void,
@@ -54,9 +54,8 @@ const AddReceiptModal = ({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
     try {
-      const res = await axios.post(
+      await axios.post(
         '/api/landlords/receipts',
         formData,
         {
@@ -65,7 +64,6 @@ const AddReceiptModal = ({
           },
         },
       )
-      console.log(res.data)
       onClose();
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
@@ -177,7 +175,7 @@ const AddReceiptModal = ({
         </div>
         <div className={styles.formGroup}>
           <label htmlFor="paymentMethod" className={styles.label}>
-            Payment Method
+            Payment Method *
           </label>
           <select
             id="paymentMethod"
@@ -185,6 +183,7 @@ const AddReceiptModal = ({
             value={formData.paymentMethod}
             onChange={handleChange}
             className={styles.select}
+            required
           >
             <option value="">Select payment method</option>
             <option value="cash">Cash</option>
