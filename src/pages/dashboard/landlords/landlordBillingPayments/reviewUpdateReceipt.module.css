@@ -1,38 +1,13 @@
 .container {
-  min-height: 100vh;
+  min-height: 80vh;
   background: var(--color-bg);
-  padding: 1.5rem;
+  padding: 2rem;
 }
 
-.wrapper {
-  max-width: 1800px;
-  margin: 0 auto;
-}
-
-.backButton {
-  padding: 0.5rem 1rem;
-  background: var(--color-surface-2);
-  border: 1px solid var(--color-border-3);
-  border-radius: 0.375rem;
-  color: var(--color-text-2);
-  cursor: pointer;
-  font-size: 0.875rem;
-  margin-bottom: 1rem;
-  transition: all 0.2s ease;
-  width: fit-content;
-}
-
-.backButton:hover {
-  background: var(--color-surface-3);
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-}
-
-.title {
-  font-size: 2rem;
-  font-weight: bold;
-  color: var(--color-text-1);
-  margin-bottom: 1.5rem;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Filters */
@@ -57,9 +32,9 @@
 .select {
   width: 100%;
   padding: 0.5rem 1rem;
-  border: 1px solid var(--color-border-3);
+  border: 1px solid var(--color-border-5);
   border-radius: 0.5rem;
-  background: var(--color-surface-1);
+  background: var(--color-surface-3);
   color: var(--color-text-2);
   font-size: 1rem;
   outline: none;
@@ -73,15 +48,14 @@
 
 /* Main Content */
 .mainContent {
-  display: flex;
-  gap: 1rem;
-  flex: 1;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 0.5rem;
   min-height: 0;
 }
 
 /* Excel Sheet - 70% */
 .excelContainer {
-  flex: 0 0 70%;
   background: var(--color-surface-1);
   border-radius: 0.5rem;
   box-shadow: var(--shadow-lg);
@@ -202,9 +176,9 @@
 /* Receipt List - 30% */
 .receiptContainer {
   flex: 0 0 30%;
-  background: var(--color-surface-1);
+  background: var(--color-surface-3);
   border-radius: 0.5rem;
-  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border-5);
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -230,7 +204,7 @@
   padding: 1rem;
   border-radius: 0.5rem;
   border: 2px solid var(--color-border-2);
-  background: var(--color-surface-1);
+  background: var(--color-surface-5);
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -306,17 +280,4 @@
 .editButton:active {
   background: linear-gradient(135deg, var(--color-primary-active) 0%, var(--color-secondary-active) 100%);
   transform: translateY(0);
-}
-
-/* Responsive */
-@media (max-width: 1200px) {
-  .mainContent {
-    flex-direction: column;
-  }
-
-  .excelContainer,
-  .receiptContainer {
-    flex: 1;
-    max-height: 500px;
-  }
 }

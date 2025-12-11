@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styles from './reviewUpdateReceipt.module.css';
+import PrimaryButton from '../../../../components/buttons/PrimaryButton';
 
 interface ReviewUpdateReceiptProps {
   onClose: () => void;
@@ -73,132 +74,135 @@ const ReviewUpdateReceipt = ({
 
   return (
     <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <button onClick={onClose} className={styles.backButton}>
-          ← Back to Cards
-        </button>
-        <h1 className={styles.title}>Rental Property Statement</h1>
+      <div className={styles.header}>
+        <h3>
+          Rental Property Statement
+        </h3>
+        <PrimaryButton
+          onClick={onClose}
+          title={'← Back to Menu'}
+        />
+      </div>
 
-        {/* Filters */}
-        <div className={styles.filters}>
-          <div className={styles.filterGroup}>
-            <label className={styles.filterLabel}>Tax Year</label>
-            <select
-              value={selectedYear}
-              onChange={(e) => setSelectedYear(e.target.value)}
-              className={styles.select}
-            >
-              {taxYears.map(year => (
-                <option key={year} value={year}>{year}</option>
-              ))}
-            </select>
-          </div>
-          <div className={styles.filterGroup}>
-            <label className={styles.filterLabel}>Property Address</label>
-            <select
-              value={selectedProperty}
-              onChange={(e) => setSelectedProperty(e.target.value)}
-              className={styles.select}
-            >
-              {properties.map(property => (
-                <option key={property.id} value={property.id}>{property.address}</option>
-              ))}
-            </select>
+      {/* Filters */}
+      <div className={styles.filters}>
+        <div className={styles.filterGroup}>
+          <label className={styles.filterLabel}>Tax Year</label>
+          <select
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(e.target.value)}
+            className={styles.select}
+          >
+            {taxYears.map(year => (
+              <option key={year} value={year}>{year}</option>
+            ))}
+          </select>
+        </div>
+        <div className={styles.filterGroup}>
+          <label className={styles.filterLabel}>Property Address</label>
+          <select
+            value={selectedProperty}
+            onChange={(e) => setSelectedProperty(e.target.value)}
+            className={styles.select}
+          >
+            {properties.map(property => (
+              <option key={property.id} value={property.id}>{property.address}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className={styles.mainContent}>
+        {/* Excel Sheet - 70% */}
+        <div className={styles.excelContainer}>
+          <div className={styles.tableWrapper}>
+            <table className={styles.table}>
+              <thead>
+                <tr className={styles.headerRow}>
+                  <th className={`${styles.headerCell} ${styles.stickyColumn}`}>
+                    Expenses
+                  </th>
+                  <th className={styles.headerCell}>
+                    Totals
+                  </th>
+                  {months.map((month, idx) => (
+                    <th key={month} className={`${styles.headerCell} ${idx >= 8 ? styles.futureMonth : ''}`}>
+                      {month}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {expenses.map((expense, rowIdx) => (
+                  <tr key={expense.category} className={rowIdx % 2 === 0 ? styles.evenRow : styles.oddRow}>
+                    <td className={`${styles.cell} ${styles.categoryCell} ${styles.stickyColumn}`}>
+                      {expense.category}
+                    </td>
+                    <td className={`${styles.cell} ${styles.totalCell}`}>
+                      ${calculateTotal(expense.values).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </td>
+                    {expense.values.map((value, monthIdx) => (
+                      <td
+                        key={monthIdx}
+                        className={`${styles.cell} ${styles.valueCell} ${monthIdx >= 8 ? styles.futureMonth : ''} ${value > 0 ? styles.hasValue : styles.noValue}`}
+                      >
+                        ${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+                <tr className={styles.totalRow}>
+                  <td className={`${styles.cell} ${styles.totalRowLabel} ${styles.stickyColumn}`}>
+                    Total Expenses
+                  </td>
+                  <td className={`${styles.cell} ${styles.totalRowValue}`}>
+                    ${expenses.reduce((sum, exp) => sum + calculateTotal(exp.values), 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </td>
+                  {Array(12).fill(0).map((_, monthIdx) => {
+                    const monthTotal = expenses.reduce((sum, exp) => sum + exp.values[monthIdx], 0);
+                    return (
+                      <td key={monthIdx} className={`${styles.cell} ${styles.totalRowValue} ${monthIdx >= 8 ? styles.futureMonth : ''}`}>
+                        ${monthTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      </td>
+                    );
+                  })}
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
-        {/* Main Content */}
-        <div className={styles.mainContent}>
-          {/* Excel Sheet - 70% */}
-          <div className={styles.excelContainer}>
-            <div className={styles.tableWrapper}>
-              <table className={styles.table}>
-                <thead>
-                  <tr className={styles.headerRow}>
-                    <th className={`${styles.headerCell} ${styles.stickyColumn}`}>
-                      Expenses
-                    </th>
-                    <th className={styles.headerCell}>
-                      Totals
-                    </th>
-                    {months.map((month, idx) => (
-                      <th key={month} className={`${styles.headerCell} ${idx >= 8 ? styles.futureMonth : ''}`}>
-                        {month}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {expenses.map((expense, rowIdx) => (
-                    <tr key={expense.category} className={rowIdx % 2 === 0 ? styles.evenRow : styles.oddRow}>
-                      <td className={`${styles.cell} ${styles.categoryCell} ${styles.stickyColumn}`}>
-                        {expense.category}
-                      </td>
-                      <td className={`${styles.cell} ${styles.totalCell}`}>
-                        ${calculateTotal(expense.values).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                      </td>
-                      {expense.values.map((value, monthIdx) => (
-                        <td
-                          key={monthIdx}
-                          className={`${styles.cell} ${styles.valueCell} ${monthIdx >= 8 ? styles.futureMonth : ''} ${value > 0 ? styles.hasValue : styles.noValue}`}
-                        >
-                          ${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                  <tr className={styles.totalRow}>
-                    <td className={`${styles.cell} ${styles.totalRowLabel} ${styles.stickyColumn}`}>
-                      Total Expenses
-                    </td>
-                    <td className={`${styles.cell} ${styles.totalRowValue}`}>
-                      ${expenses.reduce((sum, exp) => sum + calculateTotal(exp.values), 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </td>
-                    {Array(12).fill(0).map((_, monthIdx) => {
-                      const monthTotal = expenses.reduce((sum, exp) => sum + exp.values[monthIdx], 0);
-                      return (
-                        <td key={monthIdx} className={`${styles.cell} ${styles.totalRowValue} ${monthIdx >= 8 ? styles.futureMonth : ''}`}>
-                          ${monthTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Receipt List - 30% */}
-          <div className={styles.receiptContainer}>
-            <h2 className={styles.receiptTitle}>Receipts</h2>
-            <div className={styles.receiptList}>
-              {receipts.map(receipt => (
-                <div
-                  key={receipt.id}
-                  onClick={() => handleReceiptClick(receipt)}
-                  className={`${styles.receiptCard} ${selectedReceipt?.id === receipt.id ? styles.receiptCardSelected : ''}`}
-                >
-                  <div className={styles.receiptHeader}>
-                    <span className={styles.receiptCategory}>{receipt.category}</span>
-                    <span className={styles.receiptAmount}>${receipt.amount.toFixed(2)}</span>
-                  </div>
-                  <div className={styles.receiptDetails}>
-                    <div>Date: {new Date(receipt.date).toLocaleDateString()}</div>
-                    <div>Payment: {receipt.paymentMethod}</div>
-                    {receipt.description && (
-                      <div className={styles.receiptDescription}>{receipt.description}</div>
-                    )}
-                  </div>
-                  {selectedReceipt?.id === receipt.id && (
-                    <div className={styles.receiptActions}>
-                      <button className={styles.editButton}>
-                        Edit Receipt
-                      </button>
-                    </div>
+        {/* Receipt List - 30% */}
+        <div className={styles.receiptContainer}>
+          <h2 className={styles.receiptTitle}>Receipts</h2>
+          <div className={styles.receiptList}>
+            {receipts.map(receipt => (
+              <div
+                key={receipt.id}
+                onClick={() => handleReceiptClick(receipt)}
+                className={`${styles.receiptCard} ${selectedReceipt?.id === receipt.id ? styles.receiptCardSelected : ''}`}
+              >
+                <div className={styles.receiptHeader}>
+                  <span className={styles.receiptCategory}>{receipt.category}</span>
+                  <span className={styles.receiptAmount}>${receipt.amount.toFixed(2)}</span>
+                </div>
+                <div className={styles.receiptDetails}>
+                  <div>Date: {new Date(receipt.date).toLocaleDateString()}</div>
+                  <div>Payment: {receipt.paymentMethod}</div>
+                  {receipt.description && (
+                    <div className={styles.receiptDescription}>{receipt.description}</div>
                   )}
                 </div>
-              ))}
-            </div>
+                {selectedReceipt?.id === receipt.id && (
+                  <div className={styles.receiptActions}>
+                    <button className={styles.editButton}>
+                      Edit Receipt
+                    </button>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </div>
