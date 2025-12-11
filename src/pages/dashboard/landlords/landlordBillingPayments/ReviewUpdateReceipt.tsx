@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { Receipt } from '../../../../interfaces/interfaces';
 import styles from './reviewUpdateReceipt.module.css';
 import PrimaryButton from '../../../../components/buttons/PrimaryButton';
 
@@ -13,7 +14,7 @@ const ReviewUpdateReceipt = ({
 }: ReviewUpdateReceiptProps) => {
   const [selectedYear, setSelectedYear] = useState('2024');
   const [selectedProperty, setSelectedProperty] = useState('');
-  const [selectedReceipt, setSelectedReceipt] = useState(null);
+  const [selectedReceipt, setSelectedReceipt] = useState<Receipt | null>(null);
 
   const propertyList = receiptInfo.map((property) => {
     return {

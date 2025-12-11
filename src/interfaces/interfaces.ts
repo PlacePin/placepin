@@ -17,3 +17,12 @@ export interface Address {
   zip?: string | null;
   unit?: string | null;
 }
+
+export interface Receipt {
+  id: string;
+  amount: number;
+  date: string;
+  expenseCategory: string;
+  paymentMethod: string;
+  description: string;
+}
