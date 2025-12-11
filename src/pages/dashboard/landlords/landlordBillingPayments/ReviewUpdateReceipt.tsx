@@ -55,8 +55,6 @@ const ReviewUpdateReceipt = ({
   const selectedPropertyData = propertyList.find(property => property.id === selectedProperty);
   const availableTaxYears = selectedPropertyData?.taxYears || [];
 
-  console.log('list', receipts)
-
   const EXPENSE_CATEGORIES = [
     'Advertising',
     'Auto and Travel',
