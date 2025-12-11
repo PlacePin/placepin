@@ -15,51 +15,48 @@ const ReviewUpdateReceipt = ({
   const [selectedProperty, setSelectedProperty] = useState('');
   const [selectedReceipt, setSelectedReceipt] = useState(null);
 
-  console.log('receipt info', receiptInfo)
+  // console.log('receipt info', receiptInfo)
 
   const propertyList = receiptInfo.map((property) => {
     return {
       id: property._id,
       address: `${property.address.street}, 
-                ${property.address.city} 
-                ${property.address.state}, 
-                ${property.address.zip}`,
-      taxYears: property.taxYears.map((year: { year: any; }) => `${year.year}`)
+              ${property.address.city} 
+              ${property.address.state}, 
+              ${property.address.zip}`,
+      taxYears: property.taxYears.map((year: { year: any; }) => year.year),
+      taxYearsData: property.taxYears.map((yearData: { year: any; receipts: any[]; }) => ({
+        year: yearData.year,
+        receipts: yearData.receipts.map(receipt => ({
+          id: receipt._id,
+          amount: parseFloat(receipt.amount),
+          date: receipt.date,
+          expenseCategory: receipt.expenseCategory,
+          paymentMethod: receipt.paymentMethod,
+          description: receipt.description,
+        }))
+      }))
     }
   });
+
+  // Filter receipts based on selected property and year
+  const getReceiptsForSelection = () => {
+    if (!selectedProperty || !selectedYear) return [];
+
+    const property = propertyList.find(property => property.id === selectedProperty);
+    if (!property) return [];
+
+    const yearData = property.taxYearsData.find((taxYear: { year: any; }) => taxYear.year.toString() === selectedYear);
+    return yearData?.receipts || [];
+  };
+
+  const receipts = getReceiptsForSelection();
 
   // Get the currently selected property's tax years
   const selectedPropertyData = propertyList.find(property => property.id === selectedProperty);
   const availableTaxYears = selectedPropertyData?.taxYears || [];
 
-  // console.log('list', propertyList)
-
-  const receipts = [
-    {
-      id: '1',
-      date: '2024-03-15',
-      category: 'Cleaning and Maintenance',
-      amount: 300.00,
-      paymentMethod: 'Credit Card',
-      description: 'Monthly cleaning service'
-    },
-    {
-      id: '2',
-      date: '2024-05-10',
-      category: 'Repairs',
-      amount: 2975.00,
-      paymentMethod: 'Check',
-      description: 'HVAC repair and maintenance'
-    },
-    {
-      id: '3',
-      date: '2024-06-05',
-      category: 'Repairs',
-      amount: 1624.33,
-      paymentMethod: 'Credit Card',
-      description: 'Plumbing repairs'
-    },
-  ];
+  console.log('list', propertyList)
 
   const expenses = [
     { category: 'Advertising', values: Array(12).fill(0) },
@@ -207,32 +204,38 @@ const ReviewUpdateReceipt = ({
         <div className={styles.receiptContainer}>
           <h2 className={styles.receiptTitle}>Receipts</h2>
           <div className={styles.receiptList}>
-            {receipts.map(receipt => (
-              <div
-                key={receipt.id}
-                onClick={() => handleReceiptClick(receipt)}
-                className={`${styles.receiptCard} ${selectedReceipt?.id === receipt.id ? styles.receiptCardSelected : ''}`}
-              >
-                <div className={styles.receiptHeader}>
-                  <span className={styles.receiptCategory}>{receipt.category}</span>
-                  <span className={styles.receiptAmount}>${receipt.amount.toFixed(2)}</span>
-                </div>
-                <div className={styles.receiptDetails}>
-                  <div>Date: {new Date(receipt.date).toLocaleDateString()}</div>
-                  <div>Payment: {receipt.paymentMethod}</div>
-                  {receipt.description && (
-                    <div className={styles.receiptDescription}>{receipt.description}</div>
+            {receipts.length === 0 ? (
+              <div className={styles.noReceipts}>
+                <p>No receipts found for this property and tax year.</p>
+              </div>
+            ) : (
+              receipts.map(receipt => (
+                <div
+                  key={receipt.id}
+                  onClick={() => handleReceiptClick(receipt)}
+                  className={`${styles.receiptCard} ${selectedReceipt?.id === receipt.id ? styles.receiptCardSelected : ''}`}
+                >
+                  <div className={styles.receiptHeader}>
+                    <span className={styles.receiptCategory}>{receipt.expenseCategory}</span>
+                    <span className={styles.receiptAmount}>${receipt.amount.toFixed(2)}</span>
+                  </div>
+                  <div className={styles.receiptDetails}>
+                    <div>Date: {new Date(receipt.date).toLocaleDateString()}</div>
+                    <div>Payment: {receipt.paymentMethod}</div>
+                    {receipt.description && (
+                      <div className={styles.receiptDescription}>{receipt.description}</div>
+                    )}
+                  </div>
+                  {selectedReceipt?.id === receipt.id && (
+                    <div className={styles.receiptActions}>
+                      <button className={styles.editButton}>
+                        Edit Receipt
+                      </button>
+                    </div>
                   )}
                 </div>
-                {selectedReceipt?.id === receipt.id && (
-                  <div className={styles.receiptActions}>
-                    <button className={styles.editButton}>
-                      Edit Receipt
-                    </button>
-                  </div>
-                )}
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </div>
