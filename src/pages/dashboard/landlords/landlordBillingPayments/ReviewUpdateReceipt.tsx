@@ -58,21 +58,82 @@ const ReviewUpdateReceipt = ({
 
   console.log('list', propertyList)
 
-  const expenses = [
-    { category: 'Advertising', values: Array(12).fill(0) },
-    { category: 'Auto and Travel', values: Array(12).fill(0) },
-    { category: 'Cleaning and Maintenance', values: [360, 240, 300, 40, 40, 150, 40, 40, 40, 40, 40, 0] },
-    { category: 'Commissions', values: Array(12).fill(0) },
-    { category: 'Insurance', values: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3312] },
-    { category: 'Legal and Other Professional Fees', values: Array(12).fill(0) },
-    { category: 'Management Fees', values: [0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0] },
-    { category: 'Mortgage Interest', values: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21619.54] },
-    { category: 'Other Interest', values: Array(12).fill(0) },
-    { category: 'Repairs', values: [0, 494.12, 182.16, 0, 2975, 1624.33, 44.72, 0, 1200, 30, 131.85, 435] },
-    { category: 'Supplies', values: [0, 0, 38.97, 0, 0, 239.99, 59.52, 75.87, 0, 0, 0, 0] },
-    { category: 'Taxes', values: Array(12).fill(0) },
-    { category: 'Utilities', values: [1166.75, 505, 234.25, 1947.75, 0, 1308.50, 0, 0, 0, 1962.75, 1308.50, 553.94] },
+  const EXPENSE_CATEGORIES = [
+    'Advertising',
+    'Auto and Travel',
+    'Cleaning and Maintenance',
+    'Commissions',
+    'Insurance',
+    'Legal and Other Professional Fees',
+    'Management Fees',
+    'Mortgage Interest',
+    'Other Interest',
+    'Repairs',
+    'Supplies',
+    'Taxes',
+    'Utilities',
   ];
+
+  // Function to generate expenses from receipts
+  const generateExpensesFromReceipts = () => {
+    if (!selectedProperty || !selectedYear) {
+      // Return empty expenses if no selection
+      return EXPENSE_CATEGORIES.map(category => ({
+        category,
+        values: Array(12).fill(0)
+      }));
+    }
+
+    const property = propertyList.find(p => p.id === selectedProperty);
+    if (!property) {
+      return EXPENSE_CATEGORIES.map(category => ({
+        category,
+        values: Array(12).fill(0)
+      }));
+    }
+
+    const yearData = property.taxYearsData.find((ty: { year: any; }) => ty.year.toString() === selectedYear);
+    const receiptsForYear = yearData?.receipts || [];
+
+    // Initialize expenses object with all categories
+    const expensesMap: { [key: string]: number[] } = {};
+    EXPENSE_CATEGORIES.forEach(category => {
+      expensesMap[category] = Array(12).fill(0);
+    });
+
+    // Populate expenses from receipts
+    receiptsForYear.forEach(receipt => {
+      const receiptDate = new Date(receipt.date);
+      const month = receiptDate.getMonth(); // 0-11
+      const category = receipt.expenseCategory;
+
+      // Add to the category if it exists, otherwise add to "Other Interest" or create it
+      if (expensesMap[category] !== undefined) {
+        expensesMap[category][month] += receipt.amount;
+      } else {
+        // If category doesn't exist in our list, add it dynamically
+        if (!expensesMap[category]) {
+          expensesMap[category] = Array(12).fill(0);
+        }
+        expensesMap[category][month] += receipt.amount;
+      }
+    });
+
+    // Convert map to array format
+    return Object.keys(expensesMap).map(category => ({
+      category,
+      values: expensesMap[category]
+    }));
+  };
+
+  // Generate expenses dynamically
+  const expenses = generateExpensesFromReceipts();
+
+  // Determine current month to mark future months
+  const currentMonth = new Date().getMonth(); // 0-11
+  const currentYear = new Date().getFullYear();
+  const isCurrentYear = selectedYear === currentYear.toString();
+
 
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -154,11 +215,14 @@ const ReviewUpdateReceipt = ({
                   <th className={styles.headerCell}>
                     Totals
                   </th>
-                  {months.map((month, idx) => (
-                    <th key={month} className={`${styles.headerCell} ${idx >= 8 ? styles.futureMonth : ''}`}>
-                      {month}
-                    </th>
-                  ))}
+                  {months.map((month, idx) => {
+                    const isFutureMonth = isCurrentYear && idx > currentMonth;
+                    return (
+                      <th key={month} className={`${styles.headerCell} ${isFutureMonth ? styles.futureMonth : ''}`}>
+                        {month}
+                      </th>
+                    );
+                  })}
                 </tr>
               </thead>
               <tbody>
@@ -170,14 +234,17 @@ const ReviewUpdateReceipt = ({
                     <td className={`${styles.cell} ${styles.totalCell}`}>
                       ${calculateTotal(expense.values).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </td>
-                    {expense.values.map((value, monthIdx) => (
-                      <td
-                        key={monthIdx}
-                        className={`${styles.cell} ${styles.valueCell} ${monthIdx >= 8 ? styles.futureMonth : ''} ${value > 0 ? styles.hasValue : styles.noValue}`}
-                      >
-                        ${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                      </td>
-                    ))}
+                    {expense.values.map((value, monthIdx) => {
+                      const isFutureMonth = isCurrentYear && monthIdx > currentMonth;
+                      return (
+                        <td
+                          key={monthIdx}
+                          className={`${styles.cell} ${styles.valueCell} ${isFutureMonth ? styles.futureMonth : ''} ${value > 0 ? styles.hasValue : styles.noValue}`}
+                        >
+                          ${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </td>
+                      );
+                    })}
                   </tr>
                 ))}
                 <tr className={styles.totalRow}>
@@ -189,8 +256,9 @@ const ReviewUpdateReceipt = ({
                   </td>
                   {Array(12).fill(0).map((_, monthIdx) => {
                     const monthTotal = expenses.reduce((sum, exp) => sum + exp.values[monthIdx], 0);
+                    const isFutureMonth = isCurrentYear && monthIdx > currentMonth;
                     return (
-                      <td key={monthIdx} className={`${styles.cell} ${styles.totalRowValue} ${monthIdx >= 8 ? styles.futureMonth : ''}`}>
+                      <td key={monthIdx} className={`${styles.cell} ${styles.totalRowValue} ${isFutureMonth ? styles.futureMonth : ''}`}>
                         ${monthTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
                     );
