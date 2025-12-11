@@ -4,22 +4,35 @@ import PrimaryButton from '../../../../components/buttons/PrimaryButton';
 
 interface ReviewUpdateReceiptProps {
   onClose: () => void;
+  receiptInfo: Record<string, any>[]
 }
 
 const ReviewUpdateReceipt = ({
-  onClose
+  onClose,
+  receiptInfo,
 }: ReviewUpdateReceiptProps) => {
   const [selectedYear, setSelectedYear] = useState('2024');
-  const [selectedProperty, setSelectedProperty] = useState('1');
+  const [selectedProperty, setSelectedProperty] = useState('');
   const [selectedReceipt, setSelectedReceipt] = useState(null);
 
-  // Mock data - replace with actual API calls
-  const properties = [
-    { id: '1', address: '85 Whitfield St. Dorchester, MA 02124' },
-    { id: '2', address: '123 Main St. Boston, MA 02115' },
-  ];
+  console.log('receipt info', receiptInfo)
 
-  const taxYears = ['2024', '2023', '2022'];
+  const propertyList = receiptInfo.map((property) => {
+    return {
+      id: property._id,
+      address: `${property.address.street}, 
+                ${property.address.city} 
+                ${property.address.state}, 
+                ${property.address.zip}`,
+      taxYears: property.taxYears.map((year: { year: any; }) => `${year.year}`)
+    }
+  });
+
+  // Get the currently selected property's tax years
+  const selectedPropertyData = propertyList.find(property => property.id === selectedProperty);
+  const availableTaxYears = selectedPropertyData?.taxYears || [];
+
+  // console.log('list', propertyList)
 
   const receipts = [
     {
@@ -83,38 +96,56 @@ const ReviewUpdateReceipt = ({
           title={'← Back to Menu'}
         />
       </div>
-
       {/* Filters */}
       <div className={styles.filters}>
+        <div className={styles.filterGroup}>
+          <label className={styles.filterLabel}>Property Address</label>
+          <select
+            value={selectedProperty}
+            onChange={(e) => {
+              setSelectedProperty(e.target.value);
+              // Reset tax year when property changes
+              const newProperty = propertyList.find(list => list.id === e.target.value);
+              if (newProperty && newProperty.taxYears.length > 0) {
+                setSelectedYear(newProperty.taxYears[0].toString());
+              }
+            }}
+            className={styles.select}
+          >
+            <option value="">Select a property</option>
+            {propertyList.map(property => (
+              <option
+                key={property.id}
+                value={property.id}
+              >
+                {property.address}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className={styles.filterGroup}>
           <label className={styles.filterLabel}>Tax Year</label>
           <select
             value={selectedYear}
             onChange={(e) => setSelectedYear(e.target.value)}
             className={styles.select}
+            disabled={!selectedProperty || availableTaxYears.length === 0}
           >
-            {taxYears.map(year => (
-              <option key={year} value={year}>{year}</option>
-            ))}
-          </select>
-        </div>
-        <div className={styles.filterGroup}>
-          <label className={styles.filterLabel}>Property Address</label>
-          <select
-            value={selectedProperty}
-            onChange={(e) => setSelectedProperty(e.target.value)}
-            className={styles.select}
-          >
-            {properties.map(property => (
-              <option key={property.id} value={property.id}>{property.address}</option>
-            ))}
+            {availableTaxYears.length === 0 ? (
+              <option value="">No tax years available</option>
+            ) : (
+              availableTaxYears.map(year => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))
+            )}
           </select>
         </div>
       </div>
-
       {/* Main Content */}
       <div className={styles.mainContent}>
-        {/* Excel Sheet - 70% */}
+        {/* Excel Sheet */}
         <div className={styles.excelContainer}>
           <div className={styles.tableWrapper}>
             <table className={styles.table}>
@@ -172,8 +203,7 @@ const ReviewUpdateReceipt = ({
             </table>
           </div>
         </div>
-
-        {/* Receipt List - 30% */}
+        {/* Receipt List */}
         <div className={styles.receiptContainer}>
           <h2 className={styles.receiptTitle}>Receipts</h2>
           <div className={styles.receiptList}>

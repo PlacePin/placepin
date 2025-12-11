@@ -17,10 +17,15 @@ const LandlordBillingPayments = () => {
   return (
     <>
       {showReviewUpdateReceipt ? (
-        <ReviewUpdateReceipt onClose={() => setShowReviewUpdateReceipt(false)} />
+        <ReviewUpdateReceipt
+          onClose={() => setShowReviewUpdateReceipt(prev => !prev)}
+          receiptInfo={data.properties}
+        />
       ) : (
         <div className={styles.billingContainer}>
-          <ReviewUpdateReceiptCard openReceipts={() => setShowReviewUpdateReceipt(true)} />
+          <ReviewUpdateReceiptCard
+            openReceipts={() => setShowReviewUpdateReceipt(prev => !prev)}
+          />
           <AddReceiptCard properties={data.properties} />
         </div>
       )}
