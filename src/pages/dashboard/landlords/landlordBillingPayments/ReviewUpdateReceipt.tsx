@@ -15,8 +15,6 @@ const ReviewUpdateReceipt = ({
   const [selectedProperty, setSelectedProperty] = useState('');
   const [selectedReceipt, setSelectedReceipt] = useState(null);
 
-  // console.log('receipt info', receiptInfo)
-
   const propertyList = receiptInfo.map((property) => {
     return {
       id: property._id,
@@ -56,7 +54,7 @@ const ReviewUpdateReceipt = ({
   const selectedPropertyData = propertyList.find(property => property.id === selectedProperty);
   const availableTaxYears = selectedPropertyData?.taxYears || [];
 
-  console.log('list', propertyList)
+  console.log('list', receipts)
 
   const EXPENSE_CATEGORIES = [
     'Advertising',
@@ -102,7 +100,11 @@ const ReviewUpdateReceipt = ({
     });
 
     // Populate expenses from receipts
-    receiptsForYear.forEach(receipt => {
+    receiptsForYear.forEach((receipt: {
+      date: string | number | Date;
+      expenseCategory: string;
+      amount: number;
+    }) => {
       const receiptDate = new Date(receipt.date);
       const month = receiptDate.getMonth(); // 0-11
       const category = receipt.expenseCategory;
@@ -134,12 +136,11 @@ const ReviewUpdateReceipt = ({
   const currentYear = new Date().getFullYear();
   const isCurrentYear = selectedYear === currentYear.toString();
 
-
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-  const calculateTotal = (values) => values.reduce((sum, val) => sum + val, 0);
+  const calculateTotal = (values: number[]) => values.reduce((sum, val) => sum + val, 0);
 
-  const handleReceiptClick = (receipt) => {
+  const handleReceiptClick = (receipt: any) => {
     setSelectedReceipt(receipt);
   };
 
@@ -192,7 +193,7 @@ const ReviewUpdateReceipt = ({
             {availableTaxYears.length === 0 ? (
               <option value="">No tax years available</option>
             ) : (
-              availableTaxYears.map(year => (
+              availableTaxYears.map((year: number) => (
                 <option key={year} value={year}>
                   {year}
                 </option>
@@ -277,7 +278,7 @@ const ReviewUpdateReceipt = ({
                 <p>No receipts found for this property and tax year.</p>
               </div>
             ) : (
-              receipts.map(receipt => (
+              receipts.map((receipt: Record<string, any>) => (
                 <div
                   key={receipt.id}
                   onClick={() => handleReceiptClick(receipt)}
