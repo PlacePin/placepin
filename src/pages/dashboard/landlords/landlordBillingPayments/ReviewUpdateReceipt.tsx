@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { Receipt } from '../../../../interfaces/interfaces';
 import styles from './reviewUpdateReceipt.module.css';
 import PrimaryButton from '../../../../components/buttons/PrimaryButton';
+import EditReceiptModal from '../../../../components/modals/EditReceiptModal';
 
 interface ReviewUpdateReceiptProps {
   onClose: () => void;
@@ -15,6 +16,7 @@ const ReviewUpdateReceipt = ({
   const [selectedYear, setSelectedYear] = useState('2024');
   const [selectedProperty, setSelectedProperty] = useState('');
   const [selectedReceipt, setSelectedReceipt] = useState<Receipt | null>(null);
+  const [showReceiptModal, setShowReceiptModal] = useState(false);
 
   const propertyList = receiptInfo.map((property) => {
     return {
@@ -51,6 +53,8 @@ const ReviewUpdateReceipt = ({
 
   const receipts = getReceiptsForSelection();
 
+  console.log('sr', selectedReceipt)
+
   // Get the currently selected property's tax years
   const selectedPropertyData = propertyList.find(property => property.id === selectedProperty);
   const availableTaxYears = selectedPropertyData?.taxYears || [];
@@ -81,7 +85,7 @@ const ReviewUpdateReceipt = ({
       }));
     }
 
-    const property = propertyList.find(p => p.id === selectedProperty);
+    const property = propertyList.find(property => property.id === selectedProperty);
     if (!property) {
       return EXPENSE_CATEGORIES.map(category => ({
         category,
@@ -139,7 +143,7 @@ const ReviewUpdateReceipt = ({
 
   const calculateTotal = (values: number[]) => values.reduce((sum, val) => sum + val, 0);
 
-  const handleReceiptClick = (receipt: any) => {
+  const handleReceiptClick = (receipt: Receipt) => {
     setSelectedReceipt(receipt);
   };
 
@@ -277,7 +281,7 @@ const ReviewUpdateReceipt = ({
                 <p>No receipts found for this property and tax year.</p>
               </div>
             ) : (
-              receipts.map((receipt: Record<string, any>) => (
+              receipts.map((receipt: Receipt) => (
                 <div
                   key={receipt.id}
                   onClick={() => handleReceiptClick(receipt)}
@@ -296,7 +300,10 @@ const ReviewUpdateReceipt = ({
                   </div>
                   {selectedReceipt?.id === receipt.id && (
                     <div className={styles.receiptActions}>
-                      <button className={styles.editButton}>
+                      <button
+                        className={styles.editButton}
+                        onClick={() => setShowReceiptModal(prev => !prev)}
+                      >
                         Edit Receipt
                       </button>
                     </div>
@@ -307,6 +314,19 @@ const ReviewUpdateReceipt = ({
           </div>
         </div>
       </div>
+      {showReceiptModal && selectedReceipt &&
+        <EditReceiptModal
+          onClose={() => setShowReceiptModal(prev => !prev)}
+          id={selectedReceipt?.id}
+          address={selectedProperty}
+          amount={selectedReceipt?.amount}
+          date={selectedReceipt?.date}
+          description={selectedReceipt?.description}
+          expenseCategory={selectedReceipt?.expenseCategory}
+          paymentMethod={selectedReceipt?.paymentMethod}
+          taxYear={selectedYear}
+        />
+      }
     </div>
   );
 };

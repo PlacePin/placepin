@@ -87,7 +87,7 @@
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 10;
 }
 
 .headerCell {
@@ -166,7 +166,7 @@
   border-top: 2px solid var(--color-primary);
   position: sticky;
   bottom: 0;
-  z-index: 15;
+  z-index: 10;
 }
 
 .totalRowLabel {
