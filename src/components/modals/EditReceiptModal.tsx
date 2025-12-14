@@ -14,6 +14,7 @@ interface EditReceiptModalProps {
   expenseCategory: string,
   paymentMethod: string,
   taxYear: string,
+  properties: Record<string, any>[],
 }
 
 const EditReceiptModal = ({
@@ -26,6 +27,7 @@ const EditReceiptModal = ({
   expenseCategory,
   paymentMethod,
   taxYear,
+  properties,
 }: EditReceiptModalProps) => {
   const [errorMessage, setErrorMessage] = useState('')
   const [formData, setFormData] = useState({
@@ -38,8 +40,6 @@ const EditReceiptModal = ({
     description,
     paymentMethod,
   });
-
-  console.log('fd', formData)
 
   const { accessToken } = useAuth();
 
@@ -125,9 +125,11 @@ const EditReceiptModal = ({
               required
             >
               <option value="">Select a property</option>
-                <option key={formData.propertyId} value={formData.propertyId}>
-                  {formData?.address}
+                {properties.map((property) => (
+                <option key={property._id} value={property._id}>
+                  {property.address.street}
                 </option>
+              ))}
             </select>
           </div>
         </div>

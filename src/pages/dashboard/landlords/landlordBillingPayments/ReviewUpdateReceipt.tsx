@@ -11,7 +11,7 @@ interface ReviewUpdateReceiptProps {
 
 const ReviewUpdateReceipt = ({
   onClose,
-  receiptInfo,
+  receiptInfo = [],
 }: ReviewUpdateReceiptProps) => {
   const [selectedYear, setSelectedYear] = useState('2024');
   const [selectedProperty, setSelectedProperty] = useState('');
@@ -52,8 +52,6 @@ const ReviewUpdateReceipt = ({
   };
 
   const receipts = getReceiptsForSelection();
-
-  console.log('sr', selectedReceipt)
 
   // Get the currently selected property's tax years
   const selectedPropertyData = propertyList.find(property => property.id === selectedProperty);
@@ -325,11 +323,11 @@ const ReviewUpdateReceipt = ({
           expenseCategory={selectedReceipt?.expenseCategory}
           paymentMethod={selectedReceipt?.paymentMethod}
           taxYear={selectedYear}
+          properties={receiptInfo}
         />
       }
     </div>
   );
 };
-//// COMMENT /////
-// 
+
 export default ReviewUpdateReceipt;
