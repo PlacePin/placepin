@@ -82,3 +82,36 @@ export const addReceipt = async (
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+export const updateReceipt = async (
+  req: Request,
+  res: Response
+) => {
+  const userId = req.userId;
+  const {
+    taxYear,
+    receiptId,
+    category,
+    propertyId,
+    amount,
+    date,
+    description,
+    paymentMethod
+  } = req.body;
+
+  console.log(taxYear,
+    receiptId,
+    category,
+    propertyId,
+    amount,
+    date,
+    description,
+    paymentMethod)
+
+  try {
+    return res.status(200).json({ message: 'Success' })
+  } catch (err) {
+    console.error(err)
+    return res.status(500).json({ message: `Internal Server error ${err}` })
+  }
+}

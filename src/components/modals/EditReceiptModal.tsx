@@ -6,8 +6,8 @@ import axios from 'axios';
 
 interface EditReceiptModalProps {
   onClose: () => void,
-  id: string,
-  address: string,
+  receiptId: string,
+  propertyId: string,
   amount: number,
   date: string,
   description: string,
@@ -19,8 +19,8 @@ interface EditReceiptModalProps {
 
 const EditReceiptModal = ({
   onClose,
-  id,
-  address,
+  receiptId,
+  propertyId,
   amount,
   date,
   description,
@@ -32,9 +32,9 @@ const EditReceiptModal = ({
   const [errorMessage, setErrorMessage] = useState('')
   const [formData, setFormData] = useState({
     taxYear,
-    propertyId: id,
+    receiptId,
     category: expenseCategory,
-    address,
+    propertyId,
     amount,
     date: new Date(date).toISOString().split('T')[0],
     description,

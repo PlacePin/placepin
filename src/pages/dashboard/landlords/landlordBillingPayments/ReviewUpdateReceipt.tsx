@@ -315,15 +315,15 @@ const ReviewUpdateReceipt = ({
       {showReceiptModal && selectedReceipt &&
         <EditReceiptModal
           onClose={() => setShowReceiptModal(prev => !prev)}
-          id={selectedReceipt?.id}
-          address={selectedProperty}
-          amount={selectedReceipt?.amount}
-          date={selectedReceipt?.date}
-          description={selectedReceipt?.description}
-          expenseCategory={selectedReceipt?.expenseCategory}
-          paymentMethod={selectedReceipt?.paymentMethod}
+          propertyId={selectedProperty}
+          amount={selectedReceipt.amount}
+          date={selectedReceipt.date}
+          description={selectedReceipt.description}
+          expenseCategory={selectedReceipt.expenseCategory}
+          paymentMethod={selectedReceipt.paymentMethod}
           taxYear={selectedYear}
           properties={receiptInfo}
+          receiptId={selectedReceipt.id}
         />
       }
     </div>
