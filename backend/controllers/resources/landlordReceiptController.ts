@@ -99,19 +99,59 @@ export const updateReceipt = async (
     paymentMethod
   } = req.body;
 
-  console.log(taxYear,
-    receiptId,
-    category,
-    propertyId,
-    amount,
-    date,
-    description,
-    paymentMethod)
-
   try {
-    return res.status(200).json({ message: 'Success' })
+    // Validate required fields
+    if (!receiptId || !taxYear || !propertyId || !category || !amount || !date || !paymentMethod) {
+      return res.status(400).json({ message: 'All required fields must be provided' });
+    }
+
+    // Find the property and verify ownership
+    const property = await PropertyModel.findOne({
+      _id: propertyId,
+      landlord: userId
+    });
+
+    if (!property) {
+      return res.status(404).json({ message: 'Property not found or you do not have access' });
+    }
+
+    // Update the receipt using MongoDB's arrayFilters
+    const result = await PropertyModel.updateOne(
+      {
+        _id: propertyId,
+        landlord: userId,
+        'taxYears.year': Number(taxYear),
+        'taxYears.receipts._id': receiptId
+      },
+      {
+        $set: {
+          'taxYears.$[year].receipts.$[receipt].expenseCategory': category,
+          'taxYears.$[year].receipts.$[receipt].amount': parseFloat(amount),
+          'taxYears.$[year].receipts.$[receipt].date': new Date(date),
+          'taxYears.$[year].receipts.$[receipt].paymentMethod': paymentMethod,
+          'taxYears.$[year].receipts.$[receipt].description': description || ''
+        }
+      },
+      {
+        arrayFilters: [
+          { 'year.year': Number(taxYear) },
+          { 'receipt._id': receiptId }
+        ]
+      }
+    );
+
+    // Check if receipt was found and updated
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ message: 'Receipt not found' });
+    }
+
+    if (result.modifiedCount === 0) {
+      return res.status(200).json({ message: 'No changes made to receipt' });
+    }
+
+    return res.status(200).json({ message: 'Receipt updated successfully' });
   } catch (err) {
-    console.error(err)
-    return res.status(500).json({ message: `Internal Server error ${err}` })
+    console.error('Error updating receipt:', err);
+    return res.status(500).json({ message: 'Internal server error' });
   }
-}
+};
