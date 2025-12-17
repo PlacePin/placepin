@@ -155,6 +155,7 @@ const ReviewUpdateReceipt = ({
           onClick={onClose}
           title={'← Back to Menu'}
         />
+        
       </div>
       {/* Filters */}
       <div className={styles.filters}>
