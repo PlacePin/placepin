@@ -133,7 +133,7 @@ const ReviewUpdateReceipt = ({
   const expenses = generateExpensesFromReceipts();
 
   // Determine current month to mark future months
-  const currentMonth = new Date().getMonth(); // 0-11
+  const currentMonth = new Date().getMonth();
   const currentYear = new Date().getFullYear();
   const isCurrentYear = selectedYear === currentYear.toString();
 
