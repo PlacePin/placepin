@@ -111,14 +111,13 @@
 
 .outgoing {
   border-radius: 0.5rem 0.5rem 0 0.5rem;
-  background: #f5f0eb;
+  background: var(--color-surface-4);
   align-self: flex-end;
 }
 
 .incoming {
   border-radius: 0.5rem 0.5rem 0.5rem 0;
-  color: white;
-  background: #00bfa5;
+  background: var(--color-surface-5);
   align-self: flex-start;
   text-align: left;
 }
