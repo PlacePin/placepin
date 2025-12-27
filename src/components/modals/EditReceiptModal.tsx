@@ -92,6 +92,7 @@ const EditReceiptModal = ({
   };
 
   return (
+    // Add novalidate to form
     <FormModal title={'Edit Receipt'} onClose={onClose}>
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.formRow}>

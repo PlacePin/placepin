@@ -38,9 +38,12 @@ export const loginController = async (req: Request, res: Response) => {
       fullName: user.fullName,
       accountType: user.accountType,
     },
+    // Remember to switch this to 1 hour and httpOnly cookies after xss practice
       JWT_ACCESS_TOKEN,
       { expiresIn: '30d' }
     )
+
+    // TODO: Add refresh tokens
 
     user.lastActive = new Date()
     user.save()

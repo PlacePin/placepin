@@ -76,7 +76,7 @@ export function chatSocket(server: any) {
           conversation.lastUpdated = time;
           await conversation.save();
 
-          // Prepare the message for client emit
+          // Prepare the message for the client
           const message = {
             senderId,
             receiverId,

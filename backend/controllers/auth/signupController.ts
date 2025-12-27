@@ -132,9 +132,12 @@ export const signupController = async (req: Request, res: Response) => {
       fullName: username,
       accountType,
     },
+    // Remember to switch this to 1 hour and httpOnly cookies after xss practice
       JWT_ACCESS_TOKEN,
       { expiresIn: '30d' }
     )
+
+    // TODO: Add refresh tokens
 
     // Respond with the token and account type
     return res.status(201).json({ message: 'User Created Successfully', accessToken, accountType })

@@ -13,6 +13,8 @@ import { authenticateToken } from './middleware/authenticateToken';
 import { chatSocket } from './chatSocket';
 import messageRoutes from './routes/messages/messageRoutes';
 
+// Add a rate limiter as middleware 
+
 dotenv.config()
 
 const app = express()
@@ -25,8 +27,7 @@ connectToDB()
 
 app.use(cors())
 
-// Webhooks
-// Webhooks won't work if they're after the express.json()
+// Webhooks - won't work if they're after the express.json()
 app.use('/api', stripeWebhookRoute)
 
 app.use(express.json())
@@ -37,7 +38,7 @@ app.use('/api/users', authenticateToken, usersRoutes)
 app.use('/api/landlords', authenticateToken, landlordDataRoute)
 app.use('/api/messages', authenticateToken, messageRoutes)
 
-// Attach chat socket
+// Adding chat socket to server
 chatSocket(server);
 
 server.listen(PORT, () => {
