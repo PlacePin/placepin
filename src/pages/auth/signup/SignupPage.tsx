@@ -5,6 +5,7 @@ import { useState, type FormEvent } from 'react';
 import { useAuth } from '../../../context/AuthContext';
 import { LANDLORD_ROUTES } from '../../../routes/landlordRoutes';
 import { TENANT_ROUTES } from '../../../routes/tenantRoutes';
+import { TRADESMEN_ROUTES } from '../../../routes/tradesmenRoutes';
 
 const SignupPage = () => {
   const navigate = useNavigate()
@@ -75,6 +76,9 @@ const SignupPage = () => {
         if (accountType === 'tenant') {
           navigate(TENANT_ROUTES.DASHBOARD)
         }
+        if (accountType === 'tradesmen') {
+          navigate(TRADESMEN_ROUTES.DASHBOARD)
+        }
       }
     } catch (err: any) {
       setErrorMessage(err.response.data.message)
@@ -132,7 +136,7 @@ const SignupPage = () => {
                   className={styles.inputFields}
                   onChange={(e) => setEmail(e.target.value.toLowerCase().trim())}
                   id='email'
-                  placeholder="daugustin@gmail.com"
+                  placeholder="daugustin@placepin.com"
                   required
                 />
                 <label className={styles.inputLabel} htmlFor='accountType'>
@@ -147,6 +151,7 @@ const SignupPage = () => {
                   <option value="" disabled>Select one</option>
                   <option value="tenant">Tenant</option>
                   <option value="landlord">Landlord</option>
+                  <option value="tradesmen">Tradesmen</option>
                 </select>
                 {accountType === 'tenant' && <>
                   <label className={styles.inputLabel} htmlFor='landlordReferral'>
@@ -239,7 +244,7 @@ const SignupPage = () => {
                   className={styles.inputFields}
                   onChange={(e) => setPassword(e.target.value)}
                   id='password'
-                  placeholder='********'
+                  placeholder='8 character minimum'
                   required
                 />
                 <button type="submit">Sign Up</button>
