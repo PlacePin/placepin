@@ -33,7 +33,6 @@ const tradesmenSchema = new mongoose.Schema({
     isSubscribed: { type: Boolean, default: false },
     savedPaymentMethod: { type: String, default: null },
     stripeCustomerId: { type: String, default: null },
-    tier: { type: String, default: "free" },
   },
   username: { type: String, required: true },
 })

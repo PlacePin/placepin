@@ -1,6 +1,7 @@
 import type { Request, Response } from 'express';
 import { TenantModel, type TenantDocumentType } from '../../database/models/Tenant.model';
 import { LandlordModel, type LandlordDocumentType } from '../../database/models/Landlord.model';
+import { TradesmenModel, type TradesmenDocumentType } from '../../database/models/Tradesmen.model';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
@@ -16,13 +17,15 @@ export const signupController = async (req: Request, res: Response) => {
 
   let hashedPassword: string;
   const saltRounds = 10
-  let newUser: LandlordDocumentType | TenantDocumentType | null = null;
+  let newUser: LandlordDocumentType | TenantDocumentType | TradesmenDocumentType | null = null;
   let existingEmail: string | null;
-  let matchingLandlord: LandlordDocumentType | TenantDocumentType | null = null
+  let matchingLandlord: LandlordDocumentType | TenantDocumentType | TradesmenDocumentType | null = null
 
   try {
     // Check if user already exists in either collection
-    existingEmail = await TenantModel.findOne({ email }) || await LandlordModel.findOne({ email })
+    existingEmail = await TenantModel.findOne({ email }) ||
+                    await LandlordModel.findOne({ email }) ||
+                    await TradesmenModel.findOne({ email })
 
     if (existingEmail) {
       res.status(409).json({ message: 'Email already in use. Please use a different email address.' })
@@ -58,6 +61,23 @@ export const signupController = async (req: Request, res: Response) => {
 
     if (accountType === 'landlord') {
       newUser = new LandlordModel({
+        fullName: username,
+        username: generatedUsername,
+        email,
+        address,
+        accountType,
+        password: hashedPassword,
+        phoneNumber,
+        subscription: {
+          isSubscribed: false,
+          savedPaymentMethod: null,
+          stripeCustomerId: null,
+        },
+      })
+    }
+
+    if (accountType === 'tradesmen') {
+      newUser = new TradesmenModel({
         fullName: username,
         username: generatedUsername,
         email,
@@ -132,7 +152,7 @@ export const signupController = async (req: Request, res: Response) => {
       fullName: username,
       accountType,
     },
-    // Remember to switch this to 1 hour and httpOnly cookies after xss practice
+      // Remember to switch this to 1 hour and httpOnly cookies after xss practice
       JWT_ACCESS_TOKEN,
       { expiresIn: '30d' }
     )

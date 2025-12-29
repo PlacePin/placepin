@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/AuthContext';
 import { LANDLORD_ROUTES } from '../../../routes/landlordRoutes';
 import { TENANT_ROUTES } from '../../../routes/tenantRoutes';
+import { TRADESMEN_ROUTES } from '../../../routes/tradesmenRoutes';
 
 const LoginPage = () => {
 
@@ -37,6 +38,9 @@ const LoginPage = () => {
         }
         if (accountType === 'tenant') {
           navigate(TENANT_ROUTES.DASHBOARD)
+        }
+        if (accountType === 'tradesmen') {
+          navigate(TRADESMEN_ROUTES.DASHBOARD)
         }
       }
     } catch (err: any) {
