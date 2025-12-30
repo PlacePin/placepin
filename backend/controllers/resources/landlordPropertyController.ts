@@ -136,9 +136,7 @@ export const getLandlordProperties = async (
       }
     ]);
 
-    return res.status(200).json({
-      properties
-    });
+    return res.status(200).json({ properties });
   } catch (err) {
     console.error("Error fetching properties:", err);
     return res.status(500).json({ message: "Oops! Something went wrong!" });

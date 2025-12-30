@@ -4,12 +4,14 @@ import { addProperty, getLandlordProperties } from '../../controllers/resources/
 import { removeTenant } from '../../controllers/resources/removeTenantController';
 import { removeProperty } from '../../controllers/resources/removePropertyController';
 import { getReceipt, addReceipt, updateReceipt } from '../../controllers/resources/landlordReceiptController';
+import { getTradesmen } from '../../controllers/resources/landlordTradesmenController';
 
 const router = express.Router();
 
 router.get('/tenants', getLandlordTenants);
 router.get('/properties', getLandlordProperties);
 router.get('/receipts', getReceipt);
+router.get('/tradesmen', getTradesmen)
 router.post('/receipts', addReceipt);
 router.post('/properties', addProperty);
 router.put('/receipts', updateReceipt)

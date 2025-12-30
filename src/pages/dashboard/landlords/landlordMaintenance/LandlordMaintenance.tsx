@@ -1,8 +1,11 @@
 import { Info, User } from 'lucide-react';
 import styles from './landlordMaintenance.module.css';
 import { capitalizeWords } from '../../../../utils/stringUtils';
+import { useGetAxios } from '../../../../hooks/useGetAxios';
 
 const LandlordMaintenance = () => {
+
+  const { data, error } = useGetAxios(`/api/landlords/tradesmen`);
 
   const tradesmenCards = <div
         // key={tenant._id}
