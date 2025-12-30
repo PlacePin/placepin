@@ -13,7 +13,7 @@ export const getTradesmen = async (
 
   try {
     const tradesmen = await TradesmenModel.find({}).select('-password -__v');
-    console.log(tradesmen)
+    return res.status(200).json({ tradesmen })
   } catch (err) {
     console.error("Error fetching tradesmen:", err)
     return res.status(500).json({ message: 'Internal Server Error' })
