@@ -1,0 +1,10 @@
+.tradesmenDashboardContainer {
+  display: flex;
+  background: var(--color-bg);
+}
+
+.tradesmenHeaderBody {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

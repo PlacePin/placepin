@@ -1,6 +1,7 @@
 import type { RouteObject } from "react-router-dom";
 import { LANDLORD_ROUTES, LANDLORD_CHILD_ROUTES } from "./landlordRoutes";
 import { TENANT_ROUTES, TENANT_CHILD_ROUTES } from "./tenantRoutes";
+import { TRADESMEN_ROUTES, TRADESMEN_CHILD_ROUTES } from "./tradesmenRoutes";
 import LandingPage from "../pages/home/LandingPage";
 import SignupPage from "../pages/auth/signup/SignupPage";
 import LoginPage from "../pages/auth/login/LoginPage";
@@ -19,6 +20,8 @@ import SuccessfulSubscriptionPage from "../pages/stripeUrlPages/SuccessfulSubscr
 import FailedSubscriptionPage from "../pages/stripeUrlPages/FailedSubscriptionPage";
 import TenantMessaging from "../pages/dashboard/tenants/tenantMessaging/TenantMessaging";
 import TenantHomepage from "../pages/dashboard/tenants/tenantHomepage/TenantHomepage";
+import TradesmenDashboard from "../pages/dashboard/tradesmen/TradesmenDashboard";
+import TradesmenHomepage from "../pages/dashboard/tradesmen/tradesmenHomepage/TradesmenHomepage";
 
 const routes: RouteObject[] = [
   { path: '/', element: <LandingPage /> },
@@ -85,6 +88,29 @@ const routes: RouteObject[] = [
           },
           {
             path: TENANT_CHILD_ROUTES.SETTINGS,
+            element: <GeneralSettings />
+          },
+        ]
+      }
+    ]
+  },
+  {
+    path: TRADESMEN_ROUTES.DASHBOARD,
+    element: <PrivateRoute />,
+    children: [
+      {
+        path: '', element: <TradesmenDashboard />,
+        children: [
+          {
+            path: '',
+            element: <TradesmenHomepage />
+          },
+          {
+            path: TRADESMEN_CHILD_ROUTES.MESSAGING,
+            element: <TenantMessaging />
+          },
+          {
+            path: TRADESMEN_CHILD_ROUTES.SETTINGS,
             element: <GeneralSettings />
           },
         ]

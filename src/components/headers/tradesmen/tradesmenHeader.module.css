@@ -1,0 +1,29 @@
+.tradesmenHeaderContainer {
+  height: 3.5rem;
+  background: var(--color-surface-2);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerTitle {
+  margin-left: 1em;
+  color: var(--color-text-2);
+}
+
+.settingsIcon {
+  margin-right: 1em;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  color: var(--color-text-2)
+}
+
+.settingsIcon:hover {
+  transform: rotate(90deg);
+}
+
+.theme {
+  display: flex;
+  align-items: center;
+}
