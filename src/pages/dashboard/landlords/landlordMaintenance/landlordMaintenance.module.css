@@ -2,13 +2,6 @@
   padding: 2rem;
 }
 
-.tradesmenCardsContainer {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  padding: 1rem 0;
-}
-
 .noDataButtonContainer {
   text-align: center;
   margin-top: 20rem;
@@ -33,6 +26,68 @@
 }
 
 .button:active {
+  transform: translateY(2px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.tradesmenCards {
+  height: 200px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: var(--color-text-2);
+  text-align: center;
+  transition: 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  background: var(--color-surface-3);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.07);
+  border-radius: 1.5rem;
+  border: 1px solid var(--color-border-4);
+}
+
+.tradesmenCards:hover {
+  transform: scale(1.05) translateY(-3px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.tradesmenCardsContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.descriptionWrapper {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.infoIcon {
+  padding-right: 0.25rem;
+}
+
+.infoButton {
+  color: var(--color-text-2);
+  background: var(--color-surface-5);
+  border: 1px solid var(--color-border-5);
+  padding: 0.5rem 2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.infoButton:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.infoButton:active {
   transform: translateY(2px);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }

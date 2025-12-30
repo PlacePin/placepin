@@ -26,7 +26,7 @@ const LandlordMaintenance = () => {
     return (
       <div
         key={tradesmen._id}
-        className={styles.tenantCards}
+        className={styles.tradesmenCards}
       >
         <User
           width={150}
