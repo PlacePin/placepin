@@ -3,6 +3,7 @@ import styles from './landlordMaintenance.module.css';
 import { capitalizeWords } from '../../../../utils/stringUtils';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
 import { useState } from 'react';
+import TradesmenDetails from '../../../../components/modals/TradesmenDetails';
 
 const LandlordMaintenance = () => {
 
@@ -59,9 +60,14 @@ const LandlordMaintenance = () => {
       <div className={styles.container}>
         <h2>Hire a Tradesman</h2>
         {numberOfTradesmen ? (
-          <div className={styles.tradesmenCardsContainer}>
-            {tradesmenCards}
-          </div>
+          <>
+            <div className={styles.tradesmenCardsContainer}>
+              {tradesmenCards}
+            </div>
+            {selectedTradesmen && (
+              <TradesmenDetails />
+            )}
+          </>
         ) : (
           <div className={styles.noDataButtonContainer}>
             <button className={styles.button}>Find Tradesman</button>
