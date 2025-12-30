@@ -65,7 +65,7 @@ const LandlordMaintenance = () => {
               {tradesmenCards}
             </div>
             {selectedTradesmen && (
-              <TradesmenDetails />
+              <TradesmenDetails tradesmen={selectedTradesmen} />
             )}
           </>
         ) : (

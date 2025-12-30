@@ -46,6 +46,7 @@
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.07);
   border-radius: 1.5rem;
   border: 1px solid var(--color-border-4);
+  corner-shape: scoop;
 }
 
 .tradesmenCards:hover {

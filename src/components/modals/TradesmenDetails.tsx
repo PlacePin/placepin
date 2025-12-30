@@ -1,10 +1,21 @@
+import FormModal from './FormModal';
 import styles from './tradesmenDetails.module.css';
 
-const TradesmenDetails = () => {
+interface TradesmenDetailsProp {
+  tradesmen: Record<string, string>
+}
+
+const TradesmenDetails = ({
+  tradesmen
+}: TradesmenDetailsProp) => {
+
+  console.log(tradesmen)
   return (
-    <div className={styles.modalOverlay}>
-      
-    </div>
+    <FormModal title={tradesmen.fullName}>
+      <div>
+
+      </div>
+    </FormModal>
   )
 }
 
