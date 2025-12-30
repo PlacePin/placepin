@@ -74,3 +74,7 @@
   box-shadow: inset 3px 0px 0 var(--color-text-1);
   border-radius: 0 0.5rem 0.5rem 0;
 }
+
+.sidebarItem span {
+  margin-left: .75rem;
+}

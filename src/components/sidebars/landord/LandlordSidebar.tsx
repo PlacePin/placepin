@@ -33,7 +33,7 @@ const LandlordSidebar = () => {
                   }`}
               >
                 {tab.icon}
-                <span style={{ marginLeft: "0.75rem" }}>{tab.text}</span>
+                <span>{tab.text}</span>
               </div>
             </NavLink>
           ))}
