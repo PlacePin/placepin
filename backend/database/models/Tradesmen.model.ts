@@ -25,6 +25,7 @@ const tradesmenSchema = new mongoose.Schema({
   lastActive: { type: Date, default: null },
   password: { type: String, required: true },
   phoneNumber: Number,
+  profession: String,
   profilePic: {
     type: String,
     default: "",

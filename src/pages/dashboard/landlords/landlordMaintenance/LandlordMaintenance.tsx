@@ -22,9 +22,9 @@ const LandlordMaintenance = () => {
   }
 
   const handleCloseModal = () => {
-  setShowTradesmenDetails(false);
-  setSelectedTradesmen(null);
-};
+    setShowTradesmenDetails(false);
+    setSelectedTradesmen(null);
+  };
 
   const { data, error } = useGetAxios(`/api/landlords/tradesmen`);
 
@@ -73,28 +73,26 @@ const LandlordMaintenance = () => {
   })
 
   return (
-    <>
-      <div className={styles.container}>
-        <h2>Hire a Tradesman</h2>
-        {numberOfTradesmen ? (
-          <>
-            <div className={styles.tradesmenCardsContainer}>
-              {tradesmenCards}
-            </div>
-            {showTradesmenDetails && (
-              <TradesmenDetails
-                tradesmen={selectedTradesmen}
-                onClose={handleCloseModal}
-              />
-            )}
-          </>
-        ) : (
-          <div className={styles.noDataButtonContainer}>
-            <button className={styles.button}>Find Tradesman</button>
+    <div className={styles.container}>
+      <h2>Hire a Tradesman</h2>
+      {numberOfTradesmen ? (
+        <>
+          <div className={styles.tradesmenCardsContainer}>
+            {tradesmenCards}
           </div>
-        )}
-      </div>
-    </>
+          {showTradesmenDetails && (
+            <TradesmenDetails
+              tradesmen={selectedTradesmen}
+              onClose={handleCloseModal}
+            />
+          )}
+        </>
+      ) : (
+        <div className={styles.noDataButtonContainer}>
+          <button className={styles.button}>Find Tradesman</button>
+        </div>
+      )}
+    </div>
   )
 }
 
