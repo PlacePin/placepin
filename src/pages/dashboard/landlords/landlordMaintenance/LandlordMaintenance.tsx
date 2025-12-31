@@ -5,9 +5,26 @@ import { useGetAxios } from '../../../../hooks/useGetAxios';
 import { useState } from 'react';
 import TradesmenDetails from '../../../../components/modals/TradesmenDetails';
 
+interface TradesmenProps {
+  _id: string;
+  fullName: string;
+  [key: string]: any;
+}
+
 const LandlordMaintenance = () => {
 
-  const [selectedTradesmen, setSelectedTradesmen] = useState<any>(null)
+  const [showTradesmenDetails, setShowTradesmenDetails] = useState(false)
+  const [selectedTradesmen, setSelectedTradesmen] = useState<TradesmenProps | null>(null)
+
+  const handleSelectedTradesmen = (tradesmen: TradesmenProps) => {
+    setShowTradesmenDetails(prev => !prev)
+    setSelectedTradesmen(tradesmen)
+  }
+
+  const handleCloseModal = () => {
+  setShowTradesmenDetails(false);
+  setSelectedTradesmen(null);
+};
 
   const { data, error } = useGetAxios(`/api/landlords/tradesmen`);
 
@@ -23,7 +40,7 @@ const LandlordMaintenance = () => {
   const tradesmen = data.tradesmen
   const numberOfTradesmen = tradesmen.length
 
-  const tradesmenCards = tradesmen.map((tradesmen: any) => {
+  const tradesmenCards = tradesmen.map((tradesmen: TradesmenProps) => {
     return (
       <div
         key={tradesmen._id}
@@ -42,7 +59,7 @@ const LandlordMaintenance = () => {
           </p>
           <button
             className={styles.infoButton}
-            onClick={() => setSelectedTradesmen(tradesmen)}
+            onClick={() => handleSelectedTradesmen(tradesmen)}
           >
             <Info
               size={18}
@@ -64,8 +81,11 @@ const LandlordMaintenance = () => {
             <div className={styles.tradesmenCardsContainer}>
               {tradesmenCards}
             </div>
-            {selectedTradesmen && (
-              <TradesmenDetails tradesmen={selectedTradesmen} />
+            {showTradesmenDetails && (
+              <TradesmenDetails
+                tradesmen={selectedTradesmen}
+                onClose={handleCloseModal}
+              />
             )}
           </>
         ) : (
