@@ -19,7 +19,10 @@ const TradesmenDetails = ({
       onClose={onClose}
     >
       <div>
-
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
     </FormModal>
   )
