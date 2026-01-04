@@ -22,7 +22,7 @@ const TradesmenDetails = ({
         <div>aa</div>
         <div>ss</div>
         <div>dd</div>
-        <div>ff</div>
+        <div></div>
       </div>
     </FormModal>
   )
