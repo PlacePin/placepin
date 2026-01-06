@@ -12,6 +12,7 @@ const TradesmenDetails = ({
   onClose
 }: TradesmenDetailsProp) => {
 
+  
   console.log(tradesmen)
   return (
     <FormModal
