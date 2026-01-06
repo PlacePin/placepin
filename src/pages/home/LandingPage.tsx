@@ -9,7 +9,7 @@ const LandingPage = () => {
       <header className={styles.header}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <div className={styles.logoIcon}>◆</div>
+            <div className={styles.logoIcon}></div>
             <a href='#' className={styles.footerLogo}>PlacePin</a>
           </div>
           <nav className={styles.nav}>
@@ -156,7 +156,7 @@ const LandingPage = () => {
               <div className={`${styles.features} ${styles.landlordFeatures}`}>
                 <h4>For property owners</h4>
                 <ul>
-                  <li>✓ Transparent fee based on your building’s expected gross rental income</li>
+                  <li>✓ Transparent fee based on your building's expected gross rental income</li>
                   <li>✓ Tailored for landlords with scalable services, and full management support for 10+ units.</li>
                   <li>✓ Access to tenant perks across all your units</li>
                   <li>✓ Tools to streamline rent tracking and communications</li>
@@ -169,7 +169,7 @@ const LandingPage = () => {
             <div className={styles.pricingCard}>
               <div className={styles.planLabel}>TENANTS</div>
               <h3>Essential</h3>
-              <div className={styles.price}>$50<span>month</span></div>
+              <div className={styles.price}>$50<span>/month</span></div>
               <button className={styles.secondaryButton}>Get Started &gt;</button>
               <div className={styles.features}>
                 <h4>Perfect for individuals</h4>
@@ -185,7 +185,7 @@ const LandingPage = () => {
               <div className={styles.popularBadge}>MOST POPULAR</div>
               <div className={styles.planLabel}>TENANTS</div>
               <h3>Balanced</h3>
-              <div className={styles.price}>$120<span>month</span></div>
+              <div className={styles.price}>$120<span>/month</span></div>
               <button className={styles.primaryButton}>Get Started &gt;</button>
               <div className={styles.features}>
                 <h4>Great for small households</h4>
@@ -200,7 +200,7 @@ const LandingPage = () => {
             <div className={styles.pricingCard}>
               <div className={styles.planLabel}>TENANTS</div>
               <h3>Platinum</h3>
-              <div className={styles.price}>$200<span>month</span></div>
+              <div className={styles.price}>$200<span>/month</span></div>
               <button className={styles.secondaryButton}>Get Started &gt;</button>
               <div className={styles.features}>
                 <h4>Made for premium living</h4>
@@ -237,7 +237,7 @@ const LandingPage = () => {
         <div className={styles.container}>
           <div>
             <div className={styles.logo}>
-              <div className={styles.logoIcon}>◆</div>
+              <div className={styles.logoIcon}></div>
               <a className={styles.logoWord} href='#'>PlacePin</a>
             </div>
             <p>Smart services for tenants. Smarter solutions for landlords.</p>
