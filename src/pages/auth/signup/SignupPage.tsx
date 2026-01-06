@@ -60,7 +60,7 @@ const SignupPage = () => {
       referral,
     }
 
-    // sending info to the backend, login to either landlord or tenant. If failed show an error message.
+    // sending info to the backend, login to either landlord, tenant or tradesmen. If failed show an error message.
     try {
       const res = await axios.post(
         '/api/auth/signup',

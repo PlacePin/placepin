@@ -59,7 +59,7 @@ const LandlordHomepage = () => {
           </StatsKPICard>
           <StatsKPICard
             title={'Perk Adoption'}
-            ctaText={'Tip: Tenants using perks renew 20% more often.'}
+            ctaText={'Tip: Tenants using perks renew more often.'}
             handleClick={handleNudge}
           >
             <PerkAdoptionCard

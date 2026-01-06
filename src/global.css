@@ -9,11 +9,11 @@ html, body {
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
-  /* Force your background to override the yellow Chrome autofill */
+  /* Force background to override the yellow Chrome autofill */
   -webkit-box-shadow: 0 0 0 1000px var(--color-surface-3) inset !important;
   box-shadow: 0 0 0 1000px var(--color-surface-3) inset !important;
 
-  /* Force your text color */
+  /* Force text color */
   -webkit-text-fill-color: var(--color-text-1) !important;
 
   /* Prevent Chrome from animating its autofill colors */

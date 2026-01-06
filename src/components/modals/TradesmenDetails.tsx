@@ -19,7 +19,7 @@ const TradesmenDetails = ({
       title={capitalizeWords(tradesmen.fullName)}
       onClose={onClose}
     >
-      <div>
+      <div className={styles.wrapper}>
         <div>aa</div>
         <div>ss</div>
         <div>dd</div>

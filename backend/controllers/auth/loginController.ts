@@ -54,5 +54,4 @@ export const loginController = async (req: Request, res: Response) => {
     console.log('Could not login', err)
     res.status(500).json({ error: "Could not login" })
   }
-
 }
