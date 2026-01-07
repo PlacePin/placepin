@@ -1,3 +1,39 @@
 .wrapper {
   display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.profilePicContainer {
+  width: 100%;
+  padding: 1rem 0 0 0;
+}
+
+.profilePic {
+  border-radius: 50%;
+  width: 30vw;
+  height: 30vw;
+  max-width: 12.5rem;
+  max-height: 12.5rem;
+  min-width: 3.75rem;
+  min-height: 3.75rem;
+}
+
+.nameContainer {
+  width: 100%;
+  text-align: right;
+  padding: 1.5rem 1rem 0 0;
+}
+
+.name {
+  font-size: 3rem;
+}
+
+.backgroundContainer {
+  text-align: left;
+  padding: 1rem 0 0 2rem;
+}
+
+.optionsContainer {
+  text-align: left;
+  padding: 1rem 0 0 2rem;
 }

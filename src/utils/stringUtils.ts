@@ -41,6 +41,8 @@ export const streetTypeMap: Record<string, string> = {
   parkway: "Parkway"
 };
 
+// This turns a persons full name into a the first name capitalized and truncates there last name into the first letter capitalized
+
 export const firstNameLastInitial = (name: string) => {
   let nameArray = name.split(' ')
   if (!nameArray.length) return 'No Name';
@@ -53,6 +55,8 @@ export const firstNameLastInitial = (name: string) => {
 
   return `${firstNameCap} ${lastNameInitial}`
 }
+
+// This capitalizes the first lestter of a sentence
 
 export const firstLetterCapitalize = (word: string) => {
   let capitalize = [word[0].toLocaleUpperCase()];
