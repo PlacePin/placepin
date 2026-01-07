@@ -44,18 +44,20 @@ const TradesmenDetails = ({
           <h4>
             Background:
           </h4>
-          <p></p>
+          <p>15 years of experience</p>
+          <p>Foreman at The Tower</p>
+          <p>HVAC Certified</p>
         </div>
         <div className={styles.optionsContainer}>
           <h4>
-            Options:
+            Options
           </h4>
-          <p>Retainer</p>
-          <p>Location/Range</p>
-          <p>On-Call</p>
+          <p>Retainer: <span>No</span></p>
+          <p>Location/Range: <span>Boston ~ 10mi</span></p>
+          <p>On-Call: <span>Yes</span></p>
         </div>
       </div>
-      <div>
+      <div className={styles.button}>
         <PrimaryButton title={'Book Appointment'} />
       </div>
     </FormModal>

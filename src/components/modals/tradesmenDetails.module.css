@@ -37,3 +37,13 @@
   text-align: left;
   padding: 1rem 0 0 2rem;
 }
+
+.optionsContainer span {
+  color: var(--color-tertiary);
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
