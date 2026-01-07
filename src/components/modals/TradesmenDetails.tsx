@@ -33,6 +33,7 @@ const TradesmenDetails = ({
           </div>
         </div>
         <div className={styles.nameContainer}>
+          <p>Trade: <span>Electrician</span></p>
           <h2 className={styles.name}>
             {fullName}
           </h2>
@@ -40,6 +41,7 @@ const TradesmenDetails = ({
             {username}
           </p>
         </div>
+        {/* Remove hardcoded values when tradesmen first time signup is complete */}
         <div className={styles.backgroundContainer}>
           <h4>
             Background:

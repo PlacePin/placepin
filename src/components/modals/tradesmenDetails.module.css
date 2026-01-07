@@ -38,7 +38,8 @@
   padding: 1rem 0 0 2rem;
 }
 
-.optionsContainer span {
+.optionsContainer span,
+.nameContainer span {
   color: var(--color-tertiary);
 }
 
