@@ -27,14 +27,14 @@ const LandlordMaintenance = () => {
   };
 
   const { data, error } = useGetAxios(`/api/landlords/tradesmen`);
+  
+  if (error) {
+    return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
+  }
 
   // Todo: Fix this to skeleton loading or cache so null doesn't render on each re-render
   if (!data) {
     return <div></div>;
-  }
-
-  if (error) {
-    return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
 
   const tradesmen = data.tradesmen
