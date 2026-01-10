@@ -45,6 +45,16 @@
   box-shadow: 0 0 0 3px var(--color-primary-lighter);
 }
 
+.csvContainer {
+  display: flex;
+  align-items: flex-end;
+  margin-top: 32px;
+}
+
+.csv {
+  color: var(--color-text-2);
+}
+
 /* Main Content */
 .mainContent {
   display: grid;

@@ -3,6 +3,8 @@ import type { Receipt } from '../../../../interfaces/interfaces';
 import styles from './reviewUpdateReceipt.module.css';
 import PrimaryButton from '../../../../components/buttons/PrimaryButton';
 import EditReceiptModal from '../../../../components/modals/EditReceiptModal';
+import { CSVLink } from 'react-csv';
+import { FileDown } from 'lucide-react';
 
 interface ReviewUpdateReceiptProps {
   onClose: () => void;
@@ -110,11 +112,11 @@ const ReviewUpdateReceipt = ({
       const month = receiptDate.getMonth(); // 0-11
       const category = receipt.expenseCategory;
 
-      // Add to the category if it exists, otherwise add to "Other Interest" or create it
+      // Add to the category if it exists, else add to "Other Interest" or create it
       if (expensesMap[category] !== undefined) {
         expensesMap[category][month] += receipt.amount;
       } else {
-        // If category doesn't exist in our list, add it dynamically
+        // If category doesn't exist in list, add it dynamically
         if (!expensesMap[category]) {
           expensesMap[category] = Array(12).fill(0);
         }
@@ -132,12 +134,43 @@ const ReviewUpdateReceipt = ({
   // Generate expenses dynamically
   const expenses = generateExpensesFromReceipts();
 
+  const prepareCsvData = () => {
+    const data = expenses.map(expense => {
+      const row: any = {
+        'Expenses': expense.category,
+        'Totals': calculateTotal(expense.values).toFixed(2)
+      };
+
+      months.forEach((month, idx) => {
+        row[month] = expense.values[idx].toFixed(2);
+      });
+
+      return row;
+    });
+
+    // Add total row
+    const totalRow: any = {
+      'Expenses': 'Total Expenses',
+      'Totals': expenses.reduce((sum, exp) => sum + calculateTotal(exp.values), 0).toFixed(2)
+    };
+
+    months.forEach((month, idx) => {
+      const monthTotal = expenses.reduce((sum, exp) => sum + exp.values[idx], 0);
+      totalRow[month] = monthTotal.toFixed(2);
+    });
+
+    data.push(totalRow);
+    return data;
+  };
+
   // Determine current month to mark future months
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getFullYear();
   const isCurrentYear = selectedYear === currentYear.toString();
 
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  const headers = ['Expenses', 'Totals', ...months]
 
   const calculateTotal = (values: number[]) => values.reduce((sum, val) => sum + val, 0);
 
@@ -155,7 +188,6 @@ const ReviewUpdateReceipt = ({
           onClick={onClose}
           title={'← Back to Menu'}
         />
-        
       </div>
       {/* Filters */}
       <div className={styles.filters}>
@@ -203,6 +235,23 @@ const ReviewUpdateReceipt = ({
             )}
           </select>
         </div>
+        {selectedProperty &&
+          <div
+            title={"Download CSV"}
+            className={styles.csvContainer}
+          >
+            <CSVLink
+              data={prepareCsvData()}
+              headers={headers}
+              className={styles.csv}
+              filename={`${selectedProperty}-${selectedYear}.csv`}
+            >
+              <FileDown
+                size={32}
+              />
+            </CSVLink>
+          </div>
+        }
       </div>
       {/* Main Content */}
       <div className={styles.mainContent}>
