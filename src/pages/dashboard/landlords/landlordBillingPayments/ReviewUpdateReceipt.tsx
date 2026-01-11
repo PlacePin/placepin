@@ -163,6 +163,15 @@ const ReviewUpdateReceipt = ({
     return data;
   };
 
+  const getPropertyAddress = () => {
+  const property = propertyList.find(p => p.id === selectedProperty);
+  if (!property) return 'property';
+  
+  // Split by comma to get just the street address
+  const streetAddress = property.address.split(',')[0].trim();
+  return streetAddress.replace(/\s+/g, '_');
+};
+
   // Determine current month to mark future months
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getFullYear();
@@ -244,7 +253,7 @@ const ReviewUpdateReceipt = ({
               data={prepareCsvData()}
               headers={headers}
               className={styles.csv}
-              filename={`${selectedProperty}-${selectedYear}.csv`}
+              filename={`${getPropertyAddress()}-${selectedYear}.csv`}
             >
               <FileDown
                 size={32}
