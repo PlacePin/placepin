@@ -31,10 +31,8 @@ const LandlordTenants = () => {
   const numberOfTenants = tenants.length
 
   const tenantsCards = tenants.map((tenant: any) => {
-    console.log('tenant', tenant.profilePic)
-
     const profilePic = tenant.profilePic ?
-      <img className={styles.profilePic} src={`${tenant.profilePic}`}  alt='Profile Pic' /> :
+      <img className={styles.profilePic} src={`${tenant.profilePic}`} alt='Profile Pic' /> :
       <User
         width={150}
         height={200}
@@ -68,20 +66,22 @@ const LandlordTenants = () => {
     )
   })
 
+  const profiles = tenants.map((tenant: any) => {
+    return tenant.profilePic ?
+      <img src={`${tenant.profilePic}`} alt='Profile Pic' /> :
+      <User
+        strokeWidth={1}
+        className={styles.picContainers}
+      />
+  })
+
+  console.log('tenants', profiles)
   return (
     <>
       {selectedTenant ? (
         <TenantPortal>
           <PortalHeader
-            resourcePic={[
-              <img src='/emptyProfile.png' />,
-              <img src='/charts.png' />,
-              <img src='/emptyProfile.png' />,
-              <img src='/triplex.png' />,
-              <img src='/emptyProfile.png' />,
-              <img src='/groupPhoto.png' />,
-              <img src='/housing.jpg' />
-            ]}
+            resourcePic={profiles}
             numberOfResources={numberOfTenants}
             resourceName={selectedTenant.fullName}
             resourceId={selectedTenant._id}
