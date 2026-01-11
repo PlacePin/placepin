@@ -31,6 +31,16 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
+.profilePic {
+  border-radius: 50%;
+  width: 30vw;
+  height: 30vw;
+  max-width: 12.5rem;
+  max-height: 12.5rem;
+  min-width: 3.75rem;
+  min-height: 3.75rem;
+}
+
 .tenantCardsContainer {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

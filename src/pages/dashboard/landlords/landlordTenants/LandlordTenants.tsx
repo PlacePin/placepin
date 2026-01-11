@@ -18,29 +18,35 @@ const LandlordTenants = () => {
 
   const { data, error } = useGetAxios(`/api/landlords/tenants`);
 
+  if (error) {
+    return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
+  }
+
   // Todo: Fix this to skeleton loading or cache so null doesn't render on each re-render
   if (!data) {
     return <div></div>;
-  }
-
-  if (error) {
-    return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
 
   const tenants = data.tenants
   const numberOfTenants = tenants.length
 
   const tenantsCards = tenants.map((tenant: any) => {
+    console.log('tenant', tenant.profilePic)
+
+    const profilePic = tenant.profilePic ?
+      <img className={styles.profilePic} src={`${tenant.profilePic}`}  alt='Profile Pic' /> :
+      <User
+        width={150}
+        height={200}
+        strokeWidth={1}
+      />
+
     return (
       <div
         key={tenant._id}
         className={styles.tenantCards}
       >
-        <User
-          width={150}
-          height={200}
-          strokeWidth={1}
-        />
+        {profilePic}
         <div
           className={styles.descriptionWrapper}
         >
