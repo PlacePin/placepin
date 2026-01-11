@@ -68,10 +68,15 @@ const LandlordTenants = () => {
 
   const profiles = tenants.map((tenant: any) => {
     return tenant.profilePic ?
-      <img src={`${tenant.profilePic}`} alt='Profile Pic' /> :
+      <img
+        src={`${tenant.profilePic}`}
+        alt='Profile Pic'
+        onClick={() => setSelectedTenant(tenant)}
+      /> :
       <User
         strokeWidth={1}
         className={styles.picContainers}
+        onClick={() => setSelectedTenant(tenant)}
       />
   })
 
