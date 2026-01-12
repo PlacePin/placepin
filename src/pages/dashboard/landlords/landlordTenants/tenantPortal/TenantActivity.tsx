@@ -4,12 +4,14 @@ import MaintenanceRequestChart from '../../../../../components/charts/Maintenanc
 
 interface TenantActivityProps {
   rentPayments: Record<string, any>[];
-  maintenanceRequest: Record<string, any>
+  maintenanceRequest: Record<string, any>;
+  perkPatterns: Record<string, any>;
 }
 
 const TenantActivity = ({
   rentPayments,
   maintenanceRequest,
+  perkPatterns,
 }: TenantActivityProps) => {
 
   const rentPaymentsMapped = rentPayments.map((rentPayment, i) => {
@@ -57,7 +59,9 @@ const TenantActivity = ({
       </div>
       <div className={`${styles.defaultCardStyles} ${styles.engagement}`}>
         <p className={styles.title}>Engagement Patterns</p>
-        <EngagementPatternsChart />
+        <EngagementPatternsChart
+          perkPatterns={perkPatterns}
+        />
       </div>
     </div>
   )
