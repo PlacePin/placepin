@@ -101,6 +101,7 @@ const LandlordTenants = () => {
             />
             <TenantActivity
               rentPayments={selectedTenant.rentPayment}
+              maintenanceRequest={selectedTenant.maintenanceRequest}
             />
             <TenantLogbook />
           </div>

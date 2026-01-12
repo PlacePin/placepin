@@ -3,11 +3,13 @@ import EngagementPatternsChart from '../../../../../components/charts/Engagement
 import MaintenanceRequestChart from '../../../../../components/charts/MaintenanceRequestChart';
 
 interface TenantActivityProps {
-  rentPayments: Record<string, any>[]
+  rentPayments: Record<string, any>[];
+  maintenanceRequest: Record<string, any>
 }
 
 const TenantActivity = ({
-  rentPayments
+  rentPayments,
+  maintenanceRequest,
 }: TenantActivityProps) => {
 
   const rentPaymentsMapped = rentPayments.map((rentPayment, i) => {
@@ -47,7 +49,9 @@ const TenantActivity = ({
         <div className={`${styles.defaultCardStyles} ${styles.maintenance}`}>
           <p className={styles.title}>Maintenance Request</p>
           <div className={styles.chartSection}>
-            <MaintenanceRequestChart />
+            <MaintenanceRequestChart
+              maintenanceRequest={maintenanceRequest}
+            />
           </div>
         </div>
       </div>

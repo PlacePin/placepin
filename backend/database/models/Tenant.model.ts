@@ -24,6 +24,12 @@ const tenantSchema = new mongoose.Schema({
   hasAcceptedPrivacyPolicy: Boolean,
   landlordReferral: String,
   lastActive: { type: Date, default: null },
+  maintenanceRequest: {
+    electrician: { type: Number, default: 0 },
+    plumber: { type: Number, default: 0 },
+    carpenter: { type: Number, default: 0 },
+    other: { type: Number, default: 0 },
+  },
   password: { type: String, required: true },
   phoneNumber: Number,
   profilePic: {
