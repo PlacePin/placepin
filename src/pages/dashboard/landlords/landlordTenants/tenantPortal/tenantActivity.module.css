@@ -55,3 +55,13 @@
   width: auto;
   height: fit-content;
 }
+
+.noPaymentHistoryWrapper {
+  text-align: center;
+  height: 50%;
+}
+
+.noPaymentHistoryText {
+  position: relative;
+  bottom: -50%;
+}

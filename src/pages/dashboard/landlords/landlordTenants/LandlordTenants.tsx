@@ -82,7 +82,6 @@ const LandlordTenants = () => {
     )
   })
 
-  console.log('tenants', profiles)
   return (
     <>
       {selectedTenant ? (
@@ -100,7 +99,9 @@ const LandlordTenants = () => {
               tenantName={selectedTenant.fullName}
               username={selectedTenant.username}
             />
-            <TenantActivity />
+            <TenantActivity
+              rentPayments={selectedTenant.rentPayment}
+            />
             <TenantLogbook />
           </div>
         </TenantPortal>

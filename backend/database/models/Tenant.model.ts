@@ -35,6 +35,13 @@ const tenantSchema = new mongoose.Schema({
     ref: "Landlords",
     default: null,
   },
+  rentPayment: [
+    {
+      _id: false,
+      rentAmount: Number,
+      monthPaid: Date,
+    }
+  ],
   subscription: {
     isSubscribed: { type: Boolean, default: false },
     savedPaymentMethod: { type: String, default: null },

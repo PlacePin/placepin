@@ -10,7 +10,7 @@ import { PolarArea } from "react-chartjs-2";
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
 const data = {
-  labels: ["Electrician", "Plumbing", "Carpentry", "Misc."],
+  labels: ["Electrician", "Plumbing", "Carpentry", "Other"],
   datasets: [
     {
       label: "Tradesmen",
