@@ -62,7 +62,6 @@ export const sendMessage = async (
 
     await dm.save();
 
-    console.log(sender?.id)
     res.status(201).json({
       message: "Message sent successfully",
       data: {

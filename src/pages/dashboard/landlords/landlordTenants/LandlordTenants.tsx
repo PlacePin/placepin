@@ -18,6 +18,8 @@ const LandlordTenants = () => {
 
   const { data, error } = useGetAxios(`/api/landlords/tenants`);
 
+  console.log(error)
+
   if (error) {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }

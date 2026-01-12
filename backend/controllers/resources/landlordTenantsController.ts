@@ -21,7 +21,12 @@ export const getLandlordTenants = async (
           as: 'tenantData'
         }
       },
-      { $unwind: { path: '$tenantData', preserveNullAndEmptyArrays: true } },
+      {
+        $unwind: {
+          path: '$tenantData',
+          preserveNullAndEmptyArrays: false
+        }
+      },
       {
         $project: {
           'tenantData.password': 0,

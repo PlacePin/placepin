@@ -5,7 +5,6 @@ export const removeProperty = async (req: Request, res: Response) => {
   const propertyId = req.query.id;
   const landlordId = req.userId;
 
-  console.log(propertyId)
   if (!landlordId) {
     return res.status(401).json({ message: "Invalid token" });
   }
@@ -23,8 +22,6 @@ export const removeProperty = async (req: Request, res: Response) => {
         }
       }
     );
-
-    console.log(result)
 
     if (result.modifiedCount === 0) {
       return res.status(404).json({ message: "Property not found for this landlord" });

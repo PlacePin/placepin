@@ -31,6 +31,12 @@ const tenantSchema = new mongoose.Schema({
     other: { type: Number, default: 0 },
   },
   password: { type: String, required: true },
+  perkPatterns: {
+    food: {type: Number, default: 0},
+    laundry: {type: Number, default: 0},
+    housekeeping: {type: Number, default: 0},
+    other: {type: Number, default: 0},
+  },
   phoneNumber: Number,
   profilePic: {
     type: String,

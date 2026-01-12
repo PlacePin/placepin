@@ -8,7 +8,6 @@ import {
 import { PolarArea } from "react-chartjs-2";
 import styles from './maintenanceRequestChart.module.css';
 
-ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
 interface MaintenanceRequestChartProps {
   maintenanceRequest: Record<string, any>
@@ -17,6 +16,9 @@ interface MaintenanceRequestChartProps {
 const MaintenanceRequestChart = ({
   maintenanceRequest
 }: MaintenanceRequestChartProps) => {
+  
+  ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
+
   const data = {
     labels: ["Electrician", "Plumbing", "Carpentry", "Other"],
     datasets: [
