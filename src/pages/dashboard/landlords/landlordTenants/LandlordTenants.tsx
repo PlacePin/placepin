@@ -98,6 +98,7 @@ const LandlordTenants = () => {
             <TenantSummary
               tenantName={selectedTenant.fullName}
               username={selectedTenant.username}
+              profilePic={selectedTenant.profilePic}
             />
             <TenantActivity
               rentPayments={selectedTenant.rentPayment}

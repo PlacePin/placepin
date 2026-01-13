@@ -7,11 +7,13 @@ import ComposeModal from '../../../../../components/modals/ComposeModal';
 interface TenantSummaryProps {
   tenantName: string,
   username: string,
+  profilePic: string,
 }
 
 const TenantSummary = ({
   tenantName,
-  username
+  username,
+  profilePic
 }: TenantSummaryProps) => {
   const [showContact, setShowContact] = useState(false);
   const [showCompose, setShowCompose] = useState(false);
@@ -28,6 +30,22 @@ const TenantSummary = ({
     )
   }
 
+  const profilePicture = (
+    profilePic ? (
+      <img
+        src={profilePic}
+        alt='profile pic'
+        className={styles.profilePic}
+      />
+    ) : (
+      <img
+        src='/emptyProfile.png'
+        alt='profile pic'
+        className={styles.profilePic}
+      />
+    )
+  )
+
   return (
     <div
       className={styles.wrapperDisplays}
@@ -37,11 +55,7 @@ const TenantSummary = ({
         onMouseEnter={() => setShowContact(true)}
         onMouseLeave={() => setShowContact(false)}
       >
-        <img
-          src='/housing.jpg'
-          alt='profile pic'
-          className={styles.profilePic}
-        />
+        {profilePicture}
         {showContact && <ContactTenant />}
       </div>
       <div

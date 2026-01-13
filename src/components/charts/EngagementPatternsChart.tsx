@@ -13,7 +13,7 @@ import {
 
 interface EngagementPatternsChartProps {
   perkPatterns: PerkPatterns;
-  selectedYear?: number; // Optional: to filter by year
+  selectedYear?: number;
 }
 
 const EngagementPatternsChart = ({
