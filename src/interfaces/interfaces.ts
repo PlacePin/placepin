@@ -26,3 +26,16 @@ export interface Receipt {
   paymentMethod: string;
   description: string;
 }
+
+interface PerkData {
+  month: number;
+  year: number;
+  count: number;
+}
+
+export interface PerkPatterns {
+  food: PerkData[];
+  laundry: PerkData[];
+  housekeeping: PerkData[];
+  other: PerkData[];
+}

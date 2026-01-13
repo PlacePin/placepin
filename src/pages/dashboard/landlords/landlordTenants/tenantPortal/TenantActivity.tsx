@@ -1,11 +1,13 @@
 import styles from './tenantActivity.module.css';
 import EngagementPatternsChart from '../../../../../components/charts/EngagementPatternsChart';
 import MaintenanceRequestChart from '../../../../../components/charts/MaintenanceRequestChart';
+import type { PerkPatterns } from '../../../../../interfaces/interfaces';
+import { useState } from 'react';
 
 interface TenantActivityProps {
   rentPayments: Record<string, any>[];
   maintenanceRequest: Record<string, any>;
-  perkPatterns: Record<string, any>;
+  perkPatterns: PerkPatterns;
 }
 
 const TenantActivity = ({
@@ -13,6 +15,11 @@ const TenantActivity = ({
   maintenanceRequest,
   perkPatterns,
 }: TenantActivityProps) => {
+
+  const currentYear = new Date().getFullYear();
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+
+  const availableYears = [currentYear, currentYear - 1, currentYear - 2];
 
   const rentPaymentsMapped = rentPayments.map((rentPayment, i) => {
     return (
@@ -58,9 +65,23 @@ const TenantActivity = ({
         </div>
       </div>
       <div className={`${styles.defaultCardStyles} ${styles.engagement}`}>
-        <p className={styles.title}>Engagement Patterns</p>
+        <div className={styles.titleWithFilter}>
+          <p className={styles.title}>Engagement Patterns</p>
+          <select
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(Number(e.target.value))}
+            className={styles.yearSelect}
+          >
+            {availableYears.map(year => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+        </div>
         <EngagementPatternsChart
           perkPatterns={perkPatterns}
+          selectedYear={selectedYear}
         />
       </div>
     </div>

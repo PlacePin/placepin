@@ -1,5 +1,6 @@
 import styles from './engagementPatternsChart.module.css';
 import { Bar } from 'react-chartjs-2';
+import type { PerkPatterns } from '../../interfaces/interfaces';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,11 +12,13 @@ import {
 } from 'chart.js';
 
 interface EngagementPatternsChartProps {
-  perkPatterns: Record<string, any>
+  perkPatterns: PerkPatterns;
+  selectedYear?: number; // Optional: to filter by year
 }
 
 const EngagementPatternsChart = ({
-  perkPatterns
+  perkPatterns,
+  selectedYear
 }: EngagementPatternsChartProps) => {
 
   ChartJS.register(
@@ -27,35 +30,48 @@ const EngagementPatternsChart = ({
     Legend
   );
 
-  console.log('perks', perkPatterns)
+  const currentYear = selectedYear || new Date().getFullYear();
+
+  // Helper function to get data for a specific perk type
+  const getPerkDataForYear = (perkType: keyof PerkPatterns) => {
+    const monthlyData = Array(12).fill(0);
+
+    perkPatterns[perkType]?.forEach((entry) => {
+      if (entry.year === currentYear) {
+        monthlyData[entry.month] = entry.count;
+      }
+    });
+
+    return monthlyData;
+  };
 
   const engagementData = {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     datasets: [
       {
         label: 'Food',
-        data: [12, 15, 18, 14, 20, 16, 22, 19, 17, 21, 18, 23],
+        data: getPerkDataForYear('food'),
         backgroundColor: '#008fbfff',
         borderRadius: 8,
         barThickness: 10,
       },
       {
         label: 'Housekeeping',
-        data: [7, 18, 7, 19, 16, 7, 9, 4, 17, 13, 11, 14],
+        data: getPerkDataForYear('housekeeping'),
         backgroundColor: '#ff6b6b',
         borderRadius: 8,
         barThickness: 10,
       },
       {
         label: 'Laundry',
-        data: [8, 19, 3, 9, 11, 6, 12, 1, 10, 20, 15, 15],
+        data: getPerkDataForYear('laundry'),
         backgroundColor: '#00bfa5',
         borderRadius: 8,
         barThickness: 10,
       },
       {
         label: 'Other',
-        data: [9, 11, 8, 12, 10, 14, 1, 6, 9, 25, 1, 20],
+        data: getPerkDataForYear('other'),
         backgroundColor: '#FFCF56',
         borderRadius: 8,
         barThickness: 10,
@@ -134,4 +150,4 @@ const EngagementPatternsChart = ({
   )
 }
 
-export default EngagementPatternsChart
+export default EngagementPatternsChart;
