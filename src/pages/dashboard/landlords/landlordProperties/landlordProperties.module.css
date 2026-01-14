@@ -20,16 +20,17 @@
   background-size: 400% 400%;
   animation: holoShift 20s ease infinite;
   backdrop-filter: blur(10px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.07);
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid var(--color-border-4);
-  transition: padding 0.3s ease;
+  transition: 0.3s ease;
 }
 
 .propertyCards:hover {
-  transform: translateY(-3px) scale(1.05);
+  transform: scale(1.05) translateY(-3px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
 .propertyCardsContainer {

@@ -17,15 +17,15 @@ const LandlordProperties = () => {
   const [selectedProperty, setSelectedProperty] = useState<any>(null);
 
   const { data, error } = useGetAxios(`/api/landlords/properties`);
-
-  if (!data) {
-    return <div></div>;
-  }
-
+  
   if (error) {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
 
+  if (!data) {
+    return <div></div>;
+  }
+  
   console.log('sp', selectedProperty)
 
   const stockPhotos = ['/townhouse.png', '/triplex.png', '/orangehouse.png']
