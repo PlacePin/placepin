@@ -104,7 +104,8 @@ export const signupController = async (req: Request, res: Response) => {
           $push: {
             "properties.$.tenants": {
               tenantId: newUser._id,
-              referred: true
+              referred: true,
+              moveInDate: new Date()
             },
           }
         },

@@ -53,7 +53,7 @@ const landlordSchema = new mongoose.Schema({
           rentAmount: Number,
           monthPaid: { type: Boolean, default: false },
           referred: Boolean,
-          residencyLength: Number,
+          moveInDate: { type: Date, required: true },
           expenses: Number,
           rentAmountDue: Number,
         },

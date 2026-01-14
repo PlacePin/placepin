@@ -23,10 +23,10 @@ export const inviteTenant = async (req: Request, res: Response) => {
 
     // Check if property exists in Property collection
     let existingProperty = await PropertyModel.findOne({
-      'address.street': normalizedAddress.street,
-      'address.city': normalizedAddress.city,
-      'address.state': normalizedAddress.state,
-      'address.zip': normalizedAddress.zip
+      'address.street': tenantAddress.street,
+      'address.city': tenantAddress.city,
+      'address.state': tenantAddress.state,
+      'address.zip': tenantAddress.zip
     });
 
     if (!existingProperty) {

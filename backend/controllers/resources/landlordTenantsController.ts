@@ -34,6 +34,16 @@ export const getLandlordTenants = async (
           'tenantData.referredByLandlord': 0,
           'tenantData.subscription.stripeCustomerId': 0,
           'tenantData.subscription.savedPaymentMethod': 0,
+        },
+      },
+      {
+        $addFields: {
+          'tenantData.moveInDate': '$properties.tenants.moveInDate',
+          'tenantData.rentAmount': '$properties.tenants.rentAmount',
+          'tenantData.monthPaid': '$properties.tenants.monthPaid',
+          'tenantData.referred': '$properties.tenants.referred',
+          'tenantData.expenses': '$properties.tenants.expenses',
+          'tenantData.rentAmountDue': '$properties.tenants.rentAmountDue',
         }
       },
       { $replaceRoot: { newRoot: '$tenantData' } },

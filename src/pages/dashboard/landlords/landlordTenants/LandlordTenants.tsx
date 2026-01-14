@@ -30,6 +30,8 @@ const LandlordTenants = () => {
   const tenants = data.tenants
   const numberOfTenants = tenants.length
 
+  console.log(tenants)
+
   const tenantsCards = tenants.map((tenant: any) => {
     const profilePic = tenant.profilePic ?
       <img className={styles.profilePic} src={`${tenant.profilePic}`} alt='Profile Pic' /> :
@@ -99,6 +101,7 @@ const LandlordTenants = () => {
               tenantName={selectedTenant.fullName}
               username={selectedTenant.username}
               profilePic={selectedTenant.profilePic}
+              moveInDate={selectedTenant.moveInDate}
             />
             <TenantActivity
               rentPayments={selectedTenant.rentPayment}

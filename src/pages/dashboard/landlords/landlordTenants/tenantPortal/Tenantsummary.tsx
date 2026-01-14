@@ -3,20 +3,25 @@ import styles from './tenantSummary.module.css';
 import { useState } from 'react';
 import { capitalizeWords } from '../../../../../utils/stringUtils';
 import ComposeModal from '../../../../../components/modals/ComposeModal';
+import { calculateDaysFromDate } from '../../../../../utils/calculateDaysFromDate';
 
 interface TenantSummaryProps {
   tenantName: string,
   username: string,
   profilePic: string,
+  moveInDate: string,
 }
 
 const TenantSummary = ({
   tenantName,
   username,
-  profilePic
+  profilePic,
+  moveInDate
 }: TenantSummaryProps) => {
   const [showContact, setShowContact] = useState(false);
   const [showCompose, setShowCompose] = useState(false);
+
+  const daysAsTenant = calculateDaysFromDate(moveInDate);
 
   const ContactTenant = () => {
     return (
@@ -67,7 +72,7 @@ const TenantSummary = ({
           <div
             className={`${styles.defaultCardStyles} ${styles.daysAsTenant}`}
           >
-            <span className={styles.defaultCardSpanNum}>{300}</span>
+            <span className={styles.defaultCardSpanNum}>{daysAsTenant}</span>
             <span className={styles.defaultCardSpanText}>Days as Tenant</span>
           </div>
           <div
