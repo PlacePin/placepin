@@ -43,11 +43,17 @@
   font-weight: bold;
 }
 
-.wrapperDisplays {
+.wrapperDisplaysContainer {
   display: flex;
   gap: 0.5rem;
   flex-direction: column;
   padding-top: 1rem;
+}
+
+.wrapperDisplays {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
 }
 
 .contact {
@@ -69,6 +75,111 @@
 
 .messageCircle {
   cursor: pointer;
+}
+
+.misc {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background: linear-gradient(135deg,
+      var(--color-surface-3) 0%,
+      color-mix(in srgb, var(--color-surface-3) 95%, #00bfa5 5%) 100%);
+  height: 100%;
+}
+
+.misc:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 191, 165, 0.15);
+  border-color: #00bfa5;
+}
+
+.misc::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00bfa5 0%, #00e0b2 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.misc:hover::before {
+  opacity: 1;
+}
+
+.miscHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.giftIcon {
+  width: 32px;
+  height: 32px;
+  padding: 6px;
+  background: rgba(0, 191, 165, 0.1);
+  border-radius: 8px;
+  color: #00bfa5;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.misc:hover .giftIcon {
+  transform: rotate(-5deg) scale(1.05);
+  background: rgba(0, 191, 165, 0.15);
+}
+
+.badge {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.miscContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.miscTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.miscDescription {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+  opacity: 0.8;
+  line-height: 1.3;
+}
+
+/* Adjust button to be full width and compact */
+.misc button {
+  width: 100%;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
 }
 
 @keyframes fadeIn {

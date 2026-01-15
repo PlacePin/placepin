@@ -1,9 +1,10 @@
-import { MessageCircleMore } from 'lucide-react';
+import { ArrowRight, Gift, MessageCircleMore } from 'lucide-react';
 import styles from './tenantSummary.module.css';
 import { useState } from 'react';
 import { capitalizeWords } from '../../../../../utils/stringUtils';
 import ComposeModal from '../../../../../components/modals/ComposeModal';
 import { calculateDaysFromDate } from '../../../../../utils/calculateDaysFromDate';
+import PrimaryButton from '../../../../../components/buttons/PrimaryButton';
 
 interface TenantSummaryProps {
   tenantName: string,
@@ -59,7 +60,7 @@ const TenantSummary = ({
 
   return (
     <div
-      className={styles.wrapperDisplays}
+      className={styles.wrapperDisplaysContainer}
     >
       <div
         className={styles.photoSection}
@@ -97,10 +98,16 @@ const TenantSummary = ({
           </div>
         </div>
       </div>
-      <div
-        className={`${styles.defaultCardStyles} ${styles.misc}`}
-      >
-        Promos
+      <div className={`${styles.defaultCardStyles} ${styles.misc}`}>
+        <div className={styles.miscHeader}>
+          <Gift className={styles.giftIcon} />
+          <span className={styles.badge}>Premium</span>
+        </div>
+        <div className={styles.miscContent}>
+          <h3 className={styles.miscTitle}>Gift a Perk</h3>
+          <p className={styles.miscDescription}>Reward great tenants with perks</p>
+        </div>
+        <PrimaryButton title={'Send Gift'} icon={<ArrowRight size={16} />} />
       </div>
       {showCompose && (
         <ComposeModal
