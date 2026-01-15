@@ -10,18 +10,24 @@ interface TenantSummaryProps {
   username: string,
   profilePic: string,
   moveInDate: string,
+  totalExpenses: number,
+  rentAmountExpected: number
 }
 
 const TenantSummary = ({
   tenantName,
   username,
   profilePic,
-  moveInDate
+  moveInDate,
+  totalExpenses,
+  rentAmountExpected
 }: TenantSummaryProps) => {
   const [showContact, setShowContact] = useState(false);
   const [showCompose, setShowCompose] = useState(false);
 
   const daysAsTenant = calculateDaysFromDate(moveInDate);
+
+  console.log(totalExpenses)
 
   const ContactTenant = () => {
     return (
@@ -78,7 +84,7 @@ const TenantSummary = ({
           <div
             className={`${styles.defaultCardStyles} ${styles.expenses}`}
           >
-            <span className={styles.defaultCardSpanNum}>{`$${Math.round(1579.82)}`}</span>
+            <span className={styles.defaultCardSpanNum}>{`$${Math.round(totalExpenses)}`}</span>
             <span className={styles.defaultCardSpanText}>Expenses</span>
           </div>
         </div>
@@ -86,8 +92,8 @@ const TenantSummary = ({
           <div
             className={`${styles.defaultCardStyles} ${styles.rent}`}
           >
-            <span className={styles.defaultCardSpanNum}>{`$${3800}`}</span>
-            <span className={styles.defaultCardSpanText}>Rent Payment</span>
+            <span className={styles.defaultCardSpanNum}>{`$${rentAmountExpected}`}</span>
+            <span className={styles.defaultCardSpanText}>Rent Amount Expected</span>
           </div>
         </div>
       </div>

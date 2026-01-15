@@ -102,6 +102,8 @@ const LandlordTenants = () => {
               username={selectedTenant.username}
               profilePic={selectedTenant.profilePic}
               moveInDate={selectedTenant.moveInDate}
+              totalExpenses={selectedTenant.expenses}
+              rentAmountExpected={selectedTenant.rentAmountExpected}
             />
             <TenantActivity
               rentPayments={selectedTenant.rentPayment}

@@ -39,11 +39,11 @@ export const getLandlordTenants = async (
       {
         $addFields: {
           'tenantData.moveInDate': '$properties.tenants.moveInDate',
-          'tenantData.rentAmount': '$properties.tenants.rentAmount',
+          'tenantData.rentAmountPaid': '$properties.tenants.rentAmountPaid',
+          'tenantData.rentAmountExpected': '$properties.tenants.rentAmountExpected',
           'tenantData.monthPaid': '$properties.tenants.monthPaid',
-          'tenantData.referred': '$properties.tenants.referred',
           'tenantData.expenses': '$properties.tenants.expenses',
-          'tenantData.rentAmountDue': '$properties.tenants.rentAmountDue',
+          'tenantData.referred': '$properties.tenants.referred',
         }
       },
       { $replaceRoot: { newRoot: '$tenantData' } },
