@@ -110,7 +110,12 @@ const LandlordTenants = () => {
               maintenanceRequest={selectedTenant.maintenanceRequest}
               perkPatterns={selectedTenant.perkPatterns}
             />
-            <TenantLogbook />
+            <TenantLogbook
+              career={selectedTenant.career}
+              income={selectedTenant.income}
+              age={selectedTenant.age}
+              governmentAssistance={selectedTenant.governmentAssistance}
+            />
           </div>
         </TenantPortal>
       ) : numberOfTenants

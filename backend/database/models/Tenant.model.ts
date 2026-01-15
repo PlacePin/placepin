@@ -11,6 +11,8 @@ const tenantSchema = new mongoose.Schema({
     state: String,
     zip: String
   },
+  age: { type: Date, default: null },
+  career: { type: String, default: '' },
   createdAt: { type: Date, default: Date.now },
   dateOfBirth: Number,
   email: {
@@ -21,7 +23,13 @@ const tenantSchema = new mongoose.Schema({
   },
   fullName: String,
   gender: String,
+  governmentAssistance: {
+    type: String,
+    enum: ['none', 'section8', 'voucher', 'subsidized', 'other'],
+    default: 'none'
+  },
   hasAcceptedPrivacyPolicy: Boolean,
+  income: { type: Number, default: 0 },
   landlordReferral: String,
   lastActive: { type: Date, default: null },
   maintenanceRequest: {
@@ -74,7 +82,7 @@ const tenantSchema = new mongoose.Schema({
     isSubscribed: { type: Boolean, default: false },
     savedPaymentMethod: { type: String, default: null },
     stripeCustomerId: { type: String, default: null },
-    tier: { type: String, default: "free" },
+    tier: { type: String, default: "Landlord-Sponsored" },
   },
   username: { type: String, required: true },
 })
