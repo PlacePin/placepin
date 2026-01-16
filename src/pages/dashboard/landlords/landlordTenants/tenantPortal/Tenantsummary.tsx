@@ -107,7 +107,10 @@ const TenantSummary = ({
           <h3 className={styles.miscTitle}>Gift a Perk</h3>
           <p className={styles.miscDescription}>Reward great tenants with perks</p>
         </div>
-        <PrimaryButton title={'Send Gift'} icon={<ArrowRight size={16} />} />
+        <PrimaryButton
+          title={'Send Gift'}
+          icon={<ArrowRight size={16} />}
+        />
       </div>
       {showCompose && (
         <ComposeModal
