@@ -30,8 +30,6 @@ const LandlordTenants = () => {
   const tenants = data.tenants
   const numberOfTenants = tenants.length
 
-  console.log(tenants)
-
   const tenantsCards = tenants.map((tenant: any) => {
     const profilePic = tenant.profilePic ?
       <img className={styles.profilePic} src={`${tenant.profilePic}`} alt='Profile Pic' /> :

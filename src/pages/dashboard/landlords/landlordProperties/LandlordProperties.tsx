@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './landlordProperties.module.css';
 import AddPropertyModal from '../../../../components/modals/AddPropertyModal';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
-import { Info, Plus } from 'lucide-react';
+import { House, Info, Plus } from 'lucide-react';
 import PropertyPortal from './propertyPortal/PropertyPortal';
 import PropertySummary from './propertyPortal/PropertySummary';
 import PortalHeader from '../../../../components/headers/PortalHeader';
@@ -17,7 +17,7 @@ const LandlordProperties = () => {
   const [selectedProperty, setSelectedProperty] = useState<any>(null);
 
   const { data, error } = useGetAxios(`/api/landlords/properties`);
-  
+
   if (error) {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
@@ -25,7 +25,7 @@ const LandlordProperties = () => {
   if (!data) {
     return <div></div>;
   }
-  
+
   console.log('sp', selectedProperty)
 
   const stockPhotos = ['/townhouse.png', '/triplex.png', '/orangehouse.png']
@@ -110,20 +110,28 @@ const LandlordProperties = () => {
     )
   })
 
+  const realEstate = properties.map((property: any) => {
+    return property.profilePic ? (
+      <img
+        src={`${property.profilePic}`}
+        alt='Housing Profile Pic'
+        onClick={() => setSelectedProperty(property)}
+      />
+    ) : (
+      <img
+        className={styles.picContainers}
+        onClick={() => setSelectedProperty(property)}
+        src='/townhouse.png'
+      />
+    )
+  })
+
   return (
     <>
       {selectedProperty ? (
         <PropertyPortal>
           <PortalHeader
-            resourcePic={[
-              <img src='/emptyProfile.png' />,
-              <img src='/charts.png' />,
-              <img src='/emptyProfile.png' />,
-              <img src='/triplex.png' />,
-              <img src='/emptyProfile.png' />,
-              <img src='/groupPhoto.png' />,
-              <img src='/housing.jpg' />
-            ]}
+            resourcePic={realEstate}
             numberOfResources={numberOfProperties}
             resourceName={building.name || 'No Name'}
             resourceId={propertyId}
