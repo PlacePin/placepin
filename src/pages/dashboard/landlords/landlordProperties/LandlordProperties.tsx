@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './landlordProperties.module.css';
 import AddPropertyModal from '../../../../components/modals/AddPropertyModal';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
-import { House, Info, Plus } from 'lucide-react';
+import { Info, Plus } from 'lucide-react';
 import PropertyPortal from './propertyPortal/PropertyPortal';
 import PropertySummary from './propertyPortal/PropertySummary';
 import PortalHeader from '../../../../components/headers/PortalHeader';

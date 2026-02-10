@@ -54,7 +54,7 @@ export const signupController = async (req: Request, res: Response) => {
           isSubscribed: false,
           savedPaymentMethod: null,
           stripeCustomerId: null,
-          tier: "free",
+          tier: "Landlord-Sponsored",
         },
       })
     }
