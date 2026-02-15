@@ -59,6 +59,7 @@ const LandlordProperties = () => {
     resourceType = 'N/A'
   }
 
+  
   const propertyCards = properties.map((property: any) => {
 
     const randomImg = Math.floor(Math.random() * stockPhotos.length)
