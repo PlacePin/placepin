@@ -8,3 +8,10 @@
   flex-direction: column;
   width: 100%;
 }
+
+.tenantErrorContainer {
+  display: flex;
+  background: #f5f0eb;
+  flex-direction: column;
+  align-items: center;
+}
