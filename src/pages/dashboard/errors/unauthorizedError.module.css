@@ -1,0 +1,10 @@
+.errorContainer {
+  display: flex;
+  background: #f5f0eb;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
+  }
+  
+  
