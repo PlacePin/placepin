@@ -1,7 +1,21 @@
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import styles from './WorkOrdersChart.module.css';
+import { useEffect } from 'react';
 
-export default function WorkOrdersChart() {
+interface WorkOrdersChartProps {
+  landlordId: string;
+  propertyId: string;
+}
+
+export default function WorkOrdersChart({
+  landlordId,
+  propertyId,
+}: WorkOrdersChartProps) {
+
+  useEffect(() => {
+
+  }, [landlordId, propertyId])
+
   const data = [
     { month: 'Jan', orders: 12 },
     { month: 'Feb', orders: 19 },
@@ -20,6 +34,8 @@ export default function WorkOrdersChart() {
   const totalOrders = data.reduce((sum, item) => sum + item.orders, 0);
   const avgOrders = Math.round(totalOrders / data.length);
   const peakMonth = data.reduce((max, item) => item.orders > max.orders ? item : max, data[0]);
+
+  console.log('landlord', landlordId, 'property', propertyId)
 
   return (
     <div className={styles.container}>

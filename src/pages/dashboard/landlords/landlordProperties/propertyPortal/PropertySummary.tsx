@@ -6,13 +6,17 @@ interface PropertySummaryProps {
   numberOfUnits: number;
   vacancy: number;
   address: string;
+  landlordId: string;
+  propertyId: string;
 }
 
 const PropertySummary = ({
   residents,
   numberOfUnits,
   vacancy,
-  address
+  address,
+  landlordId,
+  propertyId,
 }: PropertySummaryProps) => {
   let residentFallback: string;
   if(numberOfUnits && vacancy){
@@ -56,7 +60,10 @@ const PropertySummary = ({
           </h3>
         </div>
       </div>
-      <WorkOrdersChart />
+      <WorkOrdersChart
+        landlordId={landlordId}
+        propertyId={propertyId}
+      />
       <div className={styles.siteStaffContainer}>
         <h3>Site Staff/Retainers</h3>
         <p>{`Address: ${address}`}</p>

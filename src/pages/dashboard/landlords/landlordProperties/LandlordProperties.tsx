@@ -33,22 +33,24 @@ const LandlordProperties = () => {
   const properties = data.properties;
   const building = selectedProperty?.properties;
   const numberOfProperties = properties.length;
+  let landlordId: string;
   let propertyId: string;
   let vacancyAmount: number;
   let propertyAddress: string;
-  let buildingName = ''
-  let resourceType = ''
-
+  let buildingName = '';
+  let resourceType = '';
 
   if (!selectedProperty || !building) {
-    vacancyAmount = 0
-    propertyId = ''
-    propertyAddress = ''
+    vacancyAmount = 0;
+    propertyId = '';
+    propertyAddress = '';
+    landlordId = '';
   } else {
     vacancyAmount = building.numberOfUnits - selectedProperty.tenantCount
-    propertyId = selectedProperty.properties._id
-    const { street } = selectedProperty.properties.address
-    propertyAddress = `${street}`
+    propertyId = selectedProperty.properties._id;
+    landlordId = selectedProperty._id;
+    const { street } = selectedProperty.properties.address;
+    propertyAddress = `${street}`;
   }
 
   if (selectedProperty === null) {
@@ -144,6 +146,8 @@ const LandlordProperties = () => {
               numberOfUnits={building.numberOfUnits}
               vacancy={vacancyAmount}
               address={propertyAddress}
+              landlordId={landlordId}
+              propertyId={propertyId}
             />
             <div className={styles.portalMainSection}>
               <PropertyAnalytics />
