@@ -1,49 +1,62 @@
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import styles from './WorkOrdersChart.module.css';
-import { useEffect } from 'react';
+import { useGetAxios } from '../../hooks/useGetAxios';
+
+interface MonthlyWorkOrder {
+  month: string;
+  orders: number;
+}
 
 interface WorkOrdersChartProps {
   landlordId: string;
   propertyId: string;
+  year?: number;
 }
 
 export default function WorkOrdersChart({
   landlordId,
   propertyId,
+  year = new Date().getFullYear(),
 }: WorkOrdersChartProps) {
 
-  useEffect(() => {
+  const { data: monthlyWorkOrders, error } = useGetAxios(
+    `api/workorders/${landlordId}/${propertyId}/monthly`,
+    undefined,
+    [landlordId, propertyId]
+  )
 
-  }, [landlordId, propertyId])
+  const EMPTY_CHART_DATA: MonthlyWorkOrder[] = [
+  { month: 'Jan', orders: 0 },
+  { month: 'Feb', orders: 0 },
+  { month: 'Mar', orders: 0 },
+  { month: 'Apr', orders: 0 },
+  { month: 'May', orders: 0 },
+  { month: 'Jun', orders: 0 },
+  { month: 'Jul', orders: 0 },
+  { month: 'Aug', orders: 0 },
+  { month: 'Sep', orders: 0 },
+  { month: 'Oct', orders: 0 },
+  { month: 'Nov', orders: 0 },
+  { month: 'Dec', orders: 0 },
+];
 
-  const data = [
-    { month: 'Jan', orders: 12 },
-    { month: 'Feb', orders: 19 },
-    { month: 'Mar', orders: 15 },
-    { month: 'Apr', orders: 25 },
-    { month: 'May', orders: 22 },
-    { month: 'Jun', orders: 30 },
-    { month: 'Jul', orders: 28 },
-    { month: 'Aug', orders: 24 },
-    { month: 'Sep', orders: 20 },
-    { month: 'Oct', orders: 27 },
-    { month: 'Nov', orders: 23 },
-    { month: 'Dec', orders: 18 },
-  ];
+  const chartData: MonthlyWorkOrder[] = Array.isArray(monthlyWorkOrders) ? monthlyWorkOrders : EMPTY_CHART_DATA;
 
-  const totalOrders = data.reduce((sum, item) => sum + item.orders, 0);
-  const avgOrders = Math.round(totalOrders / data.length);
-  const peakMonth = data.reduce((max, item) => item.orders > max.orders ? item : max, data[0]);
+  const totalOrders = chartData.reduce((sum: any, item: any) => sum + item.orders, 0);
+  const avgOrders = chartData.length ? Math.round(totalOrders / chartData.length) : 0;
+  const peakMonth = chartData.reduce((max: any, item: any) => item.orders > max.orders ? item : max, chartData[0]);
+
+  if (error) return <p>Error loading work orders</p>;
 
   console.log('landlord', landlordId, 'property', propertyId)
 
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <h3 className={styles.title}>Property Work Orders - {2025}</h3>
+        <h3 className={styles.title}>Property Work Orders - {year}</h3>
         <div className={styles.chartWrapper}>
           <ResponsiveContainer width="100%" height={300}>
-            <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+            <AreaChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
               <defs>
                 <linearGradient id="colorOrders" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
@@ -97,7 +110,7 @@ export default function WorkOrdersChart({
           </div>
           <div className={styles.statCard + ' ' + styles.statCardPurple}>
             <p className={styles.statLabel}>Peak Month</p>
-            <p className={styles.statValue + ' ' + styles.statValuePurple}>{peakMonth.month} ({peakMonth.orders})</p>
+            <p className={styles.statValue + ' ' + styles.statValuePurple}>{peakMonth ? `${peakMonth.month} (${peakMonth.orders})` : 'N/A'}</p>
           </div>
         </div>
       </div>
