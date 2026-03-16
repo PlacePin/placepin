@@ -21,7 +21,7 @@ const PropertyWorkOrdersList = ({
 }: PropertyWorkOrdersListProps) => {
 
   const { data: workOrders, error } = useGetAxios(
-    `api/workorders/${landlordId}/${propertyId}`,
+    `/api/workorders/${landlordId}/${propertyId}`,
     undefined,
     [landlordId, propertyId]
   );
