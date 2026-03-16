@@ -48,8 +48,6 @@ export default function WorkOrdersChart({
 
   if (error) return <p>Error loading work orders</p>;
 
-  console.log('landlord', landlordId, 'property', propertyId)
-
   return (
     <div className={styles.container}>
       <div className={styles.card}>

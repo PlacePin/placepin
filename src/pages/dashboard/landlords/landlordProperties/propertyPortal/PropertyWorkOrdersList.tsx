@@ -1,20 +1,34 @@
+import { useGetAxios } from '../../../../../hooks/useGetAxios';
 import styles from './propertyWorkOrdersList.module.css';
 
+interface WorkOrder {
+  _id: string;
+  tradesmanName: string;
+  unit: string;
+  tradesmanType: string;
+  date: string;
+  retainer: boolean;
+}
+
 interface PropertyWorkOrdersListProps {
-  // tradesmen: string[],
+  landlordId: string,
+  propertyId: string,
 }
 
 const PropertyWorkOrdersList = ({
-  // tradesmen
+  landlordId,
+  propertyId,
 }: PropertyWorkOrdersListProps) => {
 
-  // const allTradesmen = tradesmen.map((tradesman, i) => {
-  //   return (
-  //     <span key={i}>{tradesman}</span>
-  //   )
-  // })
+  const { data: workOrders, error } = useGetAxios(
+    `api/workorders/${landlordId}/${propertyId}`,
+    undefined,
+    [landlordId, propertyId]
+  );
 
-  const allTradesmen = ['John', 'Shawn', 'Edgar', 'Chris', 'James', 'Tyler', 'Jacob', 'Daquan']
+  const allWorkOrders: WorkOrder[] = Array.isArray(workOrders) ? workOrders : [];
+
+  if (error) return <p>Error loading work orders</p>;
 
   return (
     <section className={styles.paymentSection}>
@@ -31,20 +45,20 @@ const PropertyWorkOrdersList = ({
             </tr>
           </thead>
           <tbody>
-            {allTradesmen.length === 0 ? (
+            {allWorkOrders.length === 0 ? (
               <tr>
                 <td colSpan={5} className={styles.emptyMessage}>
                   No work orders found
                 </td>
               </tr>
             ) : (
-              allTradesmen.map((tradesman, i) => (
-                <tr key={i}>
-                  <td>{tradesman}</td>
-                  <td>1</td>
-                  <td>Electrician</td>
-                  <td>Dec 1</td>
-                  <td>No</td>
+              allWorkOrders.map((workOrder) => (
+                <tr key={workOrder._id}>
+                  <td>{workOrder.tradesmanName}</td>
+                  <td>{workOrder.unit}</td>
+                  <td>{workOrder.tradesmanType}</td>
+                  <td>{new Date(workOrder.date).toLocaleDateString()}</td>
+                  <td>{workOrder.retainer ? 'Yes' : 'No'}</td>
                 </tr>
               ))
             )}

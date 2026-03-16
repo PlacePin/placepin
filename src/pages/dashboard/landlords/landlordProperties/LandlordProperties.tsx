@@ -152,7 +152,10 @@ const LandlordProperties = () => {
             <div className={styles.portalMainSection}>
               <PropertyAnalytics />
               <PropertyDetails />
-              <PropertyWorkOrdersList />
+              <PropertyWorkOrdersList
+                landlordId={landlordId}
+                propertyId={propertyId}
+              />
             </div>
           </div>
         </PropertyPortal>

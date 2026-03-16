@@ -12,7 +12,10 @@ const workOrderSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, 
     required: true 
   },
+  tradesmanName: { type: String, required: true },
+  unit: { type: String, required: true },
   date: { type: Date, required: true, default: Date.now },
+  retainer: { type: Boolean, default: false },
   amountPrice: { type: Number, required: true },
   repairDescription: { type: String, required: true },
   tradesmanType: { type: String, required: true }, 
