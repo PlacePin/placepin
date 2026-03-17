@@ -9,6 +9,7 @@ import axios from 'axios';
 import styles from './landlordMessaging.module.css';
 import ComposeModal from '../../../../components/modals/ComposeModal';
 import PrimaryButton from '../../../../components/buttons/PrimaryButton';
+import { NavLink } from 'react-router-dom';
 
 type Message = {
   sender: string;
@@ -239,7 +240,24 @@ const LandlordMessaging = () => {
             </div>
           )}
         </>
-        <div className={styles.promo}></div>
+        <div>
+          {/* This div is for advertising later on */}
+          {/* <div className={styles.promo}></div> */}
+          <div className={styles.infoSection}>
+            <NavLink
+              className={styles.navLink}
+              to="">
+              <p>Privacy Policy</p>
+            </NavLink>
+            <NavLink
+              className={styles.navLink}
+              to="">
+              <p>Terms of Service</p>
+            </NavLink>
+            <h2 className={styles.logo}>PlacePin</h2>
+          </div>
+        </div>
+
       </div>
       {showCompose && (
         <ComposeModal

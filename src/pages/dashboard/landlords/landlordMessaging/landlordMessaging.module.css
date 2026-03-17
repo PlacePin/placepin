@@ -192,6 +192,27 @@
   margin: 0 2rem 0 0;
 }
 
+.infoSection {
+  width: 20%;
+  min-width: 220px;
+  max-width: 300px;
+  text-align: center;
+}
+
+.navLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.navLink:hover {
+  text-decoration: underline;
+  color: var(--color-tertiary-hover)
+}
+
+.logo {
+  color: var(--color-primary);
+}
+
 .title {
   margin: 2rem 0 1rem 2rem;
 }
