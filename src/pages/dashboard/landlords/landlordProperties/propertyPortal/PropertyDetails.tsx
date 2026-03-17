@@ -1,6 +1,22 @@
 import styles from './propertyDetails.module.css';
 
-const PropertyDetails = () => {
+interface PropertyDetailsProps {
+  lotSize: number,
+  trashPickup: string,
+  electricianLastUpdate: Date | null,
+  boilerLastUpdated: Date | null,
+  closestPublicCommutes: string,
+  averageUnitSize: number,
+}
+
+const PropertyDetails = ({
+  lotSize,
+  trashPickup,
+  electricianLastUpdate,
+  boilerLastUpdated,
+  closestPublicCommutes,
+  averageUnitSize,
+}: PropertyDetailsProps) => {
   return (
     <div className={styles.detailsContainer}>
       <div className={styles.header}>
@@ -11,37 +27,41 @@ const PropertyDetails = () => {
       <div className={styles.detailsWrapper}>
         <div className={styles.sectionContainers}>
           <span className={styles.values}>
-            {'4000'}
+            {lotSize ? `${lotSize}` : 'N/A'}
           </span>
-          <p>Square Feet</p>
+          <p>Lot Size</p>
         </div>
         <div className={styles.sectionContainers}>
           <span className={styles.values}>
-            {'Wednesday'}
+            {trashPickup ? trashPickup : 'N/A'}
           </span>
           <p>Trash Pickup</p>
         </div>
         <div className={styles.sectionContainers}>
           <span className={styles.values}>
-            {'October 2022'}
+            {electricianLastUpdate ?
+              new Date(electricianLastUpdate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) :
+              'N/A'}
           </span>
           <p>Electrician Last Updated</p>
         </div>
         <div className={styles.sectionContainers}>
           <span className={styles.values}>
-            {'N/A'}
+            {boilerLastUpdated ?
+              new Date(boilerLastUpdated).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) :
+              'N/A'}
           </span>
           <p>Boiler Last Updated</p>
         </div>
         <div className={styles.sectionContainers}>
           <span className={styles.values}>
-            {'Bus - 1 min walk'}
+            {closestPublicCommutes ? closestPublicCommutes : 'N/A'}
           </span>
           <p>Closest Public Commutes</p>
         </div>
         <div className={styles.sectionContainers}>
           <span className={styles.values}>
-            {'500 SQF'}
+            {averageUnitSize ? `${averageUnitSize} SQF` : 'N/A'}
           </span>
           <p>Average Unit Sizes</p>
         </div>

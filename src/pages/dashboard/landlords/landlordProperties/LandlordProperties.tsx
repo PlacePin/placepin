@@ -43,12 +43,20 @@ const LandlordProperties = () => {
   let mortgage = 0;
   let interestRate = 0;
   let projectedEquity = 0;
+  let lotSize = 0;
+  let trashPickup = '';
+  let electricianLastUpdate: Date | null;
+  let boilerLastUpdated: Date | null;
+  let closestPublicCommutes = '';
+  let averageUnitSize = 0;
 
   if (!selectedProperty || !building) {
     vacancyAmount = 0;
     propertyId = '';
     propertyAddress = '';
     landlordId = '';
+    electricianLastUpdate = null;
+    boilerLastUpdated = null;
   } else {
     vacancyAmount = building.numberOfUnits - selectedProperty.tenantCount
     propertyId = selectedProperty.properties._id;
@@ -56,9 +64,15 @@ const LandlordProperties = () => {
     const { street } = selectedProperty.properties.address;
     propertyAddress = `${street}`;
     outstandingPrincipal = selectedProperty.properties.propertyDetails?.financials?.outstandingPrincipal;
-    mortgage = selectedProperty.properties.propertyDetails?.financials?.mortgage
-    interestRate = selectedProperty.properties.propertyDetails?.financials?.interestRate
-    projectedEquity = selectedProperty.properties.propertyDetails?.financials?.projectedEquity
+    mortgage = selectedProperty.properties.propertyDetails?.financials?.mortgage;
+    interestRate = selectedProperty.properties.propertyDetails?.financials?.interestRate;
+    projectedEquity = selectedProperty.properties.propertyDetails?.financials?.projectedEquity;
+    lotSize = selectedProperty.properties.propertyDetails?.lotSize;
+    trashPickup = selectedProperty.properties.propertyDetails?.trashPickup;
+    electricianLastUpdate = selectedProperty.properties.propertyDetails?.electricianLastUpdate;
+    boilerLastUpdated = selectedProperty.properties.propertyDetails?.boilerLastUpdated;
+    closestPublicCommutes = selectedProperty.properties.propertyDetails?.closestPublicCommutes;
+    averageUnitSize = selectedProperty.properties.propertyDetails?.averageUnitSize;
   }
 
   if (selectedProperty === null) {
@@ -159,12 +173,19 @@ const LandlordProperties = () => {
             />
             <div className={styles.portalMainSection}>
               <PropertyAnalytics
-              outstandingPrincipal={outstandingPrincipal}
-              mortgage={mortgage}
-              interestRate={interestRate}
-              projectedEquity={projectedEquity}
+                outstandingPrincipal={outstandingPrincipal}
+                mortgage={mortgage}
+                interestRate={interestRate}
+                projectedEquity={projectedEquity}
               />
-              <PropertyDetails />
+              <PropertyDetails
+                lotSize={lotSize}
+                trashPickup={trashPickup}
+                electricianLastUpdate={electricianLastUpdate}
+                boilerLastUpdated={boilerLastUpdated}
+                closestPublicCommutes={closestPublicCommutes}
+                averageUnitSize={averageUnitSize}
+              />
               <PropertyWorkOrdersList
                 landlordId={landlordId}
                 propertyId={propertyId}
