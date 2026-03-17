@@ -1,7 +1,19 @@
 import Tooltip from '../../../../../components/tooltips/Tooltip';
 import styles from './propertyAnalytics.module.css';
 
-const PropertyAnalytics = () => {
+interface PropertyAnalyticsProps {
+  outstandingPrincipal: number,
+  mortgage: number,
+  interestRate: number,
+  projectedEquity: number,
+}
+
+const PropertyAnalytics = ({
+  outstandingPrincipal,
+  mortgage,
+  interestRate,
+  projectedEquity,
+}: PropertyAnalyticsProps) => {
   return (
     <div className={styles.analyticsContainer}>
       <div className={styles.header}>
@@ -12,7 +24,7 @@ const PropertyAnalytics = () => {
       <div className={styles.analyticsWrapper}>
         <div className={styles.sectionContainers}>
           <span className={styles.numbers}>
-            {'$800,000'}
+            {outstandingPrincipal ? `$${outstandingPrincipal.toLocaleString('en-US')}` : 'N/A'}
           </span>
           <Tooltip
             text={'This is an estimate.'}
@@ -23,7 +35,7 @@ const PropertyAnalytics = () => {
         </div>
         <div className={styles.sectionContainers}>
           <span className={styles.numbers}>
-            {'$4,000'}
+            {mortgage ? `$${mortgage.toLocaleString('en-US')}` : 'N/A'}
           </span>
           <Tooltip
             text={'This is an estimate.'}
@@ -34,7 +46,7 @@ const PropertyAnalytics = () => {
         </div>
         <div className={styles.sectionContainers}>
           <span className={styles.numbers}>
-            {'3.75%'}
+            {interestRate ? `${interestRate}%` : 'N/A'}
           </span>
           <p>
             Interest Rate
@@ -42,7 +54,7 @@ const PropertyAnalytics = () => {
         </div>
         <div className={styles.sectionContainers}>
           <span className={styles.numbers}>
-            {'$10,000'}
+            {projectedEquity ? `${projectedEquity.toLocaleString('en-US')}` : 'N/A'}
           </span>
           <Tooltip
             text={'This is an estimate.'}

@@ -131,6 +131,7 @@ export const getLandlordProperties = async (
           "properties.name": 1,
           "properties.address": 1,
           "properties.numberOfUnits": 1,
+          "properties.propertyDetails": 1,
           tenantCount: { $size: "$tenantData" }
         }
       }

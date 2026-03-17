@@ -39,6 +39,10 @@ const LandlordProperties = () => {
   let propertyAddress: string;
   let buildingName = '';
   let resourceType = '';
+  let outstandingPrincipal = 0;
+  let mortgage = 0;
+  let interestRate = 0;
+  let projectedEquity = 0;
 
   if (!selectedProperty || !building) {
     vacancyAmount = 0;
@@ -51,6 +55,10 @@ const LandlordProperties = () => {
     landlordId = selectedProperty._id;
     const { street } = selectedProperty.properties.address;
     propertyAddress = `${street}`;
+    outstandingPrincipal = selectedProperty.properties.propertyDetails?.financials?.outstandingPrincipal;
+    mortgage = selectedProperty.properties.propertyDetails?.financials?.mortgage
+    interestRate = selectedProperty.properties.propertyDetails?.financials?.interestRate
+    projectedEquity = selectedProperty.properties.propertyDetails?.financials?.projectedEquity
   }
 
   if (selectedProperty === null) {
@@ -150,7 +158,12 @@ const LandlordProperties = () => {
               propertyId={propertyId}
             />
             <div className={styles.portalMainSection}>
-              <PropertyAnalytics />
+              <PropertyAnalytics
+              outstandingPrincipal={outstandingPrincipal}
+              mortgage={mortgage}
+              interestRate={interestRate}
+              projectedEquity={projectedEquity}
+              />
               <PropertyDetails />
               <PropertyWorkOrdersList
                 landlordId={landlordId}
