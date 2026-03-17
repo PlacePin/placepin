@@ -58,6 +58,20 @@ const landlordSchema = new mongoose.Schema({
           rentAmountPaid: { type: Number, default: 0 },
         },
       ],
+      propertyDetails: {
+        lotSize: Number,
+        trashPickup: String,
+        electricianLastUpdate: Date,
+        boilerLastUpdated: Date,
+        closestPublicCommutes: String,
+        averageUnitSize: Number,
+        financials: {
+          outstandingPrincipal: Number,
+          mortgage: Number,
+          interestRate: Number,
+          projectedEquity: Number
+        }
+      }
     }
   ],
   subscription: {
