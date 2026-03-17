@@ -22,11 +22,15 @@ import TenantMessaging from "../pages/dashboard/tenants/tenantMessaging/TenantMe
 import TenantHomepage from "../pages/dashboard/tenants/tenantHomepage/TenantHomepage";
 import TradesmenDashboard from "../pages/dashboard/tradesmen/TradesmenDashboard";
 import TradesmenHomepage from "../pages/dashboard/tradesmen/tradesmenHomepage/TradesmenHomepage";
+import PrivacyPolicy from "../pages/legal/PrivacyPolicy";
+import TermsOfService from "../pages/legal/TermsOfService";
 
 const routes: RouteObject[] = [
   { path: '/', element: <LandingPage /> },
   { path: '/signup', element: <SignupPage /> },
   { path: '/login', element: <LoginPage /> },
+  { path: '/privacypolicy', element: <PrivacyPolicy /> },
+  { path: '/termsofservice', element: <TermsOfService /> },
   {
     path: LANDLORD_ROUTES.DASHBOARD,
     element: <PrivateRoute />,

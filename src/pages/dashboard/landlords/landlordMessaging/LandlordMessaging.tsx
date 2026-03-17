@@ -246,12 +246,12 @@ const LandlordMessaging = () => {
           <div className={styles.infoSection}>
             <NavLink
               className={styles.navLink}
-              to="">
+              to="/privacypolicy">
               <p>Privacy Policy</p>
             </NavLink>
             <NavLink
               className={styles.navLink}
-              to="">
+              to="/termsofservice">
               <p>Terms of Service</p>
             </NavLink>
             <h2 className={styles.logo}>PlacePin</h2>

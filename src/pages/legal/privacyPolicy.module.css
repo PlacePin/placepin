@@ -1,0 +1,155 @@
+.page {
+  min-height: 100vh;
+  background-color: #fafaf9;
+  font-family: 'Georgia', serif;
+  color: #1c1917;
+}
+
+/* Header */
+.header {
+  border-bottom: 1px solid #e7e5e4;
+  background-color: #ffffff;
+  padding: 48px 0 32px;
+}
+
+.headerInner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-family: monospace;
+  letter-spacing: 0.15em;
+  color: #78716c;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 42px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  color: #0c0a09;
+}
+
+.lastUpdated {
+  font-size: 14px;
+  color: #78716c;
+  font-family: monospace;
+}
+
+/* Content */
+.content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 56px 24px 96px;
+}
+
+.section {
+  margin-bottom: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid #e7e5e4;
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.sectionNumber {
+  font-size: 11px;
+  font-family: monospace;
+  color: #a8a29e;
+  min-width: 24px;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #0c0a09;
+}
+
+.sectionBody {
+  padding-left: 40px;
+}
+
+.paragraph {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #44403c;
+  margin-bottom: 0;
+}
+
+.paragraphWithList {
+  margin-bottom: 16px;
+}
+
+/* List */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+}
+
+.listItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #44403c;
+  border-top: 1px solid #f5f5f4;
+}
+
+.listItem:first-child {
+  border-top: none;
+}
+
+.listDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #a8a29e;
+  margin-top: 10px;
+  flex-shrink: 0;
+}
+
+/* Footer note */
+.footerNote {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #78716c;
+  font-style: italic;
+  margin-top: 12px;
+}
+
+/* Contact block */
+.contactBlock {
+  margin-top: 16px;
+  padding: 20px 24px;
+  background-color: #f5f5f4;
+  border-radius: 8px;
+  border-left: 3px solid #0c0a09;
+}
+
+.contactLine {
+  font-size: 15px;
+  color: #44403c;
+  margin-bottom: 6px;
+}
+
+.contactLine:last-child {
+  margin-bottom: 0;
+}
