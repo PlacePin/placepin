@@ -124,7 +124,6 @@ const TermsOfService = () => {
           <p className={styles.lastUpdated}>Last updated: February 16, 2026</p>
         </div>
       </div>
-
       <div className={styles.content}>
         {sections.map((section, index) => (
           <div key={index} className={styles.section}>
@@ -134,22 +133,18 @@ const TermsOfService = () => {
               </span>
               <h2 className={styles.sectionTitle}>{section.title}</h2>
             </div>
-
             <div className={styles.sectionBody}>
               {section.uppercase && (
                 <p className={styles.paragraphUppercase}>{section.uppercase}</p>
               )}
-
               {section.listPrefix && (
                 <p className={styles.paragraphWithList}>{section.listPrefix}</p>
               )}
-
               {section.content && (
                 <p className={`${styles.paragraph} ${section.list ? styles.paragraphWithList : ''}`}>
                   {section.content}
                 </p>
               )}
-
               {section.list && (
                 <ul className={styles.list}>
                   {section.list.map((item, i) => (
@@ -160,11 +155,9 @@ const TermsOfService = () => {
                   ))}
                 </ul>
               )}
-
               {section.footer && (
                 <p className={styles.footerNote}>{section.footer}</p>
               )}
-
               {section.contact && (
                 <div className={styles.contactBlock}>
                   <p className={styles.contactLine}>
@@ -178,7 +171,6 @@ const TermsOfService = () => {
             </div>
           </div>
         ))}
-
         <div className={styles.closingStatement}>
           <p className={styles.closingText}>
             By using PlacePin, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.
