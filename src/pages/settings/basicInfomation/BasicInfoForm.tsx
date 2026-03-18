@@ -121,6 +121,7 @@ const BasicInfoForm = () => {
               <option value="" disabled>Select gender</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
+              <option value="Non-Binary">Non-Binary</option>
             </select>
           </div>
           <div className={styles.formRow}>

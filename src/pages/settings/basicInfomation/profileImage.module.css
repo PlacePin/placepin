@@ -5,7 +5,12 @@
   cursor: pointer;
 }
 
+.hiddenInput {
+  display: none;
+}
+
 .innerContainer {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,11 +23,48 @@
   min-width: 60px;
   min-height: 60px;
   margin: 0 auto;
+  overflow: hidden;
   cursor: pointer;
+}
+
+.profileImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.uploadingOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .photoText {
   color: rgb(19, 98, 147);
   margin-top: 0.75rem;
-  
+}
+
+.errorText {
+  color: #e53e3e;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  text-align: center;
 }

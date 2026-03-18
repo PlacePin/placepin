@@ -20,9 +20,6 @@ const LandingPage = () => {
           <NavLink to='/signup'>
             <button className={styles.ctaButton}>Get Started</button>
           </NavLink>
-          <NavLink to='/login'>
-            <button className={styles.ctaButton}>Login</button>
-          </NavLink>
         </div>
       </header>
 
