@@ -4,16 +4,20 @@ import StatOverview from './StatOverview';
 
 interface StatsOverviewCardProps {
   numberOfTenants: number,
+  totalExpectedIncome: number,
+  totalExpenses: number,
 }
 
 const StatsOverviewCard = ({
-  numberOfTenants 
+  numberOfTenants,
+  totalExpectedIncome,
+  totalExpenses,
 }: StatsOverviewCardProps) => {
   return (
     <div className={styles.wrapper}>
       <StatOverview
         title='Expected Income'
-        value={`$5000`}
+        value={`$${totalExpectedIncome.toLocaleString('en-US')}`}
         changeThisMonth={'~8%'}
         arrowClassName={styles.arrowDown}
         className={styles.dollarSignIcon}
@@ -49,7 +53,7 @@ const StatsOverviewCard = ({
       />
       <StatOverview
         title='Expenses'
-        value={`$500`}
+        value={`$${totalExpenses.toLocaleString('en-US')}`}
         changeThisMonth={'~6%'}
         arrowClassName={styles.arrowUp}
         className={styles.expensesIcon}

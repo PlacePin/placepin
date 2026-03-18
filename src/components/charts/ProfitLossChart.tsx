@@ -11,13 +11,21 @@ import styles from './profitLossChart.module.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
-const ProfitLossChart = () => {
+interface ProfitLossChartProps {
+  totalExpectedIncome: number,
+  totalExpenses: number
+}
+
+const ProfitLossChart = ({
+  totalExpectedIncome,
+  totalExpenses,
+}: ProfitLossChartProps) => {
 
   const data = {
     labels: ['Profit', 'Tenant Upgrades', 'Expenses'],
     datasets: [
       {
-        data: [5000, 50, 500],
+        data: [totalExpectedIncome, 0, totalExpenses],
         backgroundColor: [
           '#00bfa5',
           '#0F5FC2',

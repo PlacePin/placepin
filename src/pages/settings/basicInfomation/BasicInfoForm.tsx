@@ -16,6 +16,8 @@ const BasicInfoForm = () => {
 
   const { accessToken } = useAuth();
 
+  console.log('dob', typeof DoB)
+
   if (!accessToken) {
     return <Navigate to="/login" replace />;
   }

@@ -24,10 +24,23 @@ const LandlordTenantInsights = () => {
   }
 
   const tenants = data?.tenants ?? [];
-  const numberOfTenants = tenants.length
+  const numberOfTenants = tenants.length;
   const tenantNames = tenants.map((tenant: { fullName: string }) => {
     return firstNameLastInitial(tenant.fullName)
   })
+
+  let totalExpectedIncome = 0;
+  let totalExpenses = 0;
+
+  tenants.forEach((tenant: { rentAmountExpected: number }) => {
+    totalExpectedIncome += tenant.rentAmountExpected
+  })
+
+  tenants.forEach((tenant: { expenses: number }) => {
+    totalExpenses += tenant.expenses
+  })
+
+  console.log('data', tenants)
 
   return (
     <>
@@ -38,11 +51,16 @@ const LandlordTenantInsights = () => {
           <div>
             <StatsOverviewCard
               numberOfTenants={numberOfTenants}
+              totalExpectedIncome={totalExpectedIncome}
+              totalExpenses={totalExpenses}
             />
           </div>
           <div className={styles.finances}>
             <PaymentReliability tenants={tenantNames} />
-            <ProfitLossChart />
+            <ProfitLossChart
+              totalExpectedIncome={totalExpectedIncome}
+              totalExpenses={totalExpenses}
+            />
           </div>
         </div>
         :
