@@ -13,6 +13,9 @@ const BasicInfoForm = () => {
   const [DoB, setDoB] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState('');
+  const [saveSuccess, setSaveSuccess] = useState(false);
 
   const { accessToken } = useAuth();
 
@@ -45,9 +48,33 @@ const BasicInfoForm = () => {
     fetchUserID()
   }, [accessToken])
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-  }
+
+  
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSaving(true);
+    setSaveError('');
+    setSaveSuccess(false);
+
+    try {
+      await axios.put('/api/settings', {
+        fullName,
+        phoneNumber,
+        gender,
+        dateOfBirth: DoB,
+        username,
+      }, {
+        headers: {
+          Authorization: `bearer ${accessToken}`
+        }
+      });
+      setSaveSuccess(true);
+    } catch (err: any) {
+      setSaveError(err.response?.data?.message ?? 'Failed to save changes.');
+    } finally {
+      setSaving(false);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -96,6 +123,7 @@ const BasicInfoForm = () => {
               <option value="" disabled>Select gender</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
+              <option value="Non-Binary">Non-Binary</option>
             </select>
           </div>
           <div className={styles.formRow}>
@@ -109,7 +137,8 @@ const BasicInfoForm = () => {
               type='date'
               id="DoB"
               value={DoB}
-              onChange={(e) => setDoB(e.target.value)}
+              onChange={(e) =>
+                setDoB(e.target.value)}
             />
           </div>
           <div className={styles.formRow}>
@@ -146,7 +175,11 @@ const BasicInfoForm = () => {
           </div>
         </div>
         <div className={styles.buttonContainer}>
-          <button className={styles.button}>Save</button>
+          {saveError && <p className={styles.errorMessage}>{saveError}</p>}
+          {saveSuccess && <p className={styles.successMessage}>Changes saved successfully.</p>}
+          <button className={styles.button} disabled={saving}>
+            {saving ? 'Saving...' : 'Save'}
+          </button>
         </div>
       </form>
     </div>
