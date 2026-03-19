@@ -26,8 +26,6 @@ const LandlordProperties = () => {
     return <div></div>;
   }
 
-  console.log('sp', selectedProperty)
-
   const stockPhotos = ['/townhouse.png', '/triplex.png', '/orangehouse.png']
 
   const properties = data.properties;
