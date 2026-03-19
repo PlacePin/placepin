@@ -25,8 +25,11 @@ const LandlordTenantInsights = () => {
 
   const tenants = data?.tenants ?? [];
   const numberOfTenants = tenants.length;
-  const tenantNames = tenants.map((tenant: { fullName: string }) => {
-    return firstNameLastInitial(tenant.fullName)
+  const tenantPaymentTrackRecord = tenants.map((tenant: any) => {
+    return {
+      fullName: firstNameLastInitial(tenant.fullName),
+      lastPayment: tenant.rentPayment[tenant.rentPayment.length - 1].monthPaid
+    }
   })
 
   let totalExpectedIncome = 0;
@@ -37,7 +40,7 @@ const LandlordTenantInsights = () => {
     totalExpenses += tenant.expenses
   })
 
-  console.log('data', tenants)
+  console.log('data', tenantPaymentTrackRecord)
 
   return (
     <>
@@ -53,7 +56,7 @@ const LandlordTenantInsights = () => {
             />
           </div>
           <div className={styles.finances}>
-            <PaymentReliability tenants={tenantNames} />
+            <PaymentReliability tenantPaymentTrackRecord={tenantPaymentTrackRecord} />
             <ProfitLossChart
               totalExpectedIncome={totalExpectedIncome}
               totalExpenses={totalExpenses}

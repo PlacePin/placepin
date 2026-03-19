@@ -1,19 +1,28 @@
 import styles from './paymentReliability.module.css';
 
 interface PaymentReliabilityProps {
-  tenants: string[],
+  tenantPaymentTrackRecord: any,
 }
 
 const PaymentReliability = ({
-  tenants
+  tenantPaymentTrackRecord
 }: PaymentReliabilityProps) => {
 
-  const allTenants = tenants.map((tenant, i) => {
+  const allTenantPaymentTrackRecords = tenantPaymentTrackRecord.map((tenant: any, i: any) => {
     return (
-      <span key={i}>{tenant}</span>
+      {
+        fullName: <span key={i}>{tenant.fullName}</span>,
+        lastPayment: <span key={i}>
+          {new Date(tenant.lastPayment).toLocaleDateString('en-US', {
+            timeZone: "UTC",
+            month: "short",
+            day: "2-digit"
+          })}
+        </span>
+      }
+
     )
   })
-
   return (
     <section className={styles.paymentSection}>
       <h3>Payment Reliability</h3>
@@ -29,11 +38,11 @@ const PaymentReliability = ({
             </tr>
           </thead>
           <tbody>
-            {allTenants.map((tenant, i) => (
+            {allTenantPaymentTrackRecords.map((tenant: any, i: any) => (
               <tr key={i}>
-                <td>{tenant}</td>
+                <td>{tenant.fullName}</td>
                 <td>100%</td>
-                <td>Nov 1</td>
+                <td>{tenant.lastPayment}</td>
                 <td>Dec 1</td>
                 <td>Good</td>
               </tr>
@@ -42,7 +51,6 @@ const PaymentReliability = ({
         </table>
       </div>
     </section>
-
   )
 }
 
