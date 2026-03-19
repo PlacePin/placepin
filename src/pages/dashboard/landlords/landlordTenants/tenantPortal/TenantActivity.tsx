@@ -26,11 +26,13 @@ const TenantActivity = ({
       <div key={i} className={styles.rentPayment}>
         <p>
           <span className={styles.rentAmount}>
-            {`$${rentPayment.rentAmount}`}
+            {`$${rentPayment.rentAmount.toLocaleString('en-US')}`}
           </span>
           {' a month Paid On: '}
           <span className={styles.date}>
-            {rentPayment.monthPaid}
+            {new Date(rentPayment.monthPaid).toLocaleDateString('en-US', {
+              timeZone: "UTC",
+            })}
           </span>
         </p>
       </div>

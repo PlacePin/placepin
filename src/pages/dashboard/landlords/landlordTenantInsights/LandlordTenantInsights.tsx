@@ -32,11 +32,8 @@ const LandlordTenantInsights = () => {
   let totalExpectedIncome = 0;
   let totalExpenses = 0;
 
-  tenants.forEach((tenant: { rentAmountExpected: number }) => {
+  tenants.forEach((tenant: any) => {
     totalExpectedIncome += tenant.rentAmountExpected
-  })
-
-  tenants.forEach((tenant: { expenses: number }) => {
     totalExpenses += tenant.expenses
   })
 
