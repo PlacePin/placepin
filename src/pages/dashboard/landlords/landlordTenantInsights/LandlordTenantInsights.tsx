@@ -34,9 +34,21 @@ const LandlordTenantInsights = () => {
   }
 
   const tenantPaymentTrackRecord = tenants.map((tenant: any) => {
-    const payments = tenant.rentPayment;
-    const lastPayment = payments[payments.length - 1];
+    const payments = tenant.rentPayment || [];
     const totalPayments = payments.length;
+    const lastPayment = payments[payments.length - 1];
+
+    if (totalPayments === 0) {
+      return {
+        fullName: firstNameLastInitial(tenant.fullName),
+        lastPayment: null,
+        rentDueDate: null,
+        onTimePercentage: null,
+        totalPayments: 0,
+        isLate: false,
+        rating: 'Thin File'
+      };
+    }
 
     const onTimeCount = payments.filter((payment: any) => {
       const paidDate = new Date(payment.monthPaid);

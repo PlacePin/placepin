@@ -2,9 +2,9 @@ import styles from './paymentReliability.module.css';
 
 interface TenantPaymentRecord {
   fullName: string;
-  lastPayment: string;
-  rentDueDate: string;
-  onTimePercentage: number;
+  lastPayment: string | null;
+  rentDueDate: string | null;
+  onTimePercentage: number | null;
   totalPayments: number;
   isLate: boolean;
   rating: string;
@@ -43,20 +43,30 @@ const PaymentReliability = ({
             {tenantPaymentTrackRecord.map((tenant, i) => (
               <tr key={i}>
                 <td>{tenant.fullName}</td>
-                <td>{Number.isInteger(tenant.onTimePercentage) ? `${tenant.onTimePercentage}%` : `${tenant.onTimePercentage.toFixed(2)}%`}</td>
                 <td>
-                  {new Date(tenant.lastPayment).toLocaleDateString('en-US', {
-                    timeZone: 'UTC',
-                    month: 'short',
-                    day: '2-digit'
-                  })}
+                  {tenant.onTimePercentage !== null
+                    ? Number.isInteger(tenant.onTimePercentage)
+                      ? `${tenant.onTimePercentage}%`
+                      : `${tenant.onTimePercentage.toFixed(2)}%`
+                    : 'N/A'}
                 </td>
                 <td>
-                  {new Date(tenant.rentDueDate).toLocaleDateString('en-US', {
-                    timeZone: 'UTC',
-                    month: 'short',
-                    day: '2-digit'
-                  })}
+                  {tenant.lastPayment
+                    ? new Date(tenant.lastPayment).toLocaleDateString('en-US', {
+                      timeZone: 'UTC',
+                      month: 'short',
+                      day: '2-digit'
+                    })
+                    : 'N/A'}
+                </td>
+                <td>
+                  {tenant.rentDueDate
+                    ? new Date(tenant.rentDueDate).toLocaleDateString('en-US', {
+                      timeZone: 'UTC',
+                      month: 'short',
+                      day: '2-digit'
+                    })
+                    : 'N/A'}
                 </td>
                 <td className={ratingClassMap[tenant.rating]}>
                   {tenant.rating}

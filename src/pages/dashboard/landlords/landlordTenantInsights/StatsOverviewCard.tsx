@@ -18,7 +18,7 @@ const StatsOverviewCard = ({
       <StatOverview
         title='Expected Income'
         value={`$${totalExpectedIncome.toLocaleString('en-US')}`}
-        changeThisMonth={'~8%'}
+        // changeThisMonth={'~8%'}
         arrowClassName={styles.arrowDown}
         className={styles.dollarSignIcon}
         icon={
@@ -36,7 +36,7 @@ const StatsOverviewCard = ({
       <StatOverview
         title='Tenants'
         value={`${numberOfTenants}`}
-        changeThisMonth={'0 new'}
+        // changeThisMonth={'0 new'}
         arrowClassName={styles.neutral}
         className={styles.usersIcon}
         icon={
@@ -54,7 +54,7 @@ const StatsOverviewCard = ({
       <StatOverview
         title='Expenses'
         value={`$${totalExpenses.toLocaleString('en-US')}`}
-        changeThisMonth={'~6%'}
+        // changeThisMonth={'~6%'}
         arrowClassName={styles.arrowUp}
         className={styles.expensesIcon}
         icon={

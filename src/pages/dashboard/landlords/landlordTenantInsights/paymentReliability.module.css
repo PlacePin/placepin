@@ -34,17 +34,17 @@
 }
 
 .ratingExcellent {
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .ratingGood {
-  color: #f59e0b;
+  color: var(--color-warning-hover);
 }
 
 .ratingRisky {
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 .ratingInsufficient {
-  color: #78716c;
+  color: var(--color-text-3);
 }

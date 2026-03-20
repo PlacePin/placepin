@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 interface StatOverviewProps {
   title: string,
   value: string,
-  changeThisMonth: string,
+  changeThisMonth?: string,
   icon: ReactNode,
   className: string,
   trend?: ReactNode,
@@ -32,14 +32,14 @@ const StatOverview = ({
         <h2 className={styles.value}>
           {value}
         </h2>
-        <p className={styles.trend}>
+        {/* <p className={styles.trend}>
           <span
             className={`${arrowClassName} ${styles.arrow}`}
           >
             {trend}{changeThisMonth}
           </span>
           this month
-        </p>
+        </p> */}
       </div>
     </div>
   )
