@@ -76,6 +76,7 @@ const tenantSchema = new mongoose.Schema({
       _id: false,
       rentAmount: Number,
       monthPaid: Date,
+      rentDue: Date,
     }
   ],
   subscription: {

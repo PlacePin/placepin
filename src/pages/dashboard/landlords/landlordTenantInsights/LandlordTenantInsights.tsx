@@ -25,12 +25,46 @@ const LandlordTenantInsights = () => {
 
   const tenants = data?.tenants ?? [];
   const numberOfTenants = tenants.length;
+
+  function getTenantRating(onTimePercentage: number, totalPayments: number) {
+    if (totalPayments < 3) return 'Thin File';
+    if (onTimePercentage >= 90) return 'Excellent';
+    if (onTimePercentage >= 70) return 'Good';
+    return 'Risky';
+  }
+
   const tenantPaymentTrackRecord = tenants.map((tenant: any) => {
+    const payments = tenant.rentPayment;
+    const lastPayment = payments[payments.length - 1];
+    const totalPayments = payments.length;
+
+    const onTimeCount = payments.filter((payment: any) => {
+      const paidDate = new Date(payment.monthPaid);
+      const dueDate = new Date(payment.rentDueDate);
+      paidDate.setHours(0, 0, 0, 0);
+      dueDate.setHours(0, 0, 0, 0);
+      return paidDate <= dueDate;
+    }).length;
+
+    const onTimePercentage = payments.length === 0
+      ? 0
+      : (onTimeCount / payments.length) * 100;
+
+    const lastPaidDate = new Date(lastPayment.monthPaid);
+    const lastDueDate = new Date(lastPayment.rentDueDate);
+    lastPaidDate.setHours(0, 0, 0, 0);
+    lastDueDate.setHours(0, 0, 0, 0);
+
     return {
       fullName: firstNameLastInitial(tenant.fullName),
-      lastPayment: tenant.rentPayment[tenant.rentPayment.length - 1].monthPaid
-    }
-  })
+      lastPayment: lastPayment.monthPaid,
+      rentDueDate: lastPayment.rentDueDate,
+      onTimePercentage,
+      totalPayments,
+      isLate: lastPaidDate > lastDueDate,
+      rating: getTenantRating(onTimePercentage, totalPayments)
+    };
+  });
 
   let totalExpectedIncome = 0;
   let totalExpenses = 0;
@@ -40,7 +74,7 @@ const LandlordTenantInsights = () => {
     totalExpenses += tenant.expenses
   })
 
-  console.log('data', tenantPaymentTrackRecord)
+  console.log('data', tenants)
 
   return (
     <>

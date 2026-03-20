@@ -32,3 +32,19 @@
 .reliabilityTable tbody tr:nth-child(even) {
   background: var(--color-surface-5);
 }
+
+.ratingExcellent {
+  color: #22c55e;
+}
+
+.ratingGood {
+  color: #f59e0b;
+}
+
+.ratingRisky {
+  color: #ef4444;
+}
+
+.ratingInsufficient {
+  color: #78716c;
+}
