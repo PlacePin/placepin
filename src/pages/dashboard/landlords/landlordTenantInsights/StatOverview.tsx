@@ -32,14 +32,14 @@ const StatOverview = ({
         <h2 className={styles.value}>
           {value}
         </h2>
-        {/* <p className={styles.trend}>
+        <p className={styles.trend}>
           <span
             className={`${arrowClassName} ${styles.arrow}`}
           >
             {trend}{changeThisMonth}
           </span>
           this month
-        </p> */}
+        </p>
       </div>
     </div>
   )

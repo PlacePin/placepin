@@ -17,6 +17,14 @@ const landlordSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   dateOfBirth: Number,
   email: { type: String, required: true, unique: true, lowercase: true },
+  financialSnapshots: [
+    {
+      month: { type: Date, required: true },
+      totalExpectedIncome: { type: Number, default: 0 },
+      totalExpenses: { type: Number, default: 0 },
+      tenantCount: { type: Number, default: 0 }
+    }
+  ],
   fullName: String,
   gender: String,
   hasAcceptedPrivacyPolicy: Boolean,

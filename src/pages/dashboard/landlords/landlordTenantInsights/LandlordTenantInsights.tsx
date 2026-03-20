@@ -26,6 +26,10 @@ const LandlordTenantInsights = () => {
   const tenants = data?.tenants ?? [];
   const numberOfTenants = tenants.length;
 
+  const incomeChange: number | null = data?.incomeChange ?? null;
+  const expensesChange: number | null = data?.expensesChange ?? null;
+  const tenantChange: number | null = data?.tenantChange ?? null;
+
   function getTenantRating(onTimePercentage: number, totalPayments: number) {
     if (totalPayments < 3) return 'Thin File';
     if (onTimePercentage >= 90) return 'Excellent';
@@ -99,6 +103,9 @@ const LandlordTenantInsights = () => {
               numberOfTenants={numberOfTenants}
               totalExpectedIncome={totalExpectedIncome}
               totalExpenses={totalExpenses}
+              incomeChange={incomeChange}
+              expensesChange={expensesChange}
+              tenantChange={tenantChange}
             />
           </div>
           <div className={styles.finances}>
