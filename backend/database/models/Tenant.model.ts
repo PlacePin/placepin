@@ -39,6 +39,8 @@ const tenantSchema = new mongoose.Schema({
     other: { type: Number, default: 0 },
   },
   password: { type: String, required: true },
+  passwordResetToken: { type: String, default: null},
+  passwordResetExpires: {type: Date, default: null},
   perkPatterns: {
     food: [{
       month: { type: Number, required: true },

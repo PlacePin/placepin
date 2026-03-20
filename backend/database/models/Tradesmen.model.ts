@@ -24,6 +24,8 @@ const tradesmenSchema = new mongoose.Schema({
   hasAcceptedPrivacyPolicy: Boolean,
   lastActive: { type: Date, default: null },
   password: { type: String, required: true },
+  passwordResetToken: { type: String, default: null},
+  passwordResetExpires: {type: Date, default: null},
   phoneNumber: Number,
   profession: String,
   profilePic: {
