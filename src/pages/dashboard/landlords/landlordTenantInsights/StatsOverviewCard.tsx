@@ -11,7 +11,16 @@ interface StatsOverviewCardProps {
   tenantChange: number | null,
 }
 
-function formatChange(change: number | null, suffix: string = '%') {
+const StatsOverviewCard = ({
+  numberOfTenants,
+  totalExpectedIncome,
+  totalExpenses,
+  incomeChange,
+  expensesChange,
+  tenantChange
+}: StatsOverviewCardProps) => {
+
+  function formatChange(change: number | null, suffix: string = '%') {
   if (change === null) return 'N/A';
   if (change === 0) return `No change`;
   return change > 0 ? `+${change}${suffix}` : `${change}${suffix}`;
@@ -21,15 +30,6 @@ function getTrend(change: number | null) {
   if (change === null || change === 0) return 'neutral';
   return change > 0 ? 'up' : 'down';
 }
-
-const StatsOverviewCard = ({
-  numberOfTenants,
-  totalExpectedIncome,
-  totalExpenses,
-  incomeChange,
-  expensesChange,
-  tenantChange
-}: StatsOverviewCardProps) => {
 
   const incomeTrend = getTrend(incomeChange);
   const expensesTrend = getTrend(expensesChange);
