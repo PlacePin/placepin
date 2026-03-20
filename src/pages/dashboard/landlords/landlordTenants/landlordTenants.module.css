@@ -32,11 +32,11 @@
 }
 
 .profilePic {
-  border-radius: 50%;
+  border-radius: 2rem;
   width: 30vw;
-  height: 30vw;
-  max-width: 12.5rem;
-  max-height: 12.5rem;
+  margin-right: 1rem;
+  max-width: 9.5rem;
+  max-height: 9.5rem;
   min-width: 3.75rem;
   min-height: 3.75rem;
 }
