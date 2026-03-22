@@ -18,7 +18,7 @@ const TradesmenDashboard = () => {
   // This is authPayload for a user
   const user = jwtDecode<DecodedAccessToken>(accessToken);
 
-  if(user.accountType != 'tradesman'){
+  if(user.accountType !== 'tradesmen'){
     return(
       <div className={styles.tradesmenErrorContainer}>
       <UnauthorizedError/>

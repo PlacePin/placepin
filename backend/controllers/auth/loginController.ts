@@ -1,6 +1,7 @@
 import type { Request, Response } from 'express';
 import { TenantModel } from '../../database/models/Tenant.model';
 import { LandlordModel } from '../../database/models/Landlord.model';
+import { TradesmenModel } from '../../database/models/Tradesmen.model';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
@@ -15,7 +16,9 @@ export const loginController = async (req: Request, res: Response) => {
 
   try {
     // Looking for the email in the database. Store the result in a var named user
-    const user = (await TenantModel.findOne({ email })) || (await LandlordModel.findOne({ email }));
+    const user = await TenantModel.findOne({ email }) ||
+                 await LandlordModel.findOne({ email }) ||
+                 await TradesmenModel.findOne({ email });
 
     // If the user does not exist in either database return error
     if (!user) {

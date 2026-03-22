@@ -19,7 +19,7 @@ const LandlordDashboard = () => {
   // This is authPayload for a user
   const user = jwtDecode<DecodedAccessToken>(accessToken);
   
-  if(user.accountType != 'landlord'){
+  if(user.accountType !== 'landlord'){
     return(
       <div className={styles.landlordErrorContainer}>
         <UnauthorizedError/>
