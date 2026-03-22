@@ -151,7 +151,7 @@ const LandingPage = () => {
             <div className={`${styles.pricingCard} ${styles.landlordCard}`}>
               <div className={styles.planLabel}>LANDLORDS</div>
               <h3>Building Plan</h3>
-              <div className={styles.price}>~2.5%<span> of monthly building rent</span></div>
+              <div className={styles.price}>$150<span> subscription per building</span></div>
               <button className={styles.primaryButton}>Start Managing &gt;</button>
               <div className={`${styles.features} ${styles.landlordFeatures}`}>
                 <h4>For property owners</h4>
@@ -253,8 +253,8 @@ const LandingPage = () => {
             </div>
             <div className={styles.footerColumn}>
               <h4>About</h4>
-              <a href="#">Privacy Policy</a>
-              <a href="#">Terms of Service</a>
+              <NavLink to='/privacypolicy'>Privacy Policy</NavLink>
+              <NavLink to='/termsofservice'>Terms of Service</NavLink>
             </div>
           </div>
 
