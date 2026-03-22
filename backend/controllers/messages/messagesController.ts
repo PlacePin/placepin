@@ -52,9 +52,12 @@ export const sendMessage = async (
     if (!dm) {
       dm = new DirectMessageModel({
         participants: [userId, recipient],
-        participantsModel: [senderModel, recipientModel], // You can replace this dynamically later
+        participantsModel: [senderModel, recipientModel],
         messages: [],
       });
+    } else {
+      // correct participantsModel on existing conversations
+      dm.participantsModel = [senderModel, recipientModel];
     }
 
     // Create the message
