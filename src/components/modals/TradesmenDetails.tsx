@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { capitalizeWords, firstNameLastInitial } from '../../utils/stringUtils';
 import PrimaryButton from '../buttons/PrimaryButton';
+import ComposeModal from './ComposeModal';
 import FormModal from './FormModal';
 import styles from './tradesmenDetails.module.css';
 
@@ -12,6 +14,8 @@ const TradesmenDetails = ({
   tradesmen,
   onClose
 }: TradesmenDetailsProp) => {
+
+  const [showCompose, setShowCompose] = useState(false)
 
   const profilePic = tradesmen.profilePic ?
     <img className={styles.profilePic} src={tradesmen.profilePic} alt='Profile Pic' /> :
@@ -61,7 +65,16 @@ const TradesmenDetails = ({
         </div>
       </div>
       <div className={styles.button}>
-        <PrimaryButton title={`Message ${firstNameLastInitial(tradesmen.fullName)}`} />
+        <PrimaryButton
+          title={`Message ${firstNameLastInitial(tradesmen.fullName)}`}
+          onClick={() => setShowCompose(prev => !prev)}
+        />
+        {showCompose && (
+          <ComposeModal
+            onClose={() => setShowCompose(prev => !prev)}
+            username={username}
+          />
+        )}
       </div>
     </FormModal>
   )

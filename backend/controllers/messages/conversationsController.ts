@@ -3,6 +3,7 @@ import { excludeFields, getUserById } from "../../utils/user";
 import { DirectMessageModel } from "../../database/models/Message.model";
 import { LandlordModel } from "../../database/models/Landlord.model";
 import { TenantModel } from "../../database/models/Tenant.model";
+import { TradesmenModel } from "../../database/models/Tradesmen.model";
 import type mongoose from "mongoose";
 
 export const getUsernames = async (
@@ -76,7 +77,8 @@ export const getConversations = async (
   try {
     const recipient =
       (await LandlordModel.findOne({ username })) ||
-      (await TenantModel.findOne({ username }));
+      (await TenantModel.findOne({ username })) ||
+      (await TradesmenModel.findOne({ username }));
 
     if (!recipient) return res.status(404).json({ message: 'User not found' });
 
@@ -112,7 +114,8 @@ export const getConversations = async (
           // fallback: fetch sender user by id from either model
           const sender =
             (await LandlordModel.findById(messages.sender).select('username').lean()) ||
-            (await TenantModel.findById(messages.sender).select('username').lean());
+            (await TenantModel.findById(messages.sender).select('username').lean()) ||
+            (await TradesmenModel.findById(messages.sender).select('username').lean());
 
           senderUsername = sender?.username || 'Unknown';
         }

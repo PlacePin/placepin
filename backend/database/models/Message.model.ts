@@ -21,7 +21,7 @@ const directMessageSchema = new mongoose.Schema({
   participantsModel: {
     type: [String],
     required: true,
-    enum: ['Landlords', 'Tenants'],
+    enum: ['Landlords', 'Tenants', 'Tradesmen'],
   },
   messages: [messageSchema],
   lastUpdated: { type: Date, default: Date.now },
