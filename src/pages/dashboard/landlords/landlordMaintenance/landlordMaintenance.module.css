@@ -68,6 +68,10 @@
   align-items: center;
 }
 
+.profession {
+  color: var(--color-primary);
+}
+
 .infoIcon {
   padding-right: 0.25rem;
 }

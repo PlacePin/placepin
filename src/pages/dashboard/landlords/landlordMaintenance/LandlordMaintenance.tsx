@@ -27,7 +27,7 @@ const LandlordMaintenance = () => {
   };
 
   const { data, error } = useGetAxios(`/api/landlords/tradesmen`);
-  
+
   if (error) {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
@@ -41,6 +41,8 @@ const LandlordMaintenance = () => {
   const numberOfTradesmen = tradesmen.length
 
   const tradesmenCards = tradesmen.map((tradesmen: TradesmenProps) => {
+    const tradesmenProfession = tradesmen.profession ? tradesmen.profession : '';
+
     return (
       <div
         key={tradesmen._id}
@@ -56,6 +58,9 @@ const LandlordMaintenance = () => {
         >
           <p>
             {capitalizeWords(tradesmen.fullName)}
+          </p>
+          <p className={styles.profession}>
+            {tradesmenProfession}
           </p>
           <button
             className={styles.infoButton}
