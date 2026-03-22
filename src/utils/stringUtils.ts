@@ -56,7 +56,7 @@ export const firstNameLastInitial = (name: string) => {
   return `${firstNameCap} ${lastNameInitial}`
 }
 
-// This capitalizes the first lestter of a sentence
+// This capitalizes the first letter of a sentence
 
 export const firstLetterCapitalize = (word: string) => {
   let capitalize = [word[0].toLocaleUpperCase()];

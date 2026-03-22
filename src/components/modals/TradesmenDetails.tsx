@@ -1,4 +1,4 @@
-import { capitalizeWords } from '../../utils/stringUtils';
+import { capitalizeWords, firstNameLastInitial } from '../../utils/stringUtils';
 import PrimaryButton from '../buttons/PrimaryButton';
 import FormModal from './FormModal';
 import styles from './tradesmenDetails.module.css';
@@ -19,6 +19,7 @@ const TradesmenDetails = ({
 
   const fullName = capitalizeWords(tradesmen.fullName)
   const username = tradesmen.username
+  const profession = tradesmen.profession ? tradesmen.profession : "No Listed"
 
   console.log(tradesmen)
   return (
@@ -33,7 +34,7 @@ const TradesmenDetails = ({
           </div>
         </div>
         <div className={styles.nameContainer}>
-          <p>Trade: <span>Electrician</span></p>
+          <p>Trade: <span>{profession}</span></p>
           <h2 className={styles.name}>
             {fullName}
           </h2>
@@ -60,7 +61,7 @@ const TradesmenDetails = ({
         </div>
       </div>
       <div className={styles.button}>
-        <PrimaryButton title={'Book Appointment'} />
+        <PrimaryButton title={`Message ${firstNameLastInitial(tradesmen.fullName)}`} />
       </div>
     </FormModal>
   )

@@ -28,8 +28,6 @@ const TenantSummary = ({
 
   const daysAsTenant = calculateDaysFromDate(moveInDate);
 
-  console.log(totalExpenses)
-
   const ContactTenant = () => {
     return (
       <div className={styles.contact}>
