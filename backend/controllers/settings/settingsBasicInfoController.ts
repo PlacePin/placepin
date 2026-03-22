@@ -6,7 +6,7 @@ export const settingsBasicInfo = async (
   res: Response
 ) => {
   const userId = req.userId
-  const includeFields = 'email fullName phoneNumber username profilePic';
+  const includeFields = 'email fullName phoneNumber username profilePic gender dateOfBirth';
 
   if(!userId){
     return res.status(401).json({ message: "Invalid token" });

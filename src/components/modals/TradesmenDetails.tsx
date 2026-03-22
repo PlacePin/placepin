@@ -19,7 +19,7 @@ const TradesmenDetails = ({
 
   const fullName = capitalizeWords(tradesmen.fullName)
   const username = tradesmen.username
-  const profession = tradesmen.profession ? tradesmen.profession : "No Listed"
+  const profession = tradesmen.profession ? tradesmen.profession : "Not Listed"
 
   console.log(tradesmen)
   return (
