@@ -17,9 +17,9 @@ export const forgotPasswordController = async (req: Request, res: Response) => {
 
     try {
         const user =
-            (await TenantModel.findOne({email: email.toLowercase().trim()}))||
-            (await LandlordModel.findOne({email: email.toLowercase().trim()}))||
-            (await TradesmenModel.findOne({email: email.toLowercase().trim()}));
+            (await TenantModel.findOne({email: email.toLowerCase().trim()}))||
+            (await LandlordModel.findOne({email: email.toLowerCase().trim()}))||
+            (await TradesmenModel.findOne({email: email.toLowerCase().trim()}));
 
         if(!user){
             return res.status(200).json(genericResponse);

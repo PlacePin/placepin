@@ -90,10 +90,10 @@ export const emailPasswordReset = async (userEmail: string, resetUrl: string) =>
     from: GMAIL_USER,
     to: `${userEmail}`,
     subject: "PlacePin Password Reset Request",
-    text: `<h2>Reset your password</h2>
-    <p>'We recieved a request to reset your password for your PlacePin account.'</p>
-    <p> Please click the link below to choose a new password. This link will expire in 1 hour </p>
-    <a href = '${resetUrl}'> Reset Password </a>
+    text: `
+    We recieved a request to reset your password for your PlacePin account.
+    Please click the link below to choose a new password. This link will expire in 1 hour
+    ${resetUrl}
     `,
   });
 
