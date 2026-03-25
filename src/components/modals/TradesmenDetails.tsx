@@ -57,7 +57,7 @@ const TradesmenDetails = ({
         </div>
         <div className={styles.optionsContainer}>
           <h4>
-            Options
+            Work Preferences
           </h4>
           <p>Retainer: <span>No</span></p>
           <p>Location/Range: <span>Boston ~ 10mi</span></p>

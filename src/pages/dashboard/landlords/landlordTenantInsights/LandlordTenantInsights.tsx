@@ -90,8 +90,6 @@ const LandlordTenantInsights = () => {
     totalExpenses += tenant.expenses
   })
 
-  console.log('data', tenants)
-
   return (
     <>
       {numberOfTenants

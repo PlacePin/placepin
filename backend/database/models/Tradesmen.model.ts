@@ -11,6 +11,7 @@ const tradesmenSchema = new mongoose.Schema({
     state: String,
     zip: String
   },
+  background: [String],
   createdAt: { type: Date, default: Date.now },
   dateOfBirth: Number,
   email: {
@@ -23,6 +24,12 @@ const tradesmenSchema = new mongoose.Schema({
   gender: String,
   hasAcceptedPrivacyPolicy: Boolean,
   lastActive: { type: Date, default: null },
+  workPreferences: {
+    retainer: { type: Boolean, default: false },
+    location: { type: String, default: '' },
+    range: { type: Number, default: 0 },
+    onCall: { type: Boolean, default: false },
+  },
   password: { type: String, required: true },
   phoneNumber: Number,
   profession: String,
