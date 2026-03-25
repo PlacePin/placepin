@@ -42,17 +42,20 @@ const LandlordMaintenance = () => {
 
   const tradesmenCards = tradesmen.map((tradesmen: TradesmenProps) => {
     const tradesmenProfession = tradesmen.profession ? tradesmen.profession : '';
+    const profilePic = tradesmen.profilePic ?
+      <img className={styles.profilePic} src={tradesmen.profilePic} alt='Profile Pic' /> :
+      <User
+        width={150}
+        height={200}
+        strokeWidth={1}
+      />
 
     return (
       <div
         key={tradesmen._id}
         className={styles.tradesmenCards}
       >
-        <User
-          width={150}
-          height={200}
-          strokeWidth={1}
-        />
+        {profilePic}
         <div
           className={styles.descriptionWrapper}
         >

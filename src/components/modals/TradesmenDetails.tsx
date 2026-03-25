@@ -21,11 +21,20 @@ const TradesmenDetails = ({
     <img className={styles.profilePic} src={tradesmen.profilePic} alt='Profile Pic' /> :
     <img className={styles.profilePic} src='/emptyProfile.png' alt='Empty Profile Pic' />
 
-  const fullName = capitalizeWords(tradesmen.fullName)
-  const username = tradesmen.username
-  const profession = tradesmen.profession ? tradesmen.profession : "Not Listed"
+  const fullName = capitalizeWords(tradesmen.fullName);
+  const username = tradesmen.username;
+  const profession = tradesmen.profession ? tradesmen.profession : 'Not Listed';
+  const location = tradesmen.workPreferences.location ? tradesmen.workPreferences.location : 'Not Listed';
+  const range = tradesmen.workPreferences.range;
+  const onCall = tradesmen.workPreferences.onCall ? 'Yes' : 'No';
+  const retainer = tradesmen.workPreferences.retainer ? 'Yes' : 'No';
 
-  console.log(tradesmen)
+  const backgroundList = tradesmen.background.length > 0
+    ? tradesmen.background.map((backgroundItem: string, item: number) => {
+      return <p key={item}>{backgroundItem}</p>
+    })
+    : <p>Nothing was found for this persons background.</p>
+
   return (
     <FormModal
       title={capitalizeWords(tradesmen.fullName)}
@@ -51,17 +60,15 @@ const TradesmenDetails = ({
           <h4>
             Background:
           </h4>
-          <p>15 years of experience</p>
-          <p>Foreman at The Tower</p>
-          <p>HVAC Certified</p>
+          {backgroundList}
         </div>
         <div className={styles.optionsContainer}>
           <h4>
             Work Preferences
           </h4>
-          <p>Retainer: <span>No</span></p>
-          <p>Location/Range: <span>Boston ~ 10mi</span></p>
-          <p>On-Call: <span>Yes</span></p>
+          <p>Retainer: <span>{retainer}</span></p>
+          <p>Location/Range: <span>{`${location} ~ ${range}mi`}</span></p>
+          <p>On-Call: <span>{onCall}</span></p>
         </div>
       </div>
       <div className={styles.button}>

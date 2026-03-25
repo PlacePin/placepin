@@ -54,6 +54,11 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
+.profilePic {
+  width: 10rem;
+  height: 10rem;
+}
+
 .tradesmenCardsContainer {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
