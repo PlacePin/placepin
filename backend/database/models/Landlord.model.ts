@@ -22,8 +22,10 @@ const landlordSchema = new mongoose.Schema({
   hasAcceptedPrivacyPolicy: Boolean,
   lastActive: { type: Date, default: null },
   password: { type: String, required: true },
-  passwordResetToken: { type: String},
-  passwordResetExpires: {type: Date},
+  passwordReset: {
+    token: { type: String, default: null },
+    expires: { type: Date, default: null },
+  },
   phoneNumber: Number,
   profilePic: {
     type: String,

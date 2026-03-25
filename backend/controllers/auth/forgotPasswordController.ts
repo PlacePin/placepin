@@ -28,8 +28,7 @@ export const forgotPasswordController = async (req: Request, res: Response) => {
         const rawToken = crypto.randomBytes(32).toString('hex')
         const hashedToken = crypto.createHash('sha256').update(rawToken).digest('hex')
 
-        user.passwordResetToken = hashedToken
-        user.passwordResetExpires = new Date(Date.now() + 60 * 60 * 1000) //creates an expiration time of 1 hour from when the resetToken was created
+        user.passwordReset = { token: hashedToken, expires: new Date(Date.now() + 60 * 60 * 1000) } //creates an expiration time of 1 hour from when the resetToken was created
         await user.save();
 
         const clientUrl = 'http://localhost:5173' //once we have the site up and running this should be changed to whatever the plaepin URL will be

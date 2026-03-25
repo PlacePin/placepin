@@ -17,17 +17,16 @@ export const resetPasswordController = async (req: Request, res: Response) => {
 
     try {
         const user =
-            await TenantModel.findOne({ passwordResetToken: hashedToken, passwordResetExpires: { $gt: new Date() } }) ||
-            await LandlordModel.findOne({ passwordResetToken: hashedToken, passwordResetExpires: { $gt: new Date() } }) ||
-            await TradesmenModel.findOne({ passwordResetToken: hashedToken, passwordResetExpires: { $gt: new Date() } });
+            await TenantModel.findOne({ 'passwordReset.token': hashedToken, 'passwordReset.expires': { $gt: new Date() } }) ||
+            await LandlordModel.findOne({ 'passwordReset.token': hashedToken, 'passwordReset.expires': { $gt: new Date() } }) ||
+            await TradesmenModel.findOne({ 'passwordReset.token': hashedToken, 'passwordReset.expires': { $gt: new Date() } });
 
         if (!user) {
             return res.status(400).json({ message: 'Reset link is invalid or has expired.' });
         }
 
         user.password = await bcrypt.hash(password, 10);
-        user.set('passwordResetToken', undefined);
-        user.set('passwordResetExpires', undefined);
+        user.set('passwordReset', { token: null, expires: null });
         await user.save();
 
         return res.status(200).json({ message: 'Password reset successfully. You can now log in.' });
