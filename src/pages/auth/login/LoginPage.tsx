@@ -76,7 +76,7 @@ const LoginPage = () => {
                   id="password"
                   required
                 />
-                <NavLink className={styles.navLink} to="/">
+                <NavLink className={styles.navLink} to="/forgot-password">
                   <p className={styles.forgotPassword}>Forgot Password?</p>
                 </NavLink>
                 <button>Login</button>

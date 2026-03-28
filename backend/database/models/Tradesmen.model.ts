@@ -31,6 +31,10 @@ const tradesmenSchema = new mongoose.Schema({
     onCall: { type: Boolean, default: false },
   },
   password: { type: String, required: true },
+  passwordReset: {
+    token: { type: String, default: null },
+    expires: { type: Date, default: null },
+  },
   phoneNumber: Number,
   profession: String,
   profilePic: {
