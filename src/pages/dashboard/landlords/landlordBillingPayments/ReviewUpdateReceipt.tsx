@@ -8,12 +8,14 @@ import { FileDown } from 'lucide-react';
 
 interface ReviewUpdateReceiptProps {
   onClose: () => void;
-  receiptInfo: Record<string, any>[]
+  receiptInfo: Record<string, any>[],
+  onReceiptUpdated: () => void;
 }
 
 const ReviewUpdateReceipt = ({
   onClose,
   receiptInfo = [],
+  onReceiptUpdated,
 }: ReviewUpdateReceiptProps) => {
   const [selectedYear, setSelectedYear] = useState('2024');
   const [selectedProperty, setSelectedProperty] = useState('');
@@ -93,7 +95,7 @@ const ReviewUpdateReceipt = ({
       }));
     }
 
-    const yearData = property.taxYearsData.find((ty: { year: any; }) => ty.year.toString() === selectedYear);
+    const yearData = property.taxYearsData.find((taxYear: { year: any; }) => taxYear.year.toString() === selectedYear);
     const receiptsForYear = yearData?.receipts || [];
 
     // Initialize expenses object with all categories
@@ -374,6 +376,7 @@ const ReviewUpdateReceipt = ({
       {showReceiptModal && selectedReceipt &&
         <EditReceiptModal
           onClose={() => setShowReceiptModal(prev => !prev)}
+          onReceiptUpdated={onReceiptUpdated}
           propertyId={selectedProperty}
           amount={selectedReceipt.amount}
           date={selectedReceipt.date}
