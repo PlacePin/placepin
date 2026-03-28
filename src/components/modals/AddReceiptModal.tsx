@@ -6,11 +6,13 @@ import axios from 'axios';
 
 interface AddReceiptModalProps {
   onClose: () => void,
+  onReceiptAdded: () => void,
   properties: Record<string, any>[],
 }
 
 const AddReceiptModal = ({
   onClose,
+  onReceiptAdded,
   properties = []
 }: AddReceiptModalProps) => {
   const [errorMessage, setErrorMessage] = useState('')
@@ -64,6 +66,7 @@ const AddReceiptModal = ({
           },
         },
       )
+      onReceiptAdded();
       onClose();
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {

@@ -6,6 +6,7 @@ import axios from 'axios';
 
 interface EditReceiptModalProps {
   onClose: () => void,
+  onReceiptUpdated: () => void,
   receiptId: string,
   propertyId: string,
   amount: number,
@@ -19,6 +20,7 @@ interface EditReceiptModalProps {
 
 const EditReceiptModal = ({
   onClose,
+  onReceiptUpdated,
   receiptId,
   propertyId,
   amount,
@@ -81,6 +83,7 @@ const EditReceiptModal = ({
           },
         },
       )
+      onReceiptUpdated();
       onClose();
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
@@ -126,7 +129,7 @@ const EditReceiptModal = ({
               required
             >
               <option value="">Select a property</option>
-                {properties.map((property) => (
+              {properties.map((property) => (
                 <option key={property._id} value={property._id}>
                   {property.address.street}
                 </option>

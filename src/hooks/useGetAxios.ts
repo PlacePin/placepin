@@ -13,29 +13,26 @@ export const useGetAxios = (
   const { accessToken } = useAuth();
   const authToken = token || accessToken;
 
+  const fetchData = async (signal?: AbortSignal) => {
+    try {
+      const res = await axios.get(url, {
+        headers: { Authorization: `Bearer ${authToken}` },
+        signal // axios will automatically cancel the request if signal is aborted
+      });
+      setData(res.data);
+    } catch (err: any) {
+      if (axios.isCancel(err)) return; // silently ignore cancellations
+      setError(err.message || 'Unknown error');
+    }
+  };
+
   useEffect(() => {
-    let cancelled = false;
-
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(url, {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        },
-        );
-        if (!cancelled) setData(res.data);
-      } catch (err: any) {
-        if (!cancelled) setError(err.message || "Unknown error");
-      }
-    };
-
-    fetchData();
-
-    return () => {
-      cancelled = true;
-    };
+    const controller = new AbortController();
+    fetchData(controller.signal);
+    return () => controller.abort(); // cancels the in-flight request on unmount
   }, [...deps, authToken]);
 
-  return { data, error };
+  // Refetch is the fetchData function and will allow you to refetch data on data change
+
+  return { data, error, refetch: () => fetchData() };
 }

@@ -8,7 +8,7 @@ import ReviewUpdateReceipt from './ReviewUpdateReceipt';
 const LandlordBillingPayments = () => {
 
   const [showReviewUpdateReceipt, setShowReviewUpdateReceipt] = useState(false);
-  const { data } = useGetAxios('/api/landlords/receipts');
+  const { data, refetch } = useGetAxios('/api/landlords/receipts');
 
   if (!data) {
     return <div>{'Loading Data'}</div>
@@ -20,13 +20,17 @@ const LandlordBillingPayments = () => {
         <ReviewUpdateReceipt
           onClose={() => setShowReviewUpdateReceipt(prev => !prev)}
           receiptInfo={data.properties}
+          onReceiptUpdated={refetch}
         />
       ) : (
         <div className={styles.billingContainer}>
           <ReviewUpdateReceiptCard
             openReceipts={() => setShowReviewUpdateReceipt(prev => !prev)}
           />
-          <AddReceiptCard properties={data.properties} />
+          <AddReceiptCard
+            properties={data.properties}
+            onReceiptAdded={refetch}
+          />
         </div>
       )}
     </>
