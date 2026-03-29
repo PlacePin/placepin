@@ -165,7 +165,7 @@ const LandingPage = () => {
               </div>
             </div>
           </div>
-          <div className={styles.pricingCards}>
+          <div className={styles.pricingCards} style={{ display: 'none' }}>
             <div className={styles.pricingCard}>
               <div className={styles.planLabel}>TENANTS</div>
               <h3>Essential</h3>
