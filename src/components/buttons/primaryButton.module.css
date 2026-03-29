@@ -10,3 +10,10 @@
   align-items: center;
   font-weight: 600;
 }
+
+.disabled {
+  background: var(--color-surface-2, #e0e0e0);
+  color: var(--color-text-secondary, #9e9e9e);
+  cursor: not-allowed;
+  opacity: 0.6;
+}

@@ -148,6 +148,20 @@
   white-space: nowrap;
 }
 
+.badgeComingSoon {
+  background:  #e0e0e0;
+  color:  #757575;
+}
+
+.miscDisabled {
+  opacity: 0.65;
+}
+
+.miscDisabled .giftIcon {
+  color:  #9e9e9e;
+  background: rgba(0, 0, 0, 0.05);
+}
+
 .miscContent {
   flex: 1;
   display: flex;

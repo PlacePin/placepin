@@ -96,18 +96,19 @@ const TenantSummary = ({
           </div>
         </div>
       </div>
-      <div className={`${styles.defaultCardStyles} ${styles.misc}`}>
+      <div className={`${styles.defaultCardStyles} ${styles.misc} ${styles.miscDisabled}`}>
         <div className={styles.miscHeader}>
           <Gift className={styles.giftIcon} />
-          <span className={styles.badge}>Premium</span>
+          <span className={`${styles.badge} ${styles.badgeComingSoon}`}>Coming Soon</span>
         </div>
         <div className={styles.miscContent}>
           <h3 className={styles.miscTitle}>Gift a Perk</h3>
-          <p className={styles.miscDescription}>Reward great tenants with perks</p>
+          <p className={styles.miscDescription}>A paid feature — reward great tenants with perks</p>
         </div>
         <PrimaryButton
           title={'Send Gift'}
           icon={<ArrowRight size={16} />}
+          disabled
         />
       </div>
       {showCompose && (
