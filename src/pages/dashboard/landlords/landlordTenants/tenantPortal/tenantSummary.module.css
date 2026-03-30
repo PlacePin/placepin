@@ -155,6 +155,8 @@
 
 .miscDisabled {
   opacity: 0.65;
+  pointer-events: none;
+  user-select: none;
 }
 
 .miscDisabled .giftIcon {

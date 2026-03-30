@@ -108,6 +108,7 @@ const TenantSummary = ({
         <PrimaryButton
           title={'Send Gift'}
           icon={<ArrowRight size={16} />}
+          onClick={() => {}}
           disabled
         />
       </div>
