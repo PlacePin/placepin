@@ -26,7 +26,7 @@ const TenantLogbook = ({
         {age &&
           <p>Age: <span>{age}</span></p>
         }
-        <p>Government Assistants: <span>{governmentAssistance}</span></p>
+        <p>Government Assistance: <span>{governmentAssistance}</span></p>
       </div>
     </div>
   )

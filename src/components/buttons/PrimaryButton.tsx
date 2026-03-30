@@ -5,7 +5,8 @@ interface PrimaryButtonProps {
   title: string,
   onClick?: () => void,
   icon?: ReactNode;
-  className?: string
+  className?: string;
+  disabled?: boolean;
 }
 
 const PrimaryButton = ({
@@ -13,12 +14,14 @@ const PrimaryButton = ({
   onClick,
   icon,
   className,
+  disabled,
 }: PrimaryButtonProps) => {
   return (
     <div className={className}>
       <button
         onClick={onClick}
-        className={styles.button}
+        className={`${styles.button} ${disabled ? styles.disabled : ''}`}
+        disabled={disabled}
       >
         {icon}{title}
       </button>
