@@ -13,12 +13,11 @@ import LandlordHomepage from "../pages/dashboard/landlords/landlordHomepage/Land
 import LandlordProperties from "../pages/dashboard/landlords/landlordProperties/LandlordProperties";
 import LandlordBillingPayments from "../pages/dashboard/landlords/landlordBillingPayments/LandlordBillingPayments";
 import LandlordTenantInsights from "../pages/dashboard/landlords/landlordTenantInsights/LandlordTenantInsights";
-import LandlordMessaging from "../pages/dashboard/landlords/landlordMessaging/LandlordMessaging";
 import LandlordMaintenance from "../pages/dashboard/landlords/landlordMaintenance/LandlordMaintenance";
+import Messaging from "../pages/dashboard/messaging/Messaging";
 import GeneralSettings from "../pages/settings/GeneralSettings";
 import SuccessfulSubscriptionPage from "../pages/stripeUrlPages/SuccessfulSubscriptionPage";
 import FailedSubscriptionPage from "../pages/stripeUrlPages/FailedSubscriptionPage";
-import TenantMessaging from "../pages/dashboard/tenants/tenantMessaging/TenantMessaging";
 import TenantHomepage from "../pages/dashboard/tenants/tenantHomepage/TenantHomepage";
 import TradesmenDashboard from "../pages/dashboard/tradesmen/TradesmenDashboard";
 import TradesmenHomepage from "../pages/dashboard/tradesmen/tradesmenHomepage/TradesmenHomepage";
@@ -69,7 +68,7 @@ const routes: RouteObject[] = [
           },
           {
             path: LANDLORD_CHILD_ROUTES.MESSAGING,
-            element: <LandlordMessaging />
+            element: <Messaging />
           },
           {
             path: LANDLORD_CHILD_ROUTES.SETTINGS,
@@ -92,7 +91,7 @@ const routes: RouteObject[] = [
           },
           {
             path: TENANT_CHILD_ROUTES.MESSAGING,
-            element: <TenantMessaging />
+            element: <Messaging />
           },
           {
             path: TENANT_CHILD_ROUTES.SETTINGS,
@@ -115,7 +114,7 @@ const routes: RouteObject[] = [
           },
           {
             path: TRADESMEN_CHILD_ROUTES.MESSAGING,
-            element: <TenantMessaging />
+            element: <Messaging />
           },
           {
             path: TRADESMEN_CHILD_ROUTES.SETTINGS,

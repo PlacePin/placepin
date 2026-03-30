@@ -57,11 +57,17 @@ export function chatSocket(server: any) {
             participants: { $all: [senderId, receiverId] },
           });
 
+          const getModelName = (accountType: string) => {
+            if (accountType === 'landlord') return 'Landlords';
+            if (accountType === 'tradesmen') return 'Tradesmen';
+            return 'Tenants';
+          };
+
           if (!conversation) {
             // Create new conversation if none exists
             conversation = new DirectMessageModel({
               participants: [senderId, receiverId],
-              participantsModel: [user.accountType, receiver.accountType],
+              participantsModel: [getModelName(user.accountType ?? ''), getModelName(receiver.accountType ?? '')],
               messages: [],
             });
           }

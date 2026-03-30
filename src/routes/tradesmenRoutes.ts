@@ -1,10 +1,10 @@
 export const TRADESMEN_ROUTES = {
   DASHBOARD: '/tradesmendashboard',
-  MESSAGING: '/tradesmendashboard/tradesmenmessaging',
+  MESSAGING: '/tradesmendashboard/messaging',
   SETTINGS: '/tradesmendashboard/generalsettings',
 }
 
 export const TRADESMEN_CHILD_ROUTES = {
-  MESSAGING: 'tradesmenmessaging',
+  MESSAGING: 'messaging',
   SETTINGS: 'generalsettings',
 }

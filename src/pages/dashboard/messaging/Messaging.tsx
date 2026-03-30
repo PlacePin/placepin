@@ -1,14 +1,14 @@
-import { useGetAxios } from '../../../../hooks/useGetAxios';
-import { useAuth } from '../../../../context/AuthContext';
+import { useGetAxios } from '../../../hooks/useGetAxios';
+import { useAuth } from '../../../context/AuthContext';
 import { useEffect, useRef, useState } from 'react';
 import { MessageCircleMore, Plus } from 'lucide-react';
 import { io, Socket } from 'socket.io-client';
 import { jwtDecode } from 'jwt-decode';
-import type { DecodedAccessToken } from '../../../../interfaces/interfaces';
+import type { DecodedAccessToken } from '../../../interfaces/interfaces';
 import axios from 'axios';
-import styles from './landlordMessaging.module.css';
-import ComposeModal from '../../../../components/modals/ComposeModal';
-import PrimaryButton from '../../../../components/buttons/PrimaryButton';
+import styles from './messaging.module.css';
+import ComposeModal from '../../../components/modals/ComposeModal';
+import PrimaryButton from '../../../components/buttons/PrimaryButton';
 import { NavLink } from 'react-router-dom';
 
 type Message = {
@@ -17,7 +17,7 @@ type Message = {
   sentAt: string;
 };
 
-const LandlordMessaging = () => {
+const Messaging = () => {
   const [people, setPeople] = useState<string[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [messages, setMessages] = useState<Record<string, Message[]>>({});
@@ -268,4 +268,4 @@ const LandlordMessaging = () => {
   );
 };
 
-export default LandlordMessaging;
+export default Messaging;

@@ -48,8 +48,17 @@ export const getUsernames = async (
     );
 
     const validUser = usernames.filter(Boolean);
+    const validUsername: string[] = validUser.map(user => user?.username).filter(Boolean) as string[]; // this is the array of usernames to return, I wanted this to be specified as a string to prevent any type errors when using .includes() and unshift()
 
-    const validUsername = validUser.map(user => user?.username)
+    // If the user is a tenant with a referredByLandlord, include that landlord
+    // in the contacts list even if no conversation exists yet
+    const tenant = await TenantModel.findById(userId).select('referredByLandlord').lean();
+    if (tenant?.referredByLandlord) {
+      const landlord = await LandlordModel.findById(tenant.referredByLandlord).select('username').lean();
+      if (landlord?.username && !validUsername.includes(landlord.username)) {
+        validUsername.unshift(landlord.username);
+      }
+    }
 
     return res.status(200).json({ usernames: validUsername })
   } catch (err) {
