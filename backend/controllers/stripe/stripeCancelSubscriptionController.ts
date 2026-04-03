@@ -44,22 +44,22 @@ export const stripeCancelSubscription = async (
     });
 
     // Update database
-    const updateQuery = {
+    const updatedSubscription = {
       'subscription.isSubscribed': false,
       'subscription.stripeSubscriptionId': null
     };
 
     if (user.accountType === 'landlord') {
-      await LandlordModel.updateOne({ _id: userId }, updateQuery);
+      await LandlordModel.updateOne({ _id: userId }, updatedSubscription);
     } else if(user.accountType === 'tenant') {
-      await TenantModel.updateOne({ _id: userId }, updateQuery);
+      await TenantModel.updateOne({ _id: userId }, updatedSubscription);
     } else if(user.accountType === 'tradesmen'){
-      await TradesmenModel.updateOne({ _id: userId }, updateQuery)
+      await TradesmenModel.updateOne({ _id: userId }, updatedSubscription)
     } else {
       return res.status(400).json({ error: 'No Correct User Type'})
     }
 
-    return res.status(200).json({ message: 'Subscription cancelled successfully' })
+    return res.status(200).json({ updatedSubscription })
   } catch (err) {
     console.error(err)
     return res.status(500).json({ error: 'Unexpected error!' })

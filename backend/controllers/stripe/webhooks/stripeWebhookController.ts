@@ -86,14 +86,14 @@ export const stripeWebhookController = async (
         const stripeCustomerId =
           typeof subscription.customer === "string" ? subscription.customer : subscription.customer.id;
 
-        const updateQuery = {
+        const updatedSubscription = {
           "subscription.isSubscribed": false,
           "subscription.stripeSubscriptionId": null
         };
 
-        await LandlordModel.updateOne({ "subscription.stripeCustomerId": stripeCustomerId }, updateQuery);
-        await TenantModel.updateOne({ "subscription.stripeCustomerId": stripeCustomerId }, updateQuery);
-        await TradesmenModel.updateOne({ "subscription.stripeCustomerId": stripeCustomerId }, updateQuery);
+        await LandlordModel.updateOne({ "subscription.stripeCustomerId": stripeCustomerId }, updatedSubscription);
+        await TenantModel.updateOne({ "subscription.stripeCustomerId": stripeCustomerId }, updatedSubscription);
+        await TradesmenModel.updateOne({ "subscription.stripeCustomerId": stripeCustomerId }, updatedSubscription);
 
         console.log("Subscription deleted for:", stripeCustomerId);
         break;

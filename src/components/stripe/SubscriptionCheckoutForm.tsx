@@ -31,7 +31,7 @@ const SubscriptionCheckoutForm = () => {
     if (subscription) {
       try {
         console.log('cancel')
-        await axios.post(
+        const { data } = await axios.post(
           '/api/settings/stripe/cancel-subscription',
           null,
           {
@@ -40,6 +40,8 @@ const SubscriptionCheckoutForm = () => {
             }
           }
         );
+        console.log(data, data.updatedSubscription.subscription.isSubscribed)
+        // setSubscription(data.updatedSubscription.subscription.isSubscribed)
       } catch (error) {
         console.error(error)
       }
