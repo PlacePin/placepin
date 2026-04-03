@@ -253,6 +253,11 @@ const SignupPage = () => {
                 >
                   Have an account? <NavLink to='/login'>Login</NavLink>
                 </p>
+                <p className={styles.login}>
+                  {`By signing up, you agree to our `}
+                  <NavLink to='/termsofservice'>{`Terms of Service`}</NavLink> {`and `}
+                  <NavLink to='/privacypolicy'>{`Privacy Policy.`}</NavLink>
+                </p>
                 <p className={`${styles.errorMessage} ${styles.inputLabel}`}>{errorMessage}</p>
               </form>
             </div>
