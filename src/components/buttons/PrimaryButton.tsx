@@ -2,30 +2,28 @@ import type { ReactNode } from 'react';
 import styles from './primaryButton.module.css';
 
 interface PrimaryButtonProps {
-  title: string,
   onClick?: () => void,
+  title: string,
   icon?: ReactNode;
   className?: string;
   disabled?: boolean;
 }
 
 const PrimaryButton = ({
-  title,
   onClick,
+  title,
   icon,
   className,
   disabled,
 }: PrimaryButtonProps) => {
   return (
-    <div className={className}>
-      <button
-        onClick={onClick}
-        className={`${styles.button} ${disabled ? styles.disabled : ''}`}
-        disabled={disabled}
-      >
-        {icon}{title}
-      </button>
-    </div>
+    <button
+      onClick={onClick}
+      className={`${styles.button} ${className} ${disabled ? styles.disabled : ''}`}
+      disabled={disabled}
+    >
+      {icon}{title}
+    </button>
   )
 }
 
