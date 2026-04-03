@@ -36,7 +36,8 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
         isSubscribed: false,
         savedPaymentMethod: '',
         stripeCustomerId: '',
-        tier: 'free',
+        tier: 'Landlord-Sponsored',
+        stripeSubscriptionId: '',
       };
     }
 
@@ -45,6 +46,7 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
         isSubscribed: false,
         savedPaymentMethod: '',
         stripeCustomerId: '',
+        stripeSubscriptionId: '',
       };
     }
 

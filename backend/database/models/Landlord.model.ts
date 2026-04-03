@@ -90,6 +90,7 @@ const landlordSchema = new mongoose.Schema({
     isSubscribed: { type: Boolean, default: false },
     savedPaymentMethod: { type: String, default: null },
     stripeCustomerId: { type: String, default: null },
+    stripeSubscriptionId: { type: String, default: null },
   },
   username: { type: String, required: true },
 });

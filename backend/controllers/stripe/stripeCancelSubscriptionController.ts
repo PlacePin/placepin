@@ -2,6 +2,7 @@ import type { Response, Request } from "express";
 import dotenv from 'dotenv';
 import { LandlordModel, type LandlordDocumentType } from "../../database/models/Landlord.model";
 import { TenantModel, type TenantDocumentType } from "../../database/models/Tenant.model";
+import Stripe from 'stripe';
 
 dotenv.config();
 
@@ -25,6 +26,8 @@ export const stripeCancelSubscription = async (
   if (!STRIPE_TEST_SECRET_KEY) {
     return res.status(500).json({ message: 'Stripe key missing!' })
   }
+
+  const stripeAccess = new Stripe(STRIPE_TEST_SECRET_KEY)
 
   try {
 

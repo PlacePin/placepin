@@ -35,6 +35,8 @@ export const stripeWebhookController = async (
         if (session.mode === "subscription" && session.customer) {
           const stripeCustomerId =
             typeof session.customer === "string" ? session.customer : session.customer.id;
+          const stripeSubscriptionId =
+            typeof session.subscription === "string" ? session.subscription : null;
 
           const landlord = await LandlordModel.findOne({ "subscription.stripeCustomerId": stripeCustomerId })
           const tenant = await TenantModel.findOne({ "subscription.stripeCustomerId": stripeCustomerId })
@@ -46,7 +48,7 @@ export const stripeWebhookController = async (
               {
                 "subscription.isSubscribed": true,
                 // optional: store subscription id if present
-                // "subscription.stripeSubscriptionId": session.subscription
+                "subscription.stripeSubscriptionId": stripeSubscriptionId
               }
             );
             console.log("Marked LANDLORD subscribed for:", stripeCustomerId);
@@ -56,7 +58,7 @@ export const stripeWebhookController = async (
               {
                 "subscription.isSubscribed": true,
                 // optional: store subscription id if present
-                // "subscription.stripeSubscriptionId": session.subscription
+                "subscription.stripeSubscriptionId": stripeSubscriptionId
               }
             )
             console.log("Marked TENANT subscribed for:", stripeCustomerId);
@@ -64,6 +66,23 @@ export const stripeWebhookController = async (
             console.warn("No landlord or tenant found with stripeCustomerId:", stripeCustomerId);
           }
         }
+        break;
+      }
+
+      case "customer.subscription.deleted": {
+        const subscription = event.data.object as Stripe.Subscription;
+        const stripeCustomerId =
+          typeof subscription.customer === "string" ? subscription.customer : subscription.customer.id;
+
+        const updateQuery = {
+          "subscription.isSubscribed": false,
+          "subscription.stripeSubscriptionId": null
+        };
+
+        await LandlordModel.updateOne({ "subscription.stripeCustomerId": stripeCustomerId }, updateQuery);
+        await TenantModel.updateOne({ "subscription.stripeCustomerId": stripeCustomerId }, updateQuery);
+
+        console.log("Subscription deleted for:", stripeCustomerId);
         break;
       }
 

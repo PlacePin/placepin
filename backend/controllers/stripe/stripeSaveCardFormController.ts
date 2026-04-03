@@ -30,6 +30,7 @@ export const stripeSaveCardForm = async (
         savedPaymentMethod: '',
         stripeCustomerId: '',
         tier: '',
+        stripeSubscriptionId: '',
       };
     }
 

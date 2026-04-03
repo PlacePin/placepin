@@ -30,6 +30,7 @@ const SubscriptionCheckoutForm = () => {
 
     if (subscription) {
       try {
+        console.log('cancel')
         await axios.post(
           '/api/settings/stripe/cancel-subscription',
           null,
@@ -67,15 +68,16 @@ const SubscriptionCheckoutForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <SecondaryDangerButton
-        title={"Cancel Membership"}
-      />
-      <button
-        disabled={subscription || isPending}
-        className={`${styles.button} ${subscription && styles.notAllowed}`}
-      >
-        {isPending ? "Redirecting..." : "Checkout"}
-      </button>
+      {subscription ?
+        <SecondaryDangerButton
+          title={"Cancel Membership"}
+        /> :
+        <button
+          disabled={isPending}
+          className={`${styles.button} ${subscription && styles.notAllowed}`}
+        >
+          {isPending ? 'Redirecting...' : 'Checkout'}
+        </button>}
       <p className={styles.message}>{subscription && 'You are already subscribed!'}</p>
     </form>
   );

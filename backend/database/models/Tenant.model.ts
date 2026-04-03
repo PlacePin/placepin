@@ -88,6 +88,7 @@ const tenantSchema = new mongoose.Schema({
     savedPaymentMethod: { type: String, default: null },
     stripeCustomerId: { type: String, default: null },
     tier: { type: String, default: "Landlord-Sponsored" },
+    stripeSubscriptionId: { type: String, default: null },
   },
   username: { type: String, required: true },
 })
