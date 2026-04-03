@@ -35,17 +35,15 @@ const SubscriptionCheckoutForm = () => {
           null,
           {
             headers: {
-              Authorization: `bearer ${accessToken}`
+              Authorization: `Bearer ${accessToken}`
             }
           }
         );
-      } catch (err) {
-        console.error(err)
+      } catch (error) {
+        console.error(error)
       }
     } else {
-
       setIsPending(true);
-
       try {
         // 1. Create Checkout Session on the server
         const { data } = await axios.post(
@@ -53,7 +51,7 @@ const SubscriptionCheckoutForm = () => {
           null,
           {
             headers: {
-              Authorization: `bearer ${accessToken}`
+              Authorization: `Bearer ${accessToken}`
             }
           }
         );
