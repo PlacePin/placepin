@@ -10,7 +10,7 @@ import PrimaryButton from "../buttons/PrimaryButton";
 const SubscriptionCheckoutForm = () => {
 
   const [isPending, setIsPending] = useState(false);
-  const [subscription, setSubscription] = useState(false)
+  const [subscription, setSubscription] = useState(false);
 
   const { accessToken } = useAuth();
 
@@ -18,7 +18,7 @@ const SubscriptionCheckoutForm = () => {
     return <Navigate to="/login" replace />;
   }
 
-  const { data } = useGetAxios(`/api/subscription/status`)
+  const { data } = useGetAxios(`/api/subscription/status`);
 
   useEffect(() => {
     if (data?.subscription) {
@@ -44,9 +44,9 @@ const SubscriptionCheckoutForm = () => {
         const cancelSubscription = data.updatedSubscription['subscription.isSubscribed'];
         setSubscription(cancelSubscription);
       } catch (error) {
-        console.error(error)
+        console.error(error);
       } finally {
-        setIsPending(false)
+        setIsPending(false);
       }
     } else {
       try {
