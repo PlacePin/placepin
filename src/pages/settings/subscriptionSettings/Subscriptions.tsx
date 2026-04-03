@@ -1,4 +1,4 @@
-import styles from './subscriptions.module.css'
+import styles from './subscriptions.module.css';
 import SubscriptionCheckoutForm from "../../../components/stripe/SubscriptionCheckoutForm";
 
 const Subscriptions = () => {

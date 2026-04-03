@@ -4,11 +4,12 @@ import { useAuth } from "../../context/AuthContext";
 import { Navigate } from "react-router-dom";
 import styles from './subscriptionCheckoutForm.module.css';
 import { useGetAxios } from "../../hooks/useGetAxios";
+import SecondaryDangerButton from "../buttons/SecondaryDangerButton";
 
 const SubscriptionCheckoutForm = () => {
 
-  const [loading, setLoading] = useState(false);
-  const [subscripton, setSubscription] = useState(false)
+  const [isPending, setIsPending] = useState(false);
+  const [subscription, setSubscription] = useState(false)
 
   const { accessToken } = useAuth();
 
@@ -27,38 +28,57 @@ const SubscriptionCheckoutForm = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    setLoading(true);
-
-    try {
-      // 1. Create Checkout Session on the server
-      const { data } = await axios.post(
-        `/api/settings/stripe/subscription-checkout-form`,
-        null,
-        {
-          headers: {
-            Authorization: `bearer ${accessToken}`
+    if (subscription) {
+      try {
+        await axios.post(
+          '/api/settings/stripe/cancel-subscription',
+          null,
+          {
+            headers: {
+              Authorization: `bearer ${accessToken}`
+            }
           }
-        }
-      );
+        );
+      } catch (err) {
+        console.error(err)
+      }
+    } else {
 
-      // 2. Redirect to Stripe Checkout
-      window.location.href = data.sessionUrl;
-    } catch (error) {
-      console.error("Error during checkout:", error);
-    } finally {
-      setLoading(false);
+      setIsPending(true);
+
+      try {
+        // 1. Create Checkout Session on the server
+        const { data } = await axios.post(
+          `/api/settings/stripe/subscription-checkout-form`,
+          null,
+          {
+            headers: {
+              Authorization: `bearer ${accessToken}`
+            }
+          }
+        );
+        // 2. Redirect to Stripe Checkout
+        window.location.href = data.sessionUrl;
+      } catch (error) {
+        console.error("Error during checkout:", error);
+      } finally {
+        setIsPending(false);
+      }
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <SecondaryDangerButton
+        title={"Cancel Membership"}
+      />
       <button
-        disabled={subscripton || loading}
-        className={`${styles.button} ${subscripton && styles.notAllowed}`}
+        disabled={subscription || isPending}
+        className={`${styles.button} ${subscription && styles.notAllowed}`}
       >
-        {loading ? "Redirecting..." : "Checkout"}
+        {isPending ? "Redirecting..." : "Checkout"}
       </button>
-      <p className={styles.message}>{subscripton && 'You are already subscribed!'}</p>
+      <p className={styles.message}>{subscription && 'You are already subscribed!'}</p>
     </form>
   );
 };
