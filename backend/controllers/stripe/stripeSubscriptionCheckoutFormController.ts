@@ -21,7 +21,7 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
     const user: TenantDocumentType | LandlordDocumentType | null = landlord || tenant
 
     if (!user) {
-      return res.status(404).json({ message: "Landlord doesn't exist." })
+      return res.status(404).json({ message: "User doesn't exist." })
     }
 
     if (!STRIPE_TEST_SECRET_KEY) {
