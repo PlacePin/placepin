@@ -5,7 +5,7 @@ const Subscriptions = () => {
   return (
     <div className={styles.container}>
     <h2>Landlord Subscription</h2>
-      <p>Unlock all features for your rental management. <strong>$150/month</strong></p>
+      <p className={styles.description}>Unlock all features for your rental management. <strong>$150/month</strong></p>
         <SubscriptionCheckoutForm />
     </div>
   )
