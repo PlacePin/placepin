@@ -55,6 +55,8 @@ export const stripeCancelSubscription = async (
       await TenantModel.updateOne({ _id: userId }, updateQuery);
     } else if(user.accountType === 'tradesmen'){
       await TradesmenModel.updateOne({ _id: userId }, updateQuery)
+    } else {
+      return res.status(400).json({ error: 'No Correct User Type'})
     }
 
     return res.status(200).json({ message: 'Subscription cancelled successfully' })
