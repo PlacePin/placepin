@@ -3,6 +3,7 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import styles from './saveCardForm.module.css';
 import { useAuth } from "../../context/AuthContext";
 import axiosInstance from "../../utils/axiosInstance";
+import { NavLink } from "react-router-dom";
 
 const SaveCardForm = () => {
   const stripe = useStripe();
@@ -69,7 +70,7 @@ const SaveCardForm = () => {
 
   return (
     <>
-      <p>Save your debit/credit card</p>
+      <p>Save your debit card</p>
       <form
         onSubmit={handleSubmit}
         className={styles.form}
@@ -108,6 +109,16 @@ const SaveCardForm = () => {
           <p className={styles.message}>{message}</p>
         )}
       </form>
+      <p className={styles.legal}>
+        {`Payments are securely processed. By continuing, you agree to our `}
+        <NavLink to="/termsofservice">
+          {`Terms`}
+        </NavLink>
+        {" and "}
+        <NavLink to="/privacypolicy">
+          {`Privacy Policy`}
+        </NavLink>.
+      </p>
       <p className={styles.disclaimer}>This card is usually used to collect rent.</p>
     </>
   );

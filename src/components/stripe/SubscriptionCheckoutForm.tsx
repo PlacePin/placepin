@@ -72,7 +72,6 @@ const SubscriptionCheckoutForm = () => {
   };
 
   return (
-<<<<<<< HEAD
     <form
       onSubmit={handleSubmit}
       className={styles.form}
@@ -86,15 +85,6 @@ const SubscriptionCheckoutForm = () => {
           className={styles.form}
         />
       }
-      <p className={styles.message}>{subscription && 'You are already subscribed!'}</p>
-=======
-    <form onSubmit={handleSubmit}>
-      <button
-        disabled={subscripton || loading}
-        className={`${styles.button} ${subscripton && styles.notAllowed}`}
-      >
-        {loading ? "Redirecting..." : "Checkout"}
-      </button>
       <p className={styles.legal}>
         {`Payments are securely processed. By continuing, you agree to our `}
         <NavLink to="/termsofservice">
@@ -105,8 +95,7 @@ const SubscriptionCheckoutForm = () => {
           {`Privacy Policy`}
         </NavLink>.
       </p>
-      <p className={styles.message}>{subscripton && 'You are already subscribed!'}</p>
->>>>>>> b4ee49a (added the legal links to the subscription page)
+      <p className={styles.message}>{subscription && 'You are already subscribed!'}</p>
     </form>
   );
 };
