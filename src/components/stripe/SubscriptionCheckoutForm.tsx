@@ -1,6 +1,6 @@
 import { type FormEvent, useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { Navigate } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import styles from './subscriptionCheckoutForm.module.css';
 import { useGetAxios } from "../../hooks/useGetAxios";
 import SecondaryDangerButton from "../buttons/SecondaryDangerButton";
@@ -72,6 +72,7 @@ const SubscriptionCheckoutForm = () => {
   };
 
   return (
+<<<<<<< HEAD
     <form
       onSubmit={handleSubmit}
       className={styles.form}
@@ -86,6 +87,26 @@ const SubscriptionCheckoutForm = () => {
         />
       }
       <p className={styles.message}>{subscription && 'You are already subscribed!'}</p>
+=======
+    <form onSubmit={handleSubmit}>
+      <button
+        disabled={subscripton || loading}
+        className={`${styles.button} ${subscripton && styles.notAllowed}`}
+      >
+        {loading ? "Redirecting..." : "Checkout"}
+      </button>
+      <p className={styles.legal}>
+        {`Payments are securely processed. By continuing, you agree to our `}
+        <NavLink to="/termsofservice">
+          {`Terms`}
+        </NavLink>
+        {" and "}
+        <NavLink to="/privacypolicy">
+          {`Privacy Policy`}
+        </NavLink>.
+      </p>
+      <p className={styles.message}>{subscripton && 'You are already subscribed!'}</p>
+>>>>>>> b4ee49a (added the legal links to the subscription page)
     </form>
   );
 };
