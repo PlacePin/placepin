@@ -84,7 +84,7 @@ const LoginPage = () => {
                 <p>
                   Don’t have an account? <NavLink to="/signup">Sign up</NavLink>
                 </p>
-                <p>
+                <p className={styles.legalLinks}>
                   <NavLink to="/termsofservice">Terms</NavLink> ·{" "}
                   <NavLink to="/privacypolicy">Privacy</NavLink>
                 </p>
