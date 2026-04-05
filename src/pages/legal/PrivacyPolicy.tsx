@@ -10,7 +10,7 @@ const PrivacyPolicy = () => {
     {
       title: 'Information We Collect',
       content: 'We collect the following personal information that you provide to us directly:',
-      list: ['Full name', 'Email address', 'Gender', 'Age', 'Current living address', 'Property ownership address (if applicable)']
+      list: ['Full name', 'Email address', 'Gender', 'Age', 'Current living address', 'Property ownership address (if applicable)', 'We use a third-party payment processor (Stripe) to handle all payment transactions. When you enter your payment information, such as debit or credit card details, this information is transmitted directly to Stripe and is not stored on our servers.', 'We may receive limited information from Stripe, such as a payment method ID, transaction status, and billing-related metadata, which we use to manage your subscription.']
     },
     {
       title: 'How We Use Your Information',
@@ -38,7 +38,7 @@ const PrivacyPolicy = () => {
     },
     {
       title: 'Data Sharing',
-      content: "We do not sell, rent, or share your personal information with third parties. Your data remains within PlacePin's secure systems and is used solely for the purposes described in this policy."
+      content: "We do not sell or rent your personal information. However, we may share necessary information with trusted third-party service providers, such as Stripe, to process payments and provide our services."
     },
     {
       title: 'Your Rights and Choices',

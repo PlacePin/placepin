@@ -1,6 +1,6 @@
 import { type FormEvent, useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { Navigate } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import styles from './subscriptionCheckoutForm.module.css';
 import { useGetAxios } from "../../hooks/useGetAxios";
 import SecondaryDangerButton from "../buttons/SecondaryDangerButton";
@@ -85,6 +85,16 @@ const SubscriptionCheckoutForm = () => {
           className={styles.form}
         />
       }
+      <p className={styles.legal}>
+        {`Payments are securely processed. By continuing, you agree to our `}
+        <NavLink to="/termsofservice">
+          {`Terms`}
+        </NavLink>
+        {" and "}
+        <NavLink to="/privacypolicy">
+          {`Privacy Policy`}
+        </NavLink>.
+      </p>
       <p className={styles.message}>{subscription && 'You are already subscribed!'}</p>
     </form>
   );
