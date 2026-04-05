@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { updateUserById } from "../../utils/user";
+import { getUserByUsername, updateUserById } from "../../utils/user";
 
 function dateConversion(strDateOfBirth: string) {
   if(!strDateOfBirth) return null;
@@ -27,6 +27,13 @@ export const updateBasicInfo = async (
   if (username !== undefined) updates.username = username;
 
   try {
+    if (username !== undefined) {
+      const existingUser = await getUserByUsername(username);
+      if (existingUser && existingUser.id !== userId) {
+        return res.status(409).json({ message: "Username is already taken." });
+      }
+    }
+
     const updatedUser = await updateUserById(userId, updates);
 
     if (!updatedUser) {
