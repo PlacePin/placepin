@@ -129,7 +129,7 @@ const PrivacyPolicy = () => {
               {section.contact && (
                 <div className={styles.contactBlock}>
                   <p className={styles.contactLine}>
-                    <strong>Email:</strong> support@placepin.com
+                    <strong>Email:</strong> kerlin@placepin.io
                   </p>
                   <p className={styles.contactLine}>
                     <strong>Address:</strong> 1452 Dorchester Ave 4th fl, Dorchester, MA 02122
