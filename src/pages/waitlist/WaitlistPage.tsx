@@ -104,7 +104,7 @@ export default function WaitlistPage() {
           <p className={styles.hint}>No spam. Be the first to know when we go live.</p>
           {status === 'error' && (
             <p className={styles.errorNote}>
-              Something went wrong. Check your API key and try again.
+              Something went wrong. Please try again in a moment.
             </p>
           )}
         </>
