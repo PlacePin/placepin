@@ -25,9 +25,10 @@ import PrivacyPolicy from "../pages/legal/PrivacyPolicy";
 import TermsOfService from "../pages/legal/TermsOfService";
 import ForgotPasswordPage from "../pages/auth/forgotPassword/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/auth/resetPassword/ResetPasswordPage";
+import WaitlistPage from "../pages/waitlist/WaitlistPage";
 
 const routes: RouteObject[] = [
-  { path: '/', element: <LandingPage /> },
+  { path: '/', element: <WaitlistPage /> },
   { path: '/signup', element: <SignupPage /> },
   { path: '/login', element: <LoginPage /> },
   { path: '/forgot-password', element: <ForgotPasswordPage /> },
