@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import styles from './waitlistPage.module.css';
 
-const RESEND_API_KEY = import.meta.env.VITE_RESEND_API_KEY;
-const NOTIFY_EMAIL = 'kerlin@placepin.io';
-
 export default function WaitlistPage() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -19,18 +16,10 @@ export default function WaitlistPage() {
     setStatus('loading');
 
     try {
-      const res = await fetch('https://api.resend.com/emails', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/waitlist/join`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${RESEND_API_KEY}`,
-        },
-        body: JSON.stringify({
-          from: 'PlacePin <kerlin@placepin.io>',
-          to: [NOTIFY_EMAIL],
-          subject: `New waitlist signup: ${trimmed}`,
-          html: `<p><strong>${trimmed}</strong> just joined the PlacePin waitlist.</p>`,
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: trimmed }),
       });
 
       if (res.ok) {
