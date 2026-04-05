@@ -98,7 +98,7 @@ export default function WaitlistPage() {
               onClick={handleSubmit}
               disabled={status === 'loading'}
             >
-              {status === 'loading' ? 'Joining...' : 'Get early access'}
+              {status === 'loading' ? 'Joining...' : 'Notify me'}
             </button>
           </div>
           <p className={styles.hint}>No spam. Be the first to know when we go live.</p>
