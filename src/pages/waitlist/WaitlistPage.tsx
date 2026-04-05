@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './waitlistPage.module.css';
 
-const RESEND_API_KEY = 're_KTzDS8BS_HyNgaBT7nAmkBUxyCeU6KsUh';
+const RESEND_API_KEY = import.meta.env.VITE_RESEND_API_KEY;
 const NOTIFY_EMAIL = 'kerlin@placepin.io';
 
 export default function WaitlistPage() {
@@ -26,7 +26,7 @@ export default function WaitlistPage() {
           Authorization: `Bearer ${RESEND_API_KEY}`,
         },
         body: JSON.stringify({
-          from: 'PlacePin <onboarding@resend.dev>',
+          from: 'PlacePin <kerlin@placepin.io>',
           to: [NOTIFY_EMAIL],
           subject: `New waitlist signup: ${trimmed}`,
           html: `<p><strong>${trimmed}</strong> just joined the PlacePin waitlist.</p>`,
