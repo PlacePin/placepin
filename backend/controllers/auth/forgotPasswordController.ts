@@ -4,7 +4,9 @@ import { TenantModel } from '../../database/models/Tenant.model'
 import { LandlordModel } from '../../database/models/Landlord.model'
 import { TradesmenModel } from '../../database/models/Tradesmen.model'
 import { emailPasswordReset } from '../../utils/emailService'
+import dotenv from 'dotenv';
 
+dotenv.config();
 
 const genericResponse = {message: 'If an account with that email exists, a reset link will be sent.'}
 
@@ -31,7 +33,8 @@ export const forgotPasswordController = async (req: Request, res: Response) => {
         user.passwordReset = { token: hashedToken, expires: new Date(Date.now() + 60 * 60 * 1000) } //creates an expiration time of 1 hour from when the resetToken was created
         await user.save();
 
-        const clientUrl = 'http://localhost:5173' //once we have the site up and running this should be changed to whatever the plaepin URL will be
+        const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173'; 
+        
         const resetUrl = `${clientUrl}/reset-password/${rawToken}`;
 
         await emailPasswordReset(user.email, resetUrl)
