@@ -1,11 +1,8 @@
 import type { Response, Request } from "express";
-import dotenv from 'dotenv';
 import { LandlordModel, type LandlordDocumentType } from "../../database/models/Landlord.model";
 import { TenantModel, type TenantDocumentType } from "../../database/models/Tenant.model";
 import Stripe from 'stripe';
 import { TradesmenModel, type TradesmenDocumentType } from "../../database/models/Tradesmen.model";
-
-dotenv.config();
 
 export const stripeCancelSubscription = async (
   req: Request,

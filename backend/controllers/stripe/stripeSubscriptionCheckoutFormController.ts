@@ -1,11 +1,8 @@
 import type { Request, Response } from "express";
-import dotenv from 'dotenv';
 import Stripe from "stripe";
 import { LandlordModel, type LandlordDocumentType } from "../../database/models/Landlord.model";
 import { TenantModel, type TenantDocumentType } from "../../database/models/Tenant.model";
 import { TradesmenModel, type TradesmenDocumentType } from "../../database/models/Tradesmen.model";
-
-dotenv.config();
 
 export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response) => {
   const userId = req.userId
@@ -88,7 +85,7 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
           { 'subscription.stripeCustomerId': stripeCustomerId }
         );
       } else {
-        return res.status(400).json({ error: 'No Correct User Type'})
+        return res.status(400).json({ error: 'No Correct User Type' })
       }
     }
 
@@ -104,8 +101,8 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
           quantity: 1,
         },
       ],
-      success_url: "http://localhost:5173/success",
-      cancel_url: "http://localhost:5173/cancel",
+      success_url: `${process.env.CLIENT_URL}/success`,
+      cancel_url: `${process.env.CLIENT_URL}/cancel`,
     });
 
     return res.status(200).json({ sessionUrl: session.url })

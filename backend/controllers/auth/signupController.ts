@@ -3,11 +3,8 @@ import { TenantModel, type TenantDocumentType } from '../../database/models/Tena
 import { LandlordModel, type LandlordDocumentType } from '../../database/models/Landlord.model';
 import { TradesmenModel, type TradesmenDocumentType } from '../../database/models/Tradesmen.model';
 import bcrypt from 'bcrypt';
-import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import Stripe from 'stripe';
-
-dotenv.config();
 
 export const signupController = async (req: Request, res: Response) => {
 
