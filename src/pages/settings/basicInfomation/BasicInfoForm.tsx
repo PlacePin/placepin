@@ -50,6 +50,15 @@ const BasicInfoForm = () => {
     fetchUserID()
   }, [accessToken])
   
+  useEffect(() => {
+    if (!saveSuccess && !saveError) return;
+    const timer = setTimeout(() => {
+      setSaveSuccess(false);
+      setSaveError('');
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [saveSuccess, saveError]);
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSaving(true);
