@@ -12,7 +12,7 @@ const LandlordSidebar = () => {
     { path: LANDLORD_ROUTES.MESSAGING, text: "Messaging", icon: <MessageCircle size={18} /> },
     { path: LANDLORD_ROUTES.INSIGHTS, text: "Tenant Insights", icon: <BarChart size={18} /> },
     { path: LANDLORD_ROUTES.MAINTENANCE, text: "Maintenance", icon: <Briefcase size={18} /> },
-    { path: LANDLORD_ROUTES.BILLING, text: "Billing & Payments", icon: <CreditCard size={18} /> },
+    { path: LANDLORD_ROUTES.RECEIPT, text: "Receipts", icon: <CreditCard size={18} /> },
   ];
 
   return (
