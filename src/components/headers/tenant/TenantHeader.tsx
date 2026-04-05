@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 import { TENANT_ROUTES } from "../../../routes/tenantRoutes";
 import { capitalizeWords } from "../../../utils/stringUtils";
-import axios from "axios";
+import axiosInstance from "../../../utils/axiosInstance";
 
 interface TenantHeaderProps {
   username: string,
@@ -53,7 +53,7 @@ const TenantHeader = ({ username }: TenantHeaderProps) => {
   const { logout, accessToken } = useAuth()
 
   useEffect(() => {
-    const res = axios.get(`/api/subscription/tier/`, {
+    const res = axiosInstance.get(`/api/subscription/tier/`, {
       headers: {
         Authorization: `bearer ${accessToken}`,
       },

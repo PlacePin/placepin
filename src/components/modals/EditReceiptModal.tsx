@@ -3,6 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import styles from './addReceiptModal.module.css';
 import FormModal from './FormModal';
 import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
 
 interface EditReceiptModalProps {
   onClose: () => void,
@@ -74,7 +75,7 @@ const EditReceiptModal = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.put(
+      await axiosInstance.put(
         '/api/landlords/receipts',
         formData,
         {

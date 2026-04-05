@@ -5,6 +5,7 @@ import FormModal from "./FormModal";
 import styles from './removeLandlordProperty.module.css';
 import axios from 'axios';
 import { useAuth } from "../../context/AuthContext";
+import axiosInstance from "../../utils/axiosInstance";
 
 interface RemoveLandlordPropertyProps {
   onClose: () => void,
@@ -24,7 +25,7 @@ const RemoveLandlordProperty = ({
       if (!accessToken) {
         throw new Error('Unauthorized User')
       }
-      await axios.delete(`/api/landlords/property?id=${propertyId}`, {
+      await axiosInstance.delete(`/api/landlords/property?id=${propertyId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }

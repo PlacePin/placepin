@@ -1,8 +1,8 @@
 import { useState, type FormEvent } from 'react';
 import styles from './composeModal.module.css';
-import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
 import FormModal from './FormModal';
+import axiosInstance from '../../utils/axiosInstance';
 
 interface InviteTenantModalProps {
   onClose?: () => void;
@@ -29,7 +29,7 @@ const ComposeModal = ({
     }
 
     try {
-      const res = await axios.post('/api/messages/send',
+      const res = await axiosInstance.post('/api/messages/send',
         textMessage,
         {
           headers: {

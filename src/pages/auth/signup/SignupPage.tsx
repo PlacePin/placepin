@@ -1,11 +1,11 @@
 import styles from './signupPage.module.css';
-import axios from 'axios';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState, type FormEvent } from 'react';
 import { useAuth } from '../../../context/AuthContext';
 import { LANDLORD_ROUTES } from '../../../routes/landlordRoutes';
 import { TENANT_ROUTES } from '../../../routes/tenantRoutes';
 import { TRADESMEN_ROUTES } from '../../../routes/tradesmenRoutes';
+import axiosInstance from '../../../utils/axiosInstance';
 
 const SignupPage = () => {
   const navigate = useNavigate()
@@ -62,7 +62,7 @@ const SignupPage = () => {
 
     // sending info to the backend, login to either landlord, tenant or tradesmen. If failed show an error message.
     try {
-      const res = await axios.post(
+      const res = await axiosInstance.post(
         '/api/auth/signup',
         signupInformation
       )

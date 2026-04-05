@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
 import styles from './passwordPages.module.css';
+import axiosInstance from '../../../utils/axiosInstance';
 
 const ResetPasswordPage = () => {
   const { token } = useParams<{ token: string }>();
@@ -22,7 +22,7 @@ const ResetPasswordPage = () => {
     setLoading(true);
     setError('');
     try {
-      await axios.post(`/api/auth/reset-password/${token}`, { password });
+      await axiosInstance.post(`/api/auth/reset-password/${token}`, { password });
       setSuccess(true);
       setTimeout(() => navigate('/login'), 3000);
     } catch (err: any) {

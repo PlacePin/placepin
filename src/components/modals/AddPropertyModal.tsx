@@ -3,6 +3,7 @@ import FormModal from "./FormModal";
 import styles from './addPropertyModal.module.css';
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
+import axiosInstance from "../../utils/axiosInstance";
 
 interface AddPropertyModalProps {
   onClose?: () => void;
@@ -44,7 +45,7 @@ const AddPropertyModal = ({ onClose }: AddPropertyModalProps) => {
         throw new Error("Number of units can't be less than or equal to zero!")
       }
 
-      const res = await axios.post(
+      const res = await axiosInstance.post(
         `/api/landlords/properties`,
         property,
         {

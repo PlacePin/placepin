@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import axios from "axios";
 import styles from './saveCardForm.module.css';
 import { useAuth } from "../../context/AuthContext";
+import axiosInstance from "../../utils/axiosInstance";
 
 const SaveCardForm = () => {
   const stripe = useStripe();
@@ -20,7 +20,7 @@ const SaveCardForm = () => {
 
     try {
       // Create SetupIntent on the server
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         "/api/settings/savecardform",
         {},
         {
@@ -47,7 +47,7 @@ const SaveCardForm = () => {
         const paymentMethodId = result.setupIntent.payment_method;
 
         // Send the paymentMethodId back to the same route to store it
-        const res = await axios.post(
+        const res = await axiosInstance.post(
           "/api/settings/savecardform",
           {
             paymentMethodId

@@ -5,11 +5,11 @@ import { MessageCircleMore, Plus } from 'lucide-react';
 import { io, Socket } from 'socket.io-client';
 import { jwtDecode } from 'jwt-decode';
 import type { DecodedAccessToken } from '../../../interfaces/interfaces';
-import axios from 'axios';
 import styles from './messaging.module.css';
 import ComposeModal from '../../../components/modals/ComposeModal';
 import PrimaryButton from '../../../components/buttons/PrimaryButton';
 import { NavLink } from 'react-router-dom';
+import axiosInstance from '../../../utils/axiosInstance';
 
 type Message = {
   sender: string;
@@ -93,7 +93,7 @@ const Messaging = () => {
 
     const conversation = async () => {
       try {
-        const res = await axios.get(`/api/messages/conversations?username=${convoWith}`, {
+        const res = await axiosInstance.get(`/api/messages/conversations?username=${convoWith}`, {
           headers: { Authorization: `bearer ${accessToken}` },
         });
         setMessages((prev) => ({
