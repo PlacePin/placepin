@@ -4,9 +4,6 @@ import { DirectMessageModel } from './database/models/Message.model';
 import { LandlordModel } from './database/models/Landlord.model';
 import { TenantModel } from './database/models/Tenant.model';
 import { excludeFields, getUserById } from './utils/user';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 interface DMDataProps {
   senderId: string;

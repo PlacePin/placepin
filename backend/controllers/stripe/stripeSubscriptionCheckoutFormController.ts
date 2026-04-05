@@ -1,11 +1,8 @@
 import type { Request, Response } from "express";
-import dotenv from 'dotenv';
 import Stripe from "stripe";
 import { LandlordModel, type LandlordDocumentType } from "../../database/models/Landlord.model";
 import { TenantModel, type TenantDocumentType } from "../../database/models/Tenant.model";
 import { TradesmenModel, type TradesmenDocumentType } from "../../database/models/Tradesmen.model";
-
-dotenv.config();
 
 export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response) => {
   const userId = req.userId

@@ -1,11 +1,9 @@
 import type { Request, Response } from "express";
 import Stripe from "stripe";
-import dotenv from "dotenv";
 import { TenantModel } from "../../database/models/Tenant.model";
 import { LandlordModel } from "../../database/models/Landlord.model";
 import { TradesmenModel } from "../../database/models/Tradesmen.model";
 
-dotenv.config();
 const STRIPE_TEST_SECRET_KEY = process.env.STRIPE_TEST_SECRET_KEY!;
 
 const stripe = new Stripe(STRIPE_TEST_SECRET_KEY);

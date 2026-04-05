@@ -1,12 +1,9 @@
-import type  {Request, Response} from 'express'
-import crypto from 'crypto'
-import { TenantModel } from '../../database/models/Tenant.model'
-import { LandlordModel } from '../../database/models/Landlord.model'
-import { TradesmenModel } from '../../database/models/Tradesmen.model'
-import { emailPasswordReset } from '../../utils/emailService'
-import dotenv from 'dotenv';
-
-dotenv.config();
+import type  {Request, Response} from 'express';
+import crypto from 'crypto';
+import { TenantModel } from '../../database/models/Tenant.model';
+import { LandlordModel } from '../../database/models/Landlord.model';
+import { TradesmenModel } from '../../database/models/Tradesmen.model';
+import { emailPasswordReset } from '../../utils/emailService';
 
 const genericResponse = {message: 'If an account with that email exists, a reset link will be sent.'}
 
@@ -34,7 +31,7 @@ export const forgotPasswordController = async (req: Request, res: Response) => {
         await user.save();
 
         const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173'; 
-        
+
         const resetUrl = `${clientUrl}/reset-password/${rawToken}`;
 
         await emailPasswordReset(user.email, resetUrl)

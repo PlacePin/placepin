@@ -3,10 +3,7 @@ import { TenantModel } from '../../database/models/Tenant.model';
 import { LandlordModel } from '../../database/models/Landlord.model';
 import { TradesmenModel } from '../../database/models/Tradesmen.model';
 import bcrypt from 'bcrypt';
-import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-
-dotenv.config()
 
 export const loginController = async (req: Request, res: Response) => {
 
