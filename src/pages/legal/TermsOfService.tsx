@@ -1,6 +1,17 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './termsOfService.module.css';
 
 const TermsOfService = () => {
+
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate("/"); // fallback
+    }
+  };
 
   const sections = [
     {
@@ -119,6 +130,12 @@ const TermsOfService = () => {
     <div className={styles.page}>
       <div className={styles.header}>
         <div className={styles.headerInner}>
+          <button
+            onClick={handleBack}
+            className={styles.back}
+          >
+            ← Back
+          </button>
           <p className={styles.eyebrow}>PlacePin · Legal</p>
           <h1 className={styles.title}>Terms of Service</h1>
           <p className={styles.lastUpdated}>Last updated: February 16, 2026</p>
