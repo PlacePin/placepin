@@ -1,21 +1,10 @@
-.button {
-  width: 20%;
-  height: 2.5em;
-  background: #00bfa5;
-  color: white;
-  border: none;
-  border-radius: 0.5em;
-  font-size: 1em;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 1rem;
-}
-
-.notAllowed {
-  cursor: not-allowed;
-}
-
 .message {
   padding-top: 2rem;
   font-weight: 600;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }

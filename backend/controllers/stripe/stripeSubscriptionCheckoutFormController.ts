@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import Stripe from "stripe";
 import { LandlordModel, type LandlordDocumentType } from "../../database/models/Landlord.model";
 import { TenantModel, type TenantDocumentType } from "../../database/models/Tenant.model";
+import { TradesmenModel, type TradesmenDocumentType } from "../../database/models/Tradesmen.model";
 
 dotenv.config();
 
@@ -16,12 +17,13 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
   try {
     // Getting user from database
 
-    const landlord = await LandlordModel.findById(userId)
-    const tenant = await TenantModel.findById(userId)
-    const user: TenantDocumentType | LandlordDocumentType | null = landlord || tenant
+    const landlord = await LandlordModel.findById(userId);
+    const tenant = await TenantModel.findById(userId);
+    const tradesmen = await TradesmenModel.findById(userId);
+    const user: TenantDocumentType | LandlordDocumentType | TradesmenDocumentType | null = landlord || tenant || tradesmen
 
     if (!user) {
-      return res.status(404).json({ message: "Landlord doesn't exist." })
+      return res.status(404).json({ message: "User doesn't exist." })
     }
 
     if (!STRIPE_TEST_SECRET_KEY) {
@@ -36,7 +38,8 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
         isSubscribed: false,
         savedPaymentMethod: '',
         stripeCustomerId: '',
-        tier: 'free',
+        tier: 'Landlord-Sponsored',
+        stripeSubscriptionId: '',
       };
     }
 
@@ -45,6 +48,16 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
         isSubscribed: false,
         savedPaymentMethod: '',
         stripeCustomerId: '',
+        stripeSubscriptionId: '',
+      };
+    }
+
+    if (user && user.accountType === 'tradesmen') {
+      user.subscription = {
+        isSubscribed: false,
+        savedPaymentMethod: '',
+        stripeCustomerId: '',
+        stripeSubscriptionId: '',
       };
     }
 
@@ -64,11 +77,18 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
           { _id: user._id },
           { 'subscription.stripeCustomerId': stripeCustomerId }
         );
-      } else {
+      } else if (user.accountType === 'tenant') {
         await TenantModel.updateOne(
           { _id: user._id },
           { 'subscription.stripeCustomerId': stripeCustomerId }
         );
+      } else if (user.accountType === 'tradesmen') {
+        await TradesmenModel.updateOne(
+          { _id: user._id },
+          { 'subscription.stripeCustomerId': stripeCustomerId }
+        );
+      } else {
+        return res.status(400).json({ error: 'No Correct User Type'})
       }
     }
 

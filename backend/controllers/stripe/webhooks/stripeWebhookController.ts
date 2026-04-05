@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import dotenv from "dotenv";
 import { LandlordModel } from "../../../database/models/Landlord.model";
 import { TenantModel } from "../../../database/models/Tenant.model";
+import { TradesmenModel } from "../../../database/models/Tradesmen.model";
 
 dotenv.config();
 const STRIPE_TEST_SECRET_KEY = process.env.STRIPE_TEST_SECRET_KEY!;
@@ -35,9 +36,12 @@ export const stripeWebhookController = async (
         if (session.mode === "subscription" && session.customer) {
           const stripeCustomerId =
             typeof session.customer === "string" ? session.customer : session.customer.id;
+          const stripeSubscriptionId =
+            typeof session.subscription === "string" ? session.subscription : null;
 
           const landlord = await LandlordModel.findOne({ "subscription.stripeCustomerId": stripeCustomerId })
           const tenant = await TenantModel.findOne({ "subscription.stripeCustomerId": stripeCustomerId })
+          const tradesmen = await TradesmenModel.findOne({ "subscription.stripeCustomerId": stripeCustomerId })
 
           if (landlord) {
             // update the landlord by stripe customer id
@@ -46,7 +50,7 @@ export const stripeWebhookController = async (
               {
                 "subscription.isSubscribed": true,
                 // optional: store subscription id if present
-                // "subscription.stripeSubscriptionId": session.subscription
+                "subscription.stripeSubscriptionId": stripeSubscriptionId
               }
             );
             console.log("Marked LANDLORD subscribed for:", stripeCustomerId);
@@ -56,14 +60,42 @@ export const stripeWebhookController = async (
               {
                 "subscription.isSubscribed": true,
                 // optional: store subscription id if present
-                // "subscription.stripeSubscriptionId": session.subscription
+                "subscription.stripeSubscriptionId": stripeSubscriptionId
               }
             )
             console.log("Marked TENANT subscribed for:", stripeCustomerId);
+          } else if (tradesmen) {
+            await TradesmenModel.updateOne(
+              { "subscription.stripeCustomerId": stripeCustomerId },
+              {
+                "subscription.isSubscribed": true,
+                // optional: store subscription id if present
+                "subscription.stripeSubscriptionId": stripeSubscriptionId
+              }
+            )
+            console.log("Marked TRADESMEN subscribed for:", stripeCustomerId);
           } else {
-            console.warn("No landlord or tenant found with stripeCustomerId:", stripeCustomerId);
+            console.warn("No User found with stripeCustomerId:", stripeCustomerId);
           }
         }
+        break;
+      }
+
+      case "customer.subscription.deleted": {
+        const subscription = event.data.object as Stripe.Subscription;
+        const stripeCustomerId =
+          typeof subscription.customer === "string" ? subscription.customer : subscription.customer.id;
+
+        const updatedSubscription = {
+          "subscription.isSubscribed": false,
+          "subscription.stripeSubscriptionId": null
+        };
+
+        await LandlordModel.updateOne({ "subscription.stripeCustomerId": stripeCustomerId }, updatedSubscription);
+        await TenantModel.updateOne({ "subscription.stripeCustomerId": stripeCustomerId }, updatedSubscription);
+        await TradesmenModel.updateOne({ "subscription.stripeCustomerId": stripeCustomerId }, updatedSubscription);
+
+        console.log("Subscription deleted for:", stripeCustomerId);
         break;
       }
 
@@ -75,6 +107,14 @@ export const stripeWebhookController = async (
         if (stripeCustomerId) {
           // subscription succeeded — ensure isSubscribed true
           await LandlordModel.updateOne(
+            { "subscription.stripeCustomerId": stripeCustomerId },
+            { "subscription.isSubscribed": true }
+          );
+          await TenantModel.updateOne(
+            { "subscription.stripeCustomerId": stripeCustomerId },
+            { "subscription.isSubscribed": true }
+          );
+          await TradesmenModel.updateOne(
             { "subscription.stripeCustomerId": stripeCustomerId },
             { "subscription.isSubscribed": true }
           );

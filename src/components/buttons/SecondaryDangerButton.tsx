@@ -1,13 +1,13 @@
 import styles from './secondaryDangerButton.module.css';
 
 interface SecondaryDangerButtonProps {
-  title: string,
   onClick?: () => void,
+  title: string,
 }
 
 const SecondaryDangerButton = ({
+  onClick,
   title,
-  onClick
 }: SecondaryDangerButtonProps) => {
   return (
     <button

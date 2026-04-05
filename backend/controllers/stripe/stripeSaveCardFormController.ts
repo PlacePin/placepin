@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import dotenv from "dotenv";
 import { TenantModel } from "../../database/models/Tenant.model";
 import { LandlordModel } from "../../database/models/Landlord.model";
+import { TradesmenModel } from "../../database/models/Tradesmen.model";
 
 dotenv.config();
 const STRIPE_TEST_SECRET_KEY = process.env.STRIPE_TEST_SECRET_KEY!;
@@ -18,7 +19,9 @@ export const stripeSaveCardForm = async (
 
   try {
     // Get the user from DB
-    const user = await TenantModel.findById(userId) || await LandlordModel.findById(userId);
+    const user = await TenantModel.findById(userId) || 
+                 await LandlordModel.findById(userId) ||
+                 await TradesmenModel.findById(userId);
 
     if (!user) {
       return res.status(404).json({ message: "User not found." });
@@ -30,6 +33,7 @@ export const stripeSaveCardForm = async (
         savedPaymentMethod: '',
         stripeCustomerId: '',
         tier: '',
+        stripeSubscriptionId: '',
       };
     }
 
