@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "server": "nodemon --watch backend --ext ts,json --exec 'TSX_TSCONFIG=tsconfig.json tsx backend/server.ts'",
+    "start": "tsx backend/server.ts",
     "test": "vitest",
     "ngrok": "ngrok http 3000",
     "stripe": "stripe listen --forward-to localhost:3000/api/stripe-payment-subscribed"

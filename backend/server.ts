@@ -27,7 +27,10 @@ connectToDB()
 
 // Middleware
 
-app.use(cors())
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true
+}))
 
 // Webhooks - won't work if they're after the express.json()
 app.use('/api', stripeWebhookRoute)
