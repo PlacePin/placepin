@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './profileImage.module.css';
 import { Camera } from 'lucide-react';
-import axios from 'axios';
 import { useAuth } from '../../../context/AuthContext';
+import axiosInstance from '../../../utils/axiosInstance';
 
 const ProfileImage = () => {
   const [profilePic, setProfilePic] = useState('');
@@ -14,7 +14,7 @@ const ProfileImage = () => {
 
   useEffect(() => {
     if (!accessToken) return;
-    axios.get('/api/settings', { headers: authHeader })
+    axiosInstance.get('/api/settings', { headers: authHeader })
       .then(res => setProfilePic(res.data.user.profilePic ?? ''))
       .catch(() => {});
   }, [accessToken]);
@@ -28,7 +28,7 @@ const ProfileImage = () => {
     formData.append('profilePic', file);
     
     try {
-      const res = await axios.post('/api/settings/profile-pic', formData, { headers: authHeader });
+      const res = await axiosInstance.post('/api/settings/profile-pic', formData, { headers: authHeader });
       setProfilePic(res.data.profilePic);
     } catch (err: any) {
       setError(err.response?.data?.message ?? 'Upload failed. Please try again.');

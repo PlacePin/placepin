@@ -1,11 +1,11 @@
-import styles from './loginPage.module.css'
-import axios from 'axios'
-import { useState } from 'react'
+import styles from './loginPage.module.css';
+import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/AuthContext';
 import { LANDLORD_ROUTES } from '../../../routes/landlordRoutes';
 import { TENANT_ROUTES } from '../../../routes/tenantRoutes';
 import { TRADESMEN_ROUTES } from '../../../routes/tradesmenRoutes';
+import axiosInstance from '../../../utils/axiosInstance';
 
 const LoginPage = () => {
 
@@ -25,7 +25,7 @@ const LoginPage = () => {
     }
 
     try {
-      const res = await axios.post(
+      const res = await axiosInstance.post(
         '/api/auth/login',
         loginCredentials,
       )

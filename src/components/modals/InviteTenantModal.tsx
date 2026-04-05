@@ -1,8 +1,8 @@
 import { useState, type FormEvent } from 'react';
 import styles from './inviteTenantModal.module.css';
-import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
 import FormModal from './FormModal';
+import axiosInstance from '../../utils/axiosInstance';
 
 interface InviteTenantModalProps {
   onClose?: () => void;
@@ -40,7 +40,7 @@ const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
     }
 
     try {
-      const res = await axios.post('/api/users/invite/tenant/',
+      const res = await axiosInstance.post('/api/users/invite/tenant/',
         tenantInfo,
         {
           headers: {

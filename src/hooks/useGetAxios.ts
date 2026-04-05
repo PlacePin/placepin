@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import axiosInstance from "../utils/axiosInstance";
 
 export const useGetAxios = (
   url: string,
@@ -15,7 +16,7 @@ export const useGetAxios = (
 
   const fetchData = async (signal?: AbortSignal) => {
     try {
-      const res = await axios.get(url, {
+      const res = await axiosInstance.get(url, {
         headers: { Authorization: `Bearer ${authToken}` },
         signal // axios will automatically cancel the request if signal is aborted
       });

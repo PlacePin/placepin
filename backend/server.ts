@@ -14,6 +14,7 @@ import { authenticateToken } from './middleware/authenticateToken';
 import { chatSocket } from './chatSocket';
 import messageRoutes from './routes/messages/messageRoutes';
 import workOrderRoutes from './routes/workOrders/workOrderRoutes';
+import waitlistRoutes from './routes/waitlist/waitlistRoutes';
 
 // Add a rate limiter as middleware 
 
@@ -27,13 +28,17 @@ connectToDB()
 
 // Middleware
 
-app.use(cors())
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true
+}))
 
 // Webhooks - won't work if they're after the express.json()
 app.use('/api', stripeWebhookRoute)
 
 app.use(express.json())
 app.use('/api/auth', authRoutes)
+app.use('/api/waitlist', waitlistRoutes)
 app.use('/api/settings', authenticateToken, settingsRoutes)
 app.use('/api/subscription', authenticateToken, subscriptionRoutes)
 app.use('/api/users', authenticateToken, usersRoutes)

@@ -1,11 +1,11 @@
 import { type FormEvent, useEffect, useState } from "react";
-import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import { Navigate } from "react-router-dom";
 import styles from './subscriptionCheckoutForm.module.css';
 import { useGetAxios } from "../../hooks/useGetAxios";
 import SecondaryDangerButton from "../buttons/SecondaryDangerButton";
 import PrimaryButton from "../buttons/PrimaryButton";
+import axiosInstance from "../../utils/axiosInstance";
 
 const SubscriptionCheckoutForm = () => {
 
@@ -32,7 +32,7 @@ const SubscriptionCheckoutForm = () => {
     if (subscription) {
       try {
         setIsPending(true);
-        const { data } = await axios.post(
+        const { data } = await axiosInstance.post(
           '/api/settings/stripe/cancel-subscription',
           null,
           {
@@ -52,7 +52,7 @@ const SubscriptionCheckoutForm = () => {
       try {
         setIsPending(true);
         // 1. Create Checkout Session on the server
-        const { data } = await axios.post(
+        const { data } = await axiosInstance.post(
           `/api/settings/stripe/subscription-checkout-form`,
           null,
           {

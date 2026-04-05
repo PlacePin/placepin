@@ -1,9 +1,9 @@
 import { type FormEvent, useEffect, useState } from "react";
 import styles from './basicInfoForm.module.css';
-import axios from 'axios';
 import { useAuth } from "../../../context/AuthContext";
 import { Navigate } from "react-router-dom";
 import { LockKeyhole } from 'lucide-react';
+import axiosInstance from "../../../utils/axiosInstance";
 
 const BasicInfoForm = () => {
 
@@ -26,7 +26,7 @@ const BasicInfoForm = () => {
   useEffect(() => {
     const fetchUserID = async () => {
       try {
-        const res = await axios.get(`/api/settings`, {
+        const res = await axiosInstance.get(`/api/settings`, {
           headers: {
             Authorization: `bearer ${accessToken}`
           }
@@ -57,7 +57,7 @@ const BasicInfoForm = () => {
     setSaveSuccess(false);
 
     try {
-      await axios.put('/api/settings', {
+      await axiosInstance.put('/api/settings', {
         fullName,
         phoneNumber,
         gender,

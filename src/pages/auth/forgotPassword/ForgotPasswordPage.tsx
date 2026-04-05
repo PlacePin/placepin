@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
 import styles from './passwordPages.module.css';
+import axiosInstance from '../../../utils/axiosInstance';
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState('');
@@ -14,7 +14,7 @@ const ForgotPasswordPage = () => {
     setLoading(true);
     setError('');
     try {
-      await axios.post('/api/auth/forgot-password', { email: email.toLowerCase().trim() });
+      await axiosInstance.post('/api/auth/forgot-password', { email: email.toLowerCase().trim() });
       setSubmitted(true);
     } catch (err: any) {
       setError(err.response?.data?.message ?? 'Something went wrong. Please try again.');
