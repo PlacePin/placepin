@@ -1,5 +1,5 @@
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import styles from './WorkOrdersChart.module.css';
+import styles from './workOrdersChart.module.css';
 import { useGetAxios } from '../../hooks/useGetAxios';
 
 interface MonthlyWorkOrder {
