@@ -2,7 +2,7 @@ import type { RouteObject } from "react-router-dom";
 import { LANDLORD_ROUTES, LANDLORD_CHILD_ROUTES } from "./landlordRoutes";
 import { TENANT_ROUTES, TENANT_CHILD_ROUTES } from "./tenantRoutes";
 import { TRADESMEN_ROUTES, TRADESMEN_CHILD_ROUTES } from "./tradesmenRoutes";
-import LandingPage from "../pages/home/LandingPage";
+// import LandingPage from "../pages/home/LandingPage";
 import SignupPage from "../pages/auth/signup/SignupPage";
 import LoginPage from "../pages/auth/login/LoginPage";
 import LandlordDashboard from "../pages/dashboard/landlords/LandlordDashboard";
