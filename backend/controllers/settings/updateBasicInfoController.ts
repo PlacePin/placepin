@@ -2,9 +2,10 @@ import type { Request, Response } from "express";
 import { getUserByUsername, updateUserById } from "../../utils/user";
 
 function dateConversion(strDateOfBirth: string) {
-  if(!strDateOfBirth) return null;
-  let numberDateOfBirth = strDateOfBirth.replaceAll('-', '');
-  return Number(numberDateOfBirth);
+  if (!strDateOfBirth) return null;
+  const numberDateOfBirth = Number(strDateOfBirth.replaceAll('-', ''));
+  if (isNaN(numberDateOfBirth)) return null;
+  return numberDateOfBirth;
 }
 
 export const updateBasicInfo = async (
@@ -23,7 +24,10 @@ export const updateBasicInfo = async (
   if (fullName !== undefined) updates.fullName = fullName;
   if (phoneNumber !== undefined) updates.phoneNumber = phoneNumber;
   if (gender !== undefined) updates.gender = gender;
-  if (dateOfBirth !== undefined) updates.dateOfBirth = dateConversion(dateOfBirth);
+  if (dateOfBirth !== undefined) {
+    const converted = dateConversion(dateOfBirth);
+    if (converted !== null) updates.dateOfBirth = converted;
+  }
   if (username !== undefined) updates.username = username;
 
   try {

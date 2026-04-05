@@ -38,9 +38,11 @@ const BasicInfoForm = () => {
         setUsername(user.username ?? '');
         setEmail(user.email ?? '');
         setGender(user.gender ?? '');
-        const dateofBirthRaw = `${user.dateOfBirth}`
-        const dateFormat = `${dateofBirthRaw.slice(0, 4)}-${dateofBirthRaw.slice(4, 6)}-${dateofBirthRaw.slice(6, 8)}`;
-        setDoB(dateFormat ?? '');
+        if (user.dateOfBirth) {
+          const dateofBirthRaw = `${user.dateOfBirth}`;
+          const dateFormat = `${dateofBirthRaw.slice(0, 4)}-${dateofBirthRaw.slice(4, 6)}-${dateofBirthRaw.slice(6, 8)}`;
+          setDoB(dateFormat);
+        }
 
       } catch (err: any) {
         console.error(err.response.data.message)
