@@ -4,6 +4,7 @@ import PrimaryButton from '../buttons/PrimaryButton';
 import ComposeModal from './ComposeModal';
 import FormModal from './FormModal';
 import styles from './tradesmenDetails.module.css';
+import emptyProfile from '../../assets/emptyProfile.png';
 
 interface TradesmenDetailsProp {
   tradesmen: any;
@@ -19,7 +20,7 @@ const TradesmenDetails = ({
 
   const profilePic = tradesmen.profilePic ?
     <img className={styles.profilePic} src={tradesmen.profilePic} alt='Profile Pic' /> :
-    <img className={styles.profilePic} src='/emptyProfile.png' alt='Empty Profile Pic' />
+    <img className={styles.profilePic} src={emptyProfile} alt='Empty Profile Pic' />
 
   const fullName = capitalizeWords(tradesmen.fullName);
   const username = tradesmen.username;

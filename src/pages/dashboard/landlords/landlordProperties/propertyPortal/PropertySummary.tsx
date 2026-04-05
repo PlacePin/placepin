@@ -1,5 +1,6 @@
 import WorkOrdersChart from '../../../../../components/charts/WorkOrdersChart';
 import styles from './propertySummary.module.css';
+import townhouse from '../../../../../assets/townhouse.png';
 
 interface PropertySummaryProps {
   residents: number;
@@ -29,7 +30,7 @@ const PropertySummary = ({
     <section className={styles.summaryWrapper}>
       <div>
         <img
-          src='/townhouse.png'
+          src={townhouse}
           alt='housing picture'
           className={styles.image}
         />

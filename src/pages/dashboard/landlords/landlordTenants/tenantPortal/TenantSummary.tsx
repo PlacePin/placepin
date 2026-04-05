@@ -5,6 +5,7 @@ import { capitalizeWords } from '../../../../../utils/stringUtils';
 import ComposeModal from '../../../../../components/modals/ComposeModal';
 import { calculateDaysFromDate } from '../../../../../utils/calculateDaysFromDate';
 import PrimaryButton from '../../../../../components/buttons/PrimaryButton';
+import emptyProfile from '../../../../../assets/emptyProfile.png';
 
 interface TenantSummaryProps {
   tenantName: string,
@@ -49,7 +50,7 @@ const TenantSummary = ({
       />
     ) : (
       <img
-        src='/emptyProfile.png'
+        src={emptyProfile}
         alt='profile pic'
         className={styles.profilePic}
       />

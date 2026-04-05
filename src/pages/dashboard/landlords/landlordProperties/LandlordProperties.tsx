@@ -10,6 +10,9 @@ import PrimaryButton from '../../../../components/buttons/PrimaryButton';
 import PropertyAnalytics from './propertyPortal/PropertyAnalytics';
 import PropertyDetails from './propertyPortal/PropertyDetails';
 import PropertyWorkOrdersList from './propertyPortal/PropertyWorkOrdersList';
+import townhouse from '../../../../assets/townhouse.png';
+import triplex from '../../../../assets/triplex.png';
+import orangehouse from '../../../../assets/orangehouse.png';
 
 const LandlordProperties = () => {
 
@@ -26,7 +29,7 @@ const LandlordProperties = () => {
     return <div></div>;
   }
 
-  const stockPhotos = ['/townhouse.png', '/triplex.png', '/orangehouse.png']
+  const stockPhotos = [townhouse, triplex, orangehouse]
 
   const properties = data.properties;
   const building = selectedProperty?.properties;
@@ -143,7 +146,7 @@ const LandlordProperties = () => {
       <img
         className={styles.picContainers}
         onClick={() => setSelectedProperty(property)}
-        src='/townhouse.png'
+        src={townhouse}
       />
     )
   })
