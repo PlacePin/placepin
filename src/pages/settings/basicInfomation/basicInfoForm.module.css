@@ -29,8 +29,9 @@
 
 .buttonContainer {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: column-reverse;
   padding-right: 32px;
+  align-items: flex-end;
 }
 
 .button {
