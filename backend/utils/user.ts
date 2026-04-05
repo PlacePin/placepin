@@ -11,6 +11,14 @@ export const getUserById = async (userID: string, excludeFields: string) => {
   (await TradesmenModel.findById(userID).select(excludeFields));
 };
 
+export const getUserByUsername = async (username: string) => {
+  return (
+    (await TenantModel.findOne({ username })) ||
+    (await LandlordModel.findOne({ username })) ||
+    (await TradesmenModel.findOne({ username }))
+  );
+};
+
 export const updateUserById = async (userID: string, fields: Record<string, unknown>) => {
   return (
     (await TenantModel.findByIdAndUpdate(userID, fields, { new: true })) ||
