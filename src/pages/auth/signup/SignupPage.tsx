@@ -2,7 +2,7 @@ import styles from './signupPage.module.css';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState, type FormEvent } from 'react';
 import { useAuth } from '../../../context/AuthContext';
-import { LANDLORD_ROUTES } from '../../../routes/landlordRoutes';
+// import { LANDLORD_ROUTES } from '../../../routes/landlordRoutes';
 import { TENANT_ROUTES } from '../../../routes/tenantRoutes';
 import { TRADESMEN_ROUTES } from '../../../routes/tradesmenRoutes';
 import axiosInstance from '../../../utils/axiosInstance';
@@ -68,10 +68,10 @@ const SignupPage = () => {
       )
 
       if (res.status === 201) {
-        const { accessToken, accountType } = res.data
+        const { accessToken, accountType, sessionUrl } = res.data
         login(accessToken, email, username)
-        if (accountType === 'landlord') {
-          navigate(LANDLORD_ROUTES.DASHBOARD)
+        if (sessionUrl) {
+          window.location.href = sessionUrl
         }
         if (accountType === 'tenant') {
           navigate(TENANT_ROUTES.DASHBOARD)

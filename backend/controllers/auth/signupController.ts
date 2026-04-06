@@ -11,6 +11,7 @@ export const signupController = async (req: Request, res: Response) => {
   const { email, username, address, password, phoneNumber, referral, accountType } = req.body
   const JWT_ACCESS_TOKEN = process.env.JWT_ACCESS_TOKEN!
   const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY!
+  const STRIPE_PRICE_ID = process.env.STRIPE_PRICE_ID!
 
   let hashedPassword: string;
   const saltRounds = 10
@@ -155,7 +156,36 @@ export const signupController = async (req: Request, res: Response) => {
       { expiresIn: '30d' }
     )
 
-    // TODO: Add refresh tokens
+        // TODO: Add refresh tokens
+
+    // For landlords — create Stripe checkout session with 90 day trial
+    // and return the sessionUrl so the frontend can redirect immediately
+    if (accountType === 'landlord') {
+      const session = await stripeAccess.checkout.sessions.create({
+        payment_method_types: ['card'],
+        mode: 'subscription',
+        customer: stripeCustomerId,
+        payment_method_collection: 'always',
+        line_items: [
+          {
+            price: STRIPE_PRICE_ID,
+            quantity: 1,
+          },
+        ],
+        subscription_data: {
+          trial_period_days: 90,
+        },
+        success_url: `${process.env.CLIENT_URL}/success`,
+        cancel_url: `${process.env.CLIENT_URL}/cancel`,
+      });
+ 
+      return res.status(201).json({
+        message: 'User Created Successfully',
+        accessToken,
+        accountType,
+        sessionUrl: session.url,
+      });
+    };
 
     // Respond with the token and account type
     return res.status(201).json({ message: 'User Created Successfully', accessToken, accountType })
