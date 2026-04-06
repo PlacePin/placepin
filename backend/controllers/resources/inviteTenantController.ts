@@ -22,7 +22,7 @@ export const inviteTenant = async (req: Request, res: Response) => {
     }
 
     // Check if property exists in Property collection
-    let existingProperty = await PropertyModel.findOne({
+    const existingProperty = await PropertyModel.findOne({
       'address.street': tenantAddress.street,
       'address.city': tenantAddress.city,
       'address.state': tenantAddress.state,
@@ -59,7 +59,7 @@ export const inviteTenant = async (req: Request, res: Response) => {
       return res.status(200).json({ message: 'Email sent! Your first invite!' });
     } else {
       // Check if property already exists using addressesEqual
-      for (let property of landlord.properties) {
+      for (const property of landlord.properties) {
         if (addressesEqual(property.address, normalizedAddress)) {
           referralCode = property.referralCode;
           emailInviteToTenant(referralCode, tenantName, tenantEmail);
