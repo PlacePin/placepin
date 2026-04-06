@@ -5,7 +5,7 @@ import { capitalizeWords } from '../../../../../utils/stringUtils';
 import ComposeModal from '../../../../../components/modals/ComposeModal';
 import { calculateDaysFromDate } from '../../../../../utils/calculateDaysFromDate';
 import PrimaryButton from '../../../../../components/buttons/PrimaryButton';
-import emptyProfile from '../../../../../assets/emptyProfile.png';
+import emptyProfile from '../../../../../assets/emptyProfile.webp';
 
 interface TenantSummaryProps {
   tenantName: string,

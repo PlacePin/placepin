@@ -4,7 +4,7 @@ import PrimaryButton from '../buttons/PrimaryButton';
 import ComposeModal from './ComposeModal';
 import FormModal from './FormModal';
 import styles from './tradesmenDetails.module.css';
-import emptyProfile from '../../assets/emptyProfile.png';
+import emptyProfile from '../../assets/emptyProfile.webp';
 
 interface TradesmenDetailsProp {
   tradesmen: any;

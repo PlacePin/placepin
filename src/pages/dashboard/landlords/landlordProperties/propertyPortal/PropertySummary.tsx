@@ -1,6 +1,6 @@
 import WorkOrdersChart from '../../../../../components/charts/WorkOrdersChart';
 import styles from './propertySummary.module.css';
-import townhouse from '../../../../../assets/townhouse.png';
+import townhouse from '../../../../../assets/townhouse.webp';
 
 interface PropertySummaryProps {
   residents: number;

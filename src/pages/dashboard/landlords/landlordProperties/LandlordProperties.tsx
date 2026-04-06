@@ -10,9 +10,9 @@ import PrimaryButton from '../../../../components/buttons/PrimaryButton';
 import PropertyAnalytics from './propertyPortal/PropertyAnalytics';
 import PropertyDetails from './propertyPortal/PropertyDetails';
 import PropertyWorkOrdersList from './propertyPortal/PropertyWorkOrdersList';
-import townhouse from '../../../../assets/townhouse.png';
-import triplex from '../../../../assets/triplex.png';
-import orangehouse from '../../../../assets/orangehouse.png';
+import townhouse from '../../../../assets/townhouse.webp';
+import triplex from '../../../../assets/triplex.webp';
+import orangehouse from '../../../../assets/orangehouse.webp';
 
 const LandlordProperties = () => {
 

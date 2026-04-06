@@ -43,7 +43,7 @@ const ReviewUpdateReceiptCard = ({
               {/* Image wrapper with animation */}
               <div className={styles.imageWrapper}>
                 <img
-                  src='/receipt.png'
+                  src='/receipt.webp'
                   width={100}
                   height={100}
                   alt="Review receipts icon"
@@ -56,7 +56,7 @@ const ReviewUpdateReceiptCard = ({
 
               {/* Decorative elements */}
               <img
-                src='/thinking.png'
+                src='/thinking.webp'
                 className={styles.decorativeDot1}
               />
             </div>

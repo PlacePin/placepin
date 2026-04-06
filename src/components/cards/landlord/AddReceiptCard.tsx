@@ -46,7 +46,7 @@ const AddReceiptCard = ({
             {/* Image wrapper with animation */}
             <div className={styles.imageWrapper}>
               <img
-                src='/till.png'
+                src='/till.webp'
                 width={100}
                 height={100}
                 alt="Receipt icon"
@@ -59,11 +59,11 @@ const AddReceiptCard = ({
 
             {/* Decorative elements */}
             <img
-              src='/coin.png'
+              src='/coin.webp'
               className={styles.decorativeDot1}
             />
             <img
-              src='/dollar.png'
+              src='/dollar.webp'
               className={styles.decorativeDot2} />
           </div>
 

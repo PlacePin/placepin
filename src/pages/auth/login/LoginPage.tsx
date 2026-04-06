@@ -92,7 +92,7 @@ const LoginPage = () => {
             </form>
             <div className={styles.photo}>
               <img
-                src="/groupPhoto.png"
+                src="/groupPhoto.webp"
                 alt="cartoon group photo"
               />
               <div className={styles.carouselContainer}>
