@@ -38,7 +38,7 @@ const LandingPage = () => {
           </div>
           <div className={styles.heroVisual}>
             <div>
-              <img className={styles.sphere} src='/housing.jpg' alt='city' />
+              <img className={styles.sphere} src='/housing.webp' alt='city' />
               <div className={`${styles.uiElement} ${styles.theme}`}>
                 <span>🏙️</span>
                 <span>Elevate Your Living</span>
@@ -113,7 +113,7 @@ const LandingPage = () => {
             <div className={styles.featureCard}>
               <div className={styles.featureVisual}>
                 <div>
-                  <img src='/tenantPerks.png' alt='tenant perks' className={styles.tenantPerks} />
+                  <img src='/tenantPerks.webp' alt='tenant perks' className={styles.tenantPerks} />
                 </div>
               </div>
               <h3>Tenant Perks</h3>
@@ -121,7 +121,7 @@ const LandingPage = () => {
             </div>
             <div className={styles.featureCard}>
               <div className={styles.featureVisual}>
-                <img src='/charts.png' alt='charts' className={styles.charts} />
+                <img src='/charts.webp' alt='charts' className={styles.charts} />
               </div>
               <h3>Landlord Tools</h3>
               <p>Property tools, rent collection, and tenant communication all in one place for landlords.</p>
