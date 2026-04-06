@@ -2,7 +2,7 @@ import type { RouteObject } from "react-router-dom";
 import { LANDLORD_ROUTES, LANDLORD_CHILD_ROUTES } from "./landlordRoutes";
 import { TENANT_ROUTES, TENANT_CHILD_ROUTES } from "./tenantRoutes";
 import { TRADESMEN_ROUTES, TRADESMEN_CHILD_ROUTES } from "./tradesmenRoutes";
-// import LandingPage from "../pages/home/LandingPage";
+import LandingPage from "../pages/home/LandingPage";
 import SignupPage from "../pages/auth/signup/SignupPage";
 import LoginPage from "../pages/auth/login/LoginPage";
 import LandlordDashboard from "../pages/dashboard/landlords/LandlordDashboard";
@@ -25,10 +25,9 @@ import PrivacyPolicy from "../pages/legal/PrivacyPolicy";
 import TermsOfService from "../pages/legal/TermsOfService";
 import ForgotPasswordPage from "../pages/auth/forgotPassword/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/auth/resetPassword/ResetPasswordPage";
-import WaitlistPage from "../pages/waitlist/WaitlistPage";
 
 const routes: RouteObject[] = [
-  { path: '/', element: <WaitlistPage /> },
+  { path: '/', element: <LandingPage /> },
   { path: '/signup', element: <SignupPage /> },
   { path: '/login', element: <LoginPage /> },
   { path: '/forgot-password', element: <ForgotPasswordPage /> },
