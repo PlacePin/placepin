@@ -5,4 +5,4 @@ User-agent: Claude-Web
 Disallow: /
 
 User-agent: *
-Allow: /
+Disallow: /
