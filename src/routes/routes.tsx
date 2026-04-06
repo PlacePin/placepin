@@ -11,7 +11,7 @@ import PrivateRoute from "./PrivateRoute";
 import LandlordTenants from "../pages/dashboard/landlords/landlordTenants/LandlordTenants";
 import LandlordHomepage from "../pages/dashboard/landlords/landlordHomepage/LandlordHomepage";
 import LandlordProperties from "../pages/dashboard/landlords/landlordProperties/LandlordProperties";
-import LandlordBillingPayments from "../pages/dashboard/landlords/landlordBillingPayments/LandlordBillingPayments";
+import LandlordReceipts from "../pages/dashboard/landlords/landlordReceipts/LandlordReceipts";
 import LandlordTenantInsights from "../pages/dashboard/landlords/landlordTenantInsights/LandlordTenantInsights";
 import LandlordMaintenance from "../pages/dashboard/landlords/landlordMaintenance/LandlordMaintenance";
 import Messaging from "../pages/dashboard/messaging/Messaging";
@@ -56,8 +56,8 @@ const routes: RouteObject[] = [
             element: <LandlordProperties />
           },
           {
-            path: LANDLORD_CHILD_ROUTES.BILLING,
-            element: <LandlordBillingPayments />
+            path: LANDLORD_CHILD_ROUTES.RECEIPTS,
+            element: <LandlordReceipts/>
           },
           {
             path: LANDLORD_CHILD_ROUTES.INSIGHTS,
