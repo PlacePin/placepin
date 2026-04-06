@@ -6,6 +6,7 @@ import { useAuth } from '../../../context/AuthContext';
 import { TENANT_ROUTES } from '../../../routes/tenantRoutes';
 import { TRADESMEN_ROUTES } from '../../../routes/tradesmenRoutes';
 import axiosInstance from '../../../utils/axiosInstance';
+import TrialInterstitialPage from '../../trialInterstitial/TrialInterstitialPage';
 
 const SignupPage = () => {
   const navigate = useNavigate()
@@ -26,6 +27,7 @@ const SignupPage = () => {
   const [referral, setReferral] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [sessionUrl, setSessionUrl] = useState<string | null>(null)
 
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -74,7 +76,7 @@ const SignupPage = () => {
         const { accessToken, accountType, sessionUrl } = res.data
         login(accessToken, email, username)
         if (sessionUrl) {
-          window.location.href = sessionUrl
+          setSessionUrl(sessionUrl)
         }
         if (accountType === 'tenant') {
           navigate(TENANT_ROUTES.DASHBOARD)
@@ -87,6 +89,10 @@ const SignupPage = () => {
       setErrorMessage(err.response.data.message)
       setIsLoading(false)
     }
+  }
+
+  if (sessionUrl) {
+    return <TrialInterstitialPage sessionUrl={sessionUrl} />
   }
 
   return (
