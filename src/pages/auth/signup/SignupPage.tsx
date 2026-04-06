@@ -25,6 +25,7 @@ const SignupPage = () => {
   const [accountType, setAccountType] = useState('tenant')
   const [referral, setReferral] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -48,6 +49,8 @@ const SignupPage = () => {
       setErrorMessage('Choose an account type')
       return
     }
+
+    setIsLoading(true)
 
     // Save all of the input fields into a object to be sent to the backend
     const signupInformation = {
@@ -82,6 +85,7 @@ const SignupPage = () => {
       }
     } catch (err: any) {
       setErrorMessage(err.response.data.message)
+      setIsLoading(false)
     }
   }
 
@@ -247,7 +251,9 @@ const SignupPage = () => {
                   placeholder='8 character minimum'
                   required
                 />
-                <button type="submit">Sign Up</button>
+                <button type="submit" disabled={isLoading}>
+                  {isLoading ? 'Setting up your account...' : 'Sign Up'}
+                </button>
                 <p
                   className={styles.login}
                 >
