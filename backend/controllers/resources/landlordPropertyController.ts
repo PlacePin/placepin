@@ -50,7 +50,7 @@ export const addProperty = async (req: Request, res: Response) => {
     ]);
 
     // Check if this landlord already added this property
-    for (let property of properties) {
+    for (const property of properties) {
       const propAddressNormalized = {
         street: property.address.street?.toLowerCase().trim(),
         unit: property.address.unit?.toLowerCase().trim() || undefined,
