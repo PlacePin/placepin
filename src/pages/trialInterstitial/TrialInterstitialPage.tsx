@@ -2,11 +2,16 @@ import styles from './trialInterstitialPage.module.css';
 
 interface TrialInterstitialPageProps {
   sessionUrl: string;
+  context?: 'signup' | 'settings';
 }
 
-const TrialInterstitialPage = ({ sessionUrl }: TrialInterstitialPageProps) => {
+const TrialInterstitialPage = ({
+  sessionUrl,
+  context = 'signup'
+}: TrialInterstitialPageProps) => {
 
   const handleContinue = () => {
+    localStorage.setItem('stripeContext', context)
     window.location.href = sessionUrl;
   };
 

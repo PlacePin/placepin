@@ -62,6 +62,7 @@ const SubscriptionCheckoutForm = () => {
           }
         );
         // 2. Redirect to Stripe Checkout
+        localStorage.setItem('stripeContext', 'settings');
         window.location.href = data.sessionUrl;
       } catch (error) {
         console.error("Error during checkout:", error);

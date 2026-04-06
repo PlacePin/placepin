@@ -92,7 +92,7 @@ const SignupPage = () => {
   }
 
   if (sessionUrl) {
-    return <TrialInterstitialPage sessionUrl={sessionUrl} />
+    return <TrialInterstitialPage sessionUrl={sessionUrl} context="signup" />
   }
 
   return (
