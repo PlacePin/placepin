@@ -8,7 +8,8 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
   const userId = req.userId
 
   // Declaring Stripe secret key and JWT token
-  const STRIPE_TEST_SECRET_KEY = process.env.STRIPE_TEST_SECRET_KEY
+  const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
+  const STRIPE_PRICE_ID = process.env.STRIPE_PRICE_ID
 
   // This entire block is the subscription form using stripe to redirect to a new page
   try {
@@ -23,40 +24,12 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
       return res.status(404).json({ message: "User doesn't exist." })
     }
 
-    if (!STRIPE_TEST_SECRET_KEY) {
+    if (!STRIPE_SECRET_KEY) {
       return res.status(500).json({ message: 'Stripe key missing!' })
     }
 
     // Instantiating a new Stripe object for stripe interactions
-    const stripeAccess = new Stripe(STRIPE_TEST_SECRET_KEY)
-
-    if (user && user.accountType === 'tenant') {
-      user.subscription = {
-        isSubscribed: false,
-        savedPaymentMethod: '',
-        stripeCustomerId: '',
-        tier: 'Landlord-Sponsored',
-        stripeSubscriptionId: '',
-      };
-    }
-
-    if (user && user.accountType === 'landlord') {
-      user.subscription = {
-        isSubscribed: false,
-        savedPaymentMethod: '',
-        stripeCustomerId: '',
-        stripeSubscriptionId: '',
-      };
-    }
-
-    if (user && user.accountType === 'tradesmen') {
-      user.subscription = {
-        isSubscribed: false,
-        savedPaymentMethod: '',
-        stripeCustomerId: '',
-        stripeSubscriptionId: '',
-      };
-    }
+    const stripeAccess = new Stripe(STRIPE_SECRET_KEY)
 
     // If the user already has a stripe customer id save it here
     let stripeCustomerId = user.subscription?.stripeCustomerId ?? '';
@@ -85,25 +58,34 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
           { 'subscription.stripeCustomerId': stripeCustomerId }
         );
       } else {
-        return res.status(400).json({ error: 'No Correct User Type' })
+        return res.status(400).json({ error: 'Invalid account type' })
       }
     }
 
     // This is the checkout flow when a user is paying for a subscription.
-    const session = await stripeAccess.checkout.sessions.create({
-      payment_method_types: ["card"],
-      mode: "subscription",
+    const sessionConfig: Stripe.Checkout.SessionCreateParams = {
+      payment_method_types: ['card'],
+      mode: 'subscription',
       customer: stripeCustomerId,
-      payment_method_collection: "always",
+      payment_method_collection: 'always',
       line_items: [
         {
-          price: "price_1SHDaWBBupUJ6mEWDyNX77m5",
+          price: STRIPE_PRICE_ID,
           quantity: 1,
         },
       ],
       success_url: `${process.env.CLIENT_URL}/success`,
       cancel_url: `${process.env.CLIENT_URL}/cancel`,
-    });
+    };
+
+    // Only landlords get the 90 day free trial
+    if (user.accountType === 'landlord') {
+      sessionConfig.subscription_data = {
+        trial_period_days: 90,
+      };
+    }
+
+    const session = await stripeAccess.checkout.sessions.create(sessionConfig);
 
     return res.status(200).json({ sessionUrl: session.url })
 

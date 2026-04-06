@@ -10,7 +10,7 @@ export const signupController = async (req: Request, res: Response) => {
 
   const { email, username, address, password, phoneNumber, referral, accountType } = req.body
   const JWT_ACCESS_TOKEN = process.env.JWT_ACCESS_TOKEN!
-  const STRIPE_TEST_SECRET_KEY = process.env.STRIPE_TEST_SECRET_KEY!
+  const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY!
 
   let hashedPassword: string;
   const saltRounds = 10
@@ -119,7 +119,7 @@ export const signupController = async (req: Request, res: Response) => {
     // Save the user to the database
     await newUser.save();
 
-    const stripeAccess = new Stripe(STRIPE_TEST_SECRET_KEY)
+    const stripeAccess = new Stripe(STRIPE_SECRET_KEY)
 
     // If the user already has a stripe customer id save it here
     let stripeCustomerId = newUser.subscription!.stripeCustomerId;

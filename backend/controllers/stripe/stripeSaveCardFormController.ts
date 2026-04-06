@@ -4,9 +4,9 @@ import { TenantModel } from "../../database/models/Tenant.model";
 import { LandlordModel } from "../../database/models/Landlord.model";
 import { TradesmenModel } from "../../database/models/Tradesmen.model";
 
-const STRIPE_TEST_SECRET_KEY = process.env.STRIPE_TEST_SECRET_KEY!;
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY!;
 
-const stripe = new Stripe(STRIPE_TEST_SECRET_KEY);
+const stripe = new Stripe(STRIPE_SECRET_KEY);
 
 export const stripeSaveCardForm = async (
   req: Request,

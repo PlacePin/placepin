@@ -1,28 +1,26 @@
 import type { Request, Response } from "express";
 import Stripe from "stripe";
-import dotenv from "dotenv";
 import { LandlordModel } from "../../../database/models/Landlord.model";
 import { TenantModel } from "../../../database/models/Tenant.model";
 import { TradesmenModel } from "../../../database/models/Tradesmen.model";
 
-dotenv.config();
-const STRIPE_TEST_SECRET_KEY = process.env.STRIPE_TEST_SECRET_KEY!;
-const STRIPE_TEST_WEBHOOK_SECRET = process.env.STRIPE_TEST_WEBHOOK_SECRET!;
-const stripe = new Stripe(STRIPE_TEST_SECRET_KEY);
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY!;
+const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET!;
+const stripe = new Stripe(STRIPE_SECRET_KEY);
 
 export const stripeWebhookController = async (
   req: Request,
   res: Response
 ) => {
   const sig = req.headers["stripe-signature"] as string | undefined;
-  if (!sig || !STRIPE_TEST_WEBHOOK_SECRET) {
+  if (!sig || !STRIPE_WEBHOOK_SECRET) {
     return res.status(400).send("Missing signature or webhook secret");
   }
 
   let event: Stripe.Event;
   try {
     // req.body must be the raw body (Buffer), so ensure raw() middleware used on this route
-    event = stripe.webhooks.constructEvent(req.body, sig, STRIPE_TEST_WEBHOOK_SECRET);
+    event = stripe.webhooks.constructEvent(req.body, sig, STRIPE_WEBHOOK_SECRET);
   } catch (err: any) {
     console.error("Webhook signature verification failed:", err?.message);
     return res.status(400).send(`Webhook Error: ${err?.message}`);
@@ -81,6 +79,21 @@ export const stripeWebhookController = async (
         break;
       }
 
+      // Fires 3 days before trial ends — use this to email the landlord a heads up
+      case "customer.subscription.trial_will_end": {
+        const subscription = event.data.object as Stripe.Subscription;
+        const stripeCustomerId =
+          typeof subscription.customer === "string" ? subscription.customer : subscription.customer.id;
+
+        const landlord = await LandlordModel.findOne({ "subscription.stripeCustomerId": stripeCustomerId });
+
+        if (landlord) {
+          // TODO: send trial ending email to landlord
+          console.log("Trial ending soon for landlord:", stripeCustomerId);
+        }
+        break;
+      }
+
       case "customer.subscription.deleted": {
         const subscription = event.data.object as Stripe.Subscription;
         const stripeCustomerId =
@@ -123,12 +136,26 @@ export const stripeWebhookController = async (
         break;
       }
 
+      // Fires when trial ends and card charge fails — lock them out
       case "invoice.payment_failed": {
         const invoice = event.data.object as Stripe.Invoice;
-        const stripeCustomerId = typeof invoice.customer === "string" ? invoice.customer : (invoice.customer as any)?.id;
+        const stripeCustomerId =
+          typeof invoice.customer === "string" ? invoice.customer : (invoice.customer as any)?.id;
+
         if (stripeCustomerId) {
-          // optional: mark as not subscribed or notify user
-          console.log("Invoice failed for", stripeCustomerId);
+          await LandlordModel.updateOne(
+            { "subscription.stripeCustomerId": stripeCustomerId },
+            { "subscription.isSubscribed": false }
+          );
+          await TenantModel.updateOne(
+            { "subscription.stripeCustomerId": stripeCustomerId },
+            { "subscription.isSubscribed": false }
+          );
+          await TradesmenModel.updateOne(
+            { "subscription.stripeCustomerId": stripeCustomerId },
+            { "subscription.isSubscribed": false }
+          );
+          console.log("Invoice failed — isSubscribed false for:", stripeCustomerId);
         }
         break;
       }
