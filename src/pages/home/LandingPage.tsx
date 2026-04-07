@@ -12,7 +12,7 @@ const LandingPage = () => {
   const [message, setMessage] = useState('');
 
   const handleEmailSubmit = async () => {
-    // setError(null);
+    setError(null);
 
     if (contactEmail === '' || !contactEmail.includes('@')) {
       setError('Enter a valid email.')
