@@ -211,11 +211,11 @@ const LandingPage = () => {
               <div className={`${styles.features} ${styles.landlordFeatures}`}>
                 <h4>For property owners</h4>
                 <ul>
-                  <li>✓ Transparent fee based on your building's expected gross rental income</li>
-                  <li>✓ Tailored for landlords with scalable services, and full management support for 10+ units.</li>
-                  <li>✓ Access to tenant perks across all your units</li>
-                  <li>✓ Tools to streamline rent tracking and communications</li>
-                  <li>✓ Scales with property size — more units, more value</li>
+                  <li>✓ $150/month per building + 1% per rent payment — simple, transparent pricing</li>
+                  <li>✓ Built for landlords at any stage — from a few units to entire portfolios</li>
+                  <li>✓ Unlock tenant perks across all your units</li>
+                  <li>✓ Streamline rent collection and tenant communication in one place</li>
+                  <li>✓ Flat $150 per building — predictable pricing as you grow</li>
                 </ul>
               </div>
             </div>
