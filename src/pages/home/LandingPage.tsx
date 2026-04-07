@@ -116,7 +116,7 @@ const LandingPage = () => {
           </div>
 
           {/* Tenant Steps */}
-          <h3>For Tenants</h3>
+          {/* <h3>For Tenants</h3>
           <div className={styles.stepsCards}>
             <div className={styles.stepCard}>
               <div className={styles.icon}>🔍</div>
@@ -133,7 +133,7 @@ const LandingPage = () => {
               <h4>Pay & Enjoy</h4>
               <p>Pay rent, track expenses, and enjoy exclusive perks directly through our platform.</p>
             </div>
-          </div>
+          </div> */}
 
           {/* Landlord Steps */}
           <h3>For Landlords</h3>
