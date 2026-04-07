@@ -18,22 +18,25 @@ const LandingPage = () => {
       return
     }
 
+    setIsPending(true)
+
     try {
       const { data } = await axiosInstance.post(
         '/api/features-list/emails',
-        contactEmail
+        {
+          contactEmail: contactEmail
+        }
       )
-      setIsPending(true)
       setMessage(data.message)
+      setContactEmail('')
 
-      const timeout = setTimeout(() => {
+      setTimeout(() => {
         setMessage('')
-        clearTimeout(timeout)
       }, 3000)
 
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        setError(error.response?.data.message)
+        setError(error.response?.data?.message)
         console.error('Axios Type', error)
         // send to Sentry/DataDog here
       } else if (error instanceof Error) {
@@ -41,6 +44,7 @@ const LandingPage = () => {
         console.error('JS Error Type', error)
         // send to Sentry/DataDog here
       } else {
+        setError('Oops something went wrong.')
         console.error('Unknown Error', error)
         // send to Sentry/DataDog here
       }
@@ -276,27 +280,38 @@ const LandingPage = () => {
                 placeholder="Your@email.com"
                 value={contactEmail}
                 onChange={e => setContactEmail(e.target.value)}
+                aria-label="Email address for features list"
               />
               <button
                 onClick={handleEmailSubmit}
-                className={styles.submitButton}>
+                className={`${styles.submitButton} ${isPending && styles.pending}`}
+                disabled={isPending}
+                aria-busy={isPending} // Tells users the button is "working"
+                aria-label="Submit email"
+              >
                 {isPending ? 'Sending...' : '→'}
               </button>
             </div>
-            {message && (
-              <p
-                className={styles.message}
-              >
-                {message}
-              </p>
-            )}
-            {error && (
-              <p
-                className={styles.error}
-              >
-                {error}
-              </p>
-            )}
+            <div
+              role="alert"
+              aria-live="polite"
+              className={styles.statusMessage}
+            >
+              {message && (
+                <p
+                  className={styles.message}
+                >
+                  {message}
+                </p>
+              )}
+              {error && (
+                <p
+                  className={styles.error}
+                >
+                  {error}
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </section>
