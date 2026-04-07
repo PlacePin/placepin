@@ -15,6 +15,7 @@ import { chatSocket } from './chatSocket';
 import messageRoutes from './routes/messages/messageRoutes';
 import workOrderRoutes from './routes/workOrders/workOrderRoutes';
 import waitlistRoutes from './routes/waitlist/waitlistRoutes';
+import featuresListRoutes from './routes/featuresList/featuresListRoutes';
 
 // Add a rate limiter as middleware 
 
@@ -39,6 +40,7 @@ app.use('/api', stripeWebhookRoute)
 app.use(express.json())
 app.use('/api/auth', authRoutes)
 app.use('/api/waitlist', waitlistRoutes)
+app.use('/api/features-list', featuresListRoutes)
 app.use('/api/settings', authenticateToken, settingsRoutes)
 app.use('/api/subscription', authenticateToken, subscriptionRoutes)
 app.use('/api/users', authenticateToken, usersRoutes)

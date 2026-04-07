@@ -773,6 +773,15 @@ body {
   font-weight: 600;
 }
 
+.message {
+  margin-top: 1rem;
+}
+
+.ctaForm .error {
+  margin-top: 1rem;
+  color: var(--color-error)
+}
+
 .submitButton:hover {
   background: linear-gradient(135deg, #00a893 0%, #00c89f 100%);
 }

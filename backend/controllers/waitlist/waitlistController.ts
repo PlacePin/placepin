@@ -1,9 +1,10 @@
 import type { Request, Response } from 'express';
-import dotenv from 'dotenv';
+import axios from 'axios';
 
-dotenv.config()
-
-export const waitlistController = async (req: Request, res: Response) => {
+export const waitlistController = async (
+  req: Request,
+  res: Response
+) => {
   const { email } = req.body
   const RESEND_API_KEY = process.env.RESEND_API_KEY!
   const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL!
@@ -13,29 +14,28 @@ export const waitlistController = async (req: Request, res: Response) => {
   }
 
   try {
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${RESEND_API_KEY}`,
-      },
-      body: JSON.stringify({
-        from: 'PlacePin <kerlin@placepin.io>',
+    await axios.post(
+      'https://api.resend.com/emails',
+      {
+        from: 'PlacePin <support@placepin.io>',
         to: [NOTIFY_EMAIL],
         subject: `New waitlist signup: ${email}`,
         html: `<p><strong>${email}</strong> just joined the PlacePin waitlist.</p>`,
-      }),
-    })
-
-    if (!response.ok) {
-      const error = await response.json()
-      console.log('Resend error', error)
-      return res.status(500).json({ message: 'Could not join waitlist.' })
-    }
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    )
 
     return res.status(200).json({ message: 'Successfully joined waitlist.' })
-  } catch (err) {
-    console.log('Could not join waitlist', err)
-    res.status(500).json({ error: 'Could not join waitlist.' })
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error('Resend response:', error.response?.data)
+    }
+    console.error('Resend error:', error)
+    return res.status(500).json({ message: 'Could not join waitlist.' })
   }
 }

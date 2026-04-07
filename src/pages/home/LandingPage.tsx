@@ -1,7 +1,53 @@
-import styles from './landingPage.module.css'
-import { NavLink } from 'react-router-dom'
+import styles from './landingPage.module.css';
+import { NavLink } from 'react-router-dom';
+import axiosInstance from '../../utils/axiosInstance';
+import { useState } from 'react';
+import axios from 'axios';
 
 const LandingPage = () => {
+
+  const [error, setError] = useState<string | null>(null);
+  const [isPending, setIsPending] = useState(false);
+  const [contactEmail, setContactEmail] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleEmailSubmit = async () => {
+
+    if (contactEmail === '' || !contactEmail.includes('@')) {
+      setError('Enter a valid email.')
+      return
+    }
+
+    try {
+      const { data } = await axiosInstance.post(
+        '/api/features-list/emails',
+        contactEmail
+      )
+      setIsPending(true)
+      setMessage(data.message)
+
+      const timeout = setTimeout(() => {
+        setMessage('')
+        clearTimeout(timeout)
+      }, 3000)
+
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        setError(error.response?.data.message)
+        console.error('Axios Type', error)
+        // send to Sentry/DataDog here
+      } else if (error instanceof Error) {
+        setError(error.message)
+        console.error('JS Error Type', error)
+        // send to Sentry/DataDog here
+      } else {
+        console.error('Unknown Error', error)
+        // send to Sentry/DataDog here
+      }
+    } finally {
+      setIsPending(false)
+    }
+  }
 
   return (
     <div className={styles.app}>
@@ -223,11 +269,34 @@ const LandingPage = () => {
             <p>Stay in the loop. Enter your email and be the first to know when new features roll out.</p>
           </div>
           <div className={styles.ctaForm}>
-            <p>Just send us your contact email and we will contact you.</p>
+            <p>Just send us your email and we will contact you.</p>
             <div className={styles.emailInput}>
-              <input type="email" placeholder="Your@email.com" />
-              <button className={styles.submitButton}>→</button>
+              <input
+                type="email"
+                placeholder="Your@email.com"
+                value={contactEmail}
+                onChange={e => setContactEmail(e.target.value)}
+              />
+              <button
+                onClick={handleEmailSubmit}
+                className={styles.submitButton}>
+                {isPending ? 'Sending...' : '→'}
+              </button>
             </div>
+            {message && (
+              <p
+                className={styles.message}
+              >
+                {message}
+              </p>
+            )}
+            {error && (
+              <p
+                className={styles.error}
+              >
+                {error}
+              </p>
+            )}
           </div>
         </div>
       </section>
