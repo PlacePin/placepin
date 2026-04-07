@@ -12,9 +12,11 @@ const LandingPage = () => {
   const [message, setMessage] = useState('');
 
   const handleEmailSubmit = async () => {
+    // setError(null);
 
     if (contactEmail === '' || !contactEmail.includes('@')) {
       setError('Enter a valid email.')
+      setTimeout(() => setError(null), 3000)
       return
     }
 
@@ -32,7 +34,7 @@ const LandingPage = () => {
 
       setTimeout(() => {
         setMessage('')
-      }, 3000)
+      }, 5000)
 
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
@@ -48,6 +50,9 @@ const LandingPage = () => {
         console.error('Unknown Error', error)
         // send to Sentry/DataDog here
       }
+      setTimeout(() => {
+        setError(null);
+      }, 5000);
     } finally {
       setIsPending(false)
     }
