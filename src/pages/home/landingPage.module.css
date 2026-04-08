@@ -154,7 +154,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
+  background:
     radial-gradient(circle at 20% 50%, rgba(0, 191, 165, 0.06) 0%, transparent 50%),
     radial-gradient(circle at 80% 50%, rgba(0, 224, 178, 0.06) 0%, transparent 50%);
   pointer-events: none;
@@ -248,7 +248,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 
+  box-shadow:
     0 25px 70px rgba(0, 191, 165, 0.2),
     0 0 0 1px rgba(0, 191, 165, 0.1);
   object-fit: cover;
@@ -270,7 +270,7 @@ body {
   backdrop-filter: blur(16px);
   padding: 0rem 0.5rem;
   border-radius: 16px;
-  box-shadow: 
+  box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.08),
     0 0 0 1px rgba(255, 255, 255, 0.5);
   font-size: 0.875rem;
@@ -284,7 +284,7 @@ body {
 
 .uiElement:hover {
   transform: translateY(-6px);
-  box-shadow: 
+  box-shadow:
     0 16px 48px rgba(0, 0, 0, 0.12),
     0 0 0 1px rgba(0, 191, 165, 0.2);
 }
@@ -334,7 +334,7 @@ body {
   border-radius: 1.5rem;
   padding: 2.5rem;
   width: 300px;
-  box-shadow: 
+  box-shadow:
     0 4px 20px rgba(0, 0, 0, 0.06),
     0 0 0 1px rgba(0, 191, 165, 0.05);
   transition: all 0.3s ease;
@@ -343,7 +343,7 @@ body {
 
 .stepCard:hover {
   transform: translateY(-8px);
-  box-shadow: 
+  box-shadow:
     0 12px 40px rgba(0, 0, 0, 0.1),
     0 0 0 1px rgba(0, 191, 165, 0.2);
 }
@@ -381,7 +381,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
+  background:
     radial-gradient(circle at 30% 50%, rgba(0, 191, 165, 0.03) 0%, transparent 50%);
   pointer-events: none;
 }
@@ -713,7 +713,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
+  background:
     radial-gradient(circle at 70% 50%, rgba(0, 191, 165, 0.05) 0%, transparent 50%);
   pointer-events: none;
 }
@@ -771,6 +771,19 @@ body {
   font-size: 1.25rem;
   transition: all 0.3s ease;
   font-weight: 600;
+}
+
+.pending {
+  cursor: not-allowed;
+}
+
+.statusMessage {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+.statusMessage .error {
+  color: var(--color-error);
 }
 
 .submitButton:hover {
@@ -859,6 +872,7 @@ body {
     opacity: 0;
     transform: translateY(40px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -870,6 +884,7 @@ body {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -877,19 +892,25 @@ body {
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-20px);
   }
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.8;
     transform: scale(1.1);
@@ -897,9 +918,12 @@ body {
 }
 
 @keyframes bounce {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }

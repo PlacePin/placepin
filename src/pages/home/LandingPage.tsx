@@ -1,7 +1,62 @@
-import styles from './landingPage.module.css'
-import { NavLink } from 'react-router-dom'
+import styles from './landingPage.module.css';
+import { NavLink } from 'react-router-dom';
+import axiosInstance from '../../utils/axiosInstance';
+import { useState } from 'react';
+import axios from 'axios';
 
 const LandingPage = () => {
+
+  const [error, setError] = useState<string | null>(null);
+  const [isPending, setIsPending] = useState(false);
+  const [contactEmail, setContactEmail] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleEmailSubmit = async () => {
+    setError(null);
+
+    if (contactEmail === '' || !contactEmail.includes('@')) {
+      setError('Enter a valid email.')
+      setTimeout(() => setError(null), 3000)
+      return
+    }
+
+    setIsPending(true)
+
+    try {
+      const { data } = await axiosInstance.post(
+        '/api/features-list/emails',
+        {
+          contactEmail: contactEmail
+        }
+      )
+      setMessage(data.message)
+      setContactEmail('')
+
+      setTimeout(() => {
+        setMessage('')
+      }, 5000)
+
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        setError(error.response?.data?.message)
+        console.error('Axios Type', error)
+        // send to Sentry/DataDog here
+      } else if (error instanceof Error) {
+        setError(error.message)
+        console.error('JS Error Type', error)
+        // send to Sentry/DataDog here
+      } else {
+        setError('Oops something went wrong.')
+        console.error('Unknown Error', error)
+        // send to Sentry/DataDog here
+      }
+      setTimeout(() => {
+        setError(null);
+      }, 5000);
+    } finally {
+      setIsPending(false)
+    }
+  }
 
   return (
     <div className={styles.app}>
@@ -61,7 +116,7 @@ const LandingPage = () => {
           </div>
 
           {/* Tenant Steps */}
-          <h3>For Tenants</h3>
+          {/* <h3>For Tenants</h3>
           <div className={styles.stepsCards}>
             <div className={styles.stepCard}>
               <div className={styles.icon}>🔍</div>
@@ -78,7 +133,7 @@ const LandingPage = () => {
               <h4>Pay & Enjoy</h4>
               <p>Pay rent, track expenses, and enjoy exclusive perks directly through our platform.</p>
             </div>
-          </div>
+          </div> */}
 
           {/* Landlord Steps */}
           <h3>For Landlords</h3>
@@ -156,11 +211,11 @@ const LandingPage = () => {
               <div className={`${styles.features} ${styles.landlordFeatures}`}>
                 <h4>For property owners</h4>
                 <ul>
-                  <li>✓ Transparent fee based on your building's expected gross rental income</li>
-                  <li>✓ Tailored for landlords with scalable services, and full management support for 10+ units.</li>
-                  <li>✓ Access to tenant perks across all your units</li>
-                  <li>✓ Tools to streamline rent tracking and communications</li>
-                  <li>✓ Scales with property size — more units, more value</li>
+                  <li>✓ $150/month per building + 1% per rent payment — simple, transparent pricing</li>
+                  <li>✓ Built for landlords at any stage — from a few units to entire portfolios</li>
+                  <li>✓ Unlock tenant perks across all your units</li>
+                  <li>✓ Streamline rent collection and tenant communication in one place</li>
+                  <li>✓ Flat $150 per building — predictable pricing as you grow</li>
                 </ul>
               </div>
             </div>
@@ -223,10 +278,44 @@ const LandingPage = () => {
             <p>Stay in the loop. Enter your email and be the first to know when new features roll out.</p>
           </div>
           <div className={styles.ctaForm}>
-            <p>Just send us your contact email and we will contact you.</p>
+            <p>Just send us your email and we will contact you.</p>
             <div className={styles.emailInput}>
-              <input type="email" placeholder="Your@email.com" />
-              <button className={styles.submitButton}>→</button>
+              <input
+                type="email"
+                placeholder="Your@email.com"
+                value={contactEmail}
+                onChange={e => setContactEmail(e.target.value)}
+                aria-label="Email address for features list"
+              />
+              <button
+                onClick={handleEmailSubmit}
+                className={`${styles.submitButton} ${isPending && styles.pending}`}
+                disabled={isPending}
+                aria-busy={isPending} // Tells users the button is "working"
+                aria-label="Submit email"
+              >
+                {isPending ? 'Sending...' : '→'}
+              </button>
+            </div>
+            <div
+              role="alert"
+              aria-live="polite"
+              className={styles.statusMessage}
+            >
+              {message && (
+                <p
+                  className={styles.message}
+                >
+                  {message}
+                </p>
+              )}
+              {error && (
+                <p
+                  className={styles.error}
+                >
+                  {error}
+                </p>
+              )}
             </div>
           </div>
         </div>
