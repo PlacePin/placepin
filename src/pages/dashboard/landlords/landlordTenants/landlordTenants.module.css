@@ -124,6 +124,10 @@
   height: 80vh;
 }
 
+.rightSidebar {
+  margin-left: 0.5rem;
+}
+
 @keyframes shake {
 
   0%,

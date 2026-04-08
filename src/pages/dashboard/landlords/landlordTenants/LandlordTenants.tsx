@@ -10,6 +10,7 @@ import TenantSummary from './tenantPortal/TenantSummary';
 import TenantActivity from './tenantPortal/TenantActivity';
 import TenantLogbook from './tenantPortal/TenantLogbook';
 import PrimaryButton from '../../../../components/buttons/PrimaryButton';
+import RentPriceAcknowledgement from './tenantPortal/RentPriceAcknowledgement';
 
 const LandlordTenants = () => {
 
@@ -108,12 +109,15 @@ const LandlordTenants = () => {
               maintenanceRequest={selectedTenant.maintenanceRequest}
               perkPatterns={selectedTenant.perkPatterns}
             />
-            <TenantLogbook
-              career={selectedTenant.career}
-              income={selectedTenant.income}
-              age={selectedTenant.age}
-              governmentAssistance={selectedTenant.governmentAssistance}
-            />
+            <div className={styles.rightSidebar}>
+              <TenantLogbook
+                career={selectedTenant.career}
+                income={selectedTenant.income}
+                age={selectedTenant.age}
+                governmentAssistance={selectedTenant.governmentAssistance}
+              />
+              <RentPriceAcknowledgement />
+            </div>
           </div>
         </TenantPortal>
       ) : numberOfTenants
