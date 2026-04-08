@@ -35,3 +35,7 @@
 .sectionContainers p {
   color: var(--color-text-3)
 }
+
+.numbers {
+  cursor: pointer;
+}
