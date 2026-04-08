@@ -15,11 +15,6 @@ const PropertyAnalytics = ({
   projectedEquity,
 }: PropertyAnalyticsProps) => {
 
-  const handleClick = () => {
-    console.log('edit')
-    
-  }
-
   return (
     <div className={styles.analyticsContainer}>
       <div className={styles.header}>
@@ -29,9 +24,7 @@ const PropertyAnalytics = ({
       </div>
       <div className={styles.analyticsWrapper}>
         <div className={styles.sectionContainers}>
-          <span
-            onClick={handleClick}
-            className={styles.numbers}>
+          <span className={styles.numbers}>
             {outstandingPrincipal ? `$${outstandingPrincipal.toLocaleString('en-US')}` : 'N/A'}
           </span>
           <Tooltip
