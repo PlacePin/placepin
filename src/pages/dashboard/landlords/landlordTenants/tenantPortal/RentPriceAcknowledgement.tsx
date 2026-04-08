@@ -16,6 +16,9 @@ const RentPriceAcknowledgement = () => {
       </div>
       <input
         className={styles.inputField}
+        id='rentPrice'
+        name="rentPrice"
+        placeholder='$3000'
       />
       <SecondaryButton
         title={'Rent Price Acknowledgement'}
