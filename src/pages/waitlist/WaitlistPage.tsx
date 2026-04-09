@@ -107,10 +107,10 @@ export default function WaitlistPage() {
           'Real-time messaging',
           'Financial insights',
           'Work order tracking',
-        ].map((f) => (
-          <div className={styles.feature} key={f}>
+        ].map((feature) => (
+          <div className={styles.feature} key={feature}>
             <div className={styles.featureDot} />
-            <p className={styles.featureText}>{f}</p>
+            <p className={styles.featureText}>{feature}</p>
           </div>
         ))}
       </div>
