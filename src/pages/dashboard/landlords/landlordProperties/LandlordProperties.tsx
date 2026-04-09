@@ -144,9 +144,9 @@ const LandlordProperties = () => {
       />
     ) : (
       <img
-        className={styles.picContainers}
         onClick={() => setSelectedProperty(property)}
         src={townhouse}
+        alt='Default Housing Profile Pic'
       />
     )
   })

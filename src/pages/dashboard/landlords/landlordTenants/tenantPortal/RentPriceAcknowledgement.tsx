@@ -1,8 +1,23 @@
 import { CircleDollarSign } from 'lucide-react';
 import styles from './rentPriceAcknowledgement.module.css';
 import SecondaryButton from '../../../../../components/buttons/SecondaryButton';
+import axiosInstance from '../../../../../utils/axiosInstance';
 
 const RentPriceAcknowledgement = () => {
+
+  const handleRentPriceAcknowledgement = async () => {
+    try {
+      const { data } = await axiosInstance.post(
+        '/api/rent/price-acknowledgement',
+        
+      )
+    } catch (error) {
+
+    } finally {
+
+    }
+  }
+
   return (
     <div className={`${styles.defaultCardStyles} ${styles.misc}`}>
       <div className={styles.miscHeader}>
@@ -23,7 +38,7 @@ const RentPriceAcknowledgement = () => {
       <SecondaryButton
         title={'Rent Price Acknowledgement'}
         // icon={<ArrowRight size={16} />}
-        onClick={() => { }}
+        onClick={handleRentPriceAcknowledgement}
       />
     </div>
   )
