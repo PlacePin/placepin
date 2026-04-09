@@ -15,10 +15,7 @@ import { chatSocket } from './chatSocket';
 import messageRoutes from './routes/messages/messageRoutes';
 import workOrderRoutes from './routes/workOrders/workOrderRoutes';
 import waitlistRoutes from './routes/waitlist/waitlistRoutes';
-<<<<<<< HEAD
 import featuresListRoutes from './routes/featuresList/featuresListRoutes';
-=======
->>>>>>> 5d11b355e87146c8397721faaeadf23ba7b0b41f
 import rentRoutes from './routes/rent/rentRoutes';
 
 // Add a rate limiter as middleware 
