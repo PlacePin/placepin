@@ -4,6 +4,8 @@ import SecondaryButton from '../../../../../components/buttons/SecondaryButton';
 import axiosInstance from '../../../../../utils/axiosInstance';
 import { useState } from 'react';
 import { useAuth } from '../../../../../context/AuthContext';
+import type { AxiosError } from 'axios';
+import axios from 'axios';
 
 const RentPriceAcknowledgement = () => {
 
@@ -19,7 +21,7 @@ const RentPriceAcknowledgement = () => {
     acknowledged: false
   });
   const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<AxiosError | Error | null>(null);
 
   const handleRentPriceAcknowledgement = async () => {
     setIsPending(true)
@@ -35,8 +37,19 @@ const RentPriceAcknowledgement = () => {
       )
       console.log(data.message)
 
-    } catch (error) {
-
+    } catch (err) {
+      if(axios.isAxiosError(err)){
+        console.error(err)
+        // Add Sentry
+        setError(err)
+      } else if (err instanceof Error){
+        console.error(err)
+        // Add Sentry
+        setError(err)
+      } else {
+        console.error(err)
+        // Add Sentry
+      }
     } finally {
       setIsPending(false);
     }
