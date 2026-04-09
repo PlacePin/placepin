@@ -4,6 +4,7 @@ import SecondaryButton from '../../../../../components/buttons/SecondaryButton';
 import axiosInstance from '../../../../../utils/axiosInstance';
 import { useState } from 'react';
 import { useAuth } from '../../../../../context/AuthContext';
+<<<<<<< HEAD
 import axios from 'axios';
 
 interface RentPriceAcknowledgementProps {
@@ -16,22 +17,41 @@ const RentPriceAcknowledgement = ({
 
   interface RentPriceAgreement {
     tenantId: string,
+=======
+import type { AxiosError } from 'axios';
+import axios from 'axios';
+
+const RentPriceAcknowledgement = () => {
+
+  interface RentPriceAcknowledgement {
+>>>>>>> 5d11b355e87146c8397721faaeadf23ba7b0b41f
     rentPrice: number,
     acknowledged: boolean
   }
 
   const { accessToken } = useAuth();
 
+<<<<<<< HEAD
   const [rent, setRent] = useState<RentPriceAgreement>({
     tenantId,
+=======
+  const [rent, setRent] = useState<RentPriceAcknowledgement>({
+>>>>>>> 5d11b355e87146c8397721faaeadf23ba7b0b41f
     rentPrice: 0,
     acknowledged: false
   });
   const [isPending, setIsPending] = useState(false);
+<<<<<<< HEAD
   const [error, setError] = useState<string | null>(null);
 
   const handleRentPriceAcknowledgement = async () => {
     setIsPending(true);
+=======
+  const [error, setError] = useState<AxiosError | Error | null>(null);
+
+  const handleRentPriceAcknowledgement = async () => {
+    setIsPending(true)
+>>>>>>> 5d11b355e87146c8397721faaeadf23ba7b0b41f
     try {
       const { data } = await axiosInstance.post(
         '/api/rent/price-acknowledgement',
@@ -43,6 +63,7 @@ const RentPriceAcknowledgement = ({
         }
       )
       console.log(data.message)
+<<<<<<< HEAD
     } catch (err) {
       if (axios.isAxiosError(err)) {
         setError(err.response?.data?.message)
@@ -56,14 +77,32 @@ const RentPriceAcknowledgement = ({
         setError('Oops something went wrong.')
         console.error('Unknown Error', err)
         // send to Sentry/DataDog here
+=======
+
+    } catch (err) {
+      if(axios.isAxiosError(err)){
+        console.error(err)
+        // Add Sentry
+        setError(err)
+      } else if (err instanceof Error){
+        console.error(err)
+        // Add Sentry
+        setError(err)
+      } else {
+        console.error(err)
+        // Add Sentry
+>>>>>>> 5d11b355e87146c8397721faaeadf23ba7b0b41f
       }
     } finally {
       setIsPending(false);
     }
   }
 
+<<<<<<< HEAD
   console.log('error state', error)
 
+=======
+>>>>>>> 5d11b355e87146c8397721faaeadf23ba7b0b41f
   return (
     <div className={`${styles.defaultCardStyles} ${styles.misc}`}>
       <div className={styles.miscHeader}>
@@ -81,7 +120,10 @@ const RentPriceAcknowledgement = ({
         placeholder='$3000'
         value={rent.rentPrice}
         onChange={e => setRent({
+<<<<<<< HEAD
           tenantId,
+=======
+>>>>>>> 5d11b355e87146c8397721faaeadf23ba7b0b41f
           rentPrice: Number(e.target.value),
           acknowledged: rent.acknowledged
         })}
