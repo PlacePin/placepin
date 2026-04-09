@@ -15,6 +15,7 @@ import { chatSocket } from './chatSocket';
 import messageRoutes from './routes/messages/messageRoutes';
 import workOrderRoutes from './routes/workOrders/workOrderRoutes';
 import waitlistRoutes from './routes/waitlist/waitlistRoutes';
+import rentRoutes from './routes/rent/rentRoutes';
 
 // Add a rate limiter as middleware 
 
@@ -45,6 +46,7 @@ app.use('/api/users', authenticateToken, usersRoutes)
 app.use('/api/landlords', authenticateToken, landlordDataRoute)
 app.use('/api/messages', authenticateToken, messageRoutes)
 app.use('/api/workorders', authenticateToken, workOrderRoutes)
+app.use('/api/rent', authenticateToken, rentRoutes)
 
 // Adding chat socket to server
 chatSocket(server);

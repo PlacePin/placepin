@@ -2,19 +2,43 @@ import { CircleDollarSign } from 'lucide-react';
 import styles from './rentPriceAcknowledgement.module.css';
 import SecondaryButton from '../../../../../components/buttons/SecondaryButton';
 import axiosInstance from '../../../../../utils/axiosInstance';
+import { useState } from 'react';
+import { useAuth } from '../../../../../context/AuthContext';
 
 const RentPriceAcknowledgement = () => {
 
+  interface RentPriceAcknowledgement {
+    rentPrice: number,
+    acknowledged: boolean
+  }
+
+  const { accessToken } = useAuth();
+
+  const [rent, setRent] = useState<RentPriceAcknowledgement>({
+    rentPrice: 0,
+    acknowledged: false
+  });
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState(null);
+
   const handleRentPriceAcknowledgement = async () => {
+    setIsPending(true)
     try {
       const { data } = await axiosInstance.post(
         '/api/rent/price-acknowledgement',
-        
+        rent,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        }
       )
+      console.log(data.message)
+
     } catch (error) {
 
     } finally {
-
+      setIsPending(false);
     }
   }
 
@@ -32,11 +56,15 @@ const RentPriceAcknowledgement = () => {
       <input
         className={styles.inputField}
         id='rentPrice'
-        name="rentPrice"
         placeholder='$3000'
+        value={rent.rentPrice}
+        onChange={e => setRent({
+          rentPrice: Number(e.target.value),
+          acknowledged: rent.acknowledged
+        })}
       />
       <SecondaryButton
-        title={'Rent Price Acknowledgement'}
+        title={isPending ? 'Sending...' : 'Rent Price Acknowledgement'}
         // icon={<ArrowRight size={16} />}
         onClick={handleRentPriceAcknowledgement}
       />
