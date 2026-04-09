@@ -116,13 +116,9 @@ const LandlordTenants = () => {
                 age={selectedTenant.age}
                 governmentAssistance={selectedTenant.governmentAssistance}
               />
-<<<<<<< HEAD
               <RentPriceAcknowledgement
                 tenantId={selectedTenant._id}
               />
-=======
-              <RentPriceAcknowledgement />
->>>>>>> 5d11b355e87146c8397721faaeadf23ba7b0b41f
             </div>
           </div>
         </TenantPortal>
