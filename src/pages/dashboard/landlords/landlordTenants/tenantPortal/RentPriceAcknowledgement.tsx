@@ -15,7 +15,7 @@ const RentPriceAcknowledgement = ({
 }: RentPriceAcknowledgementProps) => {
 
   interface RentPriceAgreement {
-    tenantId,
+    tenantId: string,
     rentPrice: number,
     acknowledged: boolean
   }
