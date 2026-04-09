@@ -116,7 +116,9 @@ const LandlordTenants = () => {
                 age={selectedTenant.age}
                 governmentAssistance={selectedTenant.governmentAssistance}
               />
-              <RentPriceAcknowledgement />
+              <RentPriceAcknowledgement
+                tenantId={selectedTenant._id}
+              />
             </div>
           </div>
         </TenantPortal>

@@ -4,27 +4,34 @@ import SecondaryButton from '../../../../../components/buttons/SecondaryButton';
 import axiosInstance from '../../../../../utils/axiosInstance';
 import { useState } from 'react';
 import { useAuth } from '../../../../../context/AuthContext';
-import type { AxiosError } from 'axios';
 import axios from 'axios';
 
-const RentPriceAcknowledgement = () => {
+interface RentPriceAcknowledgementProps {
+  tenantId: string
+}
 
-  interface RentPriceAcknowledgement {
+const RentPriceAcknowledgement = ({
+  tenantId
+}: RentPriceAcknowledgementProps) => {
+
+  interface RentPriceAgreement {
+    tenantId: string,
     rentPrice: number,
     acknowledged: boolean
   }
 
   const { accessToken } = useAuth();
 
-  const [rent, setRent] = useState<RentPriceAcknowledgement>({
+  const [rent, setRent] = useState<RentPriceAgreement>({
+    tenantId,
     rentPrice: 0,
     acknowledged: false
   });
   const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState<AxiosError | Error | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleRentPriceAcknowledgement = async () => {
-    setIsPending(true)
+    setIsPending(true);
     try {
       const { data } = await axiosInstance.post(
         '/api/rent/price-acknowledgement',
@@ -36,24 +43,26 @@ const RentPriceAcknowledgement = () => {
         }
       )
       console.log(data.message)
-
     } catch (err) {
-      if(axios.isAxiosError(err)){
-        console.error(err)
-        // Add Sentry
-        setError(err)
-      } else if (err instanceof Error){
-        console.error(err)
-        // Add Sentry
-        setError(err)
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.message)
+        console.error('Axios Type', err)
+        // send to Sentry/DataDog here
+      } else if (err instanceof Error) {
+        setError(err.message)
+        console.error('JS Error Type', err)
+        // send to Sentry/DataDog here
       } else {
-        console.error(err)
-        // Add Sentry
+        setError('Oops something went wrong.')
+        console.error('Unknown Error', err)
+        // send to Sentry/DataDog here
       }
     } finally {
       setIsPending(false);
     }
   }
+
+  console.log('error state', error)
 
   return (
     <div className={`${styles.defaultCardStyles} ${styles.misc}`}>
@@ -72,6 +81,7 @@ const RentPriceAcknowledgement = () => {
         placeholder='$3000'
         value={rent.rentPrice}
         onChange={e => setRent({
+          tenantId,
           rentPrice: Number(e.target.value),
           acknowledged: rent.acknowledged
         })}
