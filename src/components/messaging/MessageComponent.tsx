@@ -37,7 +37,7 @@ const MessageComponent = ({ message, index, isOwn, onActionComplete }: MessageCo
         <br />
         <span>{message.content}</span>
         <br />
-        {message.action?.type === "ACKNOWLEDGE_RENT_PRICE" && !message.action.completed && (
+        {message.action?.type === "ACKNOWLEDGE_RENT_PRICE" && !message.action.completed && !isOwn && (
           <button onClick={handleAction}>Acknowledge</button>
         )}
         {message.action?.completed && (
