@@ -9,6 +9,11 @@ interface DMDataProps {
   senderId: string;
   recipientUsername: string;
   content: string;
+  action?: {
+    type: string;
+    payload: any;
+    completed?: boolean
+  };
 }
 
 export function chatSocket(server: any) {
@@ -32,6 +37,7 @@ export function chatSocket(server: any) {
         senderId,
         recipientUsername,
         content,
+        action,
       }: DMDataProps
       ) => {
         try {
@@ -77,6 +83,7 @@ export function chatSocket(server: any) {
             sender: new mongoose.Types.ObjectId(senderId),
             content,
             sentAt: time,
+            action,
           });
 
           conversation.lastUpdated = time;
@@ -88,6 +95,7 @@ export function chatSocket(server: any) {
             receiverId,
             content,
             sentAt: time,
+            action: action ?? undefined,
           };
 
           // Emit to both recipient and sender

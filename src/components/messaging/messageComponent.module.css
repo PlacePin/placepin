@@ -1,0 +1,41 @@
+.messageWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.outgoing,
+.incoming {
+  margin: 0.25rem 1rem;
+  padding: 0.5rem 0.75rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 60%;
+}
+
+.outgoing {
+  border-radius: 0.5rem 0.5rem 0 0.5rem;
+  background: var(--color-surface-4);
+  align-self: flex-end;
+}
+
+.incoming {
+  border-radius: 0.5rem 0.5rem 0.5rem 0;
+  background: var(--color-surface-5);
+  align-self: flex-start;
+  text-align: left;
+}
+
+.in,
+.out {
+  color: gray;
+  margin: 0 1rem;
+  font-size: 12px;
+}
+
+.out {
+  align-self: flex-end;
+}
+
+.in {
+  align-self: flex-start;
+}

@@ -7,6 +7,11 @@ const messageSchema = new mongoose.Schema({
     required: true,
   },
   content: { type: String, required: true },
+  action: {
+    type: String,
+    payload: Object,
+    completed: Boolean,
+  },
   sentAt: { type: Date, default: Date.now },
 }, { _id: false });
 

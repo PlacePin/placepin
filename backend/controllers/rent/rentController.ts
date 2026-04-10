@@ -25,9 +25,7 @@ export const rentPriceAcknowledgement = async (
 
     const tenantName = tenant.fullName;
 
-    const content = acknowledged
-      ? `Hi ${tenantName}, your rent price of $${rentPrice} has been acknowledged.`
-      : `Hi ${tenantName}, please acknowledge your rent will be $${rentPrice} a month.`;
+    const content = `Hi ${tenantName}, please acknowledge your rent will be $${rentPrice} a month.`;
 
     let conversation = await DirectMessageModel.findOne({
       participants: { $all: [userId, tenantId] },
@@ -44,6 +42,14 @@ export const rentPriceAcknowledgement = async (
     conversation.messages.push({
       sender: userId,
       content,
+      action: {
+        type: "ACKNOWLEDGE_RENT_PRICE",
+        payload: {
+          tenantId,
+          rentPrice,
+        },
+        completed: false
+      },
       sentAt: new Date(),
     });
 
