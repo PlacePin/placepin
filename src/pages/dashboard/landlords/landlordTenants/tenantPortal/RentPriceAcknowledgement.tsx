@@ -30,12 +30,10 @@ const RentPriceAcknowledgement = ({
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  console.log('rent', rent)
-
   const handleRentPriceAcknowledgement = async () => {
     setIsPending(true)
     try {
-      const { data } = await axiosInstance.post(
+      await axiosInstance.post(
         '/api/rent/price-acknowledgement',
         rent,
         {
@@ -44,7 +42,6 @@ const RentPriceAcknowledgement = ({
           }
         }
       )
-      console.log(data.message)
     } catch (err) {
       if (axios.isAxiosError(err)) {
         setError(err.response?.data?.message)

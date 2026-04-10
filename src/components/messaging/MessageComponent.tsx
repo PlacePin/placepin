@@ -21,7 +21,7 @@ type MessageComponentProps = {
 
 const MessageComponent = ({ message, index, isOwn, onActionComplete }: MessageComponentProps) => {
   const handleAction = async () => {
-    if (message.action?.type === "ACKNOWLEDGE_RENT" && !message.action.completed) {
+    if (message.action?.type === "ACKNOWLEDGE_RENT_PRICE" && !message.action.completed) {
       await axiosInstance.post('/api/rent/acknowledge', {
         ...message.action.payload,
         acknowledged: true
@@ -37,7 +37,7 @@ const MessageComponent = ({ message, index, isOwn, onActionComplete }: MessageCo
         <br />
         <span>{message.content}</span>
         <br />
-        {message.action?.type === "ACKNOWLEDGE_RENT" && !message.action.completed && (
+        {message.action?.type === "ACKNOWLEDGE_RENT_PRICE" && !message.action.completed && (
           <button onClick={handleAction}>Acknowledge</button>
         )}
         {message.action?.completed && (

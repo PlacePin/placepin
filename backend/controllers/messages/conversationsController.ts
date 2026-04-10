@@ -133,6 +133,7 @@ export const getConversations = async (
           sender: senderUsername,
           content: messages.content,
           sentAt: messages.sentAt,
+          action: messages.action ?? undefined,
         };
       })
     );
