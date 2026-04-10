@@ -102,6 +102,28 @@ export const addProperty = async (req: Request, res: Response) => {
   }
 };
 
+export const updatePropertyInfo = async (req: Request, res: Response) => {
+  const userId = req.userId;
+  const { propertyId, propertyDetails } = req.body;
+
+  try {
+    const updated = await LandlordModel.findOneAndUpdate(
+      { _id: userId, 'properties._id': propertyId },
+      { $set: { 'properties.$.propertyDetails': propertyDetails } },
+      { new: true }
+    );
+
+    if (!updated) {
+      return res.status(404).json({ message: 'Property not found.' });
+    }
+
+    return res.status(200).json({ message: 'Property details updated!' });
+  } catch (err) {
+    console.error('Error updating property details:', err);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
 export const getLandlordProperties = async (
   req: Request,
   res: Response
