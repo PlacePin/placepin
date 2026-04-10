@@ -1,4 +1,6 @@
+import { useAuth } from "../../context/AuthContext";
 import axiosInstance from "../../utils/axiosInstance";
+import SecondaryButton from "../buttons/SecondaryButton";
 import styles from './messageComponent.module.css';
 
 type Message = {
@@ -19,13 +21,23 @@ type MessageComponentProps = {
   onActionComplete: (index: number) => void;
 };
 
+
 const MessageComponent = ({ message, index, isOwn, onActionComplete }: MessageComponentProps) => {
+
+  const { accessToken } = useAuth();
+
   const handleAction = async () => {
     if (message.action?.type === "ACKNOWLEDGE_RENT_PRICE" && !message.action.completed) {
       await axiosInstance.post('/api/rent/acknowledge', {
         ...message.action.payload,
         acknowledged: true
-      });
+      },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        }
+      );
       onActionComplete(index);
     }
   };
@@ -38,7 +50,10 @@ const MessageComponent = ({ message, index, isOwn, onActionComplete }: MessageCo
         <span>{message.content}</span>
         <br />
         {message.action?.type === "ACKNOWLEDGE_RENT_PRICE" && !message.action.completed && !isOwn && (
-          <button onClick={handleAction}>Acknowledge</button>
+          <SecondaryButton
+            title={"Acknowledge"}
+            onClick={handleAction}
+          />
         )}
         {message.action?.completed && (
           <span>✅ Acknowledged</span>

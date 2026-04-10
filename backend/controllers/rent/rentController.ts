@@ -67,3 +67,19 @@ export const rentPriceAcknowledgement = async (
     res.status(500).json({ message: 'Oops! Something went wrong!' })
   }
 }
+
+export const rentPriceApproval = async (
+  req: Request,
+  res: Response,
+) => {
+
+  const { payload, acknowledge } = req.body;
+  const userId = req.userId;
+
+  try {
+    res.status(200).json({ message: payload })
+  } catch (err) {
+    console.error('Unexpected Error', err)
+    res.status(500).json({ message: 'Oops! Something went wrong!' })
+  }
+}
