@@ -48,7 +48,7 @@ export const rentPriceAcknowledgement = async (
           tenantId,
           rentPrice,
         },
-        completed: false
+        completed: acknowledged
       },
       sentAt: new Date(),
     });

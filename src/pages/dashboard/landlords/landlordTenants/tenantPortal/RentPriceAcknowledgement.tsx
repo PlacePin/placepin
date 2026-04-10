@@ -30,6 +30,8 @@ const RentPriceAcknowledgement = ({
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  console.log('rent', rent)
+
   const handleRentPriceAcknowledgement = async () => {
     setIsPending(true)
     try {
@@ -79,11 +81,10 @@ const RentPriceAcknowledgement = ({
         id='rentPrice'
         placeholder='$3000'
         value={rent.rentPrice}
-        onChange={e => setRent({
-          tenantId,
-          rentPrice: Number(e.target.value),
-          acknowledged: rent.acknowledged
-        })}
+        onChange={e => setRent(prev => ({
+          ...prev,
+          rentPrice: Number(e.target.value) || 0
+        }))}
       />
       <SecondaryButton
         title={isPending ? 'Sending...' : 'Rent Price Acknowledgement'}
