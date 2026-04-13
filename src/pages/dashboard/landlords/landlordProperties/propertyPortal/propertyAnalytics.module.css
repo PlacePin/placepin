@@ -9,10 +9,32 @@
 .header {
   width: 100%;
   padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .header h4 {
   font-weight: lighter;
+}
+
+.editButton {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: none;
+  border: 1px solid var(--color-border-4);
+  border-radius: 6px;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.8rem;
+  color: var(--color-text-3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.editButton:hover {
+  border-color: #00bfa5;
+  color: #00bfa5;
 }
 
 .analyticsWrapper {

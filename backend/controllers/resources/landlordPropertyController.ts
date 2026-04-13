@@ -107,9 +107,26 @@ export const updatePropertyInfo = async (req: Request, res: Response) => {
   const { propertyId, propertyDetails } = req.body;
 
   try {
+    // Build a dot-notation $set so only the fields sent are updated,
+    // leaving all other propertyDetails fields untouched.
+    const setFields: Record<string, any> = {};
+    for (const [key, value] of Object.entries(propertyDetails)) {
+      if (value !== undefined && value !== null) {
+        if (typeof value === 'object' && !Array.isArray(value)) {
+          for (const [nestedKey, nestedValue] of Object.entries(value as object)) {
+            if (nestedValue !== undefined) {
+              setFields[`properties.$.propertyDetails.${key}.${nestedKey}`] = nestedValue;
+            }
+          }
+        } else {
+          setFields[`properties.$.propertyDetails.${key}`] = value;
+        }
+      }
+    }
+
     const updated = await LandlordModel.findOneAndUpdate(
       { _id: userId, 'properties._id': propertyId },
-      { $set: { 'properties.$.propertyDetails': propertyDetails } },
+      { $set: setFields },
       { new: true }
     );
 

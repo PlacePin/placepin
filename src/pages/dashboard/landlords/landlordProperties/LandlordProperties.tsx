@@ -216,6 +216,8 @@ const LandlordProperties = () => {
             />
             <div className={styles.portalMainSection}>
               <PropertyAnalytics
+                propertyId={propertyId}
+                onPropertyUpdated={refetch}
                 outstandingPrincipal={outstandingPrincipal}
                 mortgage={mortgage}
                 interestRate={interestRate}
