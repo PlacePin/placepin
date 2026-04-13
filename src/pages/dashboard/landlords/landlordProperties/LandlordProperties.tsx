@@ -14,6 +14,7 @@ import townhouse from '../../../../assets/townhouse.webp';
 import triplex from '../../../../assets/triplex.webp';
 import orangehouse from '../../../../assets/orangehouse.webp';
 
+// created Interfaces for the property data to avoid using any
 interface PropertyFinancials {
   outstandingPrincipal?: number;
   mortgage?: number;
