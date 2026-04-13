@@ -30,7 +30,6 @@ const MessageComponent = ({ message, index, isOwn, onActionComplete }: MessageCo
   const { accessToken } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log('message', message.messageId)
   const handleAction = async () => {
     if (message.action?.type === "ACKNOWLEDGE_RENT_PRICE" && !message.action.completed) {
       try {

@@ -57,8 +57,6 @@ export const rentPriceAcknowledgement = async (
       sentAt: new Date(),
     });
 
-    console.log('convo', conversation)
-
     conversation.lastUpdated = new Date();
 
     await conversation.save();
@@ -81,8 +79,6 @@ export const rentPriceApproval = async (
 
   const { rentPrice, acknowledged, messageId } = req.body;
   const userId = req.userId;
-
-  console.log('body', messageId)
 
   try {
     if (!userId) {
@@ -133,15 +129,13 @@ export const rentPriceApproval = async (
       },
     });
 
-    const updatedConversation = await DirectMessageModel.findOneAndUpdate(
+    await DirectMessageModel.findOneAndUpdate(
       { "messages._id": messageId }, // 1. Find the doc where this message exists
       {
         $set: { "messages.$.action.completed": true } // 2. Use $ to target that specific message
       },
       { new: true } // Return the updated document
     );
-
-    console.log(JSON.stringify(updatedConversation, null, 2));
 
     res.status(200).json({
       message: 'Rent payment initiated',
