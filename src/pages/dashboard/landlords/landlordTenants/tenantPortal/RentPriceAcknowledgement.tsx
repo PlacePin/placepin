@@ -33,7 +33,16 @@ const RentPriceAcknowledgement = ({
   const [error, setError] = useState<string | null>(null);
 
   const handleRentPriceAcknowledgement = async () => {
+    setError(null);
+    
+    if(rent.rentPrice <= 0){
+      setError(`Can't set rent to zero.`)
+      setTimeout(() => setError(null), 3000)
+      return 
+    }
+    
     setIsPending(true)
+    
     try {
       await axiosInstance.post(
         '/api/rent/price-acknowledgement',
@@ -101,6 +110,7 @@ const RentPriceAcknowledgement = ({
           </button>
         </div>
       </div>
+      <p className={styles.error}>{error}</p>
       <SecondaryButton
         title={isPending ? 'Sending...' : 'Rent Price Acknowledgement'}
         // icon={<ArrowRight size={16} />}
