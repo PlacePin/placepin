@@ -17,7 +17,8 @@ const RentPriceAcknowledgement = ({
   interface RentPriceAgreement {
     tenantId: string,
     rentPrice: number,
-    acknowledged: boolean
+    acknowledged: boolean,
+    dueDate: 1 | 15
   }
 
   const { accessToken } = useAuth();
@@ -25,7 +26,8 @@ const RentPriceAcknowledgement = ({
   const [rent, setRent] = useState<RentPriceAgreement>({
     tenantId,
     rentPrice: 0,
-    acknowledged: false
+    acknowledged: false,
+    dueDate: 1,
   });
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -61,7 +63,6 @@ const RentPriceAcknowledgement = ({
     }
   }
 
-  console.log('error state', error)
   return (
     <div className={`${styles.defaultCardStyles} ${styles.misc}`}>
       <div className={styles.miscHeader}>
@@ -83,6 +84,23 @@ const RentPriceAcknowledgement = ({
           rentPrice: Number(e.target.value) || 0
         }))}
       />
+      <div className={styles.dueDateSelector}>
+        <p>Payment due date</p>
+        <div className={styles.dueDateOptions}>
+          <button
+            className={`${styles.dueDateOption} ${rent.dueDate === 1 ? styles.selected : ''}`}
+            onClick={() => setRent(prev => ({ ...prev, dueDate: 1 }))}
+          >
+            1st
+          </button>
+          <button
+            className={`${styles.dueDateOption} ${rent.dueDate === 15 ? styles.selected : ''}`}
+            onClick={() => setRent(prev => ({ ...prev, dueDate: 15 }))}
+          >
+            15th
+          </button>
+        </div>
+      </div>
       <SecondaryButton
         title={isPending ? 'Sending...' : 'Rent Price Acknowledgement'}
         // icon={<ArrowRight size={16} />}

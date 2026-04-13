@@ -9,7 +9,7 @@ export const rentPriceAcknowledgement = async (
   req: Request,
   res: Response
 ) => {
-  const { tenantId, rentPrice, acknowledged } = req.body;
+  const { tenantId, rentPrice, acknowledged, dueDate } = req.body;
   const userId = req.userId;
 
   try {
@@ -50,6 +50,7 @@ export const rentPriceAcknowledgement = async (
         payload: {
           tenantId,
           rentPrice,
+          dueDate,
         },
         completed: acknowledged
       },
