@@ -6,6 +6,7 @@ import SecondaryButton from "../buttons/SecondaryButton";
 import styles from './messageComponent.module.css';
 
 type Message = {
+  messageId?: string;
   sender: string;
   content: string;
   sentAt: string;
@@ -29,6 +30,7 @@ const MessageComponent = ({ message, index, isOwn, onActionComplete }: MessageCo
   const { accessToken } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
+  console.log('message', message.messageId)
   const handleAction = async () => {
     if (message.action?.type === "ACKNOWLEDGE_RENT_PRICE" && !message.action.completed) {
       try {
@@ -72,7 +74,8 @@ const MessageComponent = ({ message, index, isOwn, onActionComplete }: MessageCo
         // Step 4: Acknowledge the rent price
         await axiosInstance.post('/api/rent/acknowledge', {
           ...message.action.payload,
-          acknowledged: true
+          acknowledged: true,
+          messageId: message.messageId
         },
           {
             headers: {

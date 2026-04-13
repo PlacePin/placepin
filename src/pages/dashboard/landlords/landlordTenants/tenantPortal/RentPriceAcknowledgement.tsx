@@ -25,7 +25,7 @@ const RentPriceAcknowledgement = ({
 
   const [rent, setRent] = useState<RentPriceAgreement>({
     tenantId,
-    rentPrice: 0,
+    rentPrice: 1,
     acknowledged: false,
     dueDate: 1,
   });
@@ -81,7 +81,7 @@ const RentPriceAcknowledgement = ({
         value={rent.rentPrice}
         onChange={e => setRent(prev => ({
           ...prev,
-          rentPrice: Number(e.target.value) || 0
+          rentPrice: Number(e.target.value) || 1
         }))}
       />
       <div className={styles.dueDateSelector}>
