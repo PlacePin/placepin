@@ -14,12 +14,50 @@ import townhouse from '../../../../assets/townhouse.webp';
 import triplex from '../../../../assets/triplex.webp';
 import orangehouse from '../../../../assets/orangehouse.webp';
 
+interface PropertyFinancials {
+  outstandingPrincipal?: number;
+  mortgage?: number;
+  interestRate?: number;
+  projectedEquity?: number;
+}
+
+interface PropertyDetails {
+  lotSize?: number;
+  trashPickup?: string;
+  electricianLastUpdate?: Date | null;
+  boilerLastUpdated?: Date | null;
+  closestPublicCommutes?: string;
+  averageUnitSize?: number;
+  financials?: PropertyFinancials;
+}
+
+interface PropertyAddress {
+  street: string;
+  unit?: string;
+  city: string;
+  state: string;
+  zip: string;
+}
+
+interface LandlordProperty {
+  _id: string;
+  tenantCount: number;
+  profilePic?: string;
+  properties: {
+    _id: string;
+    name?: string;
+    address: PropertyAddress;
+    numberOfUnits: number;
+    propertyDetails?: PropertyDetails;
+  };
+}
+
 const LandlordProperties = () => {
 
   const [showAddPropertyModal, setShowAddPropertyModal] = useState(false);
-  const [selectedProperty, setSelectedProperty] = useState<any>(null);
+  const [selectedPropertyId, setSelectedPropertyId] = useState<string | null>(null);
 
-  const { data, error } = useGetAxios(`/api/landlords/properties`);
+  const { data, error, refetch } = useGetAxios(`/api/landlords/properties`);
 
   if (error) {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
@@ -32,6 +70,9 @@ const LandlordProperties = () => {
   const stockPhotos = [townhouse, triplex, orangehouse]
 
   const properties = data.properties;
+  const selectedProperty = selectedPropertyId
+    ? properties.find((p: LandlordProperty) => p.properties._id === selectedPropertyId) ?? null
+    : null;
   const building = selectedProperty?.properties;
   const numberOfProperties = properties.length;
   let landlordId: string;
@@ -76,15 +117,15 @@ const LandlordProperties = () => {
     averageUnitSize = selectedProperty.properties.propertyDetails?.averageUnitSize;
   }
 
-  if (selectedProperty === null) {
+  if (selectedPropertyId === null) {
     resourceType = ''
-  } else if (selectedProperty.hasOwnProperty('properties')) {
+  } else if (selectedProperty?.hasOwnProperty('properties')) {
     resourceType = 'Property'
   } else {
     resourceType = 'N/A'
   }
 
-  const propertyCards = properties.map((property: any) => {
+  const propertyCards = properties.map((property: LandlordProperty) => {
 
     const randomImg = Math.floor(Math.random() * stockPhotos.length)
     const address = `${property.properties.address.street}`
@@ -122,7 +163,7 @@ const LandlordProperties = () => {
           </p>
           <button
             className={styles.infoButton}
-            onClick={() => setSelectedProperty(property)}
+            onClick={() => setSelectedPropertyId(property.properties._id)}
           >
             <Info
               size={18}
@@ -135,17 +176,17 @@ const LandlordProperties = () => {
     )
   })
 
-  const realEstate = properties.map((property: any) => {
+  const realEstate = properties.map((property: LandlordProperty) => {
     return property.profilePic ? (
       <img
         src={`${property.profilePic}`}
         alt='Housing Profile Pic'
-        onClick={() => setSelectedProperty(property)}
+        onClick={() => setSelectedPropertyId(property.properties._id)}
       />
     ) : (
       <img
         className={styles.picContainers}
-        onClick={() => setSelectedProperty(property)}
+        onClick={() => setSelectedPropertyId(property.properties._id)}
         src={townhouse}
       />
     )
@@ -153,7 +194,7 @@ const LandlordProperties = () => {
 
   return (
     <>
-      {selectedProperty ? (
+      {selectedProperty && selectedPropertyId ? (
         <PropertyPortal>
           <PortalHeader
             resourcePic={realEstate}
@@ -161,7 +202,7 @@ const LandlordProperties = () => {
             resourceName={building.name || 'No Name'}
             resourceId={propertyId}
             resourceType={resourceType}
-            onClose={() => setSelectedProperty(null)}
+            onClose={() => setSelectedPropertyId(null)}
           />
           <div className={styles.portalBody}>
             <PropertySummary
@@ -180,6 +221,8 @@ const LandlordProperties = () => {
                 projectedEquity={projectedEquity}
               />
               <PropertyDetails
+                propertyId={propertyId}
+                onPropertyUpdated={refetch}
                 lotSize={lotSize}
                 trashPickup={trashPickup}
                 electricianLastUpdate={electricianLastUpdate}

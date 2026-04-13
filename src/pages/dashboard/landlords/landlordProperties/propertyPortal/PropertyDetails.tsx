@@ -1,6 +1,11 @@
+import { useState } from 'react';
+import { Pencil } from 'lucide-react';
 import styles from './propertyDetails.module.css';
+import EditPropertyModal from '../../../../../components/modals/EditPropertyModal';
 
 interface PropertyDetailsProps {
+  propertyId: string,
+  onPropertyUpdated: () => void,
   lotSize: number,
   trashPickup: string,
   electricianLastUpdate: Date | null,
@@ -10,6 +15,8 @@ interface PropertyDetailsProps {
 }
 
 const PropertyDetails = ({
+  propertyId,
+  onPropertyUpdated,
   lotSize,
   trashPickup,
   electricianLastUpdate,
@@ -17,13 +24,36 @@ const PropertyDetails = ({
   closestPublicCommutes,
   averageUnitSize,
 }: PropertyDetailsProps) => {
+  const [showEditModal, setShowEditModal] = useState(false);
+
   return (
     <div className={styles.detailsContainer}>
       <div className={styles.header}>
-        <h4>
-          Property Details
-        </h4>
+        <h4>Property Details</h4>
+        <button
+          className={styles.editButton}
+          onClick={() => setShowEditModal(true)}
+        >
+          <Pencil size={14} />
+          Edit
+        </button>
       </div>
+      {showEditModal && (
+        <EditPropertyModal
+          propertyId={propertyId}
+          onClose={() => setShowEditModal(false)}
+          onPropertyUpdated={() => {
+            onPropertyUpdated();
+            setShowEditModal(false);
+          }}
+          lotSize={lotSize}
+          trashPickup={trashPickup}
+          electricianLastUpdate={electricianLastUpdate}
+          boilerLastUpdated={boilerLastUpdated}
+          closestPublicCommutes={closestPublicCommutes}
+          averageUnitSize={averageUnitSize}
+        />
+      )}
       <div className={styles.detailsWrapper}>
         <div className={styles.sectionContainers}>
           <span className={styles.values}>
