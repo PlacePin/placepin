@@ -28,7 +28,7 @@ export const rentPriceAcknowledgement = async (
 
     const tenantName = tenant.fullName;
 
-    const content = `Hi ${tenantName}, please acknowledge your rent will be $${rentPrice} a month.`;
+    const content = `Dear ${tenantName}, your monthly rent has been set at $${rentPrice}, due on the ${dueDate}${dueDate === 1 ? 'st' : 'th'} of each month. Please acknowledge your agreement below.`;
 
     let conversation = await DirectMessageModel.findOne({
       participants: { $all: [userId, tenantId] },
@@ -134,7 +134,6 @@ export const rentPriceApproval = async (
       {
         $set: { "messages.$.action.completed": true } // 2. Use $ to target that specific message
       },
-      { new: true } // Return the updated document
     );
 
     res.status(200).json({
