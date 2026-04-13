@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import { TenantModel } from "../../database/models/Tenant.model";
 import { DirectMessageModel } from "../../database/models/Message.model";
 import Stripe from "stripe";
+import { LandlordModel } from "../../database/models/Landlord.model";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
@@ -135,6 +136,18 @@ export const rentPriceApproval = async (
         $set: { "messages.$.action.completed": true } // 2. Use $ to target that specific message
       },
     );
+
+    const conversation = await DirectMessageModel.findOne({
+      participants: userId,
+      'messages._id': messageId
+    });
+
+    if (!conversation) {
+      return res.status(400).json({ message: "Missing conversation" });
+    }
+
+    const landlordIndex = conversation.participantsModel.indexOf('Landlords');
+    const landlordId = conversation.participants[landlordIndex];
 
     res.status(200).json({
       message: 'Rent payment initiated',
