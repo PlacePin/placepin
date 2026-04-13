@@ -130,6 +130,7 @@ export const rentPriceApproval = async (
       },
     });
 
+    // Updating the acknowledged field
     await DirectMessageModel.findOneAndUpdate(
       { "messages._id": messageId }, // 1. Find the doc where this message exists
       {
@@ -137,6 +138,7 @@ export const rentPriceApproval = async (
       },
     );
 
+    // Finding the conversation to get the landlordId to update the expect rent amount for this tenant
     const conversation = await DirectMessageModel.findOne({
       participants: userId,
       'messages._id': messageId
