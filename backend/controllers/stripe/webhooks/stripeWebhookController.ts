@@ -160,6 +160,41 @@ export const stripeWebhookController = async (
         break;
       }
 
+      case "payment_intent.succeeded": {
+        const paymentIntent = event.data.object as Stripe.PaymentIntent;
+        const { tenantId, rentAmount } = paymentIntent.metadata;
+
+        // Only handle rent payments, not subscription payments
+        if (!tenantId || !rentAmount) break;
+
+        await TenantModel.updateOne(
+          { _id: tenantId },
+          {
+            $push: {
+              rentPayment: {
+                rentAmount: Number(rentAmount),
+                monthPaid: new Date(),
+                rentDue: new Date(),
+              }
+            }
+          }
+        );
+        console.log("Rent payment succeeded for tenant:", tenantId);
+        break;
+      }
+
+      case "payment_intent.payment_failed": {
+        const paymentIntent = event.data.object as Stripe.PaymentIntent;
+        const { tenantId } = paymentIntent.metadata;
+
+        // Only handle rent payments
+        if (!tenantId) break;
+
+        // TODO: notify tenant their payment failed via email or message
+        console.log("Rent payment failed for tenant:", tenantId);
+        break;
+      }
+
       // handle other relevant events if you want
       default:
         console.log(`Unhandled event type ${event.type}`);
