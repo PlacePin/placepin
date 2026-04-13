@@ -149,6 +149,21 @@ export const rentPriceApproval = async (
     const landlordIndex = conversation.participantsModel.indexOf('Landlords');
     const landlordId = conversation.participants[landlordIndex];
 
+    await LandlordModel.findOneAndUpdate(
+      {
+        _id: landlordId,
+        "properties.tenants.tenantId": userId // This finds the right property automatically
+      },
+      {
+        // The $[ten] syntax allows us to target the specific tenant in the array
+        $set: { "properties.$.tenants.$[ten].rentAmountExpected": rentPrice }
+      },
+      {
+        arrayFilters: [{ "ten.tenantId": userId }], // Match the specific tenant
+        new: true
+      }
+    );
+
     res.status(200).json({
       message: 'Rent payment initiated',
       paymentIntentId: paymentIntent.id,

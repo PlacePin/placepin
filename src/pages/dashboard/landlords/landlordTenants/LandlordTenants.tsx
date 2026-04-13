@@ -40,8 +40,6 @@ const LandlordTenants = () => {
         strokeWidth={1}
       />
 
-      console.log('st', selectedTenant)
-
     return (
       <div
         key={tenant._id}
