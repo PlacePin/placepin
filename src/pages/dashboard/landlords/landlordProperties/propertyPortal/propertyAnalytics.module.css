@@ -32,10 +32,7 @@
   transition: all 0.2s ease;
 }
 
-.editButton:hover {
-  border-color: #00bfa5;
-  color: #00bfa5;
-}
+
 
 .analyticsWrapper {
   display: flex;

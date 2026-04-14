@@ -104,29 +104,34 @@ export const addProperty = async (req: Request, res: Response) => {
 
 export const updatePropertyInfo = async (req: Request, res: Response) => {
   const userId = req.userId;
+  if (!userId) return res.status(401).json({ message: 'Unauthorized.' });
+
   const { propertyId, propertyDetails } = req.body;
 
   try {
-    // Build a dot-notation $set so only the fields sent are updated,
+    // Build dot-notation $set paths so only sent fields are updated,
     // leaving all other propertyDetails fields untouched.
-    const setFields: Record<string, any> = {};
-    for (const [key, value] of Object.entries(propertyDetails)) {
-      if (value !== undefined && value !== null) {
-        if (typeof value === 'object' && !Array.isArray(value)) {
-          for (const [nestedKey, nestedValue] of Object.entries(value as object)) {
-            if (nestedValue !== undefined) {
-              setFields[`properties.$.propertyDetails.${key}.${nestedKey}`] = nestedValue;
+    const updateFields = Object.entries(propertyDetails).reduce<Record<string, unknown>>(
+      (dotPaths, [field, fieldValue]) => {
+        if (fieldValue == null) return dotPaths;
+
+        if (typeof fieldValue === 'object' && !Array.isArray(fieldValue)) {
+          for (const [subField, subFieldValue] of Object.entries(fieldValue as object)) {
+            if (subFieldValue !== undefined) {
+              dotPaths[`properties.$.propertyDetails.${field}.${subField}`] = subFieldValue;
             }
           }
         } else {
-          setFields[`properties.$.propertyDetails.${key}`] = value;
+          dotPaths[`properties.$.propertyDetails.${field}`] = fieldValue;
         }
-      }
-    }
+        return dotPaths;
+      },
+      {}
+    );
 
     const updated = await LandlordModel.findOneAndUpdate(
       { _id: userId, 'properties._id': propertyId },
-      { $set: setFields },
+      { $set: updateFields },
       { new: true }
     );
 
