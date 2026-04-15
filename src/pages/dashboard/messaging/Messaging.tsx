@@ -10,12 +10,23 @@ import ComposeModal from '../../../components/modals/ComposeModal';
 import PrimaryButton from '../../../components/buttons/PrimaryButton';
 import { NavLink } from 'react-router-dom';
 import axiosInstance from '../../../utils/axiosInstance';
+import MessageComponent from '../../../components/messaging/MessageComponent';
 
 type Message = {
   sender: string;
   content: string;
   sentAt: string;
+  action?: {
+    type: string;
+    payload: any;
+    completed?: boolean;
+  };
 };
+
+type SocketMessage = {
+  senderId: string;
+  receiverId: string;
+} & Message;
 
 const Messaging = () => {
   const [people, setPeople] = useState<string[]>([]);
@@ -50,12 +61,9 @@ const Messaging = () => {
     });
 
     // Listen for private messages from the server
-    socket.on('private_message', (data: {
-      senderId: string;
-      receiverId: string;
-      content: string;
-      sentAt: string
-    }) => {
+    socket.on('private_message', (
+      data: SocketMessage
+    ) => {
       const isSelf = data.senderId === currentUserId;
       const chatPartnerId = isSelf ? data.receiverId : data.senderId;
 
@@ -67,7 +75,8 @@ const Messaging = () => {
         {
           sender: isSelf ? 'You' : chatPartnerUsername,
           content: data.content,
-          sentAt: data.sentAt
+          sentAt: data.sentAt,
+          action: data.action ?? undefined
         }],
       }));
     });
@@ -114,6 +123,17 @@ const Messaging = () => {
       position.scrollTop = position.scrollHeight
     }
   }, [messages])
+
+  const handleActionComplete = (convo: string, index: number) => {
+    setMessages(prev => ({
+      ...prev,
+      [convo]: prev[convo].map((msg, i) =>
+        i === index
+          ? { ...msg, action: { ...msg.action!, completed: true } }
+          : msg
+      )
+    }));
+  };
 
   const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -180,30 +200,14 @@ const Messaging = () => {
                 ref={scrollRef}
               >
                 {(messages[convoWith] || []).map((message, i) => (
-                  <div
-                    className={styles.messageWrapper}
-                    key={i}
-                  >
-                    <p
-                      className={message.sender === convoWith ? styles.outgoing : styles.incoming}
-                    >
-                      <strong>
-                        {message.sender}
-                      </strong>
-                      <br />
-                      <span>
-                        {message.content}
-                      </span>
-                      <br />
-                    </p>
-                    <span
-                      className={`${styles.time} ${message.sender === convoWith ? styles.out : styles.in}`}
-                    >
-                      {new Date(message.sentAt).toLocaleTimeString([], {
-                        hour: '2-digit',
-                        minute: '2-digit'
-                      })}
-                    </span>
+                  <div className={styles.messageWrapper} key={i}>
+                    <MessageComponent
+                      key={i}
+                      message={message}
+                      index={i}
+                      isOwn={message.sender !== convoWith}
+                      onActionComplete={(idx) => handleActionComplete(convoWith, idx)}
+                    />
                   </div>
                 ))}
               </div>

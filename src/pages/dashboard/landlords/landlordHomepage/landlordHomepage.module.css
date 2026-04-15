@@ -1,5 +1,6 @@
 .landlordHomepageContainer {
-  display: flex;
+  /* Uncomment this part when you add more Stats KPI cards */
+  /* display: flex; */
   height: 100%;
   padding: 2rem;
 }

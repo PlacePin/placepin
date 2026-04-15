@@ -21,6 +21,7 @@ const PropertyAnalytics = ({
   interestRate,
   projectedEquity,
 }: PropertyAnalyticsProps) => {
+
   const [showEditModal, setShowEditModal] = useState(false);
 
   return (

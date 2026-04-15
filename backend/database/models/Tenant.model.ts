@@ -89,6 +89,14 @@ const tenantSchema = new mongoose.Schema({
     stripeCustomerId: { type: String, default: null },
     tier: { type: String, default: "Landlord-Sponsored" },
     stripeSubscriptionId: { type: String, default: null },
+    stripeFinancialConnectionsId: { type: String, default: null },
+    stripeBankAccountId: { type: String, default: null },
+    stripeMandateId: { type: String, default: null },
+    paymentMethod: {
+      type: String,
+      enum: ['card', 'ach'],
+      default: 'card'
+    },
   },
   username: { type: String, required: true },
 })

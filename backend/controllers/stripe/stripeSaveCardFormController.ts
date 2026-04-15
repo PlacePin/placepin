@@ -17,9 +17,9 @@ export const stripeSaveCardForm = async (
 
   try {
     // Get the user from DB
-    const user = await TenantModel.findById(userId) || 
-                 await LandlordModel.findById(userId) ||
-                 await TradesmenModel.findById(userId);
+    const user = await TenantModel.findById(userId) ||
+      await LandlordModel.findById(userId) ||
+      await TradesmenModel.findById(userId);
 
     if (!user) {
       return res.status(404).json({ message: "User not found." });
@@ -32,6 +32,10 @@ export const stripeSaveCardForm = async (
         stripeCustomerId: '',
         tier: '',
         stripeSubscriptionId: '',
+        stripeFinancialConnectionsId: '',
+        stripeBankAccountId: '',
+        stripeMandateId: '',
+        paymentMethod: 'card',
       };
     }
 

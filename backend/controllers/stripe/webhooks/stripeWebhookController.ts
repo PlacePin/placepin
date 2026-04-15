@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import { LandlordModel } from "../../../database/models/Landlord.model";
 import { TenantModel } from "../../../database/models/Tenant.model";
 import { TradesmenModel } from "../../../database/models/Tradesmen.model";
+import { DirectMessageModel } from "../../../database/models/Message.model";
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY!;
 const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET!;
@@ -157,6 +158,83 @@ export const stripeWebhookController = async (
           );
           console.log("Invoice failed — isSubscribed false for:", stripeCustomerId);
         }
+        break;
+      }
+
+      case "payment_intent.succeeded": {
+        const paymentIntent = event.data.object as Stripe.PaymentIntent;
+        const { tenantId, rentAmount } = paymentIntent.metadata;
+
+        // Only handle rent payments, not subscription payments
+        if (!tenantId || !rentAmount) break;
+
+        await TenantModel.updateOne(
+          { _id: tenantId },
+          {
+            $push: {
+              rentPayment: {
+                rentAmount: Number(rentAmount),
+                monthPaid: new Date(),
+                rentDue: new Date(),
+              }
+            }
+          }
+        );
+        console.log("Rent payment succeeded for tenant:", tenantId);
+        break;
+      }
+
+      case "payment_intent.payment_failed": {
+        const paymentIntent = event.data.object as Stripe.PaymentIntent;
+        const { tenantId } = paymentIntent.metadata;
+
+        if (!tenantId) break;
+
+        // Mark tenant as overdue
+        await LandlordModel.findOneAndUpdate(
+          { 'properties.tenants.tenantId': tenantId },
+          {
+            $set: {
+              'properties.$.tenants.$[ten].rentStatus': 'overdue',
+              'properties.$.tenants.$[ten].monthPaid': false,
+            }
+          },
+          { arrayFilters: [{ 'ten.tenantId': tenantId }] }
+        );
+
+        // Find the landlord to get their ID for the message
+        const landlord = await LandlordModel.findOne({
+          'properties.tenants.tenantId': tenantId
+        });
+
+        if (!landlord) break;
+
+        const tenant = await TenantModel.findById(tenantId);
+        if (!tenant) break;
+
+        // Find or create conversation between landlord and tenant
+        let conversation = await DirectMessageModel.findOne({
+          participants: { $all: [landlord._id, tenantId] }
+        });
+
+        if (!conversation) {
+          conversation = await DirectMessageModel.create({
+            participants: [landlord._id, tenantId],
+            participantsModel: ['Landlords', 'Tenants'],
+            messages: [],
+          });
+        }
+
+        conversation.messages.push({
+          sender: landlord._id,
+          content: `⚠️ Rent payment of $${paymentIntent.amount / 100} for ${tenant.fullName} has failed after multiple attempts. Please follow up with your tenant.`,
+          sentAt: new Date(),
+        });
+
+        conversation.lastUpdated = new Date();
+        await conversation.save();
+
+        console.log('Rent payment failed, landlord notified for tenant:', tenantId);
         break;
       }
 

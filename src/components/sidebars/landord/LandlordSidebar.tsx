@@ -8,8 +8,8 @@ const LandlordSidebar = () => {
 
   const tabs = [
     { path: LANDLORD_ROUTES.DASHBOARD, text: "Home", icon: <Home size={18} /> },
-    { path: LANDLORD_ROUTES.TENANTS, text: "Tenants", icon: <Users size={18} /> },
     { path: LANDLORD_ROUTES.PROPERTIES, text: "Properties", icon: <Fence size={18} /> },
+    { path: LANDLORD_ROUTES.TENANTS, text: "Tenants", icon: <Users size={18} /> },
     { path: LANDLORD_ROUTES.MESSAGING, text: "Messaging", icon: <MessageCircle size={18} /> },
     { path: LANDLORD_ROUTES.INSIGHTS, text: "Tenant Insights", icon: <BarChart size={18} /> },
     { path: LANDLORD_ROUTES.MAINTENANCE, text: "Maintenance", icon: <Briefcase size={18} /> },

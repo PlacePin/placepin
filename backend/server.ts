@@ -16,6 +16,8 @@ import messageRoutes from './routes/messages/messageRoutes';
 import workOrderRoutes from './routes/workOrders/workOrderRoutes';
 import waitlistRoutes from './routes/waitlist/waitlistRoutes';
 import featuresListRoutes from './routes/featuresList/featuresListRoutes';
+import rentRoutes from './routes/rent/rentRoutes';
+import stripeFinancialConnectionsRoutes from './routes/stripe/stripeFinancialConnectionsRoutes';
 
 // Add a rate limiter as middleware 
 
@@ -47,6 +49,8 @@ app.use('/api/users', authenticateToken, usersRoutes)
 app.use('/api/landlords', authenticateToken, landlordDataRoute)
 app.use('/api/messages', authenticateToken, messageRoutes)
 app.use('/api/workorders', authenticateToken, workOrderRoutes)
+app.use('/api/rent', authenticateToken, rentRoutes)
+app.use('/api/financial-connections', authenticateToken, stripeFinancialConnectionsRoutes);
 
 // Adding chat socket to server
 chatSocket(server);
