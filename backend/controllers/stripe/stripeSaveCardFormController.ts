@@ -34,6 +34,7 @@ export const stripeSaveCardForm = async (
         stripeSubscriptionId: '',
         stripeFinancialConnectionsId: '',
         stripeBankAccountId: '',
+        stripeMandateId: '',
         paymentMethod: 'card',
       };
     }
