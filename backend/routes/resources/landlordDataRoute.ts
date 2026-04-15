@@ -1,6 +1,6 @@
 import express from 'express';
 import { getLandlordTenants } from '../../controllers/resources/landlordTenantsController';
-import { addProperty, getLandlordProperties } from '../../controllers/resources/landlordPropertyController';
+import { addProperty, getLandlordProperties, updatePropertyInfo } from '../../controllers/resources/landlordPropertyController';
 import { removeTenant } from '../../controllers/resources/removeTenantController';
 import { removeProperty } from '../../controllers/resources/removePropertyController';
 import { getReceipt, addReceipt, updateReceipt } from '../../controllers/resources/landlordReceiptController';
@@ -15,6 +15,7 @@ router.get('/tradesmen', getTradesmen)
 router.post('/receipts', addReceipt);
 router.post('/properties', addProperty);
 router.put('/receipts', updateReceipt)
+router.put('/properties', updatePropertyInfo)
 router.delete('/tenant', removeTenant);
 router.delete('/property', removeProperty);
 
