@@ -102,6 +102,50 @@ export const addProperty = async (req: Request, res: Response) => {
   }
 };
 
+export const updatePropertyInfo = async (req: Request, res: Response) => {
+  const userId = req.userId;
+  if (!userId) return res.status(401).json({ message: 'Unauthorized.' });
+
+  const { propertyId, propertyDetails } = req.body;
+
+  try {
+    // Build dot-notation $set paths so only sent fields are updated,
+    // leaving all other propertyDetails fields untouched.
+    const updateFields = Object.entries(propertyDetails).reduce<Record<string, unknown>>(
+      (dotPaths, [field, fieldValue]) => {
+        if (fieldValue == null) return dotPaths;
+
+        if (typeof fieldValue === 'object' && !Array.isArray(fieldValue)) {
+          for (const [subField, subFieldValue] of Object.entries(fieldValue as object)) {
+            if (subFieldValue !== undefined) {
+              dotPaths[`properties.$.propertyDetails.${field}.${subField}`] = subFieldValue;
+            }
+          }
+        } else {
+          dotPaths[`properties.$.propertyDetails.${field}`] = fieldValue;
+        }
+        return dotPaths;
+      },
+      {}
+    );
+
+    const updated = await LandlordModel.findOneAndUpdate(
+      { _id: userId, 'properties._id': propertyId },
+      { $set: updateFields },
+      { new: true }
+    );
+
+    if (!updated) {
+      return res.status(404).json({ message: 'Property not found.' });
+    }
+
+    return res.status(200).json({ message: 'Property details updated!' });
+  } catch (err) {
+    console.error('Error updating property details:', err);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
 export const getLandlordProperties = async (
   req: Request,
   res: Response
