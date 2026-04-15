@@ -100,10 +100,15 @@ const MessageComponent = ({ message, index, isOwn, onActionComplete }: MessageCo
         <span>{message.content}</span>
         <br />
         {message.action?.type === "ACKNOWLEDGE_RENT_PRICE" && !message.action.completed && !isOwn && (
-          <SecondaryButton
-            title={isLoading ? "Loading..." : "Acknowledge"}
-            onClick={handleAction}
-          />
+          <>
+            <SecondaryButton
+              title={isLoading ? "Loading..." : "Acknowledge"}
+              onClick={handleAction}
+            />
+            <p className={styles.disclaimer}>
+              *By acknowledging and linking your bank account, you authorize recurring monthly rent payments of the above amount to be charged on your due date. Your lease remains the legally binding document.
+            </p>
+          </>
         )}
         {message.action?.completed && (
           <span>✅ Acknowledged</span>

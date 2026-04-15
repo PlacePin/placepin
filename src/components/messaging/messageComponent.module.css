@@ -25,6 +25,11 @@
   text-align: left;
 }
 
+.disclaimer {
+  font-size: 0.5rem;
+  opacity: 0.8;
+}
+
 .in,
 .out {
   color: gray;
