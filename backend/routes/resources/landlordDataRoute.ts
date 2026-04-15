@@ -1,5 +1,5 @@
 import express from 'express';
-import { getLandlordTenants } from '../../controllers/resources/landlordTenantsController';
+import { getLandlordTenantPaymentHistory, getLandlordTenants } from '../../controllers/resources/landlordTenantsController';
 import { addProperty, getLandlordProperties } from '../../controllers/resources/landlordPropertyController';
 import { removeTenant } from '../../controllers/resources/removeTenantController';
 import { removeProperty } from '../../controllers/resources/removePropertyController';
@@ -9,6 +9,7 @@ import { getTradesmen } from '../../controllers/resources/landlordTradesmenContr
 const router = express.Router();
 
 router.get('/tenants', getLandlordTenants);
+router.get('/tenants/:tenantId/rent-payment-history', getLandlordTenantPaymentHistory)
 router.get('/properties', getLandlordProperties);
 router.get('/receipts', getReceipt);
 router.get('/tradesmen', getTradesmen)

@@ -104,9 +104,9 @@ const LandlordTenants = () => {
               rentAmountExpected={selectedTenant.rentAmountExpected}
             />
             <TenantActivity
-              rentPayments={selectedTenant.rentPayment}
               maintenanceRequest={selectedTenant.maintenanceRequest}
               perkPatterns={selectedTenant.perkPatterns}
+              tenantId={selectedTenant._id}
             />
             <TenantLogbook
               career={selectedTenant.career}
