@@ -96,7 +96,7 @@ export const getLandlordTenantPaymentHistory = async (
 
     const skip = (page - 1) * limit;
 
-    // 👇 get ONLY rentPayment array
+    // get ONLY rentPayment array
     const tenant = await TenantModel.findById(tenantId)
       .select('rentPayment')
       .lean();
@@ -105,7 +105,7 @@ export const getLandlordTenantPaymentHistory = async (
       return res.status(404).json({ message: 'Tenant not found' });
     }
 
-    // 👇 sort payments (newest first)
+    // sort payments (newest first)
     const sortedPayments = [...tenant.rentPayment].sort((a, b) => {
       const dateA = a.monthPaid ? new Date(a.monthPaid).getTime() : 0;
       const dateB = b.monthPaid ? new Date(b.monthPaid).getTime() : 0;
@@ -114,7 +114,6 @@ export const getLandlordTenantPaymentHistory = async (
 
     const total = sortedPayments.length;
 
-    // 👇 paginate manually
     const paginatedPayments = sortedPayments.slice(skip, skip + limit);
 
     res.json({
