@@ -16,7 +16,7 @@ const RentPriceAcknowledgement = ({
 
   interface RentPriceAgreement {
     tenantId: string,
-    rentPrice: number,
+    rentPrice: string,
     acknowledged: boolean,
     dueDate: 1 | 15
   }
@@ -25,17 +25,31 @@ const RentPriceAcknowledgement = ({
 
   const [rent, setRent] = useState<RentPriceAgreement>({
     tenantId,
-    rentPrice: 0,
+    rentPrice: '',
     acknowledged: false,
     dueDate: 1,
   });
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const sanitizeNumber = (value: string) => {
+    const cleaned = value.replace(/[^0-9.]/g, '');
+    const parts = cleaned.split('.');
+
+    if (parts.length <= 1) return cleaned;
+
+    return parts[0] + '.' + parts.slice(1).join('');
+  };
+
   const handleRentPriceAcknowledgement = async () => {
     setError(null);
 
-    if (rent.rentPrice <= 0) {
+    // Rounding to two decimal places
+    const parsedRent = Math.round(
+      Number(sanitizeNumber(rent.rentPrice)) * 100
+    ) / 100;
+
+    if (parsedRent <= 0) {
       setError(`Can't set rent to zero.`)
       setTimeout(() => setError(null), 3000)
       return
@@ -46,7 +60,10 @@ const RentPriceAcknowledgement = ({
     try {
       await axiosInstance.post(
         '/api/rent/price-acknowledgement',
-        rent,
+        {
+          ...rent,
+          rentPrice: parsedRent,
+        },
         {
           headers: {
             Authorization: `Bearer ${accessToken}`
@@ -86,13 +103,14 @@ const RentPriceAcknowledgement = ({
         </p>
       </div>
       <input
+        inputMode="decimal"
         className={styles.inputField}
         id='rentPrice'
         placeholder='$3000'
         value={rent.rentPrice}
         onChange={e => setRent(prev => ({
           ...prev,
-          rentPrice: Number(e.target.value) || 0
+          rentPrice: e.target.value
         }))}
       />
       <div className={styles.dueDateSelector}>
