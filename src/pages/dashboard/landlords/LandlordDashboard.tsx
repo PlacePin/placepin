@@ -18,6 +18,8 @@ const LandlordDashboard = () => {
 
   // This is authPayload for a user
   const user = jwtDecode<DecodedAccessToken>(accessToken);
+
+  console.log('user', user)
   
   if(user.accountType !== 'landlord'){
     return(
