@@ -78,6 +78,7 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-family: 'PT Serif Caption', serif;
 }
 
 .footerLogo {
@@ -86,6 +87,7 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-family: 'PT Serif Caption', serif;;
 }
 
 .nav {

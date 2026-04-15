@@ -130,9 +130,11 @@ export const getConversations = async (
         }
 
         return {
+          messageId: messages._id,
           sender: senderUsername,
           content: messages.content,
           sentAt: messages.sentAt,
+          action: messages.action ?? undefined,
         };
       })
     );

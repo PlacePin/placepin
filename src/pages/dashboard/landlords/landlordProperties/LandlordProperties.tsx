@@ -189,6 +189,7 @@ const LandlordProperties = () => {
         className={styles.picContainers}
         onClick={() => setSelectedPropertyId(property.properties._id)}
         src={townhouse}
+        alt='Default Housing Profile Pic'
       />
     )
   })

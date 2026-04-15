@@ -12,7 +12,8 @@
     "start": "tsx backend/server.ts",
     "test": "vitest",
     "ngrok": "ngrok http 3000",
-    "stripe": "stripe listen --forward-to localhost:3000/api/stripe-payment-subscribed"
+    "stripe:auth": "stripe login",
+    "stripe": "stripe listen --forward-to localhost:3000/api/stripe-payment-subscribed --events payment_intent.succeeded,payment_intent.payment_failed,checkout.session.completed,customer.subscription.deleted,invoice.payment_succeeded,invoice.payment_failed,customer.subscription.trial_will_end"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^5.2.0",

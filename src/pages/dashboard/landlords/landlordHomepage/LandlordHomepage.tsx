@@ -1,8 +1,8 @@
 import styles from './landlordHomepage.module.css';
 import ActiveTenantsCard from '../../../../components/cards/landlord/ActiveTenantsCard';
-import PerkAdoptionCard from '../../../../components/cards/landlord/PerkAdoptionCard';
+// import PerkAdoptionCard from '../../../../components/cards/landlord/PerkAdoptionCard';
 import StatsKPICard from '../../../../components/cards/landlord/StatsKPICard';
-import RetentionHealthMeter from '../../../../components/cards/landlord/RetentionHealthMeter';
+// import RetentionHealthMeter from '../../../../components/cards/landlord/RetentionHealthMeter';
 import InviteTenantModal from '../../../../components/modals/InviteTenantModal';
 import { useState } from 'react';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
@@ -34,13 +34,13 @@ const LandlordHomepage = () => {
     setShowInviteModal(prev => !prev)
   }
 
-  const handleNudge = () => {
-    console.log("Make a modal to nudge a tenant that hasn't used a perk in awhile!")
-  }
+  // const handleNudge = () => {
+  //   console.log("Make a modal to nudge a tenant that hasn't used a perk in awhile!")
+  // }
 
-  const handleGift = () => {
-    console.log('Make a modal to gift a perk to a tenant!')
-  }
+  // const handleGift = () => {
+  //   console.log('Make a modal to gift a perk to a tenant!')
+  // }
 
   return (
     <div className={styles.landlordHomepageContainer}>
@@ -57,7 +57,8 @@ const LandlordHomepage = () => {
               tenantsWithSubscription={tenantsWithSubscription}
             />
           </StatsKPICard>
-          <StatsKPICard
+          {/* Todo: Implement the real functionality of these cards */}
+          {/* <StatsKPICard
             title={'Perk Adoption'}
             ctaText={'Tip: Tenants using perks renew more often.'}
             handleClick={handleNudge}
@@ -78,7 +79,7 @@ const LandlordHomepage = () => {
               retentionHealth='Medium'
               value={50}
             />
-          </StatsKPICard>
+          </StatsKPICard> */}
         </div>
       </div>
       {showInviteModal && (
