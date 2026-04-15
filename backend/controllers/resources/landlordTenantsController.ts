@@ -96,31 +96,34 @@ export const getLandlordTenantPaymentHistory = async (
 
     const skip = (page - 1) * limit;
 
-    // get ONLY rentPayment array
-    const tenant = await TenantModel.findById(tenantId)
-      .select('rentPayment')
-      .lean();
+    const result = await TenantModel.aggregate([
+      { $match: { _id: new mongoose.Types.ObjectId(tenantId) } },
+      {
+        $project: {
+          rentPayment: 1,
+          total: { $size: "$rentPayment" }
+        }
+      },
+      { $unwind: "$rentPayment" },
+      { $sort: { "rentPayment.monthPaid": -1 } }, // Database does the sorting
+      { $skip: skip },
+      { $limit: limit },
+      {
+        $group: {
+          _id: "$_id",
+          payments: { $push: "$rentPayment" },
+          total: { $first: "$total" }
+        }
+      }
+    ]);
 
-    if (!tenant) {
-      return res.status(404).json({ message: 'Tenant not found' });
-    }
-
-    // sort payments (newest first)
-    const sortedPayments = [...tenant.rentPayment].sort((a, b) => {
-      const dateA = a.monthPaid ? new Date(a.monthPaid).getTime() : 0;
-      const dateB = b.monthPaid ? new Date(b.monthPaid).getTime() : 0;
-      return dateB - dateA;
-    });
-
-    const total = sortedPayments.length;
-
-    const paginatedPayments = sortedPayments.slice(skip, skip + limit);
+    const data = result[0] || { payments: [], total: 0 };
 
     res.json({
-      data: paginatedPayments,
+      data: data.payments,
       page,
-      totalPages: Math.ceil(total / limit),
-      total
+      totalPages: Math.ceil(data.total / limit),
+      total: data.total
     });
 
   } catch (err) {
