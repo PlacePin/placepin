@@ -78,7 +78,7 @@ export const rentPriceApproval = async (
   res: Response,
 ) => {
 
-  const { rentPrice, acknowledged, messageId } = req.body;
+  const { rentPrice, acknowledged, messageId, dueDate } = req.body;
   const userId = req.userId;
 
   try {
@@ -102,33 +102,6 @@ export const rentPriceApproval = async (
     if (!tenant.subscription?.stripeBankAccountId) {
       return res.status(400).json({ message: 'No bank account linked' });
     }
-
-    const amountInCents = Math.round(rentPrice * 100);
-
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: amountInCents,
-      currency: 'usd',
-      customer: tenant.subscription.stripeCustomerId,
-      payment_method: tenant.subscription.stripeBankAccountId,
-      confirm: true,
-      automatic_payment_methods: {
-        enabled: true,
-        allow_redirects: 'never',
-      },
-      mandate_data: {
-        customer_acceptance: {
-          type: 'online',
-          online: {
-            ip_address: req.ip!,
-            user_agent: req.headers['user-agent']!,
-          },
-        },
-      },
-      metadata: {
-        tenantId: userId,
-        rentAmount: rentPrice,
-      },
-    });
 
     // Updating the acknowledged field
     await DirectMessageModel.findOneAndUpdate(
@@ -158,7 +131,12 @@ export const rentPriceApproval = async (
       },
       {
         // The $[ten] syntax allows us to target the specific tenant in the array
-        $set: { "properties.$.tenants.$[ten].rentAmountExpected": rentPrice }
+        $set: {
+          "properties.$.tenants.$[ten].rentAmountExpected": rentPrice,
+          "properties.$.tenants.$[ten].rentStatus": "queued",  // <-- queue flag
+          "properties.$.tenants.$[ten].rentAcknowledgedAt": new Date(),
+          "properties.$.tenants.$[ten].dueDate": dueDate,
+        }
       },
       {
         arrayFilters: [{ "ten.tenantId": userId }], // Match the specific tenant
@@ -168,7 +146,7 @@ export const rentPriceApproval = async (
 
     res.status(200).json({
       message: 'Rent payment initiated',
-      paymentIntentId: paymentIntent.id,
+      // paymentIntentId: paymentIntent.id,
     });
 
   } catch (err: any) {

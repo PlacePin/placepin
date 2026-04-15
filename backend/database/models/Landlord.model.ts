@@ -62,6 +62,13 @@ const landlordSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Tenants",
           },
+          rentStatus: {
+            type: String,
+            enum: ["pending", "queued", "paid", "overdue"],
+            default: "pending"
+          },
+          dueDate: { type: Number, enum: [1, 15], default: null },
+          rentAcknowledgedAt: { type: Date, default: null },
           rentAmountExpected: { type: Number, default: 0 },
           monthPaid: { type: Boolean, default: false },
           referred: Boolean,

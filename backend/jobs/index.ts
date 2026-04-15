@@ -1,5 +1,6 @@
 import cron from 'node-cron';
 import { snapshotFinancials } from './snapshotFinancials';
+import { processRentPayments } from './processRentPayments';
 import { LandlordModel } from '../database/models/Landlord.model';
 
 // Runs at midnight on the 1st of every month
@@ -13,4 +14,14 @@ cron.schedule('0 0 1 * *', async () => {
   }
 
   console.log(`Snapshots complete for ${landlords.length} landlords`);
+});
+
+// Charge tenants whose rent is due on the 1st
+cron.schedule('0 1 1 * *', async () => {
+  await processRentPayments(1);
+});
+
+// Charge tenants whose rent is due on the 15th
+cron.schedule('0 1 15 * *', async () => {
+  await processRentPayments(15);
 });
