@@ -27,6 +27,7 @@ cron.schedule('0 1 15 * *', async () => {
   await processRentPayments(15);
 });
 
+// Resets the rent status to be ready for the next month
 cron.schedule('0 1 26 * *', async () => {
   await resetRentStatus();
 });

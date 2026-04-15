@@ -75,6 +75,7 @@ export async function processRentPayments(dueDate: 1 | 15) {
             {
               $set: {
                 'properties.$.tenants.$[ten].rentStatus': 'overdue',
+                'properties.$.tenants.$[ten].rentAmountPaid': 0,
               }
             },
             { arrayFilters: [{ 'ten.tenantId': tenant.tenantId }] }
