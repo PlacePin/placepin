@@ -91,6 +91,7 @@ const tenantSchema = new mongoose.Schema({
     stripeSubscriptionId: { type: String, default: null },
     stripeFinancialConnectionsId: { type: String, default: null },
     stripeBankAccountId: { type: String, default: null },
+    stripeMandateId: { type: String, default: null },
     paymentMethod: {
       type: String,
       enum: ['card', 'ach'],

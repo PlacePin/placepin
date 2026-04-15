@@ -46,7 +46,7 @@ export const createFinancialConnectionsSession = async (req: Request, res: Respo
 
 // Step 2: Save the connected bank account
 export const saveFinancialConnectionsAccount = async (req: Request, res: Response) => {
-  const { paymentMethodId } = req.body;
+  const { paymentMethodId, setupIntentId } = req.body;
   const userId = req.userId;
 
   try {
@@ -63,9 +63,25 @@ export const saveFinancialConnectionsAccount = async (req: Request, res: Respons
       customer: tenant.subscription!.stripeCustomerId!,
     });
 
+    // Confirm the SetupIntent to generate the mandate
+    const confirmedSetupIntent = await stripe.setupIntents.confirm(setupIntentId, {
+      payment_method: paymentMethodId,
+      mandate_data: {
+        customer_acceptance: {
+          type: 'online',
+          online: {
+            ip_address: req.ip!,
+            user_agent: req.headers['user-agent']!,
+          },
+        },
+      },
+    });
+
+    const mandateId = confirmedSetupIntent.mandate as string;
 
     // Save to tenant
     tenant.subscription!.stripeBankAccountId = paymentMethodId;
+    tenant.subscription!.stripeMandateId = mandateId;
     tenant.subscription!.paymentMethod = 'ach';
     await tenant.save();
 

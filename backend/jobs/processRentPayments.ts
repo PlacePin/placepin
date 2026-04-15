@@ -33,6 +33,7 @@ export async function processRentPayments(dueDate: 1 | 15) {
             currency: 'usd',
             customer: tenantDoc.subscription.stripeCustomerId,
             payment_method: tenantDoc.subscription.stripeBankAccountId,
+            mandate: tenantDoc.subscription.stripeMandateId,
             confirm: true,
             automatic_payment_methods: {
               enabled: true,

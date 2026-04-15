@@ -66,6 +66,7 @@ const MessageComponent = ({ message, index, isOwn, onActionComplete }: MessageCo
         // Step 3: Save the bank account
         await axiosInstance.post('/api/financial-connections/save-account', {
           paymentMethodId,
+          setupIntentId: result.setupIntent.id,
         }, {
           headers: { Authorization: `Bearer ${accessToken}` }
         });
