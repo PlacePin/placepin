@@ -34,15 +34,15 @@ const RentPriceAcknowledgement = ({
 
   const handleRentPriceAcknowledgement = async () => {
     setError(null);
-    
-    if(rent.rentPrice <= 0){
+
+    if (rent.rentPrice <= 0) {
       setError(`Can't set rent to zero.`)
       setTimeout(() => setError(null), 3000)
-      return 
+      return
     }
-    
+
     setIsPending(true)
-    
+
     try {
       await axiosInstance.post(
         '/api/rent/price-acknowledgement',
@@ -81,7 +81,9 @@ const RentPriceAcknowledgement = ({
       <div className={styles.miscContent}>
         <h3 className={styles.miscTitle}>Rent Price</h3>
         <p className={styles.miscDescription}>Tell us how much this tenant should be paying in rent each month and we will handle the rest.</p>
-        <p className={styles.disclaimer}>*This is not legally binding. Verify on the lease first before submitting a number.</p>
+        <p className={styles.disclaimer}>
+          *Ensure this amount reflects what is stated in the tenant's lease before submitting.
+        </p>
       </div>
       <input
         className={styles.inputField}
