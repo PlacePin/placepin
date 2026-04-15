@@ -26,9 +26,7 @@ type MessageComponentProps = {
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK_KEY);
 
-
 const MessageComponent = ({ message, index, isOwn, onActionComplete }: MessageComponentProps) => {
-  console.log(message)
   const { accessToken } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 

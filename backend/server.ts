@@ -19,7 +19,6 @@ import featuresListRoutes from './routes/featuresList/featuresListRoutes';
 import rentRoutes from './routes/rent/rentRoutes';
 import stripeFinancialConnectionsRoutes from './routes/stripe/stripeFinancialConnectionsRoutes';
 
-
 // Add a rate limiter as middleware 
 
 dotenv.config();

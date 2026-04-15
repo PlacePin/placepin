@@ -1,10 +1,7 @@
 import type { Request, Response } from "express";
 import { TenantModel } from "../../database/models/Tenant.model";
 import { DirectMessageModel } from "../../database/models/Message.model";
-import Stripe from "stripe";
 import { LandlordModel } from "../../database/models/Landlord.model";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
 export const rentPriceAcknowledgement = async (
   req: Request,
