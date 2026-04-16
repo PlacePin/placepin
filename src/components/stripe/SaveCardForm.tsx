@@ -4,6 +4,8 @@ import styles from './saveCardForm.module.css';
 import { useAuth } from "../../context/AuthContext";
 import axiosInstance from "../../utils/axiosInstance";
 import { NavLink } from "react-router-dom";
+import type { DecodedAccessToken } from "../../interfaces/interfaces";
+import { jwtDecode } from "jwt-decode";
 
 const SaveCardForm = () => {
   const stripe = useStripe();
@@ -12,6 +14,10 @@ const SaveCardForm = () => {
   const [message, setMessage] = useState('')
 
   const { accessToken } = useAuth();
+
+  if (!accessToken) return null;
+
+  const user = jwtDecode<DecodedAccessToken>(accessToken);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -119,7 +125,9 @@ const SaveCardForm = () => {
           {`Privacy Policy`}
         </NavLink>.
       </p>
-      <p className={styles.disclaimer}>This card is usually used to collect rent.</p>
+      {user.accountType === 'landlord' && (
+        <p className={styles.disclaimer}>This card is usually used to collect rent.</p>
+      )}
     </>
   );
 };
