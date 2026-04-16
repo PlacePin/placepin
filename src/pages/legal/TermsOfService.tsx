@@ -178,7 +178,7 @@ const TermsOfService = () => {
               {section.contact && (
                 <div className={styles.contactBlock}>
                   <p className={styles.contactLine}>
-                    <strong>Email:</strong> kerlin@placepin.io
+                    <strong>Email:</strong> support@placepin.io
                   </p>
                   <p className={styles.contactLine}>
                     <strong>Address:</strong> 1452 Dorchester Ave 4th fl, Dorchester, MA 02122
