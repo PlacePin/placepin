@@ -249,7 +249,7 @@ const SignupPage = () => {
                   id='phoneNumber'
                   placeholder='617-555-5555'
                   pattern="\d{3}-\d{3}-\d{4}"
-                  title="Use the format 617-555-5555"
+                  title="Use the format xxx-xxx-xxxx"
                   required
                 />
                 <label className={styles.inputLabel} htmlFor='password'>Password</label>
