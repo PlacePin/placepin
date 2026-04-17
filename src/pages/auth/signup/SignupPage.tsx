@@ -241,11 +241,15 @@ const SignupPage = () => {
                 />
                 <label className={styles.inputLabel} htmlFor='phoneNumber'>Phone Number</label>
                 <input
-                  type="number"
+                  type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
                   className={styles.inputFields}
-                  onChange={(e) => setPhoneNumber(e.target.value.toLowerCase().trim())}
+                  onChange={(e) => setPhoneNumber(e.target.value.trim())}
                   id='phoneNumber'
                   placeholder='617-555-5555'
+                  pattern="\d{3}-\d{3}-\d{4}"
+                  title="Use the format 617-555-5555"
                   required
                 />
                 <label className={styles.inputLabel} htmlFor='password'>Password</label>
