@@ -13,6 +13,8 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
   const STRIPE_ESSENTIAL_PRICE_ID = process.env.STRIPE_ESSENTIAL_PRICE_ID;
   const STRIPE_BALANCED_PRICE_ID = process.env.STRIPE_BALANCED_PRICE_ID;
   const STRIPE_PLATINUM_PRICE_ID = process.env.STRIPE_PLATINUM_PRICE_ID;
+  let session: any;
+  let sessionConfig: Stripe.Checkout.SessionCreateParams;
 
   // This entire block is the subscription form using stripe to redirect to a new page
   try {
@@ -61,39 +63,78 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
           { 'subscription.stripeCustomerId': stripeCustomerId }
         );
       } else {
-        return res.status(400).json({ error: 'Invalid account type' })
+        return res.status(400).json({ message: 'Invalid account type' })
       }
     }
 
     // This is the checkout flow when a user is paying for a subscription.
-    const sessionConfig: Stripe.Checkout.SessionCreateParams = {
-      payment_method_types: ['card'],
-      mode: 'subscription',
-      customer: stripeCustomerId,
-      payment_method_collection: 'always',
-      line_items: [
-        {
-          price: STRIPE_PRICE_ID,
-          quantity: 1,
-        },
-      ],
-      success_url: `${process.env.CLIENT_URL}/success`,
-      cancel_url: `${process.env.CLIENT_URL}/cancel`,
-    };
-
-    // Only landlords get the 90 day free trial
     if (user.accountType === 'landlord') {
+      sessionConfig = {
+        payment_method_types: ['card'],
+        mode: 'subscription',
+        customer: stripeCustomerId,
+        payment_method_collection: 'always',
+        line_items: [
+          {
+            price: STRIPE_PRICE_ID,
+            quantity: 1,
+          },
+        ],
+        success_url: `${process.env.CLIENT_URL}/success`,
+        cancel_url: `${process.env.CLIENT_URL}/cancel`,
+      };
+
+      // Only landlords get the 90 day free trial
       sessionConfig.subscription_data = {
         trial_period_days: 90,
       };
-    }
 
-    const session = await stripeAccess.checkout.sessions.create(sessionConfig);
+      session = await stripeAccess.checkout.sessions.create(sessionConfig);
+
+    } else if (user.accountType === 'tenant') {
+      sessionConfig = {
+        payment_method_types: ['card'],
+        mode: 'subscription',
+        customer: stripeCustomerId,
+        payment_method_collection: 'always',
+        line_items: [
+          {
+            price: STRIPE_PRICE_ID,
+            quantity: 1,
+          },
+        ],
+        success_url: `${process.env.CLIENT_URL}/success`,
+        cancel_url: `${process.env.CLIENT_URL}/cancel`,
+      };
+
+      session = await stripeAccess.checkout.sessions.create(sessionConfig);
+
+    } else if (user.accountType === 'tradesmen') {
+      sessionConfig = {
+        payment_method_types: ['card'],
+        mode: 'subscription',
+        customer: stripeCustomerId,
+        payment_method_collection: 'always',
+        line_items: [
+          {
+            price: STRIPE_PRICE_ID,
+            quantity: 1,
+          },
+        ],
+        success_url: `${process.env.CLIENT_URL}/success`,
+        cancel_url: `${process.env.CLIENT_URL}/cancel`,
+      };
+
+      session = await stripeAccess.checkout.sessions.create(sessionConfig);
+
+    } else {
+      return res.status(400).json({ message: 'Invalid account type section 2' })
+    }
 
     return res.status(200).json({ sessionUrl: session.url })
 
   } catch (err) {
     console.error(err)
-    return res.status(500).json({ error: "Unexpected error!" })
+    return res.status(500).json({ messsage: "Unexpected error!" })
   }
 }
