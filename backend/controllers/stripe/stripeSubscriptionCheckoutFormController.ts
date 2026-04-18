@@ -8,8 +8,11 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
   const userId = req.userId
 
   // Declaring Stripe secret key and JWT token
-  const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
-  const STRIPE_PRICE_ID = process.env.STRIPE_PRICE_ID
+  const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+  const STRIPE_PRICE_ID = process.env.STRIPE_PRICE_ID;
+  const STRIPE_ESSENTIAL_PRICE_ID = process.env.STRIPE_ESSENTIAL_PRICE_ID;
+  const STRIPE_BALANCED_PRICE_ID = process.env.STRIPE_BALANCED_PRICE_ID;
+  const STRIPE_PLATINUM_PRICE_ID = process.env.STRIPE_PLATINUM_PRICE_ID;
 
   // This entire block is the subscription form using stripe to redirect to a new page
   try {
