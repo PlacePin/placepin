@@ -5,6 +5,7 @@ import { TenantModel, type TenantDocumentType } from "../../database/models/Tena
 import { TradesmenModel, type TradesmenDocumentType } from "../../database/models/Tradesmen.model";
 
 export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response) => {
+  const { subscriptionPlan } = req.body
   const userId = req.userId
 
   // Declaring Stripe secret key and JWT token
@@ -13,7 +14,7 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
   const STRIPE_ESSENTIAL_PRICE_ID = process.env.STRIPE_ESSENTIAL_PRICE_ID;
   const STRIPE_BALANCED_PRICE_ID = process.env.STRIPE_BALANCED_PRICE_ID;
   const STRIPE_PLATINUM_PRICE_ID = process.env.STRIPE_PLATINUM_PRICE_ID;
-  let session: any;
+  let session: Stripe.Checkout.Session;
   let sessionConfig: Stripe.Checkout.SessionCreateParams;
 
   // This entire block is the subscription form using stripe to redirect to a new page
@@ -92,21 +93,55 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
       session = await stripeAccess.checkout.sessions.create(sessionConfig);
 
     } else if (user.accountType === 'tenant') {
-      sessionConfig = {
-        payment_method_types: ['card'],
-        mode: 'subscription',
-        customer: stripeCustomerId,
-        payment_method_collection: 'always',
-        line_items: [
-          {
-            price: STRIPE_PRICE_ID,
-            quantity: 1,
-          },
-        ],
-        success_url: `${process.env.CLIENT_URL}/success`,
-        cancel_url: `${process.env.CLIENT_URL}/cancel`,
-      };
-
+      if (subscriptionPlan === 'essential') {
+        sessionConfig = {
+          payment_method_types: ['card'],
+          mode: 'subscription',
+          customer: stripeCustomerId,
+          payment_method_collection: 'always',
+          line_items: [
+            {
+              price: STRIPE_ESSENTIAL_PRICE_ID,
+              quantity: 1,
+            },
+          ],
+          success_url: `${process.env.CLIENT_URL}/success`,
+          cancel_url: `${process.env.CLIENT_URL}/cancel`,
+        };
+      } else if (subscriptionPlan === 'balanced') {
+        sessionConfig = {
+          payment_method_types: ['card'],
+          mode: 'subscription',
+          customer: stripeCustomerId,
+          payment_method_collection: 'always',
+          line_items: [
+            {
+              price: STRIPE_BALANCED_PRICE_ID,
+              quantity: 1,
+            },
+          ],
+          success_url: `${process.env.CLIENT_URL}/success`,
+          cancel_url: `${process.env.CLIENT_URL}/cancel`,
+        };
+      } else if (subscriptionPlan === 'platinum') {
+        sessionConfig = {
+          payment_method_types: ['card'],
+          mode: 'subscription',
+          customer: stripeCustomerId,
+          payment_method_collection: 'always',
+          line_items: [
+            {
+              price: STRIPE_PLATINUM_PRICE_ID,
+              quantity: 1,
+            },
+          ],
+          success_url: `${process.env.CLIENT_URL}/success`,
+          cancel_url: `${process.env.CLIENT_URL}/cancel`,
+        };
+      } else {
+        return res.status(400).json({ message: 'Invalid Subscription Type'})
+      }
+      
       session = await stripeAccess.checkout.sessions.create(sessionConfig);
 
     } else if (user.accountType === 'tradesmen') {

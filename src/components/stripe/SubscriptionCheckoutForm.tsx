@@ -7,7 +7,13 @@ import SecondaryDangerButton from "../buttons/SecondaryDangerButton";
 import PrimaryButton from "../buttons/PrimaryButton";
 import axiosInstance from "../../utils/axiosInstance";
 
-const SubscriptionCheckoutForm = () => {
+interface SubscriptionCheckoutFormProps {
+  subscriptionPlan?: string | null
+}
+
+const SubscriptionCheckoutForm = ({
+  subscriptionPlan
+}: SubscriptionCheckoutFormProps) => {
 
   const [isPending, setIsPending] = useState(false);
   const [subscription, setSubscription] = useState(false);
@@ -34,7 +40,9 @@ const SubscriptionCheckoutForm = () => {
         setIsPending(true);
         const { data } = await axiosInstance.post(
           '/api/settings/stripe/cancel-subscription',
-          null,
+          {
+            subscriptionPlan
+          },
           {
             headers: {
               Authorization: `Bearer ${accessToken}`
@@ -54,7 +62,9 @@ const SubscriptionCheckoutForm = () => {
         // 1. Create Checkout Session on the server
         const { data } = await axiosInstance.post(
           `/api/settings/stripe/subscription-checkout-form`,
-          null,
+          {
+            subscriptionPlan
+          },
           {
             headers: {
               Authorization: `Bearer ${accessToken}`

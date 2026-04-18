@@ -102,7 +102,9 @@ const Subscriptions = () => {
                 ))}
               </ul>
               <div className={styles.formWrapper}>
-                <SubscriptionCheckoutForm />
+                <SubscriptionCheckoutForm
+                  subscriptionPlan={selectedPlan}
+                />
               </div>
             </div>
           ))}
