@@ -20,11 +20,13 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
   // This entire block is the subscription form using stripe to redirect to a new page
   try {
     // Getting user from database
-
     const landlord = await LandlordModel.findById(userId);
     const tenant = await TenantModel.findById(userId);
     const tradesmen = await TradesmenModel.findById(userId);
-    const user: TenantDocumentType | LandlordDocumentType | TradesmenDocumentType | null = landlord || tenant || tradesmen
+    const user: TenantDocumentType | LandlordDocumentType | TradesmenDocumentType | null = landlord || tenant || tradesmen;
+    let updatedSubscription = {
+      'subscription.tier': ''
+    };
 
     if (!user) {
       return res.status(404).json({ message: "User doesn't exist." })
@@ -108,6 +110,11 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
           success_url: `${process.env.CLIENT_URL}/success`,
           cancel_url: `${process.env.CLIENT_URL}/cancel`,
         };
+
+        updatedSubscription = {
+          'subscription.tier': 'Essential'
+        };
+
       } else if (subscriptionPlan === 'balanced') {
         sessionConfig = {
           payment_method_types: ['card'],
@@ -123,6 +130,11 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
           success_url: `${process.env.CLIENT_URL}/success`,
           cancel_url: `${process.env.CLIENT_URL}/cancel`,
         };
+
+        updatedSubscription = {
+          'subscription.tier': 'Balanced'
+        };
+
       } else if (subscriptionPlan === 'platinum') {
         sessionConfig = {
           payment_method_types: ['card'],
@@ -138,11 +150,17 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
           success_url: `${process.env.CLIENT_URL}/success`,
           cancel_url: `${process.env.CLIENT_URL}/cancel`,
         };
+
+        updatedSubscription = {
+          'subscription.tier': 'Platinum'
+        };
+
       } else {
-        return res.status(400).json({ message: 'Invalid Subscription Type'})
+        return res.status(400).json({ message: 'Invalid Subscription Type' })
       }
-      
+
       session = await stripeAccess.checkout.sessions.create(sessionConfig);
+      await TenantModel.updateOne({ _id: userId }, updatedSubscription);
 
     } else if (user.accountType === 'tradesmen') {
       sessionConfig = {

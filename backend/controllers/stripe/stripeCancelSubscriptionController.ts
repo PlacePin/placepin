@@ -8,6 +8,7 @@ export const stripeCancelSubscription = async (
   req: Request,
   res: Response,
 ) => {
+  const { subscriptionPlan } = req.body;
   const userId = req.userId;
   const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
 
@@ -15,13 +16,15 @@ export const stripeCancelSubscription = async (
     return res.status(500).json({ message: 'Stripe key missing!' })
   }
 
+  console.log('sub plan', subscriptionPlan)
+
   try {
     // Getting user from database
 
     const landlord = await LandlordModel.findById(userId);
     const tenant = await TenantModel.findById(userId);
     const tradesmen = await TradesmenModel.findById(userId);
-    const user: TenantDocumentType | LandlordDocumentType | TradesmenDocumentType | null = landlord || tenant || tradesmen
+    const user: TenantDocumentType | LandlordDocumentType | TradesmenDocumentType | null = landlord || tenant || tradesmen;
 
     if (!user) {
       return res.status(404).json({ message: "User doesn't exist." })
