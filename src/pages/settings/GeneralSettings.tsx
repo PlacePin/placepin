@@ -1,12 +1,19 @@
 import styles from './generalSetting.module.css';
 import BasicInfo from './basicInfomation/BasicInfo';
 import BankSettings from './bankSettings/BankSettings';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Subscriptions from './subscriptionSettings/Subscriptions';
 
 const GeneralSettings = () => {
 
-  const [activeTab, setActiveTab] = useState<'basic' | 'bank' | 'subscriptions'>('basic');
+  const [activeTab, setActiveTab] = useState<'basic' | 'bank' | 'subscriptions'>(() => {
+    const saved = localStorage.getItem('PlacePinSettingsTab');
+    return (saved as 'basic' | 'bank' | 'subscriptions') || 'basic';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('PlacePinSettingsTab', activeTab);
+  }, [activeTab]);
 
   return (
     <div className={styles.entireContainer}>
