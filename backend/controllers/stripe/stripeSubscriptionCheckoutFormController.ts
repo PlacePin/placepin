@@ -33,7 +33,7 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
       return res.status(400).json({ message: 'Stripe key missing!' })
     }
 
-    if (!STRIPE_ESSENTIAL_PRICE_ID || !STRIPE_BALANCED_PRICE_ID || !STRIPE_PLATINUM_PRICE_ID) {
+    if (!STRIPE_PRICE_ID || !STRIPE_ESSENTIAL_PRICE_ID || !STRIPE_BALANCED_PRICE_ID || !STRIPE_PLATINUM_PRICE_ID) {
       return res.status(400).json({ message: 'Missing Stripe price IDs' });
     }
 
@@ -71,21 +71,25 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
       }
     }
 
+    const baseConfig: Stripe.Checkout.SessionCreateParams = {
+      payment_method_types: ['card'],
+      mode: 'subscription',
+      customer: stripeCustomerId,
+      payment_method_collection: 'always',
+      success_url: `${process.env.CLIENT_URL}/success`,
+      cancel_url: `${process.env.CLIENT_URL}/cancel`,
+    };
+
     // This is the checkout flow when a user is paying for a subscription.
     if (user.accountType === 'landlord') {
       sessionConfig = {
-        payment_method_types: ['card'],
-        mode: 'subscription',
-        customer: stripeCustomerId,
-        payment_method_collection: 'always',
+        ...baseConfig,
         line_items: [
           {
             price: STRIPE_PRICE_ID,
             quantity: 1,
           },
         ],
-        success_url: `${process.env.CLIENT_URL}/success`,
-        cancel_url: `${process.env.CLIENT_URL}/cancel`,
       };
 
       // Only landlords get the 90 day free trial
@@ -98,10 +102,7 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
     } else if (user.accountType === 'tenant') {
       if (subscriptionPlan === 'essential') {
         sessionConfig = {
-          payment_method_types: ['card'],
-          mode: 'subscription',
-          customer: stripeCustomerId,
-          payment_method_collection: 'always',
+          ...baseConfig,
           line_items: [
             {
               price: STRIPE_ESSENTIAL_PRICE_ID,
@@ -120,16 +121,11 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
               tier: 'Essential',
             }
           },
-          success_url: `${process.env.CLIENT_URL}/success`,
-          cancel_url: `${process.env.CLIENT_URL}/cancel`,
         };
 
       } else if (subscriptionPlan === 'balanced') {
         sessionConfig = {
-          payment_method_types: ['card'],
-          mode: 'subscription',
-          customer: stripeCustomerId,
-          payment_method_collection: 'always',
+          ...baseConfig,
           line_items: [
             {
               price: STRIPE_BALANCED_PRICE_ID,
@@ -148,16 +144,11 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
               tier: 'Balanced',
             }
           },
-          success_url: `${process.env.CLIENT_URL}/success`,
-          cancel_url: `${process.env.CLIENT_URL}/cancel`,
         };
 
       } else if (subscriptionPlan === 'platinum') {
         sessionConfig = {
-          payment_method_types: ['card'],
-          mode: 'subscription',
-          customer: stripeCustomerId,
-          payment_method_collection: 'always',
+          ...baseConfig,
           line_items: [
             {
               price: STRIPE_PLATINUM_PRICE_ID,
@@ -176,8 +167,6 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
               tier: 'Platinum',
             }
           },
-          success_url: `${process.env.CLIENT_URL}/success`,
-          cancel_url: `${process.env.CLIENT_URL}/cancel`,
         };
 
       } else {
@@ -188,18 +177,13 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
 
     } else if (user.accountType === 'tradesmen') {
       sessionConfig = {
-        payment_method_types: ['card'],
-        mode: 'subscription',
-        customer: stripeCustomerId,
-        payment_method_collection: 'always',
+        ...baseConfig,
         line_items: [
           {
             price: STRIPE_PRICE_ID,
             quantity: 1,
           },
         ],
-        success_url: `${process.env.CLIENT_URL}/success`,
-        cancel_url: `${process.env.CLIENT_URL}/cancel`,
       };
 
       session = await stripeAccess.checkout.sessions.create(sessionConfig);

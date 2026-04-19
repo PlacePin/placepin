@@ -87,9 +87,6 @@ export const stripeWebhookController = async (
         const accountType = session.metadata?.accountType;
         const tier = session.metadata?.tier;
 
-        console.log("metadata:", session.metadata);
-        console.log("tier value:", tier);
-
         if (!userId || !accountType) {
           console.error("Missing metadata fields", session.metadata);
           break;
@@ -101,6 +98,7 @@ export const stripeWebhookController = async (
             {
               $set: {
                 'subscription.tier': tier,
+                'subscription.isSubscribed': true,
               }
             }
           );
@@ -126,6 +124,7 @@ export const stripeWebhookController = async (
             {
               $set: {
                 'subscription.tier': tier,
+                'subscription.isSubscribed': true,
               }
             }
           );
