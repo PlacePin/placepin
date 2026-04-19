@@ -6,9 +6,25 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import Stripe from 'stripe';
 
+const phoneRegex = /^\d{3}-\d{3}-\d{4}$/
+
+/** Hyphenated `###-###-####` from the client → number for MongoDB, or null if invalid. */
+function parseHyphenatedPhoneToNumber(phoneNumberInput: string): number | null {
+  const hyphenatedPhone = phoneNumberInput.trim()
+  if (!phoneRegex.test(hyphenatedPhone)) {
+    return null
+  }
+  return Number(hyphenatedPhone.replace(/-/g, ''))
+}
+
 export const signupController = async (req: Request, res: Response) => {
 
-  const { email, username, address, password, phoneNumber, referral, accountType } = req.body
+  const { email, username, address, password, phoneNumber: phoneNumberInput, referral, accountType } = req.body
+
+  const phoneNumber = parseHyphenatedPhoneToNumber(String(phoneNumberInput ?? ''))
+  if (phoneNumber === null) {
+    return res.status(400).json({ message: 'Phone number must be valid and in the form xxx-xxx-xxxx.' })
+  }
   const JWT_ACCESS_TOKEN = process.env.JWT_ACCESS_TOKEN!
   const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY!
   const STRIPE_PRICE_ID = process.env.STRIPE_PRICE_ID!
