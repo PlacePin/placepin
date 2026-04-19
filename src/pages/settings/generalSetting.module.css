@@ -2,80 +2,122 @@
   margin: 2rem;
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
 }
 
-.entireContainer h2 {
+.pageHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pageTitle {
   font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
+  font-weight: 700;
+  color: var(--color-text-1);
+  margin: 0;
+}
+
+.pageSubtitle {
+  font-size: 0.85rem;
+  color: var(--color-text-4);
+  margin: 0;
 }
 
 .innerContainer {
   display: flex;
-  gap: 3rem;
+  gap: 1.5rem;
   align-items: flex-start;
-  height: calc(100vh - 8rem);
+  height: calc(100vh - 10rem);
 }
 
-/* LEFT: Settings Navigation */
 .settingsNav {
-  background: var(--color-surface-2);
-  border-radius: 1rem;
-  width: 20%;
-  min-width: 220px; 
-  max-width: 300px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  padding: 1.5rem;
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-1);
+  border-radius: 16px;
+  width: 220px;
+  min-width: 200px;
+  padding: 0.75rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  overflow-y: auto;
-  transition: all 0.3s ease;
+  gap: 2px;
 }
 
-.settingsNav p {
-  font-weight: 500;
+.navItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
   cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: background 0.15s ease;
+  text-align: left;
 }
 
-.settingsNav p:hover {
-  background: var(--color-surface-5);
-  transform: translateX(4px);
+.navItem:hover {
+  background: var(--color-surface-3);
 }
 
-/* RIGHT: Dynamic Content */
+.navLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-3);
+}
+
+.activeTab {
+  background: var(--color-surface-3);
+}
+
+.activeTab .navLabel {
+  color: var(--color-text-1);
+  font-weight: 600;
+}
+
+.navIndicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  flex-shrink: 0;
+}
+
 .mainContent {
   flex: 1;
-  background: var(--color-surface-2);
-  border-radius: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-1);
+  border-radius: 16px;
   padding: 2rem;
   height: 100%;
   overflow-y: auto;
 }
 
-.activeTab {
-  background: var(--color-surface-4);
-}
-
-/* Responsive: stack on smaller screens */
 @media (max-width: 900px) {
   .innerContainer {
     flex-direction: column;
+    height: auto;
   }
 
   .settingsNav {
     width: 100%;
-    max-width: none;
     flex-direction: row;
     flex-wrap: wrap;
+    padding: 0.5rem;
+  }
+
+  .navItem {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .navIndicator {
+    display: none;
   }
 
   .mainContent {
     width: 100%;
-    margin-top: 1.5rem;
+    height: auto;
   }
 }

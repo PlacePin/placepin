@@ -4,11 +4,18 @@ import BankSettings from './bankSettings/BankSettings';
 import { useState, useEffect } from 'react';
 import Subscriptions from './subscriptionSettings/Subscriptions';
 
-const GeneralSettings = () => {
+const tabs = [
+  { id: 'basic', label: 'Basic Information' },
+  { id: 'bank', label: 'Bank Settings' },
+  { id: 'subscriptions', label: 'Subscriptions' },
+] as const;
 
-  const [activeTab, setActiveTab] = useState<'basic' | 'bank' | 'subscriptions'>(() => {
+type Tab = typeof tabs[number]['id'];
+
+const GeneralSettings = () => {
+  const [activeTab, setActiveTab] = useState<Tab>(() => {
     const saved = localStorage.getItem('PlacePinSettingsTab');
-    return (saved as 'basic' | 'bank' | 'subscriptions') || 'basic';
+    return (saved as Tab) || 'basic';
   });
 
   useEffect(() => {
@@ -17,29 +24,25 @@ const GeneralSettings = () => {
 
   return (
     <div className={styles.entireContainer}>
-      <h2>
-        General Settings
-      </h2>
+      <div className={styles.pageHeader}>
+        <h2 className={styles.pageTitle}>General Settings</h2>
+        <p className={styles.pageSubtitle}>Manage your account preferences</p>
+      </div>
       <div className={styles.innerContainer}>
         <div className={styles.settingsNav}>
-          <p
-            onClick={() => setActiveTab('basic')}
-            className={activeTab === 'basic' ? styles.activeTab : ''}
-          >
-            Basic Information
-          </p>
-          <p
-            onClick={() => setActiveTab('bank')}
-            className={activeTab === 'bank' ? styles.activeTab : ''}
-          >
-            Bank Settings
-          </p>
-          <p
-            onClick={() => setActiveTab('subscriptions')}
-            className={activeTab === 'subscriptions' ? styles.activeTab : ''}
-          >
-            Subscriptions
-          </p>
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={[
+                styles.navItem,
+                activeTab === tab.id ? styles.activeTab : '',
+              ].filter(Boolean).join(' ')}
+            >
+              <span className={styles.navLabel}>{tab.label}</span>
+              {activeTab === tab.id && <span className={styles.navIndicator} />}
+            </button>
+          ))}
         </div>
         <div className={styles.mainContent}>
           {activeTab === 'basic' && <BasicInfo />}
@@ -48,7 +51,7 @@ const GeneralSettings = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default GeneralSettings
+export default GeneralSettings;
