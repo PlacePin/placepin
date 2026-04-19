@@ -213,3 +213,17 @@
 .btnDowngrade:hover {
   background: var(--color-surface-1);
 }
+
+.btnCancel {
+  width: 100%;
+  padding: 8px 0;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--color-border-1);
+  background: transparent;
+  color: var(--color-text-3);
+  margin-top: auto;
+  transition: background 0.12s ease;
+}
