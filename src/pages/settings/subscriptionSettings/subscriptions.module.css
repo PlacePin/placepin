@@ -197,6 +197,7 @@
   color: #fff;
   letter-spacing: 0.01em;
   transition: background 0.12s ease;
+  font-family: var(--font-family);
 }
 
 .btnUpgrade:hover {
@@ -215,6 +216,7 @@
   color: var(--color-text-3);
   letter-spacing: 0.01em;
   transition: background 0.12s ease;
+  font-family: var(--font-family);
 }
 
 .btnDowngrade:hover {
@@ -233,6 +235,7 @@
   color: var(--color-error);
   letter-spacing: 0.01em;
   transition: background 0.12s ease;
+  font-family: var(--font-family);
 }
 
 .btnCancel:hover {
@@ -256,6 +259,7 @@
   color: var(--color-text-4);
   letter-spacing: 0.01em;
   opacity: 0.6;
+  font-family: var(--font-family);
 }
 
 /* Modal */
