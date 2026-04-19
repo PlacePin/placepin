@@ -80,6 +80,59 @@ export const stripeWebhookController = async (
         break;
       }
 
+      case "customer.subscription.created": {
+        const session = event.data.object as Stripe.Subscription;
+
+        const userId = session.metadata?.userId;
+        const accountType = session.metadata?.accountType;
+        const tier = session.metadata?.tier;
+
+        console.log("metadata:", session.metadata);
+        console.log("tier value:", tier);
+
+        if (!userId || !accountType) {
+          console.error("Missing metadata fields", session.metadata);
+          break;
+        }
+
+        if (accountType === 'tenant') {
+          await TenantModel.updateOne(
+            { _id: userId },
+            {
+              $set: {
+                'subscription.tier': tier,
+              }
+            }
+          );
+        }
+        break;
+      }
+
+      case "customer.subscription.updated": {
+        const session = event.data.object as Stripe.Subscription;
+
+        const userId = session.metadata?.userId;
+        const accountType = session.metadata?.accountType;
+        const tier = session.metadata?.tier;
+
+        if (!userId || !accountType) {
+          console.error("Missing metadata fields", session.metadata);
+          break;
+        }
+
+        if (accountType === 'tenant') {
+          await TenantModel.updateOne(
+            { _id: userId },
+            {
+              $set: {
+                'subscription.tier': tier,
+              }
+            }
+          );
+        }
+        break;
+      }
+
       // Fires 3 days before trial ends — use this to email the landlord a heads up
       case "customer.subscription.trial_will_end": {
         const subscription = event.data.object as Stripe.Subscription;

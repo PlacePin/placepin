@@ -24,16 +24,17 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
     const tenant = await TenantModel.findById(userId);
     const tradesmen = await TradesmenModel.findById(userId);
     const user: TenantDocumentType | LandlordDocumentType | TradesmenDocumentType | null = landlord || tenant || tradesmen;
-    let updatedSubscription = {
-      'subscription.tier': ''
-    };
 
     if (!user) {
       return res.status(404).json({ message: "User doesn't exist." })
     }
 
     if (!STRIPE_SECRET_KEY) {
-      return res.status(500).json({ message: 'Stripe key missing!' })
+      return res.status(400).json({ message: 'Stripe key missing!' })
+    }
+
+    if (!STRIPE_ESSENTIAL_PRICE_ID || !STRIPE_BALANCED_PRICE_ID || !STRIPE_PLATINUM_PRICE_ID) {
+      return res.status(400).json({ message: 'Missing Stripe price IDs' });
     }
 
     // Instantiating a new Stripe object for stripe interactions
@@ -107,12 +108,20 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
               quantity: 1,
             },
           ],
+          metadata: {
+            userId: String(user._id),
+            accountType: user.accountType,
+            tier: 'Essential',
+          },
+          subscription_data: {
+            metadata: {
+              userId: String(user._id),
+              accountType: user.accountType,
+              tier: 'Essential',
+            }
+          },
           success_url: `${process.env.CLIENT_URL}/success`,
           cancel_url: `${process.env.CLIENT_URL}/cancel`,
-        };
-
-        updatedSubscription = {
-          'subscription.tier': 'Essential'
         };
 
       } else if (subscriptionPlan === 'balanced') {
@@ -127,12 +136,20 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
               quantity: 1,
             },
           ],
+          metadata: {
+            userId: String(user._id),
+            accountType: user.accountType,
+            tier: 'Balanced',
+          },
+          subscription_data: {
+            metadata: {
+              userId: String(user._id),
+              accountType: user.accountType,
+              tier: 'Balanced',
+            }
+          },
           success_url: `${process.env.CLIENT_URL}/success`,
           cancel_url: `${process.env.CLIENT_URL}/cancel`,
-        };
-
-        updatedSubscription = {
-          'subscription.tier': 'Balanced'
         };
 
       } else if (subscriptionPlan === 'platinum') {
@@ -147,12 +164,20 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
               quantity: 1,
             },
           ],
+          metadata: {
+            userId: String(user._id),
+            accountType: user.accountType,
+            tier: 'Platinum',
+          },
+          subscription_data: {
+            metadata: {
+              userId: String(user._id),
+              accountType: user.accountType,
+              tier: 'Platinum',
+            }
+          },
           success_url: `${process.env.CLIENT_URL}/success`,
           cancel_url: `${process.env.CLIENT_URL}/cancel`,
-        };
-
-        updatedSubscription = {
-          'subscription.tier': 'Platinum'
         };
 
       } else {
@@ -160,7 +185,6 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
       }
 
       session = await stripeAccess.checkout.sessions.create(sessionConfig);
-      await TenantModel.updateOne({ _id: userId }, updatedSubscription);
 
     } else if (user.accountType === 'tradesmen') {
       sessionConfig = {
