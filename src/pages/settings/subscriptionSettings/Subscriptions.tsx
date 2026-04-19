@@ -103,6 +103,22 @@ const Subscriptions = () => {
     }
   };
 
+  const handleUpdateSubscription = async (planId: string) => {
+    try {
+      await axiosInstance.post(
+        '/api/settings/stripe/update-subscription',
+        { subscriptionPlan: planId },
+        { headers: { Authorization: `Bearer ${accessToken}` } }
+      );
+      setSubscription(prev => prev ? {
+        ...prev,
+        tier: planId.charAt(0).toUpperCase() + planId.slice(1)
+      } : prev);
+    } catch (err) {
+      console.error('Update error:', err);
+    }
+  };
+
   if (user.accountType === 'landlord') {
     return (
       <div className={styles.container}>
@@ -194,14 +210,14 @@ const Subscriptions = () => {
                 ) : isHigher ? (
                   <button
                     className={styles.btnUpgrade}
-                    onClick={(e) => { e.stopPropagation(); handleCheckout(plan.id); }}
+                    onClick={(e) => { e.stopPropagation(); handleUpdateSubscription(plan.id); }}
                   >
                     Upgrade
                   </button>
                 ) : isLower ? (
                   <button
                     className={styles.btnDowngrade}
-                    onClick={(e) => { e.stopPropagation(); handleCheckout(plan.id); }}
+                    onClick={(e) => { e.stopPropagation(); handleUpdateSubscription(plan.id); }}
                   >
                     Downgrade
                   </button>
