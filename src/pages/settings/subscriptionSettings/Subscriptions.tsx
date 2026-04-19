@@ -52,6 +52,7 @@ const Subscriptions = () => {
   const [isFetching, setIsFetching] = useState(true);
   const [isCancelling, setIsCancelling] = useState(false);
   const [pendingPlan, setPendingPlan] = useState<string | null>(null);
+  const [showCancelModal, setShowCancelModal] = useState(false);
 
   if (!accessToken) return null;
 
@@ -126,7 +127,7 @@ const Subscriptions = () => {
             ) : (
               <button
                 className={styles.btnCancel}
-                onClick={handleCancel}
+                onClick={() => setShowCancelModal(true)}
                 disabled={isCancelling}
               >
                 {isCancelling ? 'Cancelling...' : 'Cancel membership'}
@@ -135,6 +136,30 @@ const Subscriptions = () => {
           </div>
         ) : (
           <SubscriptionCheckoutForm />
+        )}
+        {showCancelModal && (
+          <div className={styles.modalOverlay}>
+            <div className={styles.modal}>
+              <h3>Cancel your subscription?</h3>
+              <p>
+                You'll keep access until the end of your billing period. After that your account will be downgraded.
+              </p>
+              <div className={styles.modalButtons}>
+                <button
+                  className={styles.btnDowngrade}
+                  onClick={() => setShowCancelModal(false)}
+                >
+                  Keep subscription
+                </button>
+                <button
+                  className={styles.btnCancel}
+                  onClick={() => { handleCancel(); setShowCancelModal(false); }}
+                >
+                  Yes, cancel
+                </button>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     );
@@ -160,7 +185,7 @@ const Subscriptions = () => {
             ) : (
               <button
                 className={styles.btnCancel}
-                onClick={handleCancel}
+                onClick={() => setShowCancelModal(true)}
                 disabled={isCancelling}
               >
                 {isCancelling ? 'Cancelling...' : 'Cancel membership'}
@@ -169,6 +194,30 @@ const Subscriptions = () => {
           </div>
         ) : (
           <SubscriptionCheckoutForm />
+        )}
+        {showCancelModal && (
+          <div className={styles.modalOverlay}>
+            <div className={styles.modal}>
+              <h3>Cancel your subscription?</h3>
+              <p>
+                You'll keep access until the end of your billing period. After that your account will be downgraded.
+              </p>
+              <div className={styles.modalButtons}>
+                <button
+                  className={styles.btnDowngrade}
+                  onClick={() => setShowCancelModal(false)}
+                >
+                  Keep subscription
+                </button>
+                <button
+                  className={styles.btnCancel}
+                  onClick={() => { handleCancel(); setShowCancelModal(false); }}
+                >
+                  Yes, cancel
+                </button>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     );
