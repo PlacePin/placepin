@@ -107,6 +107,8 @@ const Subscriptions = () => {
   };
 
   if (user.accountType === 'landlord') {
+    if (isFetching) return <p>Loading subscription...</p>;
+
     return (
       <div className={styles.container}>
         <h2 className={styles.heading}>Landlord Subscription</h2>
@@ -114,12 +116,33 @@ const Subscriptions = () => {
           Unlock all features for your rental management.{' '}
           <strong className={styles.highlight}>$150/month</strong>
         </p>
-        <SubscriptionCheckoutForm />
+        {subscription?.isSubscribed ? (
+          <div className={styles.subscribedState}>
+            <span className={styles.currentBadge}>Active subscription</span>
+            {subscription.cancelAtPeriodEnd ? (
+              <button className={styles.btnDisabled} disabled>
+                Cancels at period end
+              </button>
+            ) : (
+              <button
+                className={styles.btnCancel}
+                onClick={handleCancel}
+                disabled={isCancelling}
+              >
+                {isCancelling ? 'Cancelling...' : 'Cancel membership'}
+              </button>
+            )}
+          </div>
+        ) : (
+          <SubscriptionCheckoutForm />
+        )}
       </div>
     );
   }
 
   if (user.accountType === 'tradesmen') {
+    if (isFetching) return <p>Loading subscription...</p>;
+
     return (
       <div className={styles.container}>
         <h2 className={styles.heading}>Tradesmen Subscription</h2>
@@ -127,7 +150,26 @@ const Subscriptions = () => {
           Unlock all features for your trade business.{' '}
           <strong className={styles.highlight}>$25/month</strong>
         </p>
-        <SubscriptionCheckoutForm />
+        {subscription?.isSubscribed ? (
+          <div className={styles.subscribedState}>
+            <span className={styles.currentBadge}>Active subscription</span>
+            {subscription.cancelAtPeriodEnd ? (
+              <button className={styles.btnDisabled} disabled>
+                Cancels at period end
+              </button>
+            ) : (
+              <button
+                className={styles.btnCancel}
+                onClick={handleCancel}
+                disabled={isCancelling}
+              >
+                {isCancelling ? 'Cancelling...' : 'Cancel membership'}
+              </button>
+            )}
+          </div>
+        ) : (
+          <SubscriptionCheckoutForm />
+        )}
       </div>
     );
   }
@@ -209,7 +251,9 @@ const Subscriptions = () => {
                   </button>
                 ) : (
                   <div className={styles.formWrapper}>
-                    <SubscriptionCheckoutForm subscriptionPlan={plan.id} />
+                    <SubscriptionCheckoutForm
+                      subscriptionPlan={plan.id}
+                    />
                   </div>
                 )}
               </div>

@@ -310,3 +310,15 @@
   width: auto;
   padding: 8px 20px;
 }
+
+.subscribedState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.subscribedState .btnCancel {
+  max-width: 300px;
+}

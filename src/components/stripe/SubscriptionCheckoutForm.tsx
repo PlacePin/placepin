@@ -9,13 +9,17 @@ interface SubscriptionCheckoutFormProps {
   subscriptionPlan?: string | null;
 }
 
-const SubscriptionCheckoutForm = ({ subscriptionPlan }: SubscriptionCheckoutFormProps) => {
+const SubscriptionCheckoutForm = ({
+  subscriptionPlan
+}: SubscriptionCheckoutFormProps) => {
   const [isPending, setIsPending] = useState(false);
   const { accessToken } = useAuth();
 
   if (!accessToken) {
     return <Navigate to="/login" replace />;
   }
+
+  console.log(subscriptionPlan)
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
