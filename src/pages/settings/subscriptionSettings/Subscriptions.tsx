@@ -89,6 +89,20 @@ const Subscriptions = () => {
     }
   };
 
+  const handleCheckout = async (planId: string) => {
+    try {
+      const { data } = await axiosInstance.post(
+        '/api/settings/stripe/subscription-checkout-form',
+        { subscriptionPlan: planId },
+        { headers: { Authorization: `Bearer ${accessToken}` } }
+      );
+      localStorage.setItem('stripeContext', 'settings');
+      window.location.href = data.sessionUrl;
+    } catch (err) {
+      console.error('Checkout error:', err);
+    }
+  };
+
   if (user.accountType === 'landlord') {
     return (
       <div className={styles.container}>
@@ -178,11 +192,17 @@ const Subscriptions = () => {
                     )}
                   </>
                 ) : isHigher ? (
-                  <button className={styles.btnUpgrade} onClick={(e) => { e.stopPropagation(); setSelectedPlan(plan.id); }}>
+                  <button
+                    className={styles.btnUpgrade}
+                    onClick={(e) => { e.stopPropagation(); handleCheckout(plan.id); }}
+                  >
                     Upgrade
                   </button>
                 ) : isLower ? (
-                  <button className={styles.btnDowngrade} onClick={(e) => { e.stopPropagation(); setSelectedPlan(plan.id); }}>
+                  <button
+                    className={styles.btnDowngrade}
+                    onClick={(e) => { e.stopPropagation(); handleCheckout(plan.id); }}
+                  >
                     Downgrade
                   </button>
                 ) : (
