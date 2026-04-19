@@ -51,6 +51,7 @@ const Subscriptions = () => {
   const [subscription, setSubscription] = useState<Subscription | null>(null);
   const [isFetching, setIsFetching] = useState(true);
   const [isCancelling, setIsCancelling] = useState(false);
+  const [pendingPlan, setPendingPlan] = useState<string | null>(null);
 
   if (!accessToken) return null;
 
@@ -86,20 +87,6 @@ const Subscriptions = () => {
       console.error('Failed to cancel subscription', err);
     } finally {
       setIsCancelling(false);
-    }
-  };
-
-  const handleCheckout = async (planId: string) => {
-    try {
-      const { data } = await axiosInstance.post(
-        '/api/settings/stripe/subscription-checkout-form',
-        { subscriptionPlan: planId },
-        { headers: { Authorization: `Bearer ${accessToken}` } }
-      );
-      localStorage.setItem('stripeContext', 'settings');
-      window.location.href = data.sessionUrl;
-    } catch (err) {
-      console.error('Checkout error:', err);
     }
   };
 
@@ -210,14 +197,14 @@ const Subscriptions = () => {
                 ) : isHigher ? (
                   <button
                     className={styles.btnUpgrade}
-                    onClick={(e) => { e.stopPropagation(); handleUpdateSubscription(plan.id); }}
+                    onClick={(e) => { e.stopPropagation(); setPendingPlan(plan.id); }}
                   >
                     Upgrade
                   </button>
                 ) : isLower ? (
                   <button
                     className={styles.btnDowngrade}
-                    onClick={(e) => { e.stopPropagation(); handleUpdateSubscription(plan.id); }}
+                    onClick={(e) => { e.stopPropagation(); setPendingPlan(plan.id); }}
                   >
                     Downgrade
                   </button>
@@ -230,6 +217,33 @@ const Subscriptions = () => {
             )
           })}
         </div>
+        {pendingPlan && (
+          <div className={styles.modalOverlay}>
+            <div className={styles.modal}>
+              <h3>Change your plan?</h3>
+              <p>
+                You'll be switched to the <strong>{pendingPlan.charAt(0).toUpperCase() + pendingPlan.slice(1)}</strong> plan.
+                Your billing will be prorated automatically.
+              </p>
+              <div
+                className={styles.modalButtons}
+              >
+                <button
+                  className={styles.btnCancel}
+                  onClick={() => setPendingPlan(null)}
+                >
+                  Cancel
+                </button>
+                <button
+                  className={styles.btnUpgrade}
+                  onClick={() => { handleUpdateSubscription(pendingPlan); setPendingPlan(null); }}
+                >
+                  Confirm
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
