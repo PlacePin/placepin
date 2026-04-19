@@ -26,7 +26,14 @@ const FailedSubscription = () => {
 
   const decoded = jwtDecode<DecodedAccessToken>(accessToken);
 
+  console.log(decoded)
+
   const handleReturnToStripe = async () => {
+    if (!isNewSignup) {
+      window.location.href = `/${decoded.accountType}dashboard/generalsettings`;
+      return;
+    }
+
     setLoading(true);
     setError('');
 

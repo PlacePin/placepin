@@ -21,7 +21,7 @@ export const stripeCancelSubscription = async (
     const landlord = await LandlordModel.findById(userId);
     const tenant = await TenantModel.findById(userId);
     const tradesmen = await TradesmenModel.findById(userId);
-    const user: TenantDocumentType | LandlordDocumentType | TradesmenDocumentType | null = landlord || tenant || tradesmen
+    const user: TenantDocumentType | LandlordDocumentType | TradesmenDocumentType | null = landlord || tenant || tradesmen;
 
     if (!user) {
       return res.status(404).json({ message: "User doesn't exist." })
@@ -40,23 +40,7 @@ export const stripeCancelSubscription = async (
       cancel_at_period_end: true
     });
 
-    // Update database
-    const updatedSubscription = {
-      'subscription.isSubscribed': false,
-      'subscription.stripeSubscriptionId': null
-    };
-
-    if (user.accountType === 'landlord') {
-      await LandlordModel.updateOne({ _id: userId }, updatedSubscription);
-    } else if(user.accountType === 'tenant') {
-      await TenantModel.updateOne({ _id: userId }, updatedSubscription);
-    } else if(user.accountType === 'tradesmen'){
-      await TradesmenModel.updateOne({ _id: userId }, updatedSubscription)
-    } else {
-      return res.status(400).json({ error: 'Invalid account type'})
-    }
-
-    return res.status(200).json({ updatedSubscription })
+    return res.status(200).json({ message: 'Subscription will cancel at end of billing period' })
   } catch (err) {
     console.error(err)
     return res.status(500).json({ error: 'Unexpected error!' })

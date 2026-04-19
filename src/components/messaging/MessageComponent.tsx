@@ -105,9 +105,9 @@ const MessageComponent = ({ message, index, isOwn, onActionComplete }: MessageCo
               title={isLoading ? "Loading..." : "Acknowledge"}
               onClick={handleAction}
             />
-            <p className={styles.disclaimer}>
+            <span className={styles.disclaimer}>
               *By acknowledging and linking your bank account, you authorize recurring monthly rent payments of the above amount to be charged on your due date. Your lease remains the legally binding document.
-            </p>
+            </span>
           </>
         )}
         {message.action?.completed && (

@@ -1,31 +1,55 @@
 .container {
   position: absolute;
-  top: 40px;
+  top: 48px;
   right: 0;
-  background: var(--color-surface-4);
-  border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  padding: 0.5rem 0;
-  min-width: 160px;
   z-index: 100;
-  opacity: 0;
-  transform: translateY(-10px);
-  animation: fadeIn 0.2s forwards;
   margin-right: 1rem;
+  animation: fadeIn 0.15s ease forwards;
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+.inner {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-2);
+  border-radius: 14px;
+  box-shadow: var(--shadow-md);
+  padding: 0.4rem;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .item {
-  padding: 0.5rem 1rem;
+  width: 100%;
+  padding: 0.6rem 0.85rem;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-2);
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background 0.12s ease, color 0.12s ease;
+  font-family: var(--font-family);
 }
 
 .item:hover {
-  background: var(--color-surface-5);
+  background: var(--color-surface-3);
+  color: var(--color-text-1);
 }
 
-/* small fade + slide in animation */
+.item:last-child {
+  color: var(--color-error);
+}
+
+.item:last-child:hover {
+  background: var(--color-error-light);
+  color: var(--color-error);
+}
+
 @keyframes fadeIn {
   to {
     opacity: 1;

@@ -67,7 +67,6 @@ export const stripeWebhookController = async (
             await TradesmenModel.updateOne(
               { "subscription.stripeCustomerId": stripeCustomerId },
               {
-                "subscription.isSubscribed": true,
                 // optional: store subscription id if present
                 "subscription.stripeSubscriptionId": stripeSubscriptionId
               }
@@ -76,6 +75,58 @@ export const stripeWebhookController = async (
           } else {
             console.warn("No User found with stripeCustomerId:", stripeCustomerId);
           }
+        }
+        break;
+      }
+
+      case "customer.subscription.created": {
+        const session = event.data.object as Stripe.Subscription;
+
+        const userId = session.metadata?.userId;
+        const accountType = session.metadata?.accountType;
+        const tier = session.metadata?.tier;
+
+        if (!userId || !accountType) {
+          console.error("Missing metadata fields", session.metadata);
+          break;
+        }
+
+        if (accountType === 'tenant') {
+          await TenantModel.updateOne(
+            { _id: userId },
+            {
+              $set: {
+                'subscription.tier': tier,
+                'subscription.isSubscribed': true,
+              }
+            }
+          );
+        }
+        break;
+      }
+
+      case "customer.subscription.updated": {
+        const session = event.data.object as Stripe.Subscription;
+
+        const userId = session.metadata?.userId;
+        const accountType = session.metadata?.accountType;
+        const tier = session.metadata?.tier;
+
+        if (!userId || !accountType) {
+          console.error("Missing metadata fields", session.metadata);
+          break;
+        }
+
+        if (accountType === 'tenant') {
+          await TenantModel.updateOne(
+            { _id: userId },
+            {
+              $set: {
+                'subscription.tier': tier,
+                'subscription.isSubscribed': true,
+              }
+            }
+          );
         }
         break;
       }
@@ -101,8 +152,10 @@ export const stripeWebhookController = async (
           typeof subscription.customer === "string" ? subscription.customer : subscription.customer.id;
 
         const updatedSubscription = {
-          "subscription.isSubscribed": false,
-          "subscription.stripeSubscriptionId": null
+          $set: {
+            "subscription.isSubscribed": false,
+            "subscription.stripeSubscriptionId": null
+          }
         };
 
         await LandlordModel.updateOne({ "subscription.stripeCustomerId": stripeCustomerId }, updatedSubscription);

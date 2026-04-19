@@ -1,7 +1,312 @@
+/* Shared container */
 .container {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-1);
+  margin: 0 0 0.25rem;
   text-align: center;
 }
 
+/* Landlord / Tradesmen (simple) */
+.simpleDescription {
+  font-size: 0.95rem;
+  color: var(--color-text-3);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.highlight {
+  color: var(--color-tertiary);
+}
+
+/* Tenant heading note */
+.globalNote {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-text-4);
+  margin-bottom: 2rem;
+  letter-spacing: 0.03em;
+}
+
+/* Plan grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Plan card */
+.card {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-1);
+  border-radius: 16px;
+  padding: 1.5rem 1.25rem 1.25rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  transition: box-shadow 0.15s ease, transform 0.12s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.card.current {
+  border: 2px solid var(--color-primary);
+}
+
+.card.selected {
+  border: 2px solid var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-lighter);
+}
+
+/* Badges row */
+.badges {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+  min-height: 22px;
+  align-items: center;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: var(--color-primary-lighter);
+  color: var(--color-tertiary);
+  letter-spacing: 0.02em;
+}
+
+.currentBadge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: var(--color-success-light);
+  color: hsl(142, 71%, 25%);
+  letter-spacing: 0.02em;
+}
+
+/* Plan header */
+.planName {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-1);
+  margin: 0 0 2px;
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.amount {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-tertiary);
+  line-height: 1;
+}
+
+.per {
+  font-size: 0.75rem;
+  color: var(--color-text-4);
+}
+
+/* Description */
 .description {
-  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  color: var(--color-text-3);
+  line-height: 1.6;
+  margin: 10px 0 14px;
+  text-align: center;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: var(--color-border-1);
+  margin-bottom: 14px;
+}
+
+/* Feature list */
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.featureItem {
+  font-size: 0.73rem;
+  color: var(--color-text-3);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.check {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: var(--color-success-light);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 9' fill='none'%3E%3Cpath d='M1.5 4.5l2 2 4-4' stroke='hsl(142%2C71%25%2C35%25)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Checkout form wrapper */
+.formWrapper {
+  margin-top: 4px;
+}
+
+/* Buttons */
+.btnUpgrade {
+  width: 100%;
+  padding: 9px 0;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  background: var(--color-tertiary);
+  color: #fff;
+  letter-spacing: 0.01em;
+  transition: background 0.12s ease;
+  font-family: var(--font-family);
+}
+
+.btnUpgrade:hover {
+  background: var(--color-tertiary-hover);
+}
+
+.btnDowngrade {
+  width: 100%;
+  padding: 9px 0;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid var(--color-border-3);
+  background: transparent;
+  color: var(--color-text-3);
+  letter-spacing: 0.01em;
+  transition: background 0.12s ease;
+  font-family: var(--font-family);
+}
+
+.btnDowngrade:hover {
+  background: var(--color-surface-2);
+}
+
+.btnCancel {
+  width: 100%;
+  padding: 9px 0;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid hsl(0, 84%, 80%);
+  background: transparent;
+  color: var(--color-error);
+  letter-spacing: 0.01em;
+  transition: background 0.12s ease;
+  font-family: var(--font-family);
+}
+
+.btnCancel:hover {
+  background: var(--color-error-light);
+}
+
+.btnCancel:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btnDisabled {
+  width: 100%;
+  padding: 9px 0;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: not-allowed;
+  border: 1px solid var(--color-border-1);
+  background: var(--color-surface-2);
+  color: var(--color-text-4);
+  letter-spacing: 0.01em;
+  opacity: 0.6;
+  font-family: var(--font-family);
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-1);
+  border-radius: 16px;
+  padding: 1.75rem;
+  max-width: 380px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-1);
+  margin: 0;
+}
+
+.modal p {
+  font-size: 0.82rem;
+  color: var(--color-text-3);
+  line-height: 1.6;
+  margin: 0 0 8px;
+}
+
+.modalButtons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.modalButtons .btnDowngrade,
+.modalButtons .btnUpgrade {
+  width: auto;
+  padding: 8px 20px;
 }

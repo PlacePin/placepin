@@ -14,18 +14,21 @@ const DropdownModal = ({
 }: DropdownModalProps) => {
   return (
     <div className={styles.container}>
-      {selections.map((selection, i) => (
-        <p
-          key={i}
-          className={styles.item}
-          onClick={() => onSelect?.(selection)}
-        >
-          {selection}
-        </p>
-      ))}
-      {children}
+      <div className={styles.inner}>
+        {selections.map((selection, i) => (
+          <button
+            key={i}
+            className={styles.item}
+            onClick={() => onSelect?.(selection)}
+          >
+            {selection}
+          </button>
+        ))}
+        {children}
+      </div>
     </div>
-  )
-}
+  );
+};
+
 
 export default DropdownModal;
