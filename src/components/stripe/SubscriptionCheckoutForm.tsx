@@ -38,19 +38,16 @@ const SubscriptionCheckoutForm = ({
     if (subscription) {
       try {
         setIsPending(true);
-        const { data } = await axiosInstance.post(
+        await axiosInstance.post(
           '/api/settings/stripe/cancel-subscription',
-          {
-            subscriptionPlan
-          },
+          undefined,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`
             }
           }
         );
-        const cancelSubscription = data.updatedSubscription['subscription.isSubscribed'];
-        setSubscription(cancelSubscription);
+        setSubscription(false);
       } catch (error) {
         console.error(error);
       } finally {

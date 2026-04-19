@@ -67,7 +67,6 @@ export const stripeWebhookController = async (
             await TradesmenModel.updateOne(
               { "subscription.stripeCustomerId": stripeCustomerId },
               {
-                "subscription.isSubscribed": true,
                 // optional: store subscription id if present
                 "subscription.stripeSubscriptionId": stripeSubscriptionId
               }
@@ -153,8 +152,10 @@ export const stripeWebhookController = async (
           typeof subscription.customer === "string" ? subscription.customer : subscription.customer.id;
 
         const updatedSubscription = {
-          "subscription.isSubscribed": false,
-          "subscription.stripeSubscriptionId": null
+          $set: {
+            "subscription.isSubscribed": false,
+            "subscription.stripeSubscriptionId": null
+          }
         };
 
         await LandlordModel.updateOne({ "subscription.stripeCustomerId": stripeCustomerId }, updatedSubscription);

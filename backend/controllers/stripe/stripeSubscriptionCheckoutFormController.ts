@@ -90,6 +90,16 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
             quantity: 1,
           },
         ],
+        metadata: {
+          userId: String(user._id),
+          accountType: user.accountType,
+        },
+        subscription_data: {
+          metadata: {
+            userId: String(user._id),
+            accountType: user.accountType,
+          }
+        },
       };
 
       // Only landlords get the 90 day free trial
@@ -184,6 +194,16 @@ export const stripeSubscriptionCheckoutForm = async (req: Request, res: Response
             quantity: 1,
           },
         ],
+        metadata: {
+          userId: String(user._id),
+          accountType: user.accountType,
+        },
+        subscription_data: {
+          metadata: {
+            userId: String(user._id),
+            accountType: user.accountType,
+          }
+        },
       };
 
       session = await stripeAccess.checkout.sessions.create(sessionConfig);

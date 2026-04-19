@@ -8,15 +8,12 @@ export const stripeCancelSubscription = async (
   req: Request,
   res: Response,
 ) => {
-  const { subscriptionPlan } = req.body;
   const userId = req.userId;
   const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
 
   if (!STRIPE_SECRET_KEY) {
     return res.status(500).json({ message: 'Stripe key missing!' })
   }
-
-  console.log('sub plan', subscriptionPlan)
 
   try {
     // Getting user from database
@@ -43,23 +40,7 @@ export const stripeCancelSubscription = async (
       cancel_at_period_end: true
     });
 
-    // Update database
-    const updatedSubscription = {
-      'subscription.isSubscribed': false,
-      'subscription.stripeSubscriptionId': null
-    };
-
-    if (user.accountType === 'landlord') {
-      await LandlordModel.updateOne({ _id: userId }, updatedSubscription);
-    } else if(user.accountType === 'tenant') {
-      await TenantModel.updateOne({ _id: userId }, updatedSubscription);
-    } else if(user.accountType === 'tradesmen'){
-      await TradesmenModel.updateOne({ _id: userId }, updatedSubscription)
-    } else {
-      return res.status(400).json({ error: 'Invalid account type'})
-    }
-
-    return res.status(200).json({ updatedSubscription })
+    return res.status(200).json({ message: 'Subscription will cancel at end of billing period' })
   } catch (err) {
     console.error(err)
     return res.status(500).json({ error: 'Unexpected error!' })
