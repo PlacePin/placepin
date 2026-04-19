@@ -152,24 +152,23 @@ const Subscriptions = () => {
                 key={plan.id}
                 className={[
                   styles.card,
-                  plan.featured ? styles.featured : '',
                   isCurrent ? styles.current : '',
                   selectedPlan === plan.id ? styles.selected : '',
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
+                ].filter(Boolean).join(' ')}
                 onClick={() => setSelectedPlan(plan.id)}
               >
-                <div className={styles.headerRow}>
-                  <h3 className={styles.planName}>{plan.name}</h3>
-                  <div className={styles.priceRow}>
-                    <span className={styles.amount}>${plan.price}</span>
-                    <span className={styles.per}>/month</span>
-                  </div>
+                {isCurrent && <div className={styles.cardAccent} />}
+                <div className={styles.badges}>
+                  {plan.featured && <span className={styles.badge}>Most popular</span>}
+                  {isCurrent && <span className={styles.currentBadge}>Your plan</span>}
+                </div>
+                <p className={styles.planName}>{plan.name}</p>
+                <div className={styles.priceRow}>
+                  <span className={styles.amount}>${plan.price}</span>
+                  <span className={styles.per}>/month</span>
                 </div>
                 <p className={styles.description}>{plan.description}</p>
-                {plan.featured && <span className={styles.badge}>Most popular</span>}
-                {isCurrent && <span className={styles.currentBadge}>Your plan</span>}
+                <div className={styles.divider} />
                 <ul className={styles.features}>
                   {plan.features.map((feature) => (
                     <li key={feature} className={styles.featureItem}>
@@ -190,7 +189,7 @@ const Subscriptions = () => {
                         onClick={(e) => { e.stopPropagation(); handleCancel(); }}
                         disabled={isCancelling}
                       >
-                        {isCancelling ? 'Cancelling...' : 'Cancel Membership'}
+                        {isCancelling ? 'Cancelling...' : 'Cancel membership'}
                       </button>
                     )}
                   </>
