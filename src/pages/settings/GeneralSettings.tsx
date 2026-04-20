@@ -3,13 +3,13 @@ import BasicInfo from './basicInfomation/BasicInfo';
 import BankSettings from './bankSettings/BankSettings';
 import { useState, useEffect } from 'react';
 import Subscriptions from './subscriptionSettings/Subscriptions';
-import Passport from './passport/Passport';
+import TenantPassport from './passport/TenantPassport';
 
 const tabs = [
   { id: 'basic', label: 'Basic Information' },
   { id: 'bank', label: 'Bank Settings' },
   { id: 'subscriptions', label: 'Subscriptions' },
-  { id: 'passport', label: 'Passport' },
+  { id: 'tenant-passport', label: 'Tenant Passport' },
 ] as const;
 
 type Tab = typeof tabs[number]['id'];
@@ -50,7 +50,7 @@ const GeneralSettings = () => {
           {activeTab === 'basic' && <BasicInfo />}
           {activeTab === 'bank' && <BankSettings />}
           {activeTab === 'subscriptions' && <Subscriptions />}
-          {activeTab === 'passport' && <Passport />}
+          {activeTab === 'tenant-passport' && <TenantPassport />}
         </div>
       </div>
     </div>
