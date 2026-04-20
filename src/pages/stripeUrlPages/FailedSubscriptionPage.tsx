@@ -71,7 +71,7 @@ const FailedSubscription = () => {
       <div className={styles.container}>
         <h1>Your account is ready</h1>
         <p>
-          To access PlacePin you'll need to set up your 90-day free trial.
+          To access PlacePin you'll need to set up your 90-day guest pass.
           No charges today — cancel anytime after.
         </p>
         {error && <p className={styles.error}>{error}</p>}
@@ -80,7 +80,7 @@ const FailedSubscription = () => {
           onClick={handleReturnToStripe}
           disabled={loading}
         >
-          {loading ? 'Redirecting...' : 'Set up my free trial'}
+          {loading ? 'Redirecting...' : 'Set up my guest pass'}
         </button>
       </div>
     );

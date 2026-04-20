@@ -27,7 +27,7 @@ const TrialInterstitialPage = ({
           Account created
         </span>
 
-        <h1 className={styles.heading}>Start your 90-day free trial</h1>
+        <h1 className={styles.heading}>Start your 90-day guest pass — no charges today</h1>
         <p className={styles.sub}>
           You're one step away from full access. No charges today — we just need your card on file.
         </p>
@@ -85,7 +85,7 @@ const TrialInterstitialPage = ({
             <span className={`${styles.noticeValue} ${styles.green}`}>$0.00</span>
           </div>
           <div className={styles.noticeRow}>
-            <span className={styles.noticeLabel}>After 90-day trial</span>
+            <span className={styles.noticeLabel}>After 90-day pass</span>
             <span className={styles.noticeValue}>$150 / month per property</span>
           </div>
           <div className={styles.noticeRow}>
@@ -95,7 +95,7 @@ const TrialInterstitialPage = ({
         </div>
 
         <button className={styles.btn} onClick={handleContinue}>
-          Set up free trial via Stripe
+          Set up guest pass via Stripe
         </button>
 
         <p className={styles.legal}>
