@@ -4,6 +4,9 @@ import BankSettings from './bankSettings/BankSettings';
 import { useState, useEffect } from 'react';
 import Subscriptions from './subscriptionSettings/Subscriptions';
 import TenantPassport from './passport/TenantPassport';
+import { useAuth } from '../../context/AuthContext';
+import type { DecodedAccessToken } from '../../interfaces/interfaces';
+import { jwtDecode } from 'jwt-decode';
 
 const tabs = [
   { id: 'basic', label: 'Basic Information' },
@@ -15,6 +18,8 @@ const tabs = [
 type Tab = typeof tabs[number]['id'];
 
 const GeneralSettings = () => {
+
+  const { accessToken } = useAuth();
   const [activeTab, setActiveTab] = useState<Tab>(() => {
     const saved = localStorage.getItem('PlacePinSettingsTab');
     return (saved as Tab) || 'basic';
@@ -23,6 +28,10 @@ const GeneralSettings = () => {
   useEffect(() => {
     localStorage.setItem('PlacePinSettingsTab', activeTab);
   }, [activeTab]);
+
+  if (!accessToken) return null
+
+  const user = jwtDecode<DecodedAccessToken>(accessToken);
 
   return (
     <div className={styles.entireContainer}>
@@ -50,7 +59,11 @@ const GeneralSettings = () => {
           {activeTab === 'basic' && <BasicInfo />}
           {activeTab === 'bank' && <BankSettings />}
           {activeTab === 'subscriptions' && <Subscriptions />}
-          {activeTab === 'tenant-passport' && <TenantPassport />}
+          {
+            user.accountType === 'tenant' &&
+            activeTab === 'tenant-passport' &&
+            <TenantPassport />
+          }
         </div>
       </div>
     </div>
