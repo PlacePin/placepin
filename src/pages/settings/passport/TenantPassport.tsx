@@ -1,5 +1,6 @@
 import { useGetAxios } from "../../../hooks/useGetAxios";
-import IdentityStep from "../../../components/passportSteps/identity/IdentityStep"
+import IdentityStep from "../../../components/passportSteps/identity/IdentityStep";
+import styles from './tenantPassport.module.css';
 
 const TenantPassport = () => {
 
@@ -23,8 +24,8 @@ const TenantPassport = () => {
   console.log('tenant', tenant)
 
   return (
-    <>
-      <div>
+    <div className={styles.passportContainer}>
+      <div className={styles.title}>
         <h2>
           Set up your passport
         </h2>
@@ -37,7 +38,7 @@ const TenantPassport = () => {
         lastName={lastName}
         dateOfBirth={formattedDoB}
       />
-    </>
+    </div>
   )
 }
 
