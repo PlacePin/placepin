@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { ShieldCheck } from "lucide-react";
-import styles from "./IdentityStep.module.css";
+import styles from "./identityStep.module.css";
 import MethodCard from "./cards/MethodCard";
 import UploadZone from "./uploadFiles/UploadZone";
 import InputField from "./wrapperComponents/InputField";
