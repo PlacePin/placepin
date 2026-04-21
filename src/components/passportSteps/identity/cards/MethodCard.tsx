@@ -17,7 +17,7 @@ const MethodCard = ({
     onClick={onClick}
     className={`${styles.methodCard} ${selected ? styles.methodCardSelected : ""}`}
   >
-    {badge && <span className={styles.methodBadge}>{badge}</span>}
+    {badge && <span className={`${styles.methodBadge} ${selected && styles.methodBadgeSelected}`}>{badge}</span>}
     <p className={`${styles.methodTitle} ${selected ? styles.methodTitleSelected : ""}`}>
       {title}
     </p>

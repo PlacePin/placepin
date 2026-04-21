@@ -30,6 +30,11 @@
   font-weight: 500;
 }
 
+.methodBadgeSelected {
+  color: var(--color-tertiary);
+  background: var(--color-surface-1);
+}
+
 .methodTitle {
   font-size: 13.5px;
   font-weight: 500;
@@ -38,7 +43,7 @@
 }
 
 .methodTitleSelected {
-  color: var(--color-primary);
+  color: var(--color-text-1);
 }
 
 .methodDesc {
