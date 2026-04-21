@@ -39,8 +39,6 @@ const IdentityStep = ({
     idBackFile: null,
   })
 
-  console.log(form.dateOfBirth)
-
   const [frontDragging, setFrontDragging] = useState(false)
   const [backDragging, setBackDragging] = useState(false)
   const frontInputRef = useRef<HTMLInputElement>(null)
