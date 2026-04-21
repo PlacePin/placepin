@@ -4,6 +4,7 @@ import styles from "./IdentityStep.module.css";
 import MethodCard from "./cards/MethodCard";
 import UploadZone from "./uploadFiles/UploadZone";
 import InputField from "./wrapperComponents/InputField";
+import PrimaryButton from "../../buttons/PrimaryButton";
 
 type VerificationMethod = "id" | "ssn"
 
@@ -17,16 +18,28 @@ interface IdentityFormState {
   idBackFile: File | null
 }
 
-const IdentityStep = () => {
+interface IdentityStepProps {
+  firstName: string,
+  lastName: string,
+  dateOfBirth: string
+}
+
+const IdentityStep = ({
+  firstName,
+  lastName,
+  dateOfBirth,
+}: IdentityStepProps) => {
   const [form, setForm] = useState<IdentityFormState>({
-    firstName: "",
-    lastName: "",
-    dateOfBirth: "",
+    firstName: firstName,
+    lastName: lastName,
+    dateOfBirth: dateOfBirth,
     lastFourSSN: "",
     verificationMethod: "id",
     idFrontFile: null,
     idBackFile: null,
   })
+
+  console.log(form.dateOfBirth)
 
   const [frontDragging, setFrontDragging] = useState(false)
   const [backDragging, setBackDragging] = useState(false)
@@ -192,9 +205,10 @@ const IdentityStep = () => {
       {/* Action row */}
       <div className={styles.actionRow}>
         <p className={styles.stepIndicator}>Step 1 of 5</p>
-        <button className={styles.btnPrimary} disabled={!isComplete}>
-          Save &amp; continue →
-        </button>
+        <PrimaryButton
+          title={`Save & continue →`}
+          disabled={!isComplete}
+        />
       </div>
     </div>
   )

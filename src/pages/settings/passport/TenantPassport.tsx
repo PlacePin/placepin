@@ -15,7 +15,11 @@ const TenantPassport = () => {
           Complete each section to build your verified rental identity.
         </p>
       </div>
-      <IdentityStep />
+      <IdentityStep
+      firstName="John"
+      lastName="Doe"
+      dateOfBirth="09/07/1994"
+      />
     </>
   )
 }
