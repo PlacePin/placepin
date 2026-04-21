@@ -74,11 +74,6 @@ const IdentityStep = ({
       ? form.lastFourSSN.length === 4
       : form.idFrontFile !== null)
 
-  const steps = ["Identity", "Income", "Background", "Rent history", "Documents"]
-  const currentStep = 0
-
-  const progress = ((currentStep + 1) / steps.length) * 100
-
   return (
     <div className={styles.wrapper}>
       {/* Info banner */}
@@ -89,14 +84,7 @@ const IdentityStep = ({
           <strong>sensitive details like your date of birth or SSN</strong>.
         </p>
       </div>
-      {/* NEW: Progress + Steps */}
       <div className={styles.progressWrapper}>
-        <div className={styles.progressBar}>
-          <div
-            className={styles.progressFill}
-            style={{ width: progress }}
-          />
-        </div>
         <div className={styles.stepRow}>
           <StepPill label="Identity" status="complete" />
           <StepPill label="Income" status="current" />
