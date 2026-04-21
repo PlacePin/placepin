@@ -5,6 +5,7 @@ import MethodCard from "./cards/MethodCard";
 import UploadZone from "./uploadFiles/UploadZone";
 import InputField from "./wrapperComponents/InputField";
 import PrimaryButton from "../../buttons/PrimaryButton";
+import StepPill from "../StepPill";
 
 type VerificationMethod = "id" | "ssn"
 
@@ -73,15 +74,36 @@ const IdentityStep = ({
       ? form.lastFourSSN.length === 4
       : form.idFrontFile !== null)
 
+  const steps = ["Identity", "Income", "Background", "Rent history", "Documents"]
+  const currentStep = 0
+
+  const progress = ((currentStep + 1) / steps.length) * 100
+
   return (
     <div className={styles.wrapper}>
       {/* Info banner */}
       <div className={styles.infoBanner}>
         <ShieldCheck />
         <p className={styles.infoText}>
-          Your legal name and date of birth are used only for verification and are{" "}
-          <strong>never shown to landlords</strong>.
+          We use your information to verify your identity. Landlords only see your name and verification status—not{" "}
+          <strong>sensitive details like your date of birth or SSN</strong>.
         </p>
+      </div>
+      {/* NEW: Progress + Steps */}
+      <div className={styles.progressWrapper}>
+        <div className={styles.progressBar}>
+          <div
+            className={styles.progressFill}
+            style={{ width: progress }}
+          />
+        </div>
+        <div className={styles.stepRow}>
+          <StepPill label="Identity" status="complete" />
+          <StepPill label="Income" status="current" />
+          <StepPill label="Background" status="upcoming" />
+          <StepPill label="Rent history" status="upcoming" />
+          <StepPill label="Documents" status="upcoming" />
+        </div>
       </div>
       {/* Personal details */}
       <section className={styles.card}>

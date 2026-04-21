@@ -17,7 +17,7 @@ const TenantPassport = () => {
 
   const tenant = data.user;
   const firstName = tenant.fullName.split(' ')[0];
-  const lastName = tenant.fullName.split(' ')[1];
+  const lastName = tenant.fullName.split(' ')[tenant.fullName.split(' ').length - 1];
   const DoB = String(tenant.dateOfBirth);
   const formattedDoB = `${DoB.slice(0, 4)}-${DoB.slice(4, 6)}-${DoB.slice(6, 8)}`;
 
