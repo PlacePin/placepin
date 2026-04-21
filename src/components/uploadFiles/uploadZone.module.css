@@ -1,0 +1,38 @@
+.uploadLabel {
+  font-size: 13px;
+  color: var(--color-text-3);
+  margin: 0 0 3px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.uploadSub {
+  font-size: 11px;
+  color: var(--color-text-5);
+  margin: 0;
+}
+
+.uploadZone {
+  border: 1.5px dashed var(--color-border-3);
+  border-radius: 10px;
+  padding: 20px 16px;
+  text-align: center;
+  cursor: pointer;
+  background: var(--color-surface-2);
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.uploadZone:hover {
+  border-color: var(--color-border-5);
+}
+
+.uploadZoneDragging {
+  border-color: var(--color-primary);
+  background: var(--color-primary-lighter);
+}
+
+.uploadZoneSuccess {
+  border-color: var(--color-success);
+  background: var(--color-success-light);
+}
