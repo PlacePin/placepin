@@ -1,10 +1,10 @@
-import IdentityStep from "../../../components/passportSteps/IdentityStep"
+import IdentityStep from "../../../components/passportSteps/identity/IdentityStep"
 import { useAuth } from "../../../context/AuthContext";
 
 const TenantPassport = () => {
 
   const { accessToken } = useAuth();
-  
+
   return (
     <>
       <div>

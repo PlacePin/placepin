@@ -1,9 +1,9 @@
 import { useState, useRef } from "react"
 import { ShieldCheck } from "lucide-react"
 import styles from "./IdentityStep.module.css"
-import MethodCard from "../cards/tenant/MethodCard"
-import UploadZone from "../uploadFiles/UploadZone"
-import InputField from "../wrapperComponents/InputField"
+import MethodCard from "./cards/MethodCard"
+import UploadZone from "./uploadFiles/UploadZone"
+import InputField from "./wrapperComponents/InputField"
 
 type VerificationMethod = "id" | "ssn"
 
