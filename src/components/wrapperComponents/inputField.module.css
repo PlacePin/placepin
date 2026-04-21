@@ -1,0 +1,17 @@
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fieldLabel {
+  font-size: 12px;
+  color: var(--color-text-3);
+  font-weight: 500;
+}
+
+.fieldHint {
+  font-size: 11px;
+  color: var(--color-text-5);
+  margin-top: 2px;
+}

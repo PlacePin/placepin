@@ -3,6 +3,7 @@ import { ShieldCheck } from "lucide-react"
 import styles from "./IdentityStep.module.css"
 import MethodCard from "../cards/tenant/MethodCard"
 import UploadZone from "../uploadFiles/UploadZone"
+import InputField from "../wrapperComponents/InputField"
 
 type VerificationMethod = "id" | "ssn"
 
@@ -75,7 +76,7 @@ const IdentityStep = () => {
       <section className={styles.card}>
         <p className={styles.sectionLabel}>Personal details</p>
         <div className={styles.fieldRow}>
-          <Field label="Legal first name">
+          <InputField label="Legal first name">
             <input
               className={styles.input}
               type="text"
@@ -83,8 +84,8 @@ const IdentityStep = () => {
               value={form.firstName}
               onChange={e => handleField("firstName", e.target.value)}
             />
-          </Field>
-          <Field label="Legal last name">
+          </InputField>
+          <InputField label="Legal last name">
             <input
               className={styles.input}
               type="text"
@@ -92,18 +93,18 @@ const IdentityStep = () => {
               value={form.lastName}
               onChange={e => handleField("lastName", e.target.value)}
             />
-          </Field>
+          </InputField>
         </div>
         <div className={styles.fieldRow}>
-          <Field label="Date of birth">
+          <InputField label="Date of birth">
             <input
               className={styles.input}
               type="date"
               value={form.dateOfBirth}
               onChange={e => handleField("dateOfBirth", e.target.value)}
             />
-          </Field>
-          <Field label="Last 4 of SSN" hint="Used for identity matching only">
+          </InputField>
+          <InputField label="Last 4 of SSN" hint="Used for identity matching only">
             <input
               className={styles.input}
               type="text"
@@ -115,7 +116,7 @@ const IdentityStep = () => {
                 handleField("lastFourSSN", e.target.value.replace(/\D/g, ""))
               }
             />
-          </Field>
+          </InputField>
         </div>
       </section>
       {/* Verification method */}
@@ -174,14 +175,14 @@ const IdentityStep = () => {
         )}
         {form.verificationMethod === "ssn" && (
           <div className={styles.ssnField}>
-            <Field label="Full Social Security Number">
+            <InputField label="Full Social Security Number">
               <input
                 className={styles.input}
                 type="text"
                 placeholder="XXX-XX-XXXX"
                 maxLength={11}
               />
-            </Field>
+            </InputField>
             <p className={styles.ssnNote}>
               Your SSN is encrypted in transit and never stored in plain text.
             </p>
@@ -198,23 +199,5 @@ const IdentityStep = () => {
     </div>
   )
 }
-
-/* Sub-components */
-
-const Field = ({
-  label,
-  hint,
-  children,
-}: {
-  label: string
-  hint?: string
-  children: React.ReactNode
-}) => (
-  <div className={styles.fieldGroup}>
-    <label className={styles.fieldLabel}>{label}</label>
-    {children}
-    {hint && <span className={styles.fieldHint}>{hint}</span>}
-  </div>
-)
 
 export default IdentityStep
