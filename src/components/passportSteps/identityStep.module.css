@@ -1,0 +1,198 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 640px;
+}
+
+/* Info banner */
+
+.infoBanner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--color-primary-lighter);
+  border-radius: 8px;
+  border: 1px solid var(--color-primary-light);
+}
+
+.infoText {
+  font-size: 13px;
+  color: var(--color-tertiary);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Card */
+
+.card {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-2);
+  border-radius: 12px;
+  padding: 1.1rem 1.25rem;
+}
+
+.sectionLabel {
+  font-size: 11px;
+  color: var(--color-text-4);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin: 0 0 0.85rem 0;
+}
+
+/* Fields */
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.fieldRow:last-child {
+  margin-bottom: 0;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fieldLabel {
+  font-size: 12px;
+  color: var(--color-text-3);
+  font-weight: 500;
+}
+
+.fieldHint {
+  font-size: 11px;
+  color: var(--color-text-5);
+  margin-top: 2px;
+}
+
+.input {
+  width: 100%;
+  font-size: 13.5px;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border-3);
+  border-radius: 8px;
+  background: var(--color-surface-2);
+  color: var(--color-text-2);
+  font-family: var(--font-family);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+}
+
+/* Verification method */
+
+.methodGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+/* Upload zones */
+
+.uploadGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.uploadZone {
+  border: 1.5px dashed var(--color-border-3);
+  border-radius: 10px;
+  padding: 20px 16px;
+  text-align: center;
+  cursor: pointer;
+  background: var(--color-surface-2);
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.uploadZone:hover {
+  border-color: var(--color-border-5);
+}
+
+.uploadZoneDragging {
+  border-color: var(--color-primary);
+  background: var(--color-primary-lighter);
+}
+
+.uploadZoneSuccess {
+  border-color: var(--color-success);
+  background: var(--color-success-light);
+}
+
+.uploadLabel {
+  font-size: 13px;
+  color: var(--color-text-3);
+  margin: 0 0 3px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.uploadSub {
+  font-size: 11px;
+  color: var(--color-text-5);
+  margin: 0;
+}
+
+/* SSN fallback */
+
+.ssnField {
+  margin-top: 1rem;
+}
+
+.ssnNote {
+  font-size: 11px;
+  color: var(--color-text-5);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+/* Action row */
+
+.actionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.stepIndicator {
+  font-size: 12px;
+  color: var(--color-text-5);
+  margin: 0;
+}
+
+.btnPrimary {
+  font-size: 13.5px;
+  padding: 9px 22px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.btnPrimary:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
