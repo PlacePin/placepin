@@ -126,7 +126,7 @@ const IncomeStep = ({ currentStep, onComplete, onBack }: IncomeStepProps) => {
           />
         </div>
         <div className={styles.infoBanner}>
-          <Info size={14} style={{ flexShrink: 0, marginTop: 1 }} />
+          <Info size={24} />
           <p className={styles.infoText}>
             Landlords will only see your verified income amount, not your bank account or transaction history.
           </p>
@@ -147,11 +147,7 @@ const IncomeStep = ({ currentStep, onComplete, onBack }: IncomeStepProps) => {
               </div>
             ) : (
               <PrimaryButton
-                icon={
-                  <LockKeyhole
-                    size={18}
-                  />
-                }
+                icon={<LockKeyhole size={18} />}
                 title="Connect your bank securely"
                 onClick={handleStripeConnect}
               />
@@ -240,7 +236,6 @@ const IncomeStep = ({ currentStep, onComplete, onBack }: IncomeStepProps) => {
           onClick={onComplete}
         />
       </div>
-
     </div>
   );
 };
