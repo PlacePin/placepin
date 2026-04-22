@@ -6,37 +6,44 @@ import UploadZone from "./uploadFiles/UploadZone";
 import InputField from "./wrapperComponents/InputField";
 import PrimaryButton from "../../buttons/PrimaryButton";
 import StepPill from "../StepPill";
+import { type PassportStep, STEP_PROGRESS, getPillStatus } from "../../../pages/settings/passport/TenantPassport";
 
-type VerificationMethod = "id" | "ssn"
+type VerificationMethod = "id" | "ssn";
 
 interface IdentityFormState {
-  firstName: string
-  lastName: string
-  dateOfBirth: string
-  lastFourSSN: string
-  verificationMethod: VerificationMethod
-  idFrontFile: File | null
-  idBackFile: File | null
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  lastFourSSN: string;
+  verificationMethod: VerificationMethod;
+  idFrontFile: File | null;
+  idBackFile: File | null;
 }
 
 interface IdentityStepProps {
-  firstName: string,
-  lastName: string,
-  dateOfBirth: string
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  currentStep: PassportStep;
+  onComplete: () => void;
 }
 
-const STEP_PROGRESS: Record<string, number> = {
-  identity: 20,
-  income: 40,
-  background: 60,
-  "rent history": 80,
-  documents: 100,
-}
+const STEPS: PassportStep[] = ["identity", "income", "background", "rentHistory", "documents"];
+
+const STEP_LABELS: Record<PassportStep, string> = {
+  identity: "Identity",
+  income: "Income",
+  background: "Background",
+  rentHistory: "Rent history",
+  documents: "Documents",
+};
 
 const IdentityStep = ({
   firstName,
   lastName,
   dateOfBirth,
+  currentStep,
+  onComplete,
 }: IdentityStepProps) => {
   const [form, setForm] = useState<IdentityFormState>({
     firstName,
@@ -46,35 +53,34 @@ const IdentityStep = ({
     verificationMethod: "id",
     idFrontFile: null,
     idBackFile: null,
-  })
+  });
 
-  const [frontDragging, setFrontDragging] = useState(false)
-  const [backDragging, setBackDragging] = useState(false)
-  const frontInputRef = useRef<HTMLInputElement>(null)
-  const backInputRef = useRef<HTMLInputElement>(null)
+  const [frontDragging, setFrontDragging] = useState(false);
+  const [backDragging, setBackDragging] = useState(false);
+  const frontInputRef = useRef<HTMLInputElement>(null);
+  const backInputRef = useRef<HTMLInputElement>(null);
 
   const handleField = (field: keyof IdentityFormState, value: string) => {
-    setForm(prev => ({ ...prev, [field]: value }))
-  }
+    setForm(prev => ({ ...prev, [field]: value }));
+  };
 
   const handleFile = (side: "front" | "back", file: File | null) => {
-    if (!file) return
-    const allowed = ["image/jpeg", "image/png", "application/pdf"]
-    if (!allowed.includes(file.type)) return
-    if (file.size > 10 * 1024 * 1024) return
-    if (side === "front") setForm(prev => ({ ...prev, idFrontFile: file }))
-    else setForm(prev => ({ ...prev, idBackFile: file }))
-  }
+    if (!file) return;
+    const allowed = ["image/jpeg", "image/png", "application/pdf"];
+    if (!allowed.includes(file.type)) return;
+    if (file.size > 10 * 1024 * 1024) return;
+    if (side === "front") setForm(prev => ({ ...prev, idFrontFile: file }));
+    else setForm(prev => ({ ...prev, idBackFile: file }));
+  };
 
   const handleDrop = (side: "front" | "back", e: React.DragEvent) => {
-    e.preventDefault()
-    if (side === "front") setFrontDragging(false)
-    else setBackDragging(false)
-    const file = e.dataTransfer.files[0] ?? null
-    handleFile(side, file)
-  }
-  // ID path: both front AND back required
-  // SSN path: full 4-digit last-four required
+    e.preventDefault();
+    if (side === "front") setFrontDragging(false);
+    else setBackDragging(false);
+    const file = e.dataTransfer.files[0] ?? null;
+    handleFile(side, file);
+  };
+
   const isComplete = Boolean(
     form.firstName.trim() &&
     form.lastName.trim() &&
@@ -82,7 +88,10 @@ const IdentityStep = ({
     (form.verificationMethod === "ssn"
       ? form.lastFourSSN.length === 4
       : form.idFrontFile !== null && form.idBackFile !== null)
-  )
+  );
+
+  const currentStepIndex = STEPS.indexOf(currentStep);
+
   return (
     <div className={styles.wrapper}>
       {/* Info banner */}
@@ -98,15 +107,17 @@ const IdentityStep = ({
         <div className={styles.progressBarTrack}>
           <div
             className={styles.progressBarFill}
-            style={{ width: `${STEP_PROGRESS["identity"]}%` }}
+            style={{ width: `${STEP_PROGRESS[currentStep]}%` }}
           />
         </div>
         <div className={styles.stepRow}>
-          <StepPill label="Identity" status="complete" />
-          <StepPill label="Income" status="current" />
-          <StepPill label="Background" status="upcoming" />
-          <StepPill label="Rent history" status="upcoming" />
-          <StepPill label="Documents" status="upcoming" />
+          {STEPS.map(step => (
+            <StepPill
+              key={step}
+              label={STEP_LABELS[step]}
+              status={getPillStatus(step, currentStep)}
+            />
+          ))}
         </div>
       </div>
       {/* Personal details */}
@@ -141,7 +152,7 @@ const IdentityStep = ({
               onChange={e => handleField("dateOfBirth", e.target.value)}
             />
           </InputField>
-          {/* Hidden when SSN verification is selected */}
+          {/* Hidden when SSN verification is selected — redundant in that flow */}
           {form.verificationMethod === "id" && (
             <InputField label="Last 4 of SSN" hint="Used for identity matching only">
               <input
@@ -183,7 +194,7 @@ const IdentityStep = ({
               label="Front of ID"
               file={form.idFrontFile}
               dragging={frontDragging}
-              onDragOver={e => { e.preventDefault(); setFrontDragging(true) }}
+              onDragOver={e => { e.preventDefault(); setFrontDragging(true); }}
               onDragLeave={() => setFrontDragging(false)}
               onDrop={e => handleDrop("front", e)}
               onClick={() => frontInputRef.current?.click()}
@@ -192,7 +203,7 @@ const IdentityStep = ({
               label="Back of ID"
               file={form.idBackFile}
               dragging={backDragging}
-              onDragOver={e => { e.preventDefault(); setBackDragging(true) }}
+              onDragOver={e => { e.preventDefault(); setBackDragging(true); }}
               onDragLeave={() => setBackDragging(false)}
               onDrop={e => handleDrop("back", e)}
               onClick={() => backInputRef.current?.click()}
@@ -231,14 +242,15 @@ const IdentityStep = ({
       </section>
       {/* Action row */}
       <div className={styles.actionRow}>
-        <p className={styles.stepIndicator}>Step 1 of 5</p>
+        <p className={styles.stepIndicator}>Step {currentStepIndex + 1} of {STEPS.length}</p>
         <PrimaryButton
           title="Save & continue →"
           disabled={!isComplete}
+          onClick={onComplete}
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default IdentityStep
+export default IdentityStep;
