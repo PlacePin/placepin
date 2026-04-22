@@ -18,6 +18,7 @@ interface IdentityFormState {
   verificationMethod: VerificationMethod;
   idFrontFile: File | null;
   idBackFile: File | null;
+  fullSSN: string;
 }
 
 interface IdentityStepProps {
@@ -53,6 +54,7 @@ const IdentityStep = ({
     verificationMethod: "id",
     idFrontFile: null,
     idBackFile: null,
+    fullSSN: '',
   });
 
   const [frontDragging, setFrontDragging] = useState(false);
@@ -86,7 +88,7 @@ const IdentityStep = ({
     form.lastName.trim() &&
     form.dateOfBirth &&
     (form.verificationMethod === "ssn"
-      ? form.lastFourSSN.length === 4
+      ? /^(\d{9}|\d{3}-\d{2}-\d{4})$/.test(form.fullSSN) // Validates the full SSN format
       : form.idFrontFile !== null && form.idBackFile !== null)
   );
 
@@ -128,7 +130,7 @@ const IdentityStep = ({
             <input
               className={styles.input}
               type="text"
-              placeholder="Jordan"
+              placeholder="Dinah"
               value={form.firstName}
               onChange={e => handleField("firstName", e.target.value)}
             />
@@ -137,7 +139,7 @@ const IdentityStep = ({
             <input
               className={styles.input}
               type="text"
-              placeholder="Davis"
+              placeholder="Augustin"
               value={form.lastName}
               onChange={e => handleField("lastName", e.target.value)}
             />
@@ -232,11 +234,14 @@ const IdentityStep = ({
                 type="text"
                 placeholder="XXX-XX-XXXX"
                 maxLength={11}
+                value={form.fullSSN}
+                onChange={(e) => {
+                  // Allow only numbers and hyphens while typing
+                  const val = e.target.value.replace(/[^\d-]/g, "");
+                  handleField("fullSSN", val);
+                }}
               />
             </InputField>
-            <p className={styles.ssnNote}>
-              Your SSN is encrypted in transit and never stored in plain text.
-            </p>
           </div>
         )}
       </section>

@@ -12,14 +12,14 @@
   align-items: flex-start;
   gap: 10px;
   padding: 10px 14px;
-  background: var(--color-primary-lighter);
+  background: var(--color-tertiary-lighter);
   border-radius: 8px;
-  border: 1px solid var(--color-primary-light);
+  border: 1px solid var(--color-tertiary-light);
 }
 
 .infoText {
   font-size: 13px;
-  color: var(--color-tertiary);
+  color: var(--color-text-1);
   line-height: 1.55;
   margin: 0;
 }

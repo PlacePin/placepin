@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useGetAxios } from "../../../hooks/useGetAxios";
-import IdentityStep from "../../../components/passportSteps/identity/IdentityStep";
 import styles from './tenantPassport.module.css';
+import IdentityStep from "../../../components/passportSteps/identity/IdentityStep";
+import IncomeStep from "../../../components/passportSteps/income/IncomeStep";
 
 export type PassportStep = "identity" | "income" | "background" | "rentHistory" | "documents";
 
@@ -38,6 +39,13 @@ const TenantPassport = () => {
     }
   };
 
+  const goBack = () => {
+    const currentIdx = STEPS.indexOf(currentStep);
+    if (currentIdx > 0) {
+      setCurrentStep(STEPS[currentIdx - 1]);
+    }
+  };
+
   if (error) {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>;
   }
@@ -69,8 +77,14 @@ const TenantPassport = () => {
           onComplete={advanceStep}
         />
       )}
-      {/* Add steps here as we build them:
-          currentStep === "income"      && <IncomeStep ... />
+      {currentStep === "income" && (
+        <IncomeStep
+          currentStep={currentStep}
+          onBack={goBack}
+          onComplete={advanceStep}
+        />
+      )}
+      {/* Add steps here as you build them:
           currentStep === "background"  && <BackgroundStep ... />
           currentStep === "rentHistory" && <RentHistoryStep ... />
           currentStep === "documents"   && <DocumentsStep ... />
