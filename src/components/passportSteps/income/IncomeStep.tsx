@@ -128,7 +128,7 @@ const IncomeStep = ({ currentStep, onComplete, onBack }: IncomeStepProps) => {
         <div className={styles.infoBanner}>
           <Info size={24} />
           <p className={styles.infoText}>
-            Landlords will only see your verified income amount, not your bank account or transaction history.
+            Landlords will only see your verified income amount, <strong>not your bank account or transaction history.</strong>
           </p>
         </div>
         {/* Stripe path */}
