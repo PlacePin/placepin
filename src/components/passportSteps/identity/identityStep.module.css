@@ -54,6 +54,24 @@
   margin-bottom: 0;
 }
 
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fieldLabel {
+  font-size: 12px;
+  color: var(--color-text-3);
+  font-weight: 500;
+}
+
+.fieldHint {
+  font-size: 11px;
+  color: var(--color-text-5);
+  margin-top: 2px;
+}
+
 .input {
   width: 100%;
   font-size: 13.5px;
@@ -81,6 +99,81 @@
   margin-bottom: 4px;
 }
 
+.methodCard {
+  position: relative;
+  text-align: left;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border-3);
+  border-radius: 10px;
+  background: var(--color-surface-2);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  font-family: var(--font-family);
+}
+
+.methodCard:hover {
+  border-color: var(--color-border-4);
+}
+
+.methodCardSelected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-lighter);
+}
+
+.methodBadge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: var(--color-success-light);
+  color: var(--color-success);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.methodTitle {
+  font-size: 13.5px;
+  font-weight: 500;
+  margin: 0 0 3px 0;
+  color: var(--color-text-1);
+}
+
+.methodTitleSelected {
+  color: var(--color-primary);
+}
+
+.methodDesc {
+  font-size: 12px;
+  color: var(--color-text-4);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.methodRadio {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-border-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.methodRadioInner {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: transparent;
+  transition: background 0.15s;
+}
+
+.methodRadioInnerSelected {
+  background: var(--color-primary);
+}
+
 /* Upload zones */
 
 .uploadGrid {
@@ -88,6 +181,45 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
   margin-top: 1rem;
+}
+
+.uploadZone {
+  border: 1.5px dashed var(--color-border-3);
+  border-radius: 10px;
+  padding: 20px 16px;
+  text-align: center;
+  cursor: pointer;
+  background: var(--color-surface-2);
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.uploadZone:hover {
+  border-color: var(--color-border-5);
+}
+
+.uploadZoneDragging {
+  border-color: var(--color-primary);
+  background: var(--color-primary-lighter);
+}
+
+.uploadZoneSuccess {
+  border-color: var(--color-success);
+  background: var(--color-success-light);
+}
+
+.uploadLabel {
+  font-size: 13px;
+  color: var(--color-text-3);
+  margin: 0 0 3px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.uploadSub {
+  font-size: 11px;
+  color: var(--color-text-5);
+  margin: 0;
 }
 
 /* SSN fallback */
@@ -140,9 +272,31 @@
   cursor: not-allowed;
 }
 
+/* Progress bar */
+
+.progressWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.progressBarTrack {
+  height: 6px;
+  background: var(--color-surface-4);
+  border-radius: 20px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 20px;
+  transition: width 0.4s ease;
+}
+
 .stepRow {
   display: flex;
+  gap: 8px;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 16px;
 }

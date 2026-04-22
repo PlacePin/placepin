@@ -25,15 +25,23 @@ interface IdentityStepProps {
   dateOfBirth: string
 }
 
+const STEP_PROGRESS: Record<string, number> = {
+  identity: 20,
+  income: 40,
+  background: 60,
+  "rent history": 80,
+  documents: 100,
+}
+
 const IdentityStep = ({
   firstName,
   lastName,
   dateOfBirth,
 }: IdentityStepProps) => {
   const [form, setForm] = useState<IdentityFormState>({
-    firstName: firstName,
-    lastName: lastName,
-    dateOfBirth: dateOfBirth,
+    firstName,
+    lastName,
+    dateOfBirth,
     lastFourSSN: "",
     verificationMethod: "id",
     idFrontFile: null,
@@ -65,26 +73,34 @@ const IdentityStep = ({
     const file = e.dataTransfer.files[0] ?? null
     handleFile(side, file)
   }
-
-  const isComplete =
+  // ID path: both front AND back required
+  // SSN path: full 4-digit last-four required
+  const isComplete = Boolean(
     form.firstName.trim() &&
     form.lastName.trim() &&
     form.dateOfBirth &&
     (form.verificationMethod === "ssn"
       ? form.lastFourSSN.length === 4
-      : form.idFrontFile !== null)
-
+      : form.idFrontFile !== null && form.idBackFile !== null)
+  )
   return (
     <div className={styles.wrapper}>
       {/* Info banner */}
       <div className={styles.infoBanner}>
-        <ShieldCheck />
+        <ShieldCheck size={16} style={{ flexShrink: 0, marginTop: 1 }} />
         <p className={styles.infoText}>
           We use your information to verify your identity. Landlords only see your name and verification status—not{" "}
           <strong>sensitive details like your date of birth or SSN</strong>.
         </p>
       </div>
+      {/* Progress */}
       <div className={styles.progressWrapper}>
+        <div className={styles.progressBarTrack}>
+          <div
+            className={styles.progressBarFill}
+            style={{ width: `${STEP_PROGRESS["identity"]}%` }}
+          />
+        </div>
         <div className={styles.stepRow}>
           <StepPill label="Identity" status="complete" />
           <StepPill label="Income" status="current" />
@@ -125,19 +141,22 @@ const IdentityStep = ({
               onChange={e => handleField("dateOfBirth", e.target.value)}
             />
           </InputField>
-          <InputField label="Last 4 of SSN" hint="Used for identity matching only">
-            <input
-              className={styles.input}
-              type="text"
-              placeholder="••••"
-              maxLength={4}
-              inputMode="numeric"
-              value={form.lastFourSSN}
-              onChange={e =>
-                handleField("lastFourSSN", e.target.value.replace(/\D/g, ""))
-              }
-            />
-          </InputField>
+          {/* Hidden when SSN verification is selected */}
+          {form.verificationMethod === "id" && (
+            <InputField label="Last 4 of SSN" hint="Used for identity matching only">
+              <input
+                className={styles.input}
+                type="text"
+                placeholder="••••"
+                maxLength={4}
+                inputMode="numeric"
+                value={form.lastFourSSN}
+                onChange={e =>
+                  handleField("lastFourSSN", e.target.value.replace(/\D/g, ""))
+                }
+              />
+            </InputField>
+          )}
         </div>
       </section>
       {/* Verification method */}
@@ -214,7 +233,7 @@ const IdentityStep = ({
       <div className={styles.actionRow}>
         <p className={styles.stepIndicator}>Step 1 of 5</p>
         <PrimaryButton
-          title={`Save & continue →`}
+          title="Save & continue →"
           disabled={!isComplete}
         />
       </div>
