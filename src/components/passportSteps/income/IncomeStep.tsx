@@ -7,6 +7,7 @@ import StepPill from "../StepPill";
 import MethodCard from "../identity/cards/MethodCard";
 import InputField from "../identity/wrapperComponents/InputField";
 import UploadZone from "../identity/uploadFiles/UploadZone";
+import SecondaryButton from "../../buttons/SecondaryButton";
 
 type IncomeMethod = "stripe" | "upload";
 type EmploymentType = "full-time" | "part-time" | "self-employed" | "contract" | "other";
@@ -228,7 +229,10 @@ const IncomeStep = ({ currentStep, onComplete, onBack }: IncomeStepProps) => {
       </section>
       {/* Action row */}
       <div className={styles.actionRow}>
-        <button className={styles.backBtn} onClick={onBack}>← Back</button>
+        <SecondaryButton
+          onClick={onBack}
+          title="← Back"
+        />
         <p className={styles.stepIndicator}>Step {currentStepIndex + 1} of {STEPS.length}</p>
         <PrimaryButton
           title="Save & continue →"

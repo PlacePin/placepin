@@ -8,14 +8,20 @@ import { useAuth } from '../../context/AuthContext';
 import type { DecodedAccessToken } from '../../interfaces/interfaces';
 import { jwtDecode } from 'jwt-decode';
 
-const tabs = [
+type TabConfig = {
+  id: 'basic' | 'bank' | 'subscriptions' | 'tenant-passport';
+  label: string;
+  role?: 'tenant' | 'landlord';
+};
+
+const tabs: TabConfig[] = [
   { id: 'basic', label: 'Basic Information' },
   { id: 'bank', label: 'Bank Settings' },
   { id: 'subscriptions', label: 'Subscriptions' },
-  { id: 'tenant-passport', label: 'Tenant Passport' },
+  { id: 'tenant-passport', label: 'Tenant Passport', role: 'tenant' },
 ] as const;
 
-type Tab = typeof tabs[number]['id'];
+type Tab = TabConfig['id'];
 
 const GeneralSettings = () => {
 
@@ -41,7 +47,9 @@ const GeneralSettings = () => {
       </div>
       <div className={styles.innerContainer}>
         <div className={styles.settingsNav}>
-          {tabs.map((tab) => (
+          {tabs
+          .filter(tab => !tab.role || tab.role === user.accountType)
+          .map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
