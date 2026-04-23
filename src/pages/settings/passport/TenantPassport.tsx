@@ -3,6 +3,7 @@ import { useGetAxios } from "../../../hooks/useGetAxios";
 import styles from './tenantPassport.module.css';
 import IdentityStep from "../../../components/passportSteps/identity/IdentityStep";
 import IncomeStep from "../../../components/passportSteps/income/IncomeStep";
+import BackgroundStep from "../../../components/passportSteps/background/BackgroundStep";
 
 export type PassportStep = "identity" | "income" | "background" | "rentHistory" | "documents";
 
@@ -84,8 +85,14 @@ const TenantPassport = () => {
           onComplete={advanceStep}
         />
       )}
+      {currentStep === "background" && (
+        <BackgroundStep
+          currentStep={currentStep}
+          onBack={goBack}
+          onComplete={advanceStep}
+        />
+      )}
       {/* Add steps here as you build them:
-          currentStep === "background"  && <BackgroundStep ... />
           currentStep === "rentHistory" && <RentHistoryStep ... />
           currentStep === "documents"   && <DocumentsStep ... />
       */}
