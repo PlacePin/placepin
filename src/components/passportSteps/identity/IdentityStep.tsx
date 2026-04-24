@@ -1,12 +1,13 @@
 import { useState, useRef } from "react";
 import { ShieldCheck } from "lucide-react";
+import { type PassportStep, STEP_PROGRESS } from "../../../pages/settings/passport/TenantPassport";
+import { getPillStatus } from "../../../utils/getPillStatus";
 import styles from "./identityStep.module.css";
 import MethodCard from "./cards/MethodCard";
 import UploadZone from "./uploadFiles/UploadZone";
 import InputField from "./wrapperComponents/InputField";
 import PrimaryButton from "../../buttons/PrimaryButton";
 import StepPill from "../StepPill";
-import { type PassportStep, STEP_PROGRESS, getPillStatus } from "../../../pages/settings/passport/TenantPassport";
 
 type VerificationMethod = "id" | "ssn";
 

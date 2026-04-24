@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Info, Plus } from "lucide-react";
-import { type PassportStep, STEP_PROGRESS, getPillStatus } from "../../../pages/settings/passport/TenantPassport";
+import { type PassportStep, STEP_PROGRESS } from "../../../pages/settings/passport/TenantPassport";
+import { getPillStatus } from "../../../utils/getPillStatus";
 import styles from "./rentHistoryStep.module.css";
 import PrimaryButton from "../../buttons/PrimaryButton";
 import StepPill from "../StepPill";
@@ -39,7 +40,11 @@ const STEP_LABELS: Record<PassportStep, string> = {
   documents: "Documents",
 };
 
-const RentHistoryStep = ({ currentStep, onComplete, onBack }: RentHistoryStepProps) => {
+const RentHistoryStep = ({
+  currentStep,
+  onComplete,
+  onBack
+}: RentHistoryStepProps) => {
   const [rentals, setRentals] = useState<RentalEntry[]>([
     {
       id: crypto.randomUUID(),
@@ -202,7 +207,10 @@ const RentHistoryStep = ({ currentStep, onComplete, onBack }: RentHistoryStepPro
           </InputField>
         </section>
       ))}
-      <button className={styles.addBtn} onClick={addRental}>
+      <button
+        className={styles.addBtn}
+        onClick={addRental}
+      >
         <Plus size={16} />
         Add another rental
       </button>

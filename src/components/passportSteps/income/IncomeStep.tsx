@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Info, LockKeyhole } from "lucide-react";
-import { type PassportStep, STEP_PROGRESS, getPillStatus } from "../../../pages/settings/passport/TenantPassport";
+import { type PassportStep, STEP_PROGRESS } from "../../../pages/settings/passport/TenantPassport";
+import { getPillStatus } from "../../../utils/getPillStatus";
 import styles from "./incomeStep.module.css";
 import PrimaryButton from "../../buttons/PrimaryButton";
 import StepPill from "../StepPill";

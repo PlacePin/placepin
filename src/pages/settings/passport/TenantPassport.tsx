@@ -8,7 +8,7 @@ import RentHistoryStep from "../../../components/passportSteps/rentHistory/RentH
 
 export type PassportStep = "identity" | "income" | "background" | "rentHistory" | "documents";
 
-const STEPS: PassportStep[] = ["identity", "income", "background", "rentHistory", "documents"];
+export const STEPS: PassportStep[] = ["identity", "income", "background", "rentHistory", "documents"];
 
 export const STEP_PROGRESS: Record<PassportStep, number> = {
   identity: 20,
@@ -17,17 +17,6 @@ export const STEP_PROGRESS: Record<PassportStep, number> = {
   rentHistory: 80,
   documents: 100,
 };
-
-export function getPillStatus(
-  pillStep: PassportStep,
-  currentStep: PassportStep
-): "complete" | "current" | "upcoming" {
-  const pillIdx = STEPS.indexOf(pillStep);
-  const currentIdx = STEPS.indexOf(currentStep);
-  if (pillIdx < currentIdx) return "complete";
-  if (pillIdx === currentIdx) return "current";
-  return "upcoming";
-}
 
 const TenantPassport = () => {
   const [currentStep, setCurrentStep] = useState<PassportStep>("identity");
