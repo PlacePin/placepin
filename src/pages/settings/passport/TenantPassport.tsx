@@ -4,6 +4,7 @@ import styles from './tenantPassport.module.css';
 import IdentityStep from "../../../components/passportSteps/identity/IdentityStep";
 import IncomeStep from "../../../components/passportSteps/income/IncomeStep";
 import BackgroundStep from "../../../components/passportSteps/background/BackgroundStep";
+import RentHistoryStep from "../../../components/passportSteps/rentHistory/RentHistoryStep";
 
 export type PassportStep = "identity" | "income" | "background" | "rentHistory" | "documents";
 
@@ -29,7 +30,7 @@ export function getPillStatus(
 }
 
 const TenantPassport = () => {
-  const [currentStep, setCurrentStep] = useState<PassportStep>("identity");
+  const [currentStep, setCurrentStep] = useState<PassportStep>("rentHistory");
 
   const { data, error } = useGetAxios('/api/users/');
 
@@ -92,8 +93,14 @@ const TenantPassport = () => {
           onComplete={advanceStep}
         />
       )}
+      {currentStep === "rentHistory" && (
+        <RentHistoryStep
+          currentStep={currentStep}
+          onBack={goBack}
+          onComplete={advanceStep}
+        />
+      )}
       {/* Add steps here as you build them:
-          currentStep === "rentHistory" && <RentHistoryStep ... />
           currentStep === "documents"   && <DocumentsStep ... />
       */}
     </div>

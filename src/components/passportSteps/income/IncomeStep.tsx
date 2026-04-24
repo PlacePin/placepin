@@ -163,7 +163,7 @@ const IncomeStep = ({ currentStep, onComplete, onBack }: IncomeStepProps) => {
                 <input
                   className={styles.input}
                   type="text"
-                  placeholder="Acme Corp"
+                  placeholder="PlacePin"
                   value={manualForm.employerName}
                   onChange={e => handleManualField("employerName", e.target.value)}
                 />
