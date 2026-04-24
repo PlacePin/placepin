@@ -84,7 +84,6 @@ const RentHistoryStep = ({
   });
   const currentStepIndex = STEPS.indexOf(currentStep);
 
-  console.log(rentals, isComplete)
   return (
     <div className={styles.wrapper}>
       <div className={styles.infoBanner}>
