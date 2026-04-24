@@ -127,8 +127,12 @@ const IdentityStep = ({
       <section className={styles.card}>
         <p className={styles.sectionLabel}>Personal details</p>
         <div className={styles.fieldRow}>
-          <InputField label="Legal first name">
+          <InputField
+            label="Legal first name"
+            htmlFor="firstName"
+          >
             <input
+              id="firstName"
               className={styles.input}
               type="text"
               placeholder="Dinah"
@@ -136,8 +140,12 @@ const IdentityStep = ({
               onChange={e => handleField("firstName", e.target.value)}
             />
           </InputField>
-          <InputField label="Legal last name">
+          <InputField
+            label="Legal last name"
+            htmlFor="lastName"
+          >
             <input
+              id="lastName"
               className={styles.input}
               type="text"
               placeholder="Augustin"
@@ -147,8 +155,12 @@ const IdentityStep = ({
           </InputField>
         </div>
         <div className={styles.fieldRow}>
-          <InputField label="Date of birth">
+          <InputField
+            label="Date of birth"
+            htmlFor="dateOfBirth"
+          >
             <input
+              id="dateOfBirth"
               className={styles.input}
               type="date"
               value={form.dateOfBirth}
@@ -157,8 +169,13 @@ const IdentityStep = ({
           </InputField>
           {/* Hidden when SSN verification is selected — redundant in that flow */}
           {form.verificationMethod === "id" && (
-            <InputField label="Last 4 of SSN" hint="Used for identity matching only">
+            <InputField
+              label="Last 4 of SSN"
+              hint="Used for identity matching only"
+              htmlFor="lastFourSSN"
+            >
               <input
+                id="lastFourSSN"
                 className={styles.input}
                 type="text"
                 placeholder="••••"
@@ -229,8 +246,12 @@ const IdentityStep = ({
         )}
         {form.verificationMethod === "ssn" && (
           <div className={styles.ssnField}>
-            <InputField label="Full Social Security Number">
+            <InputField
+              label="Full Social Security Number"
+              htmlFor="fullSSN"
+            >
               <input
+                id="fullSSN"
                 className={styles.input}
                 type="text"
                 placeholder="XXX-XX-XXXX"
