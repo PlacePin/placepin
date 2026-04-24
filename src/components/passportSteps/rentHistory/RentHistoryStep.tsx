@@ -70,15 +70,15 @@ const RentHistoryStep = ({ currentStep, onComplete, onBack }: RentHistoryStepPro
     }]);
   };
 
-  
+
   const isComplete = rentals.every(rental => {
     return rental.address &&
-    rental.startDate &&
-    rental.endDate &&
-    rental.landlordName
+      rental.startDate &&
+      rental.endDate &&
+      rental.landlordName
   });
   const currentStepIndex = STEPS.indexOf(currentStep);
-  
+
   console.log(rentals, isComplete)
   return (
     <div className={styles.wrapper}>
@@ -181,18 +181,16 @@ const RentHistoryStep = ({ currentStep, onComplete, onBack }: RentHistoryStepPro
               />
             </InputField>
           ) : (
-            <div className={styles.uploadSection}>
-              <UploadZone
-                label={`Upload ${rental.verificationType.replace(/^\w/, (c) => c.toUpperCase())}`}
-                file={rental.file || null}
-                onClick={() => { }} dragging={false} onDragOver={function (e: React.DragEvent): void {
-                  throw new Error("Function not implemented.");
-                }} onDragLeave={function (): void {
-                  throw new Error("Function not implemented.");
-                }} onDrop={function (e: React.DragEvent): void {
-                  throw new Error("Function not implemented.");
-                }} />
-            </div>
+            <UploadZone
+              label={`Upload ${rental.verificationType.replace(/^\w/, (c) => c.toUpperCase())}`}
+              file={rental.file || null}
+              onClick={() => { }} dragging={false} onDragOver={function (e: React.DragEvent): void {
+                throw new Error("Function not implemented.");
+              }} onDragLeave={function (): void {
+                throw new Error("Function not implemented.");
+              }} onDrop={function (e: React.DragEvent): void {
+                throw new Error("Function not implemented.");
+              }} />
           )}
           <InputField label="Any issues during tenancy? (optional)">
             <textarea

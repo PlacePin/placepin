@@ -30,7 +30,7 @@ export function getPillStatus(
 }
 
 const TenantPassport = () => {
-  const [currentStep, setCurrentStep] = useState<PassportStep>("rentHistory");
+  const [currentStep, setCurrentStep] = useState<PassportStep>("identity");
 
   const { data, error } = useGetAxios('/api/users/');
 

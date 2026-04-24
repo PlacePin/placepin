@@ -25,6 +25,7 @@
 
 .uploadZone:hover {
   border-color: var(--color-border-5);
+  cursor: pointer;
 }
 
 .uploadZoneDragging {
