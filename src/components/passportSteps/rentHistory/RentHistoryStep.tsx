@@ -118,8 +118,12 @@ const RentHistoryStep = ({
       {rentals.map((rental, index) => (
         <section key={rental.id} className={styles.card}>
           <p className={styles.sectionLabel}>Rental {index + 1}</p>
-          <InputField label="Street address">
+          <InputField
+            label="Street address"
+            htmlFor="streetAddress"
+          >
             <input
+              id="streetAddress"
               className={styles.input}
               placeholder="123 Main St, Apt 4B..."
               value={rental.address}
@@ -127,16 +131,24 @@ const RentHistoryStep = ({
             />
           </InputField>
           <div className={styles.fieldRow}>
-            <InputField label="Lease start">
+            <InputField
+              label="Lease start"
+              htmlFor="leaseStart"
+            >
               <input
+                id="leaseStart"
                 type="date"
                 className={styles.input}
                 value={rental.startDate}
                 onChange={e => updateRental(rental.id, { startDate: e.target.value })}
               />
             </InputField>
-            <InputField label="Lease end">
+            <InputField
+              label="Lease end"
+              htmlFor="leaseEnd"
+            >
               <input
+                id="leaseEnd"
                 type="date"
                 className={styles.input}
                 value={rental.endDate}
@@ -145,8 +157,12 @@ const RentHistoryStep = ({
             </InputField>
           </div>
           <div className={styles.fieldRow}>
-            <InputField label="Monthly rent ($)">
+            <InputField
+              label="Monthly rent ($)"
+              htmlFor="monthlyRent"
+            >
               <input
+                id="monthlyRent"
                 type="number"
                 className={styles.input}
                 placeholder="2000"
@@ -154,8 +170,12 @@ const RentHistoryStep = ({
                 onChange={e => updateRental(rental.id, { monthlyRent: e.target.value })}
               />
             </InputField>
-            <InputField label="Verification">
+            <InputField
+              label="Verification"
+              htmlFor="verification"
+            >
               <select
+                id="verification"
                 className={styles.input}
                 value={rental.verificationType}
                 onChange={e => updateRental(rental.id, { verificationType: e.target.value as VerificationType })}
@@ -167,8 +187,12 @@ const RentHistoryStep = ({
               </select>
             </InputField>
           </div>
-          <InputField label="Landlord / property manager name">
+          <InputField
+            label="Landlord / property manager name"
+            htmlFor="buildingManager"
+          >
             <input
+              id="buildingManager"
               className={styles.input}
               value={rental.landlordName}
               placeholder="Dinah Augustin"
@@ -177,8 +201,13 @@ const RentHistoryStep = ({
           </InputField>
           {/* Conditional Fields Based on Verification Selection */}
           {rental.verificationType === 'placepin' ? (
-            <InputField label="Landlord Email" hint="We'll send a verification request">
+            <InputField
+              label="Landlord Email"
+              hint="We'll send a verification request"
+              htmlFor="landlordInfo"
+            >
               <input
+                id="landlordInfo"
                 className={styles.input}
                 type="email"
                 placeholder="landlord@email.com"
@@ -197,8 +226,12 @@ const RentHistoryStep = ({
                 throw new Error("Function not implemented.");
               }} />
           )}
-          <InputField label="Any issues during tenancy? (optional)">
+          <InputField
+            label="Any issues during tenancy? (optional)"
+            htmlFor="notes"
+          >
             <textarea
+              id="notes"
               className={styles.textarea}
               placeholder="e.g. late payment in month 3 due to job transition"
               value={rental.notes}

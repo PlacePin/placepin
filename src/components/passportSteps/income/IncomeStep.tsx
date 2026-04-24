@@ -160,8 +160,12 @@ const IncomeStep = ({ currentStep, onComplete, onBack }: IncomeStepProps) => {
         {method === "upload" && (
           <div className={styles.uploadPanel}>
             <div className={styles.fieldRow}>
-              <InputField label="Employer name">
+              <InputField
+                label="Employer name"
+                htmlFor="employerName"
+              >
                 <input
+                  id="employerName"
                   className={styles.input}
                   type="text"
                   placeholder="PlacePin"
@@ -169,8 +173,12 @@ const IncomeStep = ({ currentStep, onComplete, onBack }: IncomeStepProps) => {
                   onChange={e => handleManualField("employerName", e.target.value)}
                 />
               </InputField>
-              <InputField label="Employment type">
+              <InputField
+                label="Employment type"
+                htmlFor="employmentType"
+              >
                 <select
+                  id="employmentType"
                   className={styles.input}
                   value={manualForm.employmentType}
                   onChange={e => handleManualField("employmentType", e.target.value)}
@@ -184,8 +192,12 @@ const IncomeStep = ({ currentStep, onComplete, onBack }: IncomeStepProps) => {
               </InputField>
             </div>
             <div className={styles.fieldRow}>
-              <InputField label="Annual income ($)">
+              <InputField
+                label="Annual income ($)"
+                htmlFor="annualIncome"
+              >
                 <input
+                  id="annualIncome"
                   className={styles.input}
                   type="number"
                   placeholder="64000"
@@ -193,8 +205,12 @@ const IncomeStep = ({ currentStep, onComplete, onBack }: IncomeStepProps) => {
                   onChange={e => handleManualField("annualIncome", e.target.value)}
                 />
               </InputField>
-              <InputField label="Income source">
+              <InputField
+                label="Income source"
+                htmlFor="incomeSource"
+              >
                 <select
+                  id="incomeSource"
                   className={styles.input}
                   value={manualForm.incomeSource}
                   onChange={e => handleManualField("incomeSource", e.target.value)}
@@ -207,7 +223,10 @@ const IncomeStep = ({ currentStep, onComplete, onBack }: IncomeStepProps) => {
                 </select>
               </InputField>
             </div>
-            <InputField label="Supporting document">
+            <InputField
+              label="Supporting document"
+              htmlFor="doc-upload"
+            >
               <UploadZone
                 label="Paystub, W-2, or tax return"
                 file={manualForm.documentFile}
