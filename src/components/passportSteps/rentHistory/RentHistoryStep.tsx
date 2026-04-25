@@ -75,7 +75,6 @@ const RentHistoryStep = ({
     }]);
   };
 
-
   const isComplete = rentals.every(rental => {
     return rental.address &&
       rental.startDate &&
