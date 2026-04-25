@@ -1,7 +1,7 @@
-import styles from './landingPage.module.css';
-import { NavLink } from 'react-router-dom';
-import axiosInstance from '../../utils/axiosInstance';
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import styles from './landingPage.module.css';
+import axiosInstance from '../../utils/axiosInstance';
 import axios from 'axios';
 
 const LandingPage = () => {
@@ -10,6 +10,9 @@ const LandingPage = () => {
   const [isPending, setIsPending] = useState(false);
   const [contactEmail, setContactEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [units, setUnits] = useState(24);
+  const [buildings, setBuildings] = useState(1);
+  const [avgRent, setAvgRent] = useState(3500);
 
   const handleEmailSubmit = async () => {
     setError(null);
@@ -57,6 +60,21 @@ const LandingPage = () => {
       setIsPending(false)
     }
   }
+
+  // Dynamic Industry Constants
+  // We calculate Turnover Cost as: 1 month commission + 0.7 month vacancy + $1,500 repairs
+  const dynamicTurnoverCost = avgRent + (avgRent * 0.67) + 1500;
+  const CHURN_RATE = 0.35;
+  const RETAIN_IMPROVEMENT = 0.15;
+
+  const annualSubscription = buildings * 1800;
+  const yearlyChurnEvents = units * CHURN_RATE;
+  const totalChurnLoss = yearlyChurnEvents * dynamicTurnoverCost;
+
+  const grossSavings = totalChurnLoss * RETAIN_IMPROVEMENT;
+  const netSavings = grossSavings - annualSubscription;
+
+  const yearsPaidByOneTenant = (dynamicTurnoverCost / (annualSubscription / buildings)).toFixed(1);
 
   return (
     <div className={styles.app}>
@@ -194,6 +212,86 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
+
+      <div className={styles.roiCard}>
+        <div className={styles.roiHeader}>
+          <h3>The PlacePin ROI Engine</h3>
+          <p>Dynamic math based on your specific rental profile.</p>
+        </div>
+        <div className={styles.roiInputs}>
+          <div className={styles.inputGroup}>
+            <label>Average Monthly Rent: <strong>${avgRent.toLocaleString()}</strong></label>
+            <input
+              type="range" min="1000" max="10000" step="100"
+              value={avgRent} onChange={(e) => setAvgRent(parseInt(e.target.value))}
+              className={styles.rangeSlider}
+            />
+          </div>
+          <div className={styles.inputGroup}>
+            <label>Total Units: <strong>{units}</strong></label>
+            <input
+              type="range" min="12" max="500" step="1"
+              value={units} onChange={(e) => setUnits(parseInt(e.target.value))}
+              className={styles.rangeSlider}
+            />
+          </div>
+          <div className={styles.inputGroup}>
+            <label>Buildings: <strong>{buildings}</strong></label>
+            <input
+              type="range" min="1" max="20" step="1"
+              value={buildings} onChange={(e) => setBuildings(parseInt(e.target.value))}
+              className={styles.rangeSlider}
+            />
+          </div>
+        </div>
+        <div className={styles.financialBreakdown}>
+          {/* Same rows as before, but using dynamicTurnoverCost */}
+          <div className={styles.breakdownRow}>
+            <span className={styles.hasTooltip}>
+              Annual Turnover Loss ⓘ
+              <span className={styles.tooltip}>Calculated as 35% churn of {units} units at ${Math.round(dynamicTurnoverCost).toLocaleString()} per vacancy.</span>
+            </span>
+            <span className={styles.textError}>-${Math.round(totalChurnLoss).toLocaleString()}</span>
+          </div>
+          <div className={styles.breakdownRow}>
+            <span className={styles.hasTooltip}>
+              PlacePin Subscription ({buildings} bldg) ⓘ
+              <span className={styles.tooltip}>Flat $150/mo per building. Predictable scaling.</span>
+            </span>
+            <span className={styles.textNeutral}>-${annualSubscription.toLocaleString()}</span>
+          </div>
+          <div className={styles.roiSummaryLarge}>
+            <span className={styles.summaryLabel}>Projected NOI Increase</span>
+            <h2 className={styles.textSuccess}>
+              {netSavings > 0
+                ? `+$${Math.round(netSavings).toLocaleString()}`
+                : "Value Protected"}
+            </h2>
+            <p className={styles.breakEvenText}>
+              Just <strong>one</strong> saved tenant pays for <strong>{yearsPaidByOneTenant} years</strong> of PlacePin.
+            </p>
+          </div>
+        </div>
+        <div className={styles.dataSource}>
+          <h4>Where do these numbers come from?</h4>
+          <ul>
+            <li>
+              <strong>${Math.round(dynamicTurnoverCost).toLocaleString()} Est. Turnover Cost:</strong>
+              {' '}Based on your rent of ${avgRent.toLocaleString()}, this includes a 1-month commission (${avgRent.toLocaleString()}),
+              roughly 20 days vacancy (${Math.round(avgRent * 0.67).toLocaleString()}),
+              and standard unit prep/repairs ($1,500).
+            </li>
+            <li>
+              <strong>35% Churn:</strong> Standard annual turnover rate for US multi-family housing.
+              (Expected <strong>{yearlyChurnEvents.toFixed(1)}</strong> move-outs for your portfolio size).
+            </li>
+            <li>
+              <strong>15% Efficiency:</strong> The targeted percentage of "controllable" moves stopped
+              by PlacePin's perks and communication tools.
+            </li>
+          </ul>
+        </div>
+      </div>
 
       {/* Pricing Section */}
       <section className={styles.pricingSection} id="pricing">
