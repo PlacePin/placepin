@@ -707,7 +707,6 @@ body {
   background: var(--color-border-3);
   outline: none;
   cursor: pointer;
-  /* This ensures the touch/mouse events don't get 'swallowed' by parent animations */
   pointer-events: auto;
   margin: 15px 0;
 }
@@ -742,10 +741,8 @@ body {
   width: 100%;
   height: 10px;
   background: #e2e8f0;
-  /* Light gray track */
   border-radius: 5px;
   outline: none;
-  /* CRITICAL: Ensure the slider is "on top" of all background decorations */
   position: relative;
   z-index: 50;
   cursor: pointer;
