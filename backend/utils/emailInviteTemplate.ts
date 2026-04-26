@@ -64,7 +64,7 @@ export const referralEmailHtml = (tenantName: string, referralCode: string) => `
               <p style="margin:0 0 24px;font-size:15px;color:#5a7a7a;font-family:Arial,sans-serif;">
                 Apply this referral code when signing up on PlacePin.
               </p>
-              <a href="https://www.placepin.io"
+              <a href="https://www.placepin.io/login"
                  style="display:inline-block;background-color:#13c4a3;color:#ffffff;text-decoration:none;font-size:16px;font-weight:700;padding:16px 48px;border-radius:8px;font-family:Arial,sans-serif;letter-spacing:0.5px;">
                 Get Started →
               </a>
