@@ -8,10 +8,12 @@ const resendClient = axios.create({
   },
 });
 
+const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL
+
 export const emailInviteToTenant = async (referralCode: string, tenantName: string, tenantEmail: string) => {
   try {
     const { data } = await resendClient.post('/emails', {
-      from: 'PlacePin <support@placepin.io>',
+      from: `PlacePin ${NOTIFY_EMAIL}`,
       to: [tenantEmail],
       subject: 'Your Referral Code is Ready 🎉',
       text: `Hey ${tenantName}, your exclusive referral code is: ${referralCode}`,
@@ -26,7 +28,7 @@ export const emailInviteToTenant = async (referralCode: string, tenantName: stri
 export const emailPasswordReset = async (userEmail: string, resetUrl: string) => {
   try {
     const { data } = await resendClient.post('/emails', {
-      from: 'PlacePin <support@placepin.io>',
+      from: `PlacePin ${NOTIFY_EMAIL}`,
       to: [userEmail],
       subject: 'PlacePin Password Reset Request',
       text: `We received a request to reset your password.\n\nClick the link below to choose a new password. This link will expire in 1 hour:\n\n${resetUrl}`,
