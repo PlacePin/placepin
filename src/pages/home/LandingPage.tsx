@@ -213,6 +213,7 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* ROI Calculator */}
       <div className={styles.roiCard}>
         <div className={styles.roiHeader}>
           <h3>The PlacePin ROI Engine</h3>
@@ -220,26 +221,43 @@ const LandingPage = () => {
         </div>
         <div className={styles.roiInputs}>
           <div className={styles.inputGroup}>
-            <label>Average Monthly Rent: <strong>${avgRent.toLocaleString()}</strong></label>
+            <label>Average Monthly Rent:{' '}
+              <strong>${avgRent.toLocaleString()}</strong>
+            </label>
             <input
-              type="range" min="1000" max="10000" step="100"
-              value={avgRent} onChange={(e) => setAvgRent(parseInt(e.target.value))}
+              type="range"
+              min="1000"
+              max="10000"
+              step="100"
+              value={avgRent}
+              onChange={(e) => setAvgRent(parseInt(e.target.value))}
               className={styles.rangeSlider}
             />
           </div>
           <div className={styles.inputGroup}>
-            <label>Total Units: <strong>{units}</strong></label>
+            <label>Total Units:{' '}
+              <strong>{units}</strong>
+            </label>
             <input
-              type="range" min="12" max="500" step="1"
-              value={units} onChange={(e) => setUnits(parseInt(e.target.value))}
+              type="range"
+              min="12"
+              max="500"
+              step="1"
+              value={units}
+              onChange={(e) => setUnits(parseInt(e.target.value))}
               className={styles.rangeSlider}
             />
           </div>
           <div className={styles.inputGroup}>
-            <label>Buildings: <strong>{buildings}</strong></label>
+            <label>Buildings:{' '}
+              <strong>{buildings}</strong></label>
             <input
-              type="range" min="1" max="20" step="1"
-              value={buildings} onChange={(e) => setBuildings(parseInt(e.target.value))}
+              type="range"
+              min="1"
+              max="20"
+              step="1"
+              value={buildings}
+              onChange={(e) => setBuildings(parseInt(e.target.value))}
               className={styles.rangeSlider}
             />
           </div>
@@ -249,19 +267,29 @@ const LandingPage = () => {
           <div className={styles.breakdownRow}>
             <span className={styles.hasTooltip}>
               Annual Turnover Loss ⓘ
-              <span className={styles.tooltip}>Calculated as 35% churn of {units} units at ${Math.round(dynamicTurnoverCost).toLocaleString()} per vacancy.</span>
+              <span className={styles.tooltip}>
+                Calculated as 35% churn of {units} units at ${Math.round(dynamicTurnoverCost).toLocaleString()} per vacancy.
+              </span>
             </span>
-            <span className={styles.textError}>-${Math.round(totalChurnLoss).toLocaleString()}</span>
+            <span className={styles.textError}>
+              -${Math.round(totalChurnLoss).toLocaleString()}
+            </span>
           </div>
           <div className={styles.breakdownRow}>
             <span className={styles.hasTooltip}>
               PlacePin Subscription ({buildings} bldg) ⓘ
-              <span className={styles.tooltip}>Flat $150/mo per building. Predictable scaling.</span>
+              <span className={styles.tooltip}>
+                Flat $150/mo per building. Predictable scaling.
+              </span>
             </span>
-            <span className={styles.textNeutral}>-${annualSubscription.toLocaleString()}</span>
+            <span className={styles.textNeutral}>
+              -${annualSubscription.toLocaleString()}
+            </span>
           </div>
           <div className={styles.roiSummaryLarge}>
-            <span className={styles.summaryLabel}>Projected NOI Increase</span>
+            <span className={styles.summaryLabel}>
+              Projected NOI Increase
+            </span>
             <h2 className={styles.textSuccess}>
               {netSavings > 0
                 ? `+$${Math.round(netSavings).toLocaleString()}`
@@ -282,11 +310,14 @@ const LandingPage = () => {
               and standard unit prep/repairs ($1,500).
             </li>
             <li>
-              <strong>35% Churn:</strong> Standard annual turnover rate for US multi-family housing.
-              (Expected <strong>{yearlyChurnEvents.toFixed(1)}</strong> move-outs for your portfolio size).
+              <strong>35% Churn:</strong>{' '}
+              Standard annual turnover rate for US multi-family housing.
+              (Expected <strong>{yearlyChurnEvents.toFixed(1)}</strong>{' '}
+              move-outs for your portfolio size).
             </li>
             <li>
-              <strong>15% Efficiency:</strong> The targeted percentage of "controllable" moves stopped
+              <strong>15% Efficiency:</strong>{' '}
+              The targeted percentage of "controllable" moves stopped
               by PlacePin's perks and communication tools.
             </li>
           </ul>

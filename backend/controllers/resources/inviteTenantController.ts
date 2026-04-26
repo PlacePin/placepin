@@ -55,14 +55,14 @@ export const inviteTenant = async (req: Request, res: Response) => {
       );
 
       referralCode = updatedLandlord?.properties[0].referralCode!;
-      emailInviteToTenant(referralCode, tenantName, tenantEmail);
+      await emailInviteToTenant(referralCode, tenantName, tenantEmail);
       return res.status(200).json({ message: 'Email sent! Your first invite!' });
     } else {
       // Check if property already exists using addressesEqual
       for (const property of landlord.properties) {
         if (addressesEqual(property.address, normalizedAddress)) {
           referralCode = property.referralCode;
-          emailInviteToTenant(referralCode, tenantName, tenantEmail);
+          await emailInviteToTenant(referralCode, tenantName, tenantEmail);
           return res.status(200).json({ message: 'Invite sent!' });
         }
       }
@@ -85,7 +85,7 @@ export const inviteTenant = async (req: Request, res: Response) => {
 
       const updatedPropertyListLength = updatedLandlord?.properties.length! - 1;
       referralCode = updatedLandlord?.properties[updatedPropertyListLength].referralCode!;
-      emailInviteToTenant(referralCode, tenantName, tenantEmail);
+      await emailInviteToTenant(referralCode, tenantName, tenantEmail);
       return res.status(200).json({ message: 'Email invite sent!' });
     }
 
