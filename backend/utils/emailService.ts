@@ -11,7 +11,7 @@ const resendClient = axios.create({
 export const emailInviteToTenant = async (referralCode: string, tenantName: string, tenantEmail: string) => {
   try {
     const { data } = await resendClient.post('/emails', {
-      from: 'PlacePin <kerlin.augustin1@gmail.com>',
+      from: 'PlacePin <support@placepin.io>',
       to: [tenantEmail],
       subject: 'Your Referral Code is Ready 🎉',
       text: `Hey ${tenantName}, your exclusive referral code is: ${referralCode}`,
