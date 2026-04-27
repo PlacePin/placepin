@@ -61,10 +61,10 @@ export async function processRentPayments(dueDate: 1 | 15) {
             { arrayFilters: [{ 'ten.tenantId': tenant.tenantId }] }
           );
 
-          console.log(`✅ Charged tenant ${tenantId} $${tenant.rentAmountExpected}`);
+          console.log(`Charged tenant ${tenantId} $${tenant.rentAmountExpected}`);
 
         } catch (err: any) {
-          console.error(`❌ Failed to charge tenant ${tenantId}:`, err?.raw?.message || err?.message);
+          console.error(`Failed to charge tenant ${tenantId}:`, err?.raw?.message || err?.message);
 
           // Mark as overdue so it doesn't retry endlessly
           await LandlordModel.findOneAndUpdate(

@@ -1,0 +1,188 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 640px;
+}
+
+/* Progress — same as identityStep */
+
+.progressWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.progressBarTrack {
+  height: 6px;
+  background: var(--color-surface-4);
+  border-radius: 20px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 20px;
+  transition: width 0.4s ease;
+}
+
+.stepRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Card */
+
+.card {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-2);
+  border-radius: 12px;
+  padding: 1.1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sectionLabel {
+  font-size: 11px;
+  color: var(--color-text-4);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin: 0;
+}
+
+/* Method grid — matches identityStep */
+
+.methodGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+/* Info banner */
+
+.infoBanner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--color-tertiary-lighter);
+  border-radius: 8px;
+  border: 1px solid var(--color-tertiary-light);
+  color: var(--color-tertiary);
+}
+
+.infoText {
+  font-size: 13px;
+  line-height: 1.55;
+  margin: 0;
+  color: var(--color-tertiary);
+}
+
+/* Stripe path */
+
+.stripePanel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.connectedBanner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--color-success-light);
+  border: 1px solid var(--color-success);
+  border-radius: 10px;
+}
+
+.connectedDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-success);
+  flex-shrink: 0;
+}
+
+.connectedTitle {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--color-success);
+  margin: 0 0 2px 0;
+}
+
+.connectedSub {
+  font-size: 12px;
+  color: var(--color-text-3);
+  margin: 0;
+}
+
+.reconnectBtn {
+  margin-left: auto;
+  font-size: 12px;
+  padding: 5px 12px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-3);
+  border-radius: 8px;
+  color: var(--color-text-3);
+  cursor: pointer;
+  font-family: var(--font-family);
+  flex-shrink: 0;
+}
+
+.reconnectBtn:hover {
+  border-color: var(--color-border-5);
+  color: var(--color-text-1);
+}
+
+/* Upload path */
+
+.uploadPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.input {
+  width: 100%;
+  font-size: 13.5px;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border-3);
+  border-radius: 8px;
+  background: var(--color-surface-2);
+  color: var(--color-text-2);
+  font-family: var(--font-family);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+  appearance: auto;
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+}
+
+/* Action row */
+
+.actionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.stepIndicator {
+  font-size: 12px;
+  color: var(--color-text-5);
+  margin: 0;
+}

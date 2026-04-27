@@ -3,16 +3,29 @@ import BasicInfo from './basicInfomation/BasicInfo';
 import BankSettings from './bankSettings/BankSettings';
 import { useState, useEffect } from 'react';
 import Subscriptions from './subscriptionSettings/Subscriptions';
+import TenantPassport from './passport/TenantPassport';
+import { useAuth } from '../../context/AuthContext';
+import type { DecodedAccessToken } from '../../interfaces/interfaces';
+import { jwtDecode } from 'jwt-decode';
 
-const tabs = [
+type TabConfig = {
+  id: 'basic' | 'bank' | 'subscriptions' | 'tenant-passport';
+  label: string;
+  role?: 'tenant' | 'landlord';
+};
+
+const tabs: TabConfig[] = [
   { id: 'basic', label: 'Basic Information' },
   { id: 'bank', label: 'Bank Settings' },
   { id: 'subscriptions', label: 'Subscriptions' },
+  { id: 'tenant-passport', label: 'Tenant Passport', role: 'tenant' },
 ] as const;
 
-type Tab = typeof tabs[number]['id'];
+type Tab = TabConfig['id'];
 
 const GeneralSettings = () => {
+
+  const { accessToken } = useAuth();
   const [activeTab, setActiveTab] = useState<Tab>(() => {
     const saved = localStorage.getItem('PlacePinSettingsTab');
     return (saved as Tab) || 'basic';
@@ -22,6 +35,10 @@ const GeneralSettings = () => {
     localStorage.setItem('PlacePinSettingsTab', activeTab);
   }, [activeTab]);
 
+  if (!accessToken) return null
+
+  const user = jwtDecode<DecodedAccessToken>(accessToken);
+
   return (
     <div className={styles.entireContainer}>
       <div className={styles.pageHeader}>
@@ -30,7 +47,9 @@ const GeneralSettings = () => {
       </div>
       <div className={styles.innerContainer}>
         <div className={styles.settingsNav}>
-          {tabs.map((tab) => (
+          {tabs
+          .filter(tab => !tab.role || tab.role === user.accountType)
+          .map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
@@ -48,6 +67,11 @@ const GeneralSettings = () => {
           {activeTab === 'basic' && <BasicInfo />}
           {activeTab === 'bank' && <BankSettings />}
           {activeTab === 'subscriptions' && <Subscriptions />}
+          {
+            user.accountType === 'tenant' &&
+            activeTab === 'tenant-passport' &&
+            <TenantPassport />
+          }
         </div>
       </div>
     </div>
