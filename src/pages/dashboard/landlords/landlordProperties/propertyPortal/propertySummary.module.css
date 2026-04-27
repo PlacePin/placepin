@@ -64,3 +64,35 @@
     grid-column: 1 / -1;
   }
 }
+
+@media (max-width: 1024px) {
+  .image {
+    height: 24vh;
+  }
+
+  .siteStaffBody {
+    padding: 2rem;
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .image {
+    height: 20vh;
+  }
+
+  .miniPropertyInfoContainer {
+    gap: 0.5rem;
+    padding: 0.75rem 0;
+  }
+
+  .siteStaffContainer {
+    margin-top: 0.25rem;
+    padding: 0 0.75rem;
+  }
+
+  .siteStaffBody {
+    padding: 1.25rem;
+    font-size: 1.25rem;
+  }
+}

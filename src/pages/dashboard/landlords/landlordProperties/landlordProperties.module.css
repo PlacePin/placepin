@@ -140,6 +140,60 @@
   gap: 0.5rem;
 }
 
+@media (max-width: 1024px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  .propertyCardsContainer {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .button {
+    width: max-content;
+    min-width: 10rem;
+    padding: 0 1.25rem;
+  }
+
+  .portalBody {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .headerWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .propertyCardsContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .descriptionWrapper {
+    align-items: flex-start;
+  }
+
+  .button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .noData {
+    margin: 1rem 0 0;
+  }
+
+  .noDataButtonContainer {
+    margin-top: 2rem;
+  }
+}
+
 @keyframes shake {
 
   0%,
