@@ -27,3 +27,21 @@
   display: flex;
   align-items: center;
 }
+
+@media (max-width: 1025px) {
+  .landlordHeaderContainer {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .theme {
+    margin-left: auto;
+  }
+
+  .settingsIcon {
+    margin-right: 0;
+  }
+
+  .headerTitle {
+    display: none;
+  }
+}

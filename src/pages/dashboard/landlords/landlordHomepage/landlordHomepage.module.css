@@ -11,3 +11,23 @@
   gap: 1rem;
   padding: 1rem 0; 
 }
+
+@media (max-width: 1024px) {
+  .landlordHomepageContainer {
+    padding: 1.5rem;
+  }
+
+  .statsCards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .landlordHomepageContainer {
+    padding: 1rem;
+  }
+
+  .statsCards {
+    grid-template-columns: 1fr;
+  }
+}

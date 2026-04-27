@@ -48,10 +48,15 @@
 }
 
 .tenantCardsContainer {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
   padding: 1rem 0;
+}
+
+.tenantCardsContainer > * {
+  flex: 1 1 calc(25% - 1rem);
+  min-width: 14rem;
 }
 
 .descriptionWrapper {
@@ -141,5 +146,97 @@
 
   75% {
     transform: translateX(3px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  .tenantCardsContainer {
+    gap: 0.9rem;
+  }
+
+  .tenantCardsContainer > * {
+    flex: 1 1 calc(50% - 0.9rem);
+    min-width: 12rem;
+  }
+
+  .button {
+    width: max-content;
+    min-width: 10rem;
+    padding: 0 1.25rem;
+  }
+
+  .portalBody {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 0.75rem;
+  }
+
+  .rightSidebar {
+    margin-left: 0;
+  }
+
+  .noDataButtonContainer {
+    margin-top: 8rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .headerWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .tenantCardsContainer {
+    gap: 0.75rem;
+  }
+
+  .tenantCardsContainer > * {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  .tenantCards {
+    height: auto;
+    min-height: 11rem;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .profilePic {
+    width: 7rem;
+    max-width: 7rem;
+    max-height: 7rem;
+    margin-right: 0;
+  }
+
+  .descriptionWrapper {
+    padding: 0.25rem 0 0.75rem;
+  }
+
+  .infoButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .noData {
+    margin: 1rem 0 0;
+  }
+
+  .noDataButtonContainer {
+    margin-top: 2.5rem;
   }
 }
