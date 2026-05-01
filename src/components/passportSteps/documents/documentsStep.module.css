@@ -5,6 +5,35 @@
   max-width: 640px;
 }
 
+/* Progress — same as identityStep */
+
+.progressWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.progressBarTrack {
+  height: 6px;
+  background: var(--color-surface-4);
+  border-radius: 20px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 20px;
+  transition: width 0.4s ease;
+}
+
+.stepRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 .card {
   background: var(--color-surface-1);
   border: 1px solid var(--color-border-2);
@@ -20,9 +49,10 @@
   align-items: center;
   gap: 12px;
   padding: 12px 16px;
-  background: #eef4ff; /* Specific light blue from your reference photo */
+  background: var(--color-tertiary-lighter);
   border-radius: 8px;
-  color: #3b66a6;
+  color: var(--color-tertiary);
+  border: 1px solid var(--color-tertiary-light);
 }
 
 .infoText {
