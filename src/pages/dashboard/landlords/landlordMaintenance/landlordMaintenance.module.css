@@ -64,6 +64,8 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   padding: 1rem 0;
+  justify-items: start;
+
 }
 
 .descriptionWrapper {
