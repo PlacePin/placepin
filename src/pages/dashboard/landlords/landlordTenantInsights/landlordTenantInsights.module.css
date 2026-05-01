@@ -56,3 +56,43 @@
     transform: translateX(3px);
   }
 }
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 1.5rem 1rem 0 1.5rem;
+  }
+
+  .finances {
+    margin-right: 1rem;
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1.25rem 1rem 0 1rem;
+  }
+
+  .finances {
+    display: flex;
+    flex-direction: column;
+    margin-right: 0;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .container {
+    padding: 1rem 1rem 0 1rem;
+  }
+
+  .noDataButtonContainer {
+    margin-top: 8rem;
+  }
+
+  .button {
+    width: 100%;
+    min-width: 0;
+    max-width: 22rem;
+  }
+}
