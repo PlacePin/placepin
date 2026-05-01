@@ -5,6 +5,7 @@ import IdentityStep from "../../../components/passportSteps/identity/IdentitySte
 import IncomeStep from "../../../components/passportSteps/income/IncomeStep";
 import BackgroundStep from "../../../components/passportSteps/background/BackgroundStep";
 import RentHistoryStep from "../../../components/passportSteps/rentHistory/RentHistoryStep";
+import DocumentsStep from "../../../components/passportSteps/documents/DocumentsStep";
 
 export type PassportStep = "identity" | "income" | "background" | "rentHistory" | "documents";
 
@@ -19,7 +20,7 @@ export const STEP_PROGRESS: Record<PassportStep, number> = {
 };
 
 const TenantPassport = () => {
-  const [currentStep, setCurrentStep] = useState<PassportStep>("identity");
+  const [currentStep, setCurrentStep] = useState<PassportStep>("documents");
 
   const { data, error } = useGetAxios('/api/users/');
 
@@ -89,9 +90,13 @@ const TenantPassport = () => {
           onComplete={advanceStep}
         />
       )}
-      {/* Add steps here as you build them:
-          currentStep === "documents"   && <DocumentsStep ... />
-      */}
+      {currentStep === "documents" && (
+        <DocumentsStep
+          currentStep={currentStep}
+          onBack={goBack}
+          onComplete={advanceStep}
+        />
+      )}
     </div>
   );
 };
