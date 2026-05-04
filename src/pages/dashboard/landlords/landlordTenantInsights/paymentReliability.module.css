@@ -48,3 +48,31 @@
 .ratingInsufficient {
   color: var(--color-text-3);
 }
+
+@media (max-width: 1024px) {
+  .paymentSection {
+    min-width: 0;
+  }
+
+  .paymentContainer {
+    margin-top: 0.875rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .paymentContainer {
+    margin-top: 0.75rem;
+    border-radius: 0.75rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .reliabilityTable th,
+  .reliabilityTable td {
+    padding: 0.625rem 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .reliabilityTable th {
+    white-space: nowrap;
+  }
+}

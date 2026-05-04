@@ -25,3 +25,42 @@
 .infoContainer span {
   color: var(--color-text-2);
 }
+
+@media (max-width: 1024px) {
+  .logbookWrapper {
+    min-width: 0;
+    height: auto;
+    min-height: 12rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .title {
+    padding: 1rem;
+  }
+
+  .infoContainer {
+    padding-right: 0.75rem;
+    padding-bottom: 1rem;
+  }
+
+  .logbookWrapper {
+    min-height: 10rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .logbookWrapper {
+    border-radius: 0.75rem;
+    margin-top: 0.75rem;
+  }
+
+  .title {
+    padding: 0.875rem;
+  }
+
+  .infoContainer {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}

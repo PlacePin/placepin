@@ -208,3 +208,99 @@
     transform: translateX(-50%) translateY(0);
   }
 }
+
+@media (max-width: 1024px) {
+  .wrapperDisplaysContainer {
+    padding-top: 0.875rem;
+    min-width: 0;
+  }
+
+  .photoSection {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .profilePic {
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapperDisplaysContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .photoSection {
+    height: auto;
+    display: block;
+  }
+
+  .profilePic {
+    height: auto;
+    min-height: 12rem;
+    max-height: 24rem;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .wrapperDisplays {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+
+  .tenantDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .defaultCardStyles {
+    height: auto;
+    min-height: 5.5rem;
+  }
+
+  .contact {
+    width: calc(100% - 1rem);
+    flex-wrap: wrap;
+    row-gap: 0.35rem;
+  }
+
+  .misc {
+    min-height: 10rem;
+  }
+
+  .miscHeader {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .defaultCardSpanNum {
+    font-size: clamp(1.35rem, 6vw, 2rem);
+  }
+}
+
+@media (max-width: 650px) {
+  .profilePic {
+    min-height: 10rem;
+    max-height: 20rem;
+    border-radius: 0.75rem;
+  }
+
+  .daysAsTenant,
+  .expenses,
+  .rent {
+    padding: 0.875rem;
+  }
+
+  .misc {
+    padding: 0.875rem;
+  }
+
+  .miscTitle {
+    font-size: 1rem;
+  }
+}

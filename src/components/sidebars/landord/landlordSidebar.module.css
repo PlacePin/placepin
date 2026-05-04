@@ -42,6 +42,10 @@
   width: 100%;
 }
 
+.mobileTopRow {
+  width: 100%;
+}
+
 .navLink {
   text-decoration: none;
   color: inherit;
@@ -77,4 +81,86 @@
 
 .sidebarItem span {
   margin-left: .75rem;
+}
+
+.mobileMenuButton {
+  display: none;
+}
+
+@media (max-width: 1025px) {
+  .sideBarContainer {
+    width: 100%;
+    height: auto;
+    min-height: 3.5rem;
+    position: absolute;
+    top: 0;
+    z-index: 20;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .logoAndTabs {
+    align-items: stretch;
+  }
+
+  .mobileTopRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .logoText {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .mobileMenuButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-border-4);
+    background: var(--color-surface-2);
+    color: var(--color-text-2);
+    border-radius: 0.5rem;
+    padding: 0.4rem;
+    cursor: pointer;
+  }
+
+  .tabs {
+    display: none;
+    padding-top: 0.65rem;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .mobileOpen {
+    display: flex;
+  }
+
+  .navLink {
+    flex: 0 0 auto;
+  }
+
+  .sidebarItem {
+    margin: 0;
+    padding: 0.55rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border-4);
+  }
+
+  .sidebarItem:hover {
+    transform: none;
+  }
+
+  .sidebarItem.active {
+    border-radius: 999px;
+    box-shadow: none;
+  }
+
+  .sidebarItem span {
+    margin-left: 0.45rem;
+    font-size: 0.9rem;
+  }
 }

@@ -254,8 +254,23 @@
 }
 
 @media (max-width: 768px) {
+  .topContainer {
+    min-height: auto;
+    padding: 0.75rem;
+  }
+
+  .animatedBorderWrapper {
+    border-radius: 0.75rem;
+  }
+
+  .animatedBorderContent {
+    border-radius: 0.65rem;
+  }
+
   .mainContainer {
     flex-direction: column;
+    min-height: auto;
+    max-height: none;
   }
 
   .leftSide,
@@ -263,5 +278,93 @@
     flex: unset;
     width: 100%;
     padding: 2em;
+  }
+}
+
+@media (max-width: 640px) {
+  .leftSide,
+  .rightSide {
+    padding: 1.25rem;
+  }
+
+  .signupLogo {
+    font-size: 1.7rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .h1 {
+    font-size: 1.6rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .li {
+    margin-bottom: 1rem;
+  }
+
+  .heroForm {
+    max-width: 100%;
+    gap: 0.65rem;
+  }
+
+  .heroForm h4 {
+    font-size: 1.3rem;
+  }
+
+  .inputLabel {
+    font-size: 0.95rem;
+  }
+
+  .inputFields {
+    min-height: 2.75rem;
+    font-size: 1rem;
+    padding: 0.6em;
+  }
+
+  .heroForm button {
+    min-height: 2.9rem;
+    font-size: 1rem;
+  }
+
+  .errorMessage,
+  .login,
+  .legalLinks {
+    font-size: 0.9rem;
+  }
+
+  .split {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .topContainer {
+    padding: 0.5rem;
+  }
+
+  .leftSide,
+  .rightSide {
+    padding: 1rem;
+  }
+
+  .signupLogo {
+    font-size: 1.5rem;
+  }
+
+  .h1 {
+    font-size: 1.35rem;
+  }
+
+  .h4 {
+    font-size: 1rem;
+  }
+
+  .p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .heroForm h4 {
+    font-size: 1.2rem;
   }
 }

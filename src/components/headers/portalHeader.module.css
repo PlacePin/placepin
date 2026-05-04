@@ -67,3 +67,9 @@
   height: 50px;
   border-radius: 5rem;
 }
+
+@media (max-width: 650px) {
+  .picWrapper {
+    display: none;
+  }
+}
