@@ -20,7 +20,7 @@ export const STEP_PROGRESS: Record<PassportStep, number> = {
 };
 
 const TenantPassport = () => {
-  const [currentStep, setCurrentStep] = useState<PassportStep>("documents");
+  const [currentStep, setCurrentStep] = useState<PassportStep>("identity");
 
   const { data, error } = useGetAxios('/api/users/');
 
