@@ -13,6 +13,8 @@
 .maintenance {
   height: 30vh;
   border: 1px solid var(--color-border-4);
+  display: flex;
+  flex-direction: column;
 }
 
 .engagement {
@@ -81,4 +83,167 @@
 .noPaymentHistoryText {
   position: relative;
   bottom: -50%;
+}
+
+.paymentHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 1rem 1rem 0.5rem 1rem;
+}
+
+.paymentTitle {
+  margin: 0;
+  font-weight: bold;
+  flex: 1;
+  min-width: 0;
+}
+
+.paymentPanel {
+  flex: 1;
+  min-height: 0;
+}
+
+.paymentToggle {
+  display: none;
+}
+
+.paymentToggleLabel {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.paymentChevron,
+.paymentChevronExpanded {
+  color: var(--color-text-2);
+  transition: transform 0.2s ease;
+}
+
+.paymentChevronExpanded {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 1024px) {
+  .activityWrapper {
+    padding-left: 0;
+    min-width: 0;
+  }
+
+  .payment,
+  .maintenance {
+    height: auto;
+    min-height: 18rem;
+  }
+
+  .engagement {
+    height: auto;
+    min-height: 22rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .paymentMaintenance {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .payment,
+  .maintenance {
+    min-height: 16rem;
+  }
+
+  .titleWithFilter {
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .title {
+    padding: 1rem 1rem 0.25rem 1rem;
+  }
+
+  .yearSelect {
+    margin: 0.25rem 1rem 0.5rem 1rem;
+    max-width: 100%;
+  }
+
+  .engagement {
+    min-height: 18rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .activityWrapper {
+    padding-top: 0.75rem;
+  }
+
+  .titleWithFilter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .title {
+    padding: 0.875rem 0.875rem 0 0.875rem;
+  }
+
+  .yearSelect {
+    margin: 0 0.875rem 0.5rem 0.875rem;
+    align-self: stretch;
+    box-sizing: border-box;
+    width: auto;
+  }
+
+  .payment,
+  .maintenance {
+    min-height: 14rem;
+    border-radius: 0.75rem;
+  }
+
+  .rentPayment {
+    margin: 0.75rem;
+  }
+
+  .paymentHeader {
+    padding: 0.875rem 0.875rem 0.35rem 0.875rem;
+  }
+
+  .paymentToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: 1px solid var(--color-border-5);
+    border-radius: 0.5rem;
+    background: var(--color-surface-5);
+    color: var(--color-text-2);
+    cursor: pointer;
+  }
+
+  .paymentToggle:hover {
+    border-color: #00bfa5;
+    color: #00bfa5;
+  }
+
+  .paymentCollapsed {
+    min-height: 0 !important;
+    overflow: hidden;
+  }
+
+  .engagement {
+    min-height: 16rem;
+    border-radius: 0.75rem;
+    margin-top: 0.75rem;
+  }
 }

@@ -18,7 +18,7 @@
   color: var(--color-text-2);
   text-align: center;
   transition: 0.3s ease;
-  position: relative;
+  position: absolute;
   overflow: hidden;
   background: var(--color-surface-3);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.07);
@@ -141,5 +141,97 @@
 
   75% {
     transform: translateX(3px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  .tenantCardsContainer {
+    gap: 0.9rem;
+  }
+
+  .tenantCardsContainer > * {
+    flex: 1 1 calc(50% - 0.9rem);
+    min-width: 12rem;
+  }
+
+  .button {
+    width: max-content;
+    min-width: 10rem;
+    padding: 0 1.25rem;
+  }
+
+  .portalBody {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 0.75rem;
+  }
+
+  .rightSidebar {
+    margin-left: 0;
+  }
+
+  .noDataButtonContainer {
+    margin-top: 8rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .headerWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .tenantCardsContainer {
+    gap: 0.75rem;
+  }
+
+  .tenantCardsContainer > * {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  .tenantCards {
+    height: auto;
+    min-height: 11rem;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .profilePic {
+    width: 7rem;
+    max-width: 7rem;
+    max-height: 7rem;
+    margin-right: 0;
+  }
+
+  .descriptionWrapper {
+    padding: 0.25rem 0 0.75rem;
+  }
+
+  .infoButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .noData {
+    margin: 1rem 0 0;
+  }
+
+  .noDataButtonContainer {
+    margin-top: 2.5rem;
   }
 }

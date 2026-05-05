@@ -2,7 +2,10 @@ import styles from './tenantActivity.module.css';
 import EngagementPatternsChart from '../../../../../components/charts/EngagementPatternsChart';
 import MaintenanceRequestChart from '../../../../../components/charts/MaintenanceRequestChart';
 import type { PerkPatterns } from '../../../../../interfaces/interfaces';
-import { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
+import { useEffect, useState } from 'react';
+
+const MOBILE_COLLAPSE_MQ = '(max-width: 650px)';
 
 interface TenantActivityProps {
   rentPayments: Record<string, any>[];
@@ -18,6 +21,16 @@ const TenantActivity = ({
 
   const currentYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [paymentHistoryMobileOpen, setPaymentHistoryMobileOpen] = useState(true);
+  const [isMobilePaymentCollapsible, setIsMobilePaymentCollapsible] = useState(false);
+
+  useEffect(() => {
+    const mobileQuery = window.matchMedia(MOBILE_COLLAPSE_MQ);
+    const sync = () => setIsMobilePaymentCollapsible(mobileQuery.matches);
+    sync();
+    mobileQuery.addEventListener('change', sync);
+    return () => mobileQuery.removeEventListener('change', sync);
+  }, []);
 
   const availableYears = [currentYear, currentYear - 1, currentYear - 2];
 
@@ -50,12 +63,40 @@ const TenantActivity = ({
   return (
     <div className={styles.activityWrapper}>
       <div className={styles.paymentMaintenance}>
-        <div className={`${styles.defaultCardStyles} ${styles.payment}`}>
-          <p className={styles.title}>Payment History</p>
-          {rentPayments.length ?
-            rentPaymentsMapped :
-            noPaymentHistory
-          }
+        <div
+          className={`${styles.defaultCardStyles} ${styles.payment} ${isMobilePaymentCollapsible && !paymentHistoryMobileOpen ? styles.paymentCollapsed : ''}`}
+        >
+          <div className={styles.paymentHeader}>
+            <p className={styles.paymentTitle}>Payment History</p>
+            {isMobilePaymentCollapsible && (
+              <button
+                type="button"
+                className={styles.paymentToggle}
+                aria-expanded={paymentHistoryMobileOpen}
+                aria-controls="tenant-payment-history"
+                onClick={() => setPaymentHistoryMobileOpen(prev => !prev)}
+              >
+                <ChevronDown
+                  size={22}
+                  className={`${styles.paymentChevron}${paymentHistoryMobileOpen ? ` ${styles.paymentChevronExpanded}` : ''}`}
+                  aria-hidden
+                />
+                <span className={styles.paymentToggleLabel}>
+                  {paymentHistoryMobileOpen ? 'Hide' : 'Show'} payment history
+                </span>
+              </button>
+            )}
+          </div>
+          <div
+            id="tenant-payment-history"
+            className={styles.paymentPanel}
+            hidden={isMobilePaymentCollapsible && !paymentHistoryMobileOpen}
+          >
+            {rentPayments.length ?
+              rentPaymentsMapped :
+              noPaymentHistory
+            }
+          </div>
         </div>
         <div className={`${styles.defaultCardStyles} ${styles.maintenance}`}>
           <p className={styles.title}>Maintenance Request</p>

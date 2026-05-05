@@ -1,6 +1,7 @@
 .landlordDashboardContainer {
   display: flex;
   background: var(--color-bg);
+  width: 100%;
 }
 
 .landlordHeaderBody {
@@ -14,4 +15,41 @@
   background: #f5f0eb;
   flex-direction: column;
   align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .landlordDashboardContainer {
+    flex-direction: column;
+    max-width: 100vw;
+    max-height: 100vh;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow-y: auto;
+  }
+
+  .landlordErrorContainer {
+    width: 100%;
+  }
+}
+
+@media (max-width: 650px) {
+  .landlordDashboardContainer {
+    max-width: 100vw;
+    max-height: 100vh;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow-y: auto;
+  }
+
+  .landlordHeaderBody {
+    min-width: 0;
+  }
+
+  .landlordErrorContainer {
+    padding: 1rem;
+  }
 }
