@@ -17,8 +17,8 @@
   font-weight: bold;
   color: var(--color-text-2);
   text-align: center;
-  transition: 0.3s ease; 
-  position: relative; 
+  transition: 0.3s ease;
+  position: relative;
   overflow: hidden;
   background: var(--color-surface-3);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.07);
@@ -153,7 +153,7 @@
     gap: 0.9rem;
   }
 
-  .tenantCardsContainer > * {
+  .tenantCardsContainer>* {
     flex: 1 1 calc(50% - 0.9rem);
     min-width: 12rem;
   }
@@ -191,12 +191,7 @@
   }
 
   .tenantCardsContainer {
-    gap: 0.75rem;
-  }
-
-  .tenantCardsContainer > * {
-    flex: 1 1 100%;
-    min-width: 0;
+    grid-template-columns: 1fr;
   }
 
   .tenantCards {
