@@ -65,7 +65,7 @@ const tenantSchema = new mongoose.Schema({
       count: { type: Number, default: 0 }
     }]
   },
-  phoneNumber: Number,
+  phoneNumber: String,
   profilePic: {
     type: String,
     default: "",
