@@ -34,7 +34,7 @@ const landlordSchema = new mongoose.Schema({
     token: { type: String, default: null },
     expires: { type: Date, default: null },
   },
-  phoneNumber: Number,
+  phoneNumber: String,
   profilePic: {
     type: String,
     default: "",
