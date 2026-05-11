@@ -135,7 +135,7 @@ const SignupPage = () => {
                   className={styles.inputFields}
                   onChange={(e) => setUserName(e.target.value.toLowerCase())}
                   id='name'
-                  placeholder='Dinah Augustin'
+                  placeholder='Jane Doe'
                   required
                 />
                 <label className={styles.inputLabel} htmlFor='email'>
@@ -146,7 +146,7 @@ const SignupPage = () => {
                   className={styles.inputFields}
                   onChange={(e) => setEmail(e.target.value.toLowerCase().trim())}
                   id='email'
-                  placeholder="daugustin@placepin.com"
+                  placeholder="janedoe@placepin.io"
                   required
                 />
                 <label className={styles.inputLabel} htmlFor='accountType'>
@@ -248,8 +248,6 @@ const SignupPage = () => {
                   onChange={(e) => setPhoneNumber(e.target.value.trim())}
                   id='phoneNumber'
                   placeholder='617-555-5555'
-                  pattern="\d{3}-\d{3}-\d{4}"
-                  title="Use the format xxx-xxx-xxxx"
                   required
                 />
                 <label className={styles.inputLabel} htmlFor='password'>Password</label>

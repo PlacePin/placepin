@@ -281,7 +281,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 650px) {
   .leftSide,
   .rightSide {
     padding: 1.25rem;

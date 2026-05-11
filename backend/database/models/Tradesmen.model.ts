@@ -35,7 +35,7 @@ const tradesmenSchema = new mongoose.Schema({
     token: { type: String, default: null },
     expires: { type: Date, default: null },
   },
-  phoneNumber: Number,
+  phoneNumber: String,
   profession: String,
   profilePic: {
     type: String,

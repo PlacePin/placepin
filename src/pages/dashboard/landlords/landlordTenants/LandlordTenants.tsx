@@ -33,7 +33,11 @@ const LandlordTenants = () => {
 
   const tenantsCards = tenants.map((tenant: any) => {
     const profilePic = tenant.profilePic ?
-      <img className={styles.profilePic} src={`${tenant.profilePic}`} alt='Profile Pic' /> :
+      <img
+        className={styles.profilePic}
+        src={`${tenant.profilePic}`}
+        alt='Profile Pic'
+      /> :
       <User
         width={150}
         height={200}

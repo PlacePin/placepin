@@ -44,9 +44,9 @@ export const updateBasicInfo = async (
       return res.status(404).json({ message: "User doesn't exist." });
     }
 
-    res.status(200).json({ message: "Profile updated successfully." });
+    return res.status(200).json({ message: "Profile updated successfully." });
   } catch (err) {
     console.error("Unexpected Error", err);
-    res.status(500).json({ message: "Unexpected Error" });
+    return res.status(500).json({ message: "Unexpected Error" });
   }
 };
