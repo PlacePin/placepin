@@ -6,3 +6,8 @@
   height: 94vh;
 }
 
+@media (max-width: 650px) {
+  .billingContainer {
+    flex-direction: column
+  }
+}
