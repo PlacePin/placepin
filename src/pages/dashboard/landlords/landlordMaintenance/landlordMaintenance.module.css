@@ -105,7 +105,51 @@
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-3px); }
-  75% { transform: translateX(3px); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-3px);
+  }
+
+  75% {
+    transform: translateX(3px);
+  }
+}
+
+@media (max-width: 650px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .headerWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .tradesmenCardsContainer {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .descriptionWrapper {
+    align-items: flex-start;
+  }
+
+  .button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .noData {
+    margin: 1rem 0 0;
+  }
+
+  .noDataButtonContainer {
+    margin-top: 2rem;
+  }
 }
