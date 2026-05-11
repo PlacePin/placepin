@@ -8,6 +8,8 @@ import UploadZone from "./uploadFiles/UploadZone";
 import InputField from "./wrapperComponents/InputField";
 import PrimaryButton from "../../buttons/PrimaryButton";
 import StepPill from "../StepPill";
+import axiosInstance from "../../../utils/axiosInstance";
+import { useAuth } from "../../../context/AuthContext";
 
 type VerificationMethod = "id" | "ssn";
 
@@ -62,6 +64,27 @@ const IdentityStep = ({
   const [backDragging, setBackDragging] = useState(false);
   const frontInputRef = useRef<HTMLInputElement>(null);
   const backInputRef = useRef<HTMLInputElement>(null);
+
+  const { accessToken } = useAuth();
+
+  const handleSubmit = async () => {
+    try {
+      const clientSecret = axiosInstance.post('/api/passport/identity/start',
+        {
+          verificationMethod: form.verificationMethod
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        }
+      )
+    } catch (err) {
+      console.error(err)
+      // Add sentry
+    }
+    onComplete()
+  }
 
   const handleField = (field: keyof IdentityFormState, value: string) => {
     setForm(prev => ({ ...prev, [field]: value }));
@@ -168,7 +191,7 @@ const IdentityStep = ({
             />
           </InputField>
           {/* Hidden when SSN verification is selected — redundant in that flow */}
-          {form.verificationMethod === "id" && (
+          {/* {form.verificationMethod === "id" && (
             <InputField
               label="Last 4 of SSN"
               hint="Used for identity matching only"
@@ -187,7 +210,7 @@ const IdentityStep = ({
                 }
               />
             </InputField>
-          )}
+          )} */}
         </div>
       </section>
       {/* Verification method */}
@@ -273,7 +296,7 @@ const IdentityStep = ({
         <PrimaryButton
           title="Save & continue →"
           disabled={!isComplete}
-          onClick={onComplete}
+          onClick={handleSubmit}
         />
       </div>
     </div>
