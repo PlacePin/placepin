@@ -10,6 +10,7 @@ import PrimaryButton from "../../buttons/PrimaryButton";
 import StepPill from "../StepPill";
 import axiosInstance from "../../../utils/axiosInstance";
 import { useAuth } from "../../../context/AuthContext";
+import { stripePromise } from "../../../utils/stripePromise";
 
 type VerificationMethod = "id" | "ssn";
 
@@ -69,7 +70,7 @@ const IdentityStep = ({
 
   const handleSubmit = async () => {
     try {
-      const clientSecret = await axiosInstance.post('/api/passport/identity/start',
+      const { data } = await axiosInstance.post('/api/passport/identity/start',
         {
           verificationMethod: form.verificationMethod
         },
@@ -79,11 +80,26 @@ const IdentityStep = ({
           }
         }
       )
+
+      const clientSecret = data.clientSecret;
+
+      const stripe = await stripePromise;
+    if (!stripe) throw new Error('Stripe failed to load');
+
+    const { error } = await stripe.verifyIdentity(clientSecret);
+
+    if (error) {
+      // User cancelled or something went wrong in the modal
+      console.error('Stripe Identity error:', error.message);
+      return; // Don't advance — let them retry
+    }
+
+    // Modal completed — webhook will confirm async, advance the step
+    onComplete();
     } catch (err) {
       console.error(err)
       // Add sentry
     }
-    onComplete()
   }
 
   const handleField = (field: keyof IdentityFormState, value: string) => {

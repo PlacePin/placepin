@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { loadStripe } from "@stripe/stripe-js";
 import axiosInstance from "../../utils/axiosInstance";
 import SecondaryButton from "../buttons/SecondaryButton";
 import styles from './messageComponent.module.css';
+import { stripePromise } from "../../utils/stripePromise";
 
 type Message = {
   messageId?: string;
@@ -23,8 +23,6 @@ type MessageComponentProps = {
   isOwn: boolean;
   onActionComplete: (index: number) => void;
 };
-
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK_KEY);
 
 const MessageComponent = ({ message, index, isOwn, onActionComplete }: MessageComponentProps) => {
   const { accessToken } = useAuth();

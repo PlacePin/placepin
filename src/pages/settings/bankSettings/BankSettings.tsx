@@ -1,9 +1,7 @@
 import SaveCardForm from "../../../components/stripe/SaveCardForm";
+import { stripePromise } from "../../../utils/stripePromise";
 import styles from './bankSettings.module.css';
 import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK_KEY);
 
 const BankSettings = () => {
   
