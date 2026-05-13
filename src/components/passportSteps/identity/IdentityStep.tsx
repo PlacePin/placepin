@@ -70,7 +70,7 @@ const IdentityStep = ({
 
   const handleSubmit = async () => {
     try {
-      const { data } = await axiosInstance.post('/api/passport/identity/start',
+      const { data } = await axiosInstance.post('/api/passport/identity',
         {
           verificationMethod: form.verificationMethod
         },
@@ -84,18 +84,18 @@ const IdentityStep = ({
       const clientSecret = data.clientSecret;
 
       const stripe = await stripePromise;
-    if (!stripe) throw new Error('Stripe failed to load');
+      if (!stripe) throw new Error('Stripe failed to load');
 
-    const { error } = await stripe.verifyIdentity(clientSecret);
+      const { error } = await stripe.verifyIdentity(clientSecret);
 
-    if (error) {
-      // User cancelled or something went wrong in the modal
-      console.error('Stripe Identity error:', error.message);
-      return; // Don't advance — let them retry
-    }
+      if (error) {
+        // User cancelled or something went wrong in the modal
+        console.error('Stripe Identity error:', error.message);
+        return; // Don't advance — let them retry
+      }
 
-    // Modal completed — webhook will confirm async, advance the step
-    onComplete();
+      // Modal completed — webhook will confirm async, advance the step
+      onComplete();
     } catch (err) {
       console.error(err)
       // Add sentry

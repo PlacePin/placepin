@@ -3,6 +3,6 @@ import { identityStep } from '../../controllers/tenantPassport/identityStepContr
 
 const router = express.Router()
 
-router.post('/identity/start', identityStep)
+router.post('/identity', identityStep)
 
 export default router
