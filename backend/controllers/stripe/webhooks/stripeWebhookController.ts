@@ -291,6 +291,48 @@ export const stripeWebhookController = async (
         break;
       }
 
+      case 'identity.verification_session.verified': {
+        await TenantModel.findOneAndUpdate(
+          { 'verification.identity.providerSessionId': event.data.object.id },
+          {
+            $set: {
+              'verification.identity.verified': true,
+              'verification.identity.verifiedAt': new Date(),
+            }
+          }
+        );
+        break;
+      }
+
+      // Stripe couldn't verify — document unclear, expired ID, mismatch, etc.
+      case 'identity.verification_session.requires_input': {
+        await TenantModel.findOneAndUpdate(
+          { 'verification.identity.providerSessionId': event.data.object.id },
+          {
+            $set: {
+              'verification.identity.verified': false,
+              'verification.identity.verifiedAt': null,
+            }
+          }
+        );
+        // TODO: notify tenant their verification needs to be retried
+        break;
+      }
+
+      // Tenant or you cancelled the session before completion
+      case 'identity.verification_session.canceled': {
+        await TenantModel.findOneAndUpdate(
+          { 'verification.identity.providerSessionId': event.data.object.id },
+          {
+            $set: {
+              'verification.identity.verified': false,
+              'verification.identity.providerSessionId': null,
+            }
+          }
+        );
+        break;
+      }
+
       // handle other relevant events if you want
       default:
         console.log(`Unhandled event type ${event.type}`);
