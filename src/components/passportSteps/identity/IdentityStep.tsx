@@ -69,7 +69,7 @@ const IdentityStep = ({
 
   const handleSubmit = async () => {
     try {
-      const clientSecret = axiosInstance.post('/api/passport/identity/start',
+      const clientSecret = await axiosInstance.post('/api/passport/identity/start',
         {
           verificationMethod: form.verificationMethod
         },
