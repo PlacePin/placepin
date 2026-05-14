@@ -30,7 +30,7 @@ export const deleteAccount = async (req: Request, res: Response) => {
       // Capture when the landlord's subscription would have naturally ended so
       // sponsored tenants get a grace period before being prompted to pick
       // their own plan. Fall back to 30 days if there's no active Stripe sub
-      // (e.g. landlord deleted account while mid-trial or before paying).
+      // (ex: landlord deleted account while mid-trial or before paying).
       let sponsorshipEndsAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
       if (stripeSubscriptionId) {
         try {
