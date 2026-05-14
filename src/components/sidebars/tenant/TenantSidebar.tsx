@@ -1,12 +1,13 @@
 import styles from './tenantSidebar.module.css'
 import { NavLink, useLocation } from "react-router-dom";
-import { MessageCircle } from 'lucide-react';
+import { Home, MessageCircle } from 'lucide-react';
 import { TENANT_ROUTES } from "../../../routes/tenantRoutes";
 
 const TenantSidebar = () => {
   const location = useLocation();
 
   const tabs = [
+    { path: TENANT_ROUTES.DASHBOARD, text: "Home", icon: <Home size={18} /> },
     { path: TENANT_ROUTES.MESSAGING, text: "Messaging", icon: <MessageCircle size={18} /> },
   ];
 
@@ -28,7 +29,7 @@ const TenantSidebar = () => {
                   }`}
               >
                 {tab.icon}
-                <span style={{ marginLeft: "0.75rem" }}>{tab.text}</span>
+                <span className={styles.tabText}>{tab.text}</span>
               </div>
             </NavLink>
           ))}
