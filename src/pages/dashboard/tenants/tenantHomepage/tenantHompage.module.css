@@ -1,3 +1,13 @@
-.title {
-  margin: 2rem 0 1rem 2rem;
+.landlordHomepageContainer {
+  /* Uncomment this part when you add more Stats KPI cards */
+  /* display: flex; */
+  height: 100%;
+  padding: 2rem;
+}
+
+.statsCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1rem 0;
 }
