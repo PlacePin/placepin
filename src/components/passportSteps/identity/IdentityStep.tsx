@@ -65,10 +65,12 @@ const IdentityStep = ({
   const [backDragging, setBackDragging] = useState(false);
   const frontInputRef = useRef<HTMLInputElement>(null);
   const backInputRef = useRef<HTMLInputElement>(null);
+  const [isVerifying, setIsVerifying] = useState(false);
 
   const { accessToken } = useAuth();
 
   const handleSubmit = async () => {
+    setIsVerifying(true);
     try {
       const { data } = await axiosInstance.post('/api/passport/identity',
         {
@@ -99,6 +101,8 @@ const IdentityStep = ({
     } catch (err) {
       console.error(err)
       // Add sentry
+    } finally {
+      setIsVerifying(false);
     }
   }
 
@@ -310,7 +314,7 @@ const IdentityStep = ({
       <div className={styles.actionRow}>
         <p className={styles.stepIndicator}>Step {currentStepIndex + 1} of {STEPS.length}</p>
         <PrimaryButton
-          title="Save & continue →"
+          title={isVerifying ? 'Verifying...' : `Save & continue →`}
           disabled={!isComplete}
           onClick={handleSubmit}
         />
