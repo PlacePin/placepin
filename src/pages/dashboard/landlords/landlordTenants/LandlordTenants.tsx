@@ -101,6 +101,7 @@ const LandlordTenants = () => {
           />
           <div className={styles.portalBody}>
             <TenantSummary
+              tenantId={selectedTenant._id}
               tenantName={selectedTenant.fullName}
               username={selectedTenant.username}
               profilePic={selectedTenant.profilePic}

@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { Server } from 'socket.io';
+import { setSocketIO } from './socketInstance';
 import { DirectMessageModel } from './database/models/Message.model';
 import { LandlordModel } from './database/models/Landlord.model';
 import { TenantModel } from './database/models/Tenant.model';
@@ -23,6 +24,8 @@ export function chatSocket(server: any) {
       methods: ['GET', 'POST'],
     },
   });
+
+  setSocketIO(io);
 
   io.on('connection', (socket) => {
     // Each user joins their personal "room"
@@ -89,10 +92,12 @@ export function chatSocket(server: any) {
           conversation.lastUpdated = time;
           await conversation.save();
 
-          // Prepare the message for the client
+          // Prepare the message for the client (usernames so UI keys threads correctly)
           const message = {
             senderId,
             receiverId,
+            senderUsername: user.username,
+            recipientUsername,
             content,
             sentAt: time,
             action: action ?? undefined,

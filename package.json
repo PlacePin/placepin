@@ -16,6 +16,7 @@
     "stripe": "stripe listen --forward-to localhost:3000/api/stripe-payment-subscribed --events payment_intent.succeeded,payment_intent.payment_failed,checkout.session.completed,customer.subscription.deleted,invoice.payment_succeeded,invoice.payment_failed,customer.subscription.trial_will_end"
   },
   "dependencies": {
+    "@prezzee/ts-v2-sdks": "^1.10.0",
     "@stripe/react-stripe-js": "^5.2.0",
     "@stripe/stripe-js": "^8.0.0",
     "axios": "^1.12.2",

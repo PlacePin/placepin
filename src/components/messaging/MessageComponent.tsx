@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { loadStripe } from "@stripe/stripe-js";
+import { ExternalLink } from "lucide-react";
 import axiosInstance from "../../utils/axiosInstance";
 import SecondaryButton from "../buttons/SecondaryButton";
 import styles from './messageComponent.module.css';
@@ -110,7 +111,23 @@ const MessageComponent = ({ message, index, isOwn, onActionComplete }: MessageCo
             </span>
           </>
         )}
-        {message.action?.completed && (
+        {message.action?.type === "PREZZEE_GIFT_CARD" && message.action.payload?.redemptionUrl && (
+          <>
+            <a
+              className={styles.giftLink}
+              href={message.action.payload.redemptionUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ExternalLink size={14} aria-hidden />
+              Open gift card
+            </a>
+            {message.action.payload.feeDisclosure && (
+              <span className={styles.giftFeeNote}>{message.action.payload.feeDisclosure}</span>
+            )}
+          </>
+        )}
+        {message.action?.type === "ACKNOWLEDGE_RENT_PRICE" && message.action?.completed && (
           <span>✅ Acknowledged</span>
         )}
       </p>

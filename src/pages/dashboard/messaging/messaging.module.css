@@ -73,6 +73,42 @@
   transform: translatey(4px);
 }
 
+.composeGift {
+  font-weight: 500;
+  cursor: pointer;
+  background: rgba(0, 191, 165, 0.12);
+  color: #00796b;
+  transition: all 0.3s ease;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.composeGift:hover {
+  transform: translatey(-2px);
+  background: rgba(0, 191, 165, 0.2);
+}
+
+.composeGift:focus-visible {
+  outline: 2px solid #00bfa5;
+  outline-offset: 2px;
+}
+
+.giftHint {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: #b45309;
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.5rem;
+}
+
 .convo {
   flex: 1;
   background: var(--color-surface-2);
