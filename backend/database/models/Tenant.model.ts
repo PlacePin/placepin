@@ -97,7 +97,7 @@ const tenantSchema = new mongoose.Schema({
       enum: ['card', 'ach'],
       default: 'card'
     },
-    sponsorshipEndsAt: { type: Date, default: null },
+    sponsorshipEndsAt: { type: Date, default: null, required: false },
   },
   username: { type: String, required: true },
 })

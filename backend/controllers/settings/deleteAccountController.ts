@@ -33,17 +33,13 @@ export const deleteAccount = async (req: Request, res: Response) => {
       // (ex: landlord deleted account while mid-trial or before paying).
       let sponsorshipEndsAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
       if (stripeSubscriptionId) {
-        try {
-          const sub = await stripeAccess.subscriptions.retrieve(stripeSubscriptionId);
-          // In Stripe API >= 2025-03-31, current_period_end lives on each subscription item.
-          const periodEnd = sub.items?.data?.[0]?.current_period_end;
-          if (periodEnd) {
-            sponsorshipEndsAt = new Date(periodEnd * 1000);
-          }
-          await stripeAccess.subscriptions.cancel(stripeSubscriptionId);
-        } catch (err) {
-          console.error('Failed to cancel landlord Stripe subscription during account deletion', err);
+        const sub = await stripeAccess.subscriptions.retrieve(stripeSubscriptionId);
+        // In Stripe API >= 2025-03-31, current_period_end lives on each subscription item.
+        const periodEnd = sub.items?.data?.[0]?.current_period_end;
+        if (periodEnd) {
+          sponsorshipEndsAt = new Date(periodEnd * 1000);
         }
+        await stripeAccess.subscriptions.cancel(stripeSubscriptionId);
       }
 
       // Sponsored tenants keep tier === 'Landlord-Sponsored' until the date
@@ -60,20 +56,12 @@ export const deleteAccount = async (req: Request, res: Response) => {
       await LandlordModel.deleteOne({ _id: landlord._id });
     } else if (tenant) {
       if (stripeSubscriptionId) {
-        try {
-          await stripeAccess.subscriptions.cancel(stripeSubscriptionId);
-        } catch (err) {
-          console.error('Failed to cancel tenant Stripe subscription during account deletion', err);
-        }
+        await stripeAccess.subscriptions.cancel(stripeSubscriptionId);
       }
       await TenantModel.deleteOne({ _id: tenant._id });
     } else if (tradesmen) {
       if (stripeSubscriptionId) {
-        try {
-          await stripeAccess.subscriptions.cancel(stripeSubscriptionId);
-        } catch (err) {
-          console.error('Failed to cancel tradesmen Stripe subscription during account deletion', err);
-        }
+        await stripeAccess.subscriptions.cancel(stripeSubscriptionId);
       }
       await TradesmenModel.deleteOne({ _id: tradesmen._id });
     }

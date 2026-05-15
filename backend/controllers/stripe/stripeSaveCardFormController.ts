@@ -36,6 +36,7 @@ export const stripeSaveCardForm = async (
         stripeBankAccountId: '',
         stripeMandateId: '',
         paymentMethod: 'card',
+        sponsorshipEndsAt: null,
       };
     }
 
