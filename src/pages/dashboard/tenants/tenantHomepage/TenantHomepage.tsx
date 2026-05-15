@@ -17,27 +17,39 @@ const TenantHomepage = () => {
 
   const rentAmountExpected = data.user.rentAmountExpected;
 
+  const rentDueCard = (
+    <ActivityCard
+      title="Rent Due"
+      ctaText="Pay rent"
+      infoLabel="Due date"
+      infoValue={
+        rentAmountExpected.dueDate ?
+          `${rentAmountExpected.dueDate}${getOrdinalSuffix(rentAmountExpected.dueDate)} of each month` :
+          'N/A'
+      }
+      handleClick={() => { }}
+    >
+      <div className={styles.rentAmount}>
+        <span className={styles.rentCurrencySymbol}>$</span>
+        <span className={styles.rentAmountValue}>
+          {rentAmountExpected.amount ? rentAmountExpected.amount.toLocaleString() : 'N/A'}
+        </span>
+        <span className={styles.rentAmountSuffix}>/mo</span>
+      </div>
+    </ActivityCard>
+  )
+
   return (
     <div className={styles.landlordHomepageContainer}>
       <h2>
         Upcoming / Recent Activity
       </h2>
       <div className={styles.statsCards}>
-        <ActivityCard
-          title="Rent Due"
-          ctaText="Pay rent"
-          infoLabel="Due date"
-          infoValue={rentAmountExpected.dueDate ? `${rentAmountExpected.dueDate}${getOrdinalSuffix(rentAmountExpected.dueDate)} of each month` : 'N/A'}
-          handleClick={() => { }}
-        >
-          <div className={styles.rentAmount}>
-            <span className={styles.rentCurrencySymbol}>$</span>
-            <span className={styles.rentAmountValue}>
-              {rentAmountExpected.amount ? rentAmountExpected.amount.toLocaleString(): 'N/A'}
-            </span>
-            <span className={styles.rentAmountSuffix}>/mo</span>
-          </div>
-        </ActivityCard>
+        {
+          rentAmountExpected.amount &&
+          rentAmountExpected.dueDate &&
+          rentDueCard
+        }
       </div>
     </div>
   )
