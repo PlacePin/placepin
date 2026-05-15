@@ -1,8 +1,9 @@
 import { useState, type FormEvent } from "react";
+import { useAuth } from "../../context/AuthContext";
 import FormModal from "./FormModal";
 import styles from './updateAddressModal.module.css';
-import { useAuth } from "../../context/AuthContext";
 import axiosInstance from "../../utils/axiosInstance";
+import axios from "axios";
 
 interface UpdateAddressModalProps {
   street: string,
@@ -56,8 +57,12 @@ const UpdateAddressModal = ({
       )
       setMessage(data.message)
       onClose()
-    } catch (err) {
-
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        setMessage(err.response?.data.message)
+      } else if (err instanceof Error) {
+        setMessage(err.message)
+      }
     }
   }
 

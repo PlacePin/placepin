@@ -18,6 +18,7 @@ import waitlistRoutes from './routes/waitlist/waitlistRoutes';
 import featuresListRoutes from './routes/featuresList/featuresListRoutes';
 import rentRoutes from './routes/rent/rentRoutes';
 import stripeFinancialConnectionsRoutes from './routes/stripe/stripeFinancialConnectionsRoutes';
+import tenantDataRoutes from './routes/resources/tenantDataRoutes';
 
 // Add a rate limiter as middleware 
 
@@ -47,6 +48,7 @@ app.use('/api/settings', authenticateToken, settingsRoutes)
 app.use('/api/subscription', authenticateToken, subscriptionRoutes)
 app.use('/api/users', authenticateToken, usersRoutes)
 app.use('/api/landlords', authenticateToken, landlordDataRoute)
+app.use('/api/tenants', authenticateToken, tenantDataRoutes)
 app.use('/api/messages', authenticateToken, messageRoutes)
 app.use('/api/workorders', authenticateToken, workOrderRoutes)
 app.use('/api/rent', authenticateToken, rentRoutes)
