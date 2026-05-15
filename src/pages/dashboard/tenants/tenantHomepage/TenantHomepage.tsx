@@ -1,6 +1,7 @@
-import StatsKPICard from '../../../../components/cards/landlord/StatsKPICard';
 import styles from './tenantHompage.module.css';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
+import ActivityCard from '../../../../components/cards/tenant/activityCard';
+import { getOrdinalSuffix } from '../../../../utils/getOrdinalSuffix';
 
 const TenantHomepage = () => {
 
@@ -16,33 +17,27 @@ const TenantHomepage = () => {
 
   const rentAmountExpected = data.user.rentAmountExpected;
 
-  const rentDueInfo = (
-    <div>
-      <p>Your rent is{' '}
-        <span className={styles.infoText}>
-          ${rentAmountExpected.amount}
-        </span>
-        , due on the{' '}
-        <span className={styles.infoText}>
-          {rentAmountExpected.dueDate}th.
-        </span>
-      </p>
-    </div>
-  )
-
   return (
     <div className={styles.landlordHomepageContainer}>
       <h2>
         Upcoming / Recent Activity
       </h2>
       <div className={styles.statsCards}>
-        <StatsKPICard
-          title={'Rent Due'}
-          ctaText={'Pay Rent'}
+        <ActivityCard
+          title="Rent Due"
+          ctaText="Pay rent"
+          infoLabel="Due date"
+          infoValue={`${rentAmountExpected.dueDate}${getOrdinalSuffix(rentAmountExpected.dueDate)} of each month`}
           handleClick={() => { }}
         >
-          {rentAmountExpected.dueDate ? rentDueInfo : 'Not sure'}
-        </StatsKPICard>
+          <div className={styles.rentAmount}>
+            <span className={styles.rentCurrencySymbol}>$</span>
+            <span className={styles.rentAmountValue}>
+              {rentAmountExpected.amount.toLocaleString()}
+            </span>
+            <span className={styles.rentAmountSuffix}>/mo</span>
+          </div>
+        </ActivityCard>
       </div>
     </div>
   )

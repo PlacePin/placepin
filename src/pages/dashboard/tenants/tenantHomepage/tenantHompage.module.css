@@ -11,3 +11,34 @@
   gap: 1rem;
   padding: 1rem 0;
 }
+
+.rentAmount {
+  display: flex;
+  align-items: baseline;     /* Keeps the main digits and '/mo' on the same baseline */
+  justify-content: center;   /* Centers the entire block inside your ActivityCard */
+  line-height: 1;            /* Strips out hidden vertical text-line padding */
+}
+
+.rentCurrencySymbol {
+  font-size: 1.25rem;        /* Shrinks the dollar sign relative to the big number */
+  font-weight: 700;
+  color: var(--color-text-3);            /* Matches your theme's teal brand color */
+  align-self: flex-start;    /* Forces the symbol up to the top boundary */
+  position: relative;
+  top: 4px;                  /* Fine-tunes the float height directly above the first digit */
+  margin-right: 2px;         /* Adds a subtle gap before the number starts */
+}
+
+.rentAmountValue {
+  font-size: 3rem;           /* Keeps the main rent figures large and bold */
+  font-weight: 800;
+  color: var(--color-text-1);            /* Clean dark gray/black shade */
+  letter-spacing: -0.03em;   /* Gives it that tight, clean design-system look */
+}
+
+.rentAmountSuffix {
+  font-size: 1.25rem;        /* Scales down the suffix text */
+  font-weight: 600;
+  color: var(--color-text-3);           /* Matches the teal theme color */
+  margin-left: 3px;          /* Clean separation from the last digit */
+}

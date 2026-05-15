@@ -1,0 +1,108 @@
+.cardContainer {
+  position: relative;
+  background-color: var(--color-surface-1);
+  border-radius: 1rem;
+  border: 1px solid var(--color-border-5);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: var(--font-family);
+}
+
+.cardContainer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.cardContainer:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.cardContainer:hover::before {
+  opacity: 1;
+}
+
+.cardBody {
+  flex: 1;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--color-border-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.cardTitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.07rem;
+  text-transform: uppercase;
+  color: var(--color-text-3);
+  margin: 0;
+}
+
+.cardContent {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.25rem;
+  position: relative;
+  z-index: 2;
+}
+
+.cardInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cardInfoLabel {
+  font-size: 0.9rem;
+  color: var(--color-text-3);
+  margin: 0;
+}
+
+.cardInfoValue {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-2);
+  margin: 0;
+}
+
+.cardButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-primary);
+  border: none;
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-weight: 600;
+  color: var(--color-surface-1);
+  cursor: pointer;
+  font-family: var(--font-family);
+  transition: background 0.2s ease;
+}
+
+.cardButton:hover {
+  background: var(--color-primary-hover);
+}
