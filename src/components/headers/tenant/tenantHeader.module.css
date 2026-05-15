@@ -1,3 +1,8 @@
+.headerWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 .tenantHeaderContainer {
   height: 3.5rem;
   background: #fff;
@@ -11,6 +16,11 @@
   margin-left: 1em;
 }
 
+.settingsWrapper {
+  display: flex;
+  align-items: center;
+}
+
 .settingsIcon {
   margin-right: 1em;
   cursor: pointer;
@@ -21,11 +31,6 @@
   transform: rotate(90deg);
 }
 
-.settingsWrapper {
-  display: flex;
-  align-items: center;
-}
-
 .tiers {
   margin-right: 2rem;
   font-size: 24px;
@@ -34,4 +39,84 @@
 
 .span {
   color: #00bfa5;
+}
+
+.sponsorshipBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  background: #fff7e6;
+  border-bottom: 1px solid #ffd591;
+  color: #875d11;
+  font-size: 0.85rem;
+}
+
+.sponsorshipMessage {
+  flex: 1;
+  line-height: 1.4;
+}
+
+.sponsorshipButton {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: none;
+  background: #00bfa5;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.12s ease;
+}
+
+.sponsorshipButton:hover {
+  background: #00a98f;
+}
+
+@media (max-width: 1025px) {
+  .tenantHeaderContainer {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .settingsWrapper {
+    margin-left: auto;
+  }
+
+  .settingsIcon {
+    margin-right: 0;
+  }
+
+  .headerTitle {
+    display: none;
+  }
+
+  .tiers {
+    margin-right: 1rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .sponsorshipBanner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    text-align: center;
+  }
+
+  .sponsorshipMessage {
+    font-size: 0.8rem;
+  }
+
+  .sponsorshipButton {
+    width: 100%;
+  }
+
+  .tiers {
+    font-size: 0.85rem;
+    margin-right: 0.75rem;
+  }
 }
