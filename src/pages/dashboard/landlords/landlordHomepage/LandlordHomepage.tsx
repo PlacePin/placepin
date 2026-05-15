@@ -84,7 +84,7 @@ const LandlordHomepage = () => {
       </div>
       {showInviteModal && (
         <InviteTenantModal
-          onClose={() => setShowInviteModal(prev => !prev)}
+          onClose={handleInvite}
         />
       )}
     </div>

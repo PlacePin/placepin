@@ -3,8 +3,12 @@ import { useGetAxios } from '../../../../hooks/useGetAxios';
 import ActivityCard from '../../../../components/cards/tenant/ActivityCard';
 import { getOrdinalSuffix } from '../../../../utils/getOrdinalSuffix';
 import { capitalizeWords } from '../../../../utils/stringUtils';
+import UpdateAddressModal from '../../../../components/modals/UpdateAddressModal';
+import { useState } from 'react';
 
 const TenantHomepage = () => {
+
+  const [showUpdateAddressModal, setShowUpdateAddressModal] = useState(false);
 
   const { data, error } = useGetAxios(`/api/users`)
 
@@ -19,12 +23,17 @@ const TenantHomepage = () => {
   const rentAmountExpected = data.user.rentAmountExpected;
   const address = data.user.address;
 
+  const handleUpdate = () => {
+    setShowUpdateAddressModal(prev => !prev)
+  }
+
   const addressCard = (
     <ActivityCard
       title={'Address'}
       ctaText={'Update Address'}
       infoLabel={'Living'}
       infoValue='More than a place to stay'
+      handleClick={handleUpdate}
     >
       <div className={styles.addressContainer}>
         <span className={styles.streetAddress}>
@@ -80,6 +89,16 @@ const TenantHomepage = () => {
           rentDueCard
         }
       </div>
+      {showUpdateAddressModal && (
+        <UpdateAddressModal
+          street={address.street}
+          suite={address.unit}
+          city={address.city}
+          state={address.state}
+          zip={address.zip}
+          onClose={handleUpdate}
+        />
+      )}
     </div>
   )
 }

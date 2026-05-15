@@ -6,6 +6,7 @@ import axiosInstance from "../../utils/axiosInstance";
 
 interface UpdateAddressModalProps {
   street: string,
+  suite?: string,
   city: string,
   state: string
   zip: string,
@@ -14,6 +15,7 @@ interface UpdateAddressModalProps {
 
 const UpdateAddressModal = ({
   street,
+  suite,
   city,
   state,
   zip,
@@ -23,10 +25,13 @@ const UpdateAddressModal = ({
   const [message, setMessage] = useState('');
   const [propertyAddress, setPropertyAddress] = useState({
     street,
+    suite,
     city,
     state,
     zip
   });
+
+  console.log(propertyAddress)
 
   const { accessToken } = useAuth();
 
@@ -62,21 +67,41 @@ const UpdateAddressModal = ({
     <FormModal title='Update Address' onClose={onClose}>
       <form onSubmit={handleUpdatePropertySubmit}>
         <div className={styles.formContainer}>
-          <label
-            htmlFor='streetAddress'
-            className={styles.labels}
-          >
-            Street Address
-          </label>
-          <input
-            type="text"
-            id='streetAddress'
-            name="street"
-            placeholder='123 Main Street'
-            onChange={handleChange}
-            className={styles.inputFields}
-            required
-          />
+          <div className={styles.split}>
+            <div className={styles.address}>
+              <label
+                htmlFor='streetAddress'
+                className={styles.labels}
+              >
+                Street Address
+              </label>
+              <input
+                type="text"
+                id='streetAddress'
+                name="street"
+                placeholder='123 Main Street'
+                onChange={handleChange}
+                className={styles.inputFields}
+                required
+              />
+            </div>
+            <div className={styles.suite}>
+              <label
+                htmlFor='streetAddress'
+                className={styles.labels}
+              >
+                Apartment, suite, etc.
+              </label>
+              <input
+                type="text"
+                id='suite'
+                name="suite"
+                placeholder='4A'
+                onChange={handleChange}
+                className={styles.inputFields}
+              />
+            </div>
+          </div>
           <div className={styles.split}>
             <div className={styles.city}>
               <label
@@ -130,7 +155,7 @@ const UpdateAddressModal = ({
           />
         </div>
         <button className={styles.button}>
-          Update Property
+          Update Address
         </button>
         <p className={styles.message}>{message}</p>
       </form>
