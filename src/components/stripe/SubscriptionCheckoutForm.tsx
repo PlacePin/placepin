@@ -19,8 +19,6 @@ const SubscriptionCheckoutForm = ({
     return <Navigate to="/login" replace />;
   }
 
-  console.log(subscriptionPlan)
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 

@@ -110,6 +110,26 @@ const tenantSchema = new mongoose.Schema({
     },
   },
   username: { type: String, required: true },
+  verification: {
+    identity: {
+      verified: {
+        type: Boolean,
+        default: false, // false until the provider confirms
+      },
+      method: {
+        type: String,
+        enum: ['stripe_identity', 'manual']
+      },
+      verifiedAt: {
+        type: Date,
+        default: null // set by webhook when provider confirms
+      },
+      providerSessionId: {
+        type: String,
+        default: null // set after you create the session
+      },
+    }
+  }
 })
 
 // This is the type as a js object
