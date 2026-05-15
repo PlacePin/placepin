@@ -80,6 +80,7 @@ const UpdateAddressModal = ({
                 id='streetAddress'
                 name="street"
                 placeholder='123 Main Street'
+                value={street}
                 onChange={handleChange}
                 className={styles.inputFields}
                 required
@@ -87,7 +88,7 @@ const UpdateAddressModal = ({
             </div>
             <div className={styles.suite}>
               <label
-                htmlFor='streetAddress'
+                htmlFor='suite'
                 className={styles.labels}
               >
                 Apartment, suite, etc.
@@ -97,6 +98,7 @@ const UpdateAddressModal = ({
                 id='suite'
                 name="suite"
                 placeholder='4A'
+                value={suite ? suite : ''}
                 onChange={handleChange}
                 className={styles.inputFields}
               />
@@ -115,6 +117,7 @@ const UpdateAddressModal = ({
                 id='city'
                 name="city"
                 placeholder='Boston'
+                value={city}
                 onChange={handleChange}
                 className={styles.inputFields}
                 required
@@ -132,6 +135,7 @@ const UpdateAddressModal = ({
                 id='state'
                 name="state"
                 placeholder='Massachusetts'
+                value={state}
                 onChange={handleChange}
                 className={styles.inputFields}
                 required
@@ -149,6 +153,7 @@ const UpdateAddressModal = ({
             id='zip'
             name="zip"
             placeholder='02136'
+            value={zip}
             onChange={handleChange}
             className={styles.inputFields}
             required
