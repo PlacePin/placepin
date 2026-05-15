@@ -43,6 +43,8 @@ interface Subscription {
   isSubscribed: boolean;
   tier: string | null;
   cancelAtPeriodEnd: boolean;
+  sponsorshipEndsAt?: string | null;
+  sponsorshipExpired?: boolean;
 }
 
 const Subscriptions = () => {
@@ -232,6 +234,13 @@ const Subscriptions = () => {
       <div className={styles.container}>
         <h2 className={styles.heading}>Tenant Subscriptions</h2>
         <p className={styles.globalNote}>No contracts. Cancel anytime.</p>
+        {subscription?.sponsorshipEndsAt && (
+          <p className={styles.globalNote}>
+            {subscription.sponsorshipExpired
+              ? 'Your landlord sponsorship has ended — choose a plan below.'
+              : `Your landlord sponsorship ends on ${new Date(subscription.sponsorshipEndsAt).toLocaleDateString()}. After that you'll need to choose a plan.`}
+          </p>
+        )}
         <div className={styles.grid}>
           {tenantPlans.map((plan) => {
             const isCurrent = subscription?.isSubscribed && plan.name === subscription?.tier;

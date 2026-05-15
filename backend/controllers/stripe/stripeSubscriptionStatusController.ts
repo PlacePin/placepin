@@ -24,7 +24,23 @@ export const stripeSubscriptionStatus = async (req: Request, res: Response) => {
 
     const stripeSubscriptionId = user.subscription?.stripeSubscriptionId;
 
+    // Tenant-only: surface the landlord-sponsorship grace period. Once the
+    // grace period has expired AND the tenant has no Stripe sub of their own,
+    // report them as un-subscribed so the existing plan cards render.
+    const sponsorshipEndsAt = tenant?.subscription?.sponsorshipEndsAt ?? null;
+    const sponsorshipExpired = !!sponsorshipEndsAt && sponsorshipEndsAt.getTime() <= Date.now();
+
     if (!stripeSubscriptionId) {
+      if (tenant && sponsorshipEndsAt) {
+        return res.status(200).json({
+          isSubscribed: !sponsorshipExpired,
+          tier: sponsorshipExpired ? null : (tenant.subscription?.tier ?? null),
+          cancelAtPeriodEnd: false,
+          sponsorshipEndsAt,
+          sponsorshipExpired,
+        });
+      }
+
       return res.status(200).json({
         isSubscribed: false,
         tier: null,
@@ -40,6 +56,9 @@ export const stripeSubscriptionStatus = async (req: Request, res: Response) => {
       isSubscribed: user.subscription?.isSubscribed ?? false,
       tier,
       cancelAtPeriodEnd: subscription.cancel_at_period_end,
+      ...(tenant && sponsorshipEndsAt
+        ? { sponsorshipEndsAt, sponsorshipExpired }
+        : {}),
     });
 
   } catch (err) {

@@ -3,11 +3,13 @@ import BasicInfo from './basicInfomation/BasicInfo';
 import BankSettings from './bankSettings/BankSettings';
 import { useState, useEffect } from 'react';
 import Subscriptions from './subscriptionSettings/Subscriptions';
+import AccountManagement from './accountManagement/AccountManagement';
 
 const tabs = [
   { id: 'basic', label: 'Basic Information' },
   { id: 'bank', label: 'Bank Settings' },
   { id: 'subscriptions', label: 'Subscriptions' },
+  { id: 'account', label: 'Account Management' },
 ] as const;
 
 type Tab = typeof tabs[number]['id'];
@@ -48,6 +50,7 @@ const GeneralSettings = () => {
           {activeTab === 'basic' && <BasicInfo />}
           {activeTab === 'bank' && <BankSettings />}
           {activeTab === 'subscriptions' && <Subscriptions />}
+          {activeTab === 'account' && <AccountManagement />}
         </div>
       </div>
     </div>
