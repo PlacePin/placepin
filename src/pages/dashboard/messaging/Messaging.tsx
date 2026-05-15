@@ -1,12 +1,13 @@
 import { useGetAxios } from '../../../hooks/useGetAxios';
 import { useAuth } from '../../../context/AuthContext';
 import { useEffect, useRef, useState } from 'react';
-import { MessageCircleMore, Plus } from 'lucide-react';
+import { Gift, MessageCircleMore, Plus } from 'lucide-react';
 import { io, Socket } from 'socket.io-client';
 import { jwtDecode } from 'jwt-decode';
 import type { DecodedAccessToken } from '../../../interfaces/interfaces';
 import styles from './messaging.module.css';
 import ComposeModal from '../../../components/modals/ComposeModal';
+import SendGiftModal from '../../../components/modals/SendGiftModal';
 import PrimaryButton from '../../../components/buttons/PrimaryButton';
 import { NavLink } from 'react-router-dom';
 import axiosInstance from '../../../utils/axiosInstance';
@@ -26,7 +27,15 @@ type Message = {
 type SocketMessage = {
   senderId: string;
   receiverId: string;
+  senderUsername?: string;
+  recipientUsername?: string;
 } & Message;
+
+type LandlordTenantRow = {
+  _id: string;
+  username: string;
+  fullName?: string;
+};
 
 const Messaging = () => {
   const [people, setPeople] = useState<string[]>([]);
@@ -34,6 +43,10 @@ const Messaging = () => {
   const [messages, setMessages] = useState<Record<string, Message[]>>({});
   const [inputValue, setInputValue] = useState('');
   const [showCompose, setShowCompose] = useState(false);
+  const [showGiftModal, setShowGiftModal] = useState(false);
+  const [giftTenant, setGiftTenant] = useState<{ id: string; name: string } | null>(null);
+  const [giftHint, setGiftHint] = useState<string | null>(null);
+  const [landlordTenants, setLandlordTenants] = useState<LandlordTenantRow[] | null>(null);
   const socketRef = useRef<Socket | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -44,6 +57,7 @@ const Messaging = () => {
   }
 
   const decoded = jwtDecode<DecodedAccessToken>(accessToken);
+  const isLandlord = decoded.accountType === 'landlord';
 
   // Set your current user (in production, you'd use user ID or JWT)
   const currentUserId = decoded.userID;
@@ -66,14 +80,18 @@ const Messaging = () => {
     ) => {
       const isSelf = data.senderId === currentUserId;
       const chatPartnerId = isSelf ? data.receiverId : data.senderId;
-
-      const chatPartnerUsername = people.find((person) => person === convoWith) || convoWith || chatPartnerId;
+      // Always bucket by the other person’s username so messages land in the right thread
+      // (do not use the currently selected convo — that mis-routes gifts and other server pushes).
+      const threadKey =
+        (isSelf ? data.recipientUsername : data.senderUsername) ||
+        (people.includes(convoWith) ? convoWith : '') ||
+        String(chatPartnerId);
 
       setMessages((prev) => ({
         ...prev,
-        [chatPartnerUsername]: [...(prev[chatPartnerUsername] || []),
+        [threadKey]: [...(prev[threadKey] || []),
         {
-          sender: isSelf ? 'You' : chatPartnerUsername,
+          sender: isSelf ? 'You' : threadKey,
           content: data.content,
           sentAt: data.sentAt,
           action: data.action ?? undefined
@@ -89,10 +107,27 @@ const Messaging = () => {
   const { data, error } = useGetAxios('/api/messages/usernames');
 
   useEffect(() => {
+    if (!isLandlord || !accessToken) return;
+    const ac = new AbortController();
+    axiosInstance
+      .get<{ tenants: LandlordTenantRow[] }>('/api/landlords/tenants', {
+        headers: { Authorization: `Bearer ${accessToken}` },
+        signal: ac.signal,
+      })
+      .then((res) => setLandlordTenants(res.data.tenants ?? []))
+      .catch(() => setLandlordTenants([]));
+    return () => ac.abort();
+  }, [isLandlord, accessToken]);
+
+  useEffect(() => {
     if (data?.usernames) {
       setPeople(data.usernames);
     }
   }, [data]);
+
+  useEffect(() => {
+    setGiftHint(null);
+  }, [convoWith]);
 
   const isLoading = !data;
   const hasError = !!error;
@@ -141,6 +176,28 @@ const Messaging = () => {
     }
   }
 
+  const handleGiftClick = () => {
+    if (!convoWith) {
+      setGiftHint('Select a conversation first, then send a gift to that tenant.');
+      return;
+    }
+    if (!landlordTenants) {
+      setGiftHint('Loading your tenant list…');
+      return;
+    }
+    const match = landlordTenants.find((t) => t.username === convoWith);
+    if (!match) {
+      setGiftHint('Gifts can only be sent to tenants on your properties. Invite them from Tenants if they are missing here.');
+      return;
+    }
+    setGiftHint(null);
+    setGiftTenant({
+      id: match._id,
+      name: match.fullName || match.username,
+    });
+    setShowGiftModal(true);
+  };
+
   const handleSend = () => {
     if (!inputValue.trim() || !convoWith) return;
 
@@ -176,6 +233,26 @@ const Messaging = () => {
             >
               <Plus /> Compose
             </p>
+            {isLandlord && (
+              <p
+                className={styles.composeGift}
+                onClick={handleGiftClick}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleGiftClick();
+                  }
+                }}
+              >
+                <Gift size={18} strokeWidth={1.75} aria-hidden />
+                Send gift
+              </p>
+            )}
+            {isLandlord && giftHint && (
+              <p className={styles.giftHint}>{giftHint}</p>
+            )}
           </div>
           <div className={styles.messagesList}>
             {people.map((person, i) => (
@@ -266,6 +343,16 @@ const Messaging = () => {
       {showCompose && (
         <ComposeModal
           onClose={() => setShowCompose(prev => !prev)}
+        />
+      )}
+      {showGiftModal && giftTenant && (
+        <SendGiftModal
+          tenantId={giftTenant.id}
+          tenantName={giftTenant.name}
+          onClose={() => {
+            setShowGiftModal(false);
+            setGiftTenant(null);
+          }}
         />
       )}
     </div>

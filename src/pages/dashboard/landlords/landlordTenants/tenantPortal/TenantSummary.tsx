@@ -3,11 +3,13 @@ import styles from './tenantSummary.module.css';
 import { useState } from 'react';
 import { capitalizeWords } from '../../../../../utils/stringUtils';
 import ComposeModal from '../../../../../components/modals/ComposeModal';
+import SendGiftModal from '../../../../../components/modals/SendGiftModal';
 import { calculateDaysFromDate } from '../../../../../utils/calculateDaysFromDate';
 import PrimaryButton from '../../../../../components/buttons/PrimaryButton';
 import emptyProfile from '../../../../../assets/emptyProfile.webp';
 
 interface TenantSummaryProps {
+  tenantId: string;
   tenantName: string,
   username: string,
   profilePic: string,
@@ -17,6 +19,7 @@ interface TenantSummaryProps {
 }
 
 const TenantSummary = ({
+  tenantId,
   tenantName,
   username,
   profilePic,
@@ -26,6 +29,7 @@ const TenantSummary = ({
 }: TenantSummaryProps) => {
   const [showContact, setShowContact] = useState(false);
   const [showCompose, setShowCompose] = useState(false);
+  const [showGiftModal, setShowGiftModal] = useState(false);
 
   const daysAsTenant = calculateDaysFromDate(moveInDate);
 
@@ -97,26 +101,32 @@ const TenantSummary = ({
           </div>
         </div>
       </div>
-      <div className={`${styles.defaultCardStyles} ${styles.misc} ${styles.miscDisabled}`}>
+      <div className={`${styles.defaultCardStyles} ${styles.misc}`}>
         <div className={styles.miscHeader}>
           <Gift className={styles.giftIcon} />
-          <span className={`${styles.badge} ${styles.badgeComingSoon}`}>Coming Soon</span>
+          <span className={`${styles.badge} ${styles.badgePrezzee}`}>Prezzee</span>
         </div>
         <div className={styles.miscContent}>
           <h3 className={styles.miscTitle}>Gift a Perk</h3>
-          <p className={styles.miscDescription}>A paid feature — reward great tenants with perks</p>
+          <p className={styles.miscDescription}>Send a digital gift card; your tenant gets a secure link in Messages.</p>
         </div>
         <PrimaryButton
           title={'Send Gift'}
           icon={<ArrowRight size={16} />}
-          onClick={() => {}}
-          disabled
+          onClick={() => setShowGiftModal(true)}
         />
       </div>
       {showCompose && (
         <ComposeModal
           onClose={() => setShowCompose(prev => !prev)}
           username={username}
+        />
+      )}
+      {showGiftModal && (
+        <SendGiftModal
+          tenantId={tenantId}
+          tenantName={capitalizeWords(tenantName)}
+          onClose={() => setShowGiftModal(false)}
         />
       )}
     </div>
