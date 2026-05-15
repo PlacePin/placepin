@@ -7,7 +7,7 @@ interface ActivityCardProps {
   children: ReactNode;
   ctaText: string;
   infoLabel: string;
-  infoValue: string;
+  infoValue?: string;
   handleClick?: () => void;
 }
 
