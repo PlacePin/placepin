@@ -42,6 +42,10 @@
   width: 100%;
 }
 
+.mobileTopRow {
+  width: 100%;
+}
+
 .navLink {
   text-decoration: none;
   color: inherit;
@@ -78,4 +82,94 @@
 
 .tabText {
   margin-left: 0.75rem;
+}
+
+.mobileMenuButton {
+  display: none;
+}
+
+@media (max-width: 1025px) {
+  .sideBarContainer {
+    width: 100%;
+    height: auto;
+    min-height: 3.5rem;
+    position: relative;
+    z-index: 30;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .logoAndTabs {
+    align-items: stretch;
+    position: relative;
+  }
+
+  .mobileTopRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .logoText {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .mobileMenuButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border-radius: 0.5rem;
+    padding: 0.4rem;
+    cursor: pointer;
+  }
+
+  .tabs {
+    display: none;
+  }
+
+  .mobileOpen {
+    display: flex;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    z-index: 30;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.6rem 0.75rem;
+    background: linear-gradient(135deg, #00bfa5 0%, #4dd0e1 100%);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .navLink {
+    flex: 0 0 auto;
+  }
+
+  .sidebarItem {
+    margin: 0;
+    padding: 0.55rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+  }
+
+  .sidebarItem:hover {
+    transform: none;
+  }
+
+  .sidebarItem.active {
+    border-radius: 999px;
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.35);
+  }
+
+  .tabText {
+    margin-left: 0.45rem;
+    font-size: 0.9rem;
+  }
 }

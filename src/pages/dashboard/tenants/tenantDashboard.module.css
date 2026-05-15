@@ -1,6 +1,7 @@
 .tenantDashboardContainer {
   display: flex;
   background: #f5f0eb;
+  width: 100%;
 }
 
 .tenantHeaderBody {
@@ -14,4 +15,28 @@
   background: #f5f0eb;
   flex-direction: column;
   align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .tenantDashboardContainer {
+    flex-direction: column;
+    max-width: 100vw;
+    max-height: 100vh;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+
+  .tenantErrorContainer {
+    width: 100%;
+  }
+}
+
+@media (max-width: 650px) {
+  .tenantHeaderBody {
+    min-width: 0;
+  }
+
+  .tenantErrorContainer {
+    padding: 1rem;
+  }
 }
