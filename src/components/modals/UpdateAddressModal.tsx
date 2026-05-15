@@ -31,8 +31,6 @@ const UpdateAddressModal = ({
     zip
   });
 
-  console.log(propertyAddress)
-
   const { accessToken } = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
