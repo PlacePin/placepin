@@ -28,11 +28,11 @@ const TenantHomepage = () => {
     >
       <div className={styles.addressContainer}>
         <span className={styles.streetAddress}>
-          {address.street}
+          {capitalizeWords(address.street)}
         </span>
         <p>
           <span>
-            {capitalizeWords(address.city)}{' '}
+            {capitalizeWords(address.city)}{', '}
           </span>
           <span>
             {address.state.toUpperCase()}{' '}
