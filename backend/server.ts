@@ -9,7 +9,7 @@ import settingsRoutes from './routes/settings/settingsRoutes';
 import stripeWebhookRoute from './routes/stripe/webhooks/stripeWebhookRoute';
 import subscriptionRoutes from './routes/resources/subscriptionRoutes';
 import usersRoutes from './routes/resources/usersRoutes';
-import landlordDataRoute from './routes/resources/landlordDataRoute';
+import landlordDataRoutes from './routes/resources/landlordDataRoutes';
 import { authenticateToken } from './middleware/authenticateToken';
 import { chatSocket } from './chatSocket';
 import messageRoutes from './routes/messages/messageRoutes';
@@ -47,7 +47,7 @@ app.use('/api/features-list', featuresListRoutes)
 app.use('/api/settings', authenticateToken, settingsRoutes)
 app.use('/api/subscription', authenticateToken, subscriptionRoutes)
 app.use('/api/users', authenticateToken, usersRoutes)
-app.use('/api/landlords', authenticateToken, landlordDataRoute)
+app.use('/api/landlords', authenticateToken, landlordDataRoutes)
 app.use('/api/tenants', authenticateToken, tenantDataRoutes)
 app.use('/api/messages', authenticateToken, messageRoutes)
 app.use('/api/workorders', authenticateToken, workOrderRoutes)

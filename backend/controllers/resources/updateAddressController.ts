@@ -7,8 +7,6 @@ export const updateAddress = async (
   const { street, suite, city, state, zip } = req.body;
   const userId = req.userId;
 
-  console.log(street, suite, city, state, zip)
-
   if (!userId) {
     return res.status(404).json({ message: 'User does not exist.' })
   }
