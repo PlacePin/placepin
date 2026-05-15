@@ -42,3 +42,16 @@
   color: var(--color-text-3);           /* Matches the teal theme color */
   margin-left: 3px;          /* Clean separation from the last digit */
 }
+
+.addressContainer {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.streetAddress {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-text-1);
+  letter-spacing: -0.03em;
+}

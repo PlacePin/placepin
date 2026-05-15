@@ -2,6 +2,7 @@ import styles from './tenantHompage.module.css';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
 import ActivityCard from '../../../../components/cards/tenant/ActivityCard';
 import { getOrdinalSuffix } from '../../../../utils/getOrdinalSuffix';
+import { capitalizeWords } from '../../../../utils/stringUtils';
 
 const TenantHomepage = () => {
 
@@ -15,17 +16,32 @@ const TenantHomepage = () => {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
 
-  console.log(data.user)
-
   const rentAmountExpected = data.user.rentAmountExpected;
+  const address = data.user.address;
 
   const addressCard = (
     <ActivityCard
       title={'Address'}
       ctaText={'Update Address'}
-      infoLabel={''}
+      infoLabel={'Living'}
+      infoValue='More than a place to stay'
     >
-      192 Reservation Road
+      <div className={styles.addressContainer}>
+        <span className={styles.streetAddress}>
+          {address.street}
+        </span>
+        <p>
+          <span>
+            {capitalizeWords(address.city)}{' '}
+          </span>
+          <span>
+            {address.state.toUpperCase()}{' '}
+          </span>
+          <span>
+            {address.zip}
+          </span>
+        </p>
+      </div>
     </ActivityCard>
   )
 
