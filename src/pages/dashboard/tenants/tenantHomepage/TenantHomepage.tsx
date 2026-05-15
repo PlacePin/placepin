@@ -1,6 +1,6 @@
 import styles from './tenantHompage.module.css';
 import { useGetAxios } from '../../../../hooks/useGetAxios';
-import ActivityCard from '../../../../components/cards/tenant/activityCard';
+import ActivityCard from '../../../../components/cards/tenant/ActivityCard';
 import { getOrdinalSuffix } from '../../../../utils/getOrdinalSuffix';
 
 const TenantHomepage = () => {
@@ -15,7 +15,19 @@ const TenantHomepage = () => {
     return <div>{"Something went wrong, but don't panic, we'll fix it!"}</div>
   }
 
+  console.log(data.user)
+
   const rentAmountExpected = data.user.rentAmountExpected;
+
+  const addressCard = (
+    <ActivityCard
+      title={'Address'}
+      ctaText={'Update Address'}
+      infoLabel={''}
+    >
+      192 Reservation Road
+    </ActivityCard>
+  )
 
   const rentDueCard = (
     <ActivityCard
@@ -45,6 +57,7 @@ const TenantHomepage = () => {
         Upcoming / Recent Activity
       </h2>
       <div className={styles.statsCards}>
+        {addressCard}
         {
           rentAmountExpected.amount &&
           rentAmountExpected.dueDate &&
