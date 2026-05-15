@@ -141,13 +141,26 @@ export const rentPriceApproval = async (
       }
     );
 
-    res.status(200).json({
+    await TenantModel.findByIdAndUpdate(
+      userId,
+      {
+        $set: {
+          "rentAmountExpected.dueDate": dueDate,
+          "rentAmountExpected.amount": rentPrice,
+        }
+      },
+      {
+        runValidators: true // Enforces enum check [1, 15] during update
+      }
+    );
+
+    return res.status(200).json({
       message: 'Rent payment initiated',
       // paymentIntentId: paymentIntent.id,
     });
 
   } catch (err: any) {
     console.error('Unexpected Error', err?.raw?.message || err?.message || err);
-    res.status(500).json({ message: 'Oops! Something went wrong!' });
+    return res.status(500).json({ message: 'Oops! Something went wrong!' });
   }
 };

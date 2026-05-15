@@ -75,6 +75,17 @@ const tenantSchema = new mongoose.Schema({
     ref: "Landlords",
     default: null,
   },
+  rentAmountExpected: {
+    dueDate: {
+      type: Number,
+      enum: [1, 15],
+      default: null,
+    },
+    amount: {
+      type: Number,
+      default: null,
+    }
+  },
   rentPayment: [
     {
       _id: false,
