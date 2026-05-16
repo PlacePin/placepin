@@ -35,7 +35,7 @@
 .city,
 .state,
 .address,
-.suite {
+.unit {
   display: grid
 }
 

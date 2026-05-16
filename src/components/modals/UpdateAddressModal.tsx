@@ -7,7 +7,7 @@ import axios from "axios";
 
 interface UpdateAddressModalProps {
   street: string,
-  suite?: string,
+  unit?: string,
   city: string,
   state: string
   zip: string,
@@ -16,7 +16,7 @@ interface UpdateAddressModalProps {
 
 const UpdateAddressModal = ({
   street,
-  suite,
+  unit,
   city,
   state,
   zip,
@@ -26,7 +26,7 @@ const UpdateAddressModal = ({
   const [message, setMessage] = useState('');
   const [propertyAddress, setPropertyAddress] = useState({
     street,
-    suite,
+    unit,
     city,
     state,
     zip
@@ -83,25 +83,25 @@ const UpdateAddressModal = ({
                 id='streetAddress'
                 name="street"
                 placeholder='123 Main Street'
-                value={street}
+                value={propertyAddress.street}
                 onChange={handleChange}
                 className={styles.inputFields}
                 required
               />
             </div>
-            <div className={styles.suite}>
+            <div className={styles.unit}>
               <label
-                htmlFor='suite'
+                htmlFor='unit'
                 className={styles.labels}
               >
                 Apartment, suite, etc.
               </label>
               <input
                 type="text"
-                id='suite'
-                name="suite"
+                id='unit'
+                name="unit"
                 placeholder='4A'
-                value={suite ? suite : ''}
+                value={propertyAddress.unit || ''}
                 onChange={handleChange}
                 className={styles.inputFields}
               />
@@ -120,7 +120,7 @@ const UpdateAddressModal = ({
                 id='city'
                 name="city"
                 placeholder='Boston'
-                value={city}
+                value={propertyAddress.city}
                 onChange={handleChange}
                 className={styles.inputFields}
                 required
@@ -138,7 +138,7 @@ const UpdateAddressModal = ({
                 id='state'
                 name="state"
                 placeholder='Massachusetts'
-                value={state}
+                value={propertyAddress.state}
                 onChange={handleChange}
                 className={styles.inputFields}
                 required
@@ -156,7 +156,7 @@ const UpdateAddressModal = ({
             id='zip'
             name="zip"
             placeholder='02136'
-            value={zip}
+            value={propertyAddress.zip}
             onChange={handleChange}
             className={styles.inputFields}
             required

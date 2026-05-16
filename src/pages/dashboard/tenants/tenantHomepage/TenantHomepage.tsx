@@ -92,7 +92,7 @@ const TenantHomepage = () => {
       {showUpdateAddressModal && (
         <UpdateAddressModal
           street={address.street}
-          suite={address.unit}
+          unit={address.unit}
           city={address.city}
           state={address.state}
           zip={address.zip}
