@@ -11,7 +11,6 @@ const tenantSchema = new mongoose.Schema({
     state: String,
     zip: String
   },
-  age: { type: Date, default: null },
   career: { type: String, default: '' },
   createdAt: { type: Date, default: Date.now },
   dateOfBirth: Number,
