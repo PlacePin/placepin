@@ -12,6 +12,7 @@ interface UpdateAddressModalProps {
   state: string
   zip: string,
   onClose: () => void;
+  onAddressUpdate: () => void;
 }
 
 const UpdateAddressModal = ({
@@ -20,7 +21,8 @@ const UpdateAddressModal = ({
   city,
   state,
   zip,
-  onClose
+  onClose,
+  onAddressUpdate
 }: UpdateAddressModalProps) => {
 
   const [message, setMessage] = useState('');
@@ -55,6 +57,9 @@ const UpdateAddressModal = ({
           },
         },
       )
+
+      onAddressUpdate();
+
       setMessage(data.message)
       onClose()
     } catch (err: unknown) {

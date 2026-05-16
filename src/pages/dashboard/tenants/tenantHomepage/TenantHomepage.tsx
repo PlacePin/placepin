@@ -10,7 +10,7 @@ const TenantHomepage = () => {
 
   const [showUpdateAddressModal, setShowUpdateAddressModal] = useState(false);
 
-  const { data, error } = useGetAxios(`/api/users`)
+  const { data, error, refetch } = useGetAxios(`/api/users`)
 
   if (!data) {
     return <div>{'Loading Data'}</div>
@@ -97,6 +97,7 @@ const TenantHomepage = () => {
           state={address.state}
           zip={address.zip}
           onClose={handleUpdate}
+          onAddressUpdate={refetch}
         />
       )}
     </div>
