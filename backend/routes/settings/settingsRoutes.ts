@@ -20,6 +20,6 @@ router.post('/stripe/subscription-checkout-form', stripeSubscriptionCheckoutForm
 router.post('/stripe/update-subscription', stripeUpdateSubscription);
 router.post('/stripe/cancel-subscription', stripeCancelSubscription)
 router.post('/savecardform', stripeSaveCardForm);
-router.post('/delete-account', deleteAccount);
+router.delete('/account', deleteAccount);
 
 export default router
