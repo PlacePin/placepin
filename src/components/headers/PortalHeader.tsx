@@ -12,6 +12,7 @@ interface PortalHeaderProps {
   resourceName: string,
   resourceId: string,
   resourceType: string,
+  propertyAddress: string,
   onClose: () => void,
 }
 
@@ -21,6 +22,7 @@ const PortalHeader = ({
   resourceName,
   resourceId,
   resourceType,
+  propertyAddress,
   onClose,
 }: PortalHeaderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -79,7 +81,7 @@ const PortalHeader = ({
   return (
     <section className={styles.wrapper}>
       <div className={styles.tenantInfo}>
-        <h3>{capitalizeWords(resourceName)} • {resourceType}</h3>
+        <h3>{capitalizeWords(resourceName)} • {capitalizeWords(propertyAddress)}</h3>
         <div className={styles.backSection}>
           <span>{numberOfResources} {resourceTypePlural}</span>
           <button
