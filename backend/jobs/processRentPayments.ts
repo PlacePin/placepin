@@ -12,6 +12,13 @@ export async function processRentPayments(dueDate: 1 | 15) {
   });
 
   for (const landlord of landlords) {
+
+    const landlordConnectId = landlord.stripeConnectAccountId;
+    if (!landlordConnectId) {
+      console.warn(`Landlord ${landlord._id} missing stripeConnectAccountId, skipping their tenants.`);
+      continue;
+    }
+
     for (const property of landlord.properties) {
       for (const tenant of property.tenants) {
 
@@ -28,17 +35,29 @@ export async function processRentPayments(dueDate: 1 | 15) {
         }
 
         try {
+
+          // Calculate rent in cents
+          const rentAmountInCents = Math.round(tenant.rentAmountExpected * 100);
+
+          // Define your application processing fee in cents (e.g., $10.00)
+          // Stripe will automatically leave this cut in your balance and send the rest to the landlord
+
+          // FUTURE FEE: Calculate 1% of the transaction in cents
+          // <---- const applicationFeeInCents = Math.round(rentAmountInCents * 0.01); ----->
+
           await stripe.paymentIntents.create({
-            amount: Math.round(tenant.rentAmountExpected * 100),
+            amount: rentAmountInCents,
             currency: 'usd',
             customer: tenantDoc.subscription.stripeCustomerId,
             payment_method: tenantDoc.subscription.stripeBankAccountId,
             mandate: tenantDoc.subscription.stripeMandateId,
             confirm: true,
-            automatic_payment_methods: {
-              enabled: true,
-              allow_redirects: 'never',
+            off_session: true,
+            payment_method_types: ['us_bank_account'],
+            transfer_data: {
+              destination: landlordConnectId, // Sends the bulk rent to the landlord
             },
+            // application_fee_amount: applicationFeeInCents, Leaves your platform fee in your account
             metadata: {
               tenantId,
               rentAmount: tenant.rentAmountExpected,

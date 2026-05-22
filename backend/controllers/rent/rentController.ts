@@ -156,7 +156,6 @@ export const rentPriceApproval = async (
 
     return res.status(200).json({
       message: 'Rent payment initiated',
-      // paymentIntentId: paymentIntent.id,
     });
 
   } catch (err: any) {
