@@ -9,6 +9,15 @@ export const inviteTenant = async (req: Request, res: Response) => {
   const { tenantName, tenantAddress, tenantEmail } = req.body;
   const userId = req.userId;
 
+  if (
+    !tenantAddress?.street ||
+    !tenantAddress?.city ||
+    !tenantAddress?.state ||
+    !tenantAddress?.zip
+  ) {
+    return res.status(400).json({ message: "Property address is required." });
+  }
+
   let referralCode: string | undefined;
 
   // Normalize the tenant address for comparison
@@ -67,26 +76,9 @@ export const inviteTenant = async (req: Request, res: Response) => {
         }
       }
 
-      // If no matching property, create a new one
-      const updatedLandlord = await LandlordModel.findByIdAndUpdate(
-        userId,
-        {
-          $push: {
-            properties: {
-              name: "",
-              address: normalizedAddress,
-              referralCode: generateReferralCode(),
-              tenants: []
-            }
-          }
-        },
-        { new: true }
-      );
-
-      const updatedPropertyListLength = updatedLandlord?.properties.length! - 1;
-      referralCode = updatedLandlord?.properties[updatedPropertyListLength].referralCode!;
-      await emailInviteToTenant(referralCode, tenantName, tenantEmail);
-      return res.status(200).json({ message: 'Email invite sent!' });
+      return res.status(400).json({
+        message: "Selected property not found on your account.",
+      });
     }
 
   } catch (err) {

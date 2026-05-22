@@ -73,3 +73,24 @@
   padding-top: 0.5rem;
   color: red;
 }
+
+.emptyState {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #5a7a7a;
+}
+
+.readOnlyField {
+  background:  #d3d2d2;
+  cursor: default;
+}
+
+.readOnlyField:focus {
+  border-color: #00bfa5;
+  box-shadow: none;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

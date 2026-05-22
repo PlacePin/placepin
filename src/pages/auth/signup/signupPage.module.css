@@ -112,6 +112,16 @@
   box-shadow: 0 0 0 3px rgba(0, 191, 165, 0.2);
 }
 
+.readOnlyField {
+  background: #eef2f2;
+  cursor: default;
+}
+
+.readOnlyField:focus {
+  border-color: #cbd5e1;
+  box-shadow: none;
+}
+
 .heroForm button {
   width: 100%;
   height: 2.4em;
