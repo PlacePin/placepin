@@ -218,6 +218,9 @@ export const stripeWebhookController = async (
         const paymentIntent = event.data.object as Stripe.PaymentIntent;
         const { tenantId, rentAmount } = paymentIntent.metadata;
 
+        // The Stripe Account ID of the landlord who received the rent money
+        const landlordStripeAccountId = event.account;
+
         // Only handle rent payments, not subscription payments
         if (!tenantId || !rentAmount) break;
 
@@ -233,7 +236,22 @@ export const stripeWebhookController = async (
             }
           }
         );
-        console.log("Rent payment succeeded for tenant:", tenantId);
+
+        await LandlordModel.findOneAndUpdate(
+          {
+            stripeConnectAccountId: landlordStripeAccountId,
+            'properties.tenants.tenantId': tenantId
+          },
+          {
+            $set: {
+              'properties.$.tenants.$[ten].rentStatus': 'paid',
+              'properties.$.tenants.$[ten].monthPaid': true,
+            }
+          },
+          { arrayFilters: [{ 'ten.tenantId': tenantId }] }
+        );
+
+        console.log("Rent payment succeeded and verified for tenant:", tenantId);
         break;
       }
 
@@ -241,26 +259,32 @@ export const stripeWebhookController = async (
         const paymentIntent = event.data.object as Stripe.PaymentIntent;
         const { tenantId } = paymentIntent.metadata;
 
+        const landlordStripeAccountId = event.account;
+
         if (!tenantId) break;
 
         // Mark tenant as overdue
-        await LandlordModel.findOneAndUpdate(
-          { 'properties.tenants.tenantId': tenantId },
+        const landlord = await LandlordModel.findOneAndUpdate(
+          {
+            stripeConnectAccountId: landlordStripeAccountId,
+            'properties.tenants.tenantId': tenantId
+          },
           {
             $set: {
               'properties.$.tenants.$[ten].rentStatus': 'overdue',
               'properties.$.tenants.$[ten].monthPaid': false,
             }
           },
-          { arrayFilters: [{ 'ten.tenantId': tenantId }] }
+          {
+            arrayFilters: [{ 'ten.tenantId': tenantId }],
+            new: true
+          }
         );
 
-        // Find the landlord to get their ID for the message
-        const landlord = await LandlordModel.findOne({
-          'properties.tenants.tenantId': tenantId
-        });
-
-        if (!landlord) break;
+        if (!landlord) {
+          console.warn(`Failed payment webhook received, but no landlord found with account: ${landlordStripeAccountId}`);
+          break;
+        }
 
         const tenant = await TenantModel.findById(tenantId);
         if (!tenant) break;
