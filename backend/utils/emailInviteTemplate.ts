@@ -1,5 +1,4 @@
-const signupBaseUrl =
-  process.env.FRONTEND_URL?.replace(/\/$/, "") || "https://www.placepin.io";
+const signupBaseUrl = "https://www.placepin.io";
 
 export const referralEmailHtml = (tenantName: string, referralCode: string) => {
   const signupUrl = `${signupBaseUrl}/signup?referral=${encodeURIComponent(referralCode)}`;
