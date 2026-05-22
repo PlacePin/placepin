@@ -64,7 +64,7 @@ const landlordSchema = new mongoose.Schema({
           },
           rentStatus: {
             type: String,
-            enum: ["pending", "queued", "paid", "overdue"],
+            enum: ["pending", "queued", "processing", "paid", "overdue"],
             default: "pending"
           },
           dueDate: { type: Number, enum: [1, 15], default: null },

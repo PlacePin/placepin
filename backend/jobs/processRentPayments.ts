@@ -72,15 +72,15 @@ export async function processRentPayments(dueDate: 1 | 15) {
             },
             {
               $set: {
-                'properties.$.tenants.$[ten].rentStatus': 'paid',
-                'properties.$.tenants.$[ten].monthPaid': true,
+                'properties.$.tenants.$[ten].rentStatus': 'processing',
+                'properties.$.tenants.$[ten].monthPaid': false,
                 'properties.$.tenants.$[ten].rentAmountPaid': tenant.rentAmountExpected,
               }
             },
             { arrayFilters: [{ 'ten.tenantId': tenant.tenantId }] }
           );
 
-          console.log(`✅ Charged tenant ${tenantId} $${tenant.rentAmountExpected}`);
+          console.log(`⏳ Rent transaction initiated for tenant ${tenantId}. Awaiting bank clearance.`);
 
         } catch (err: any) {
           console.error(`❌ Failed to charge tenant ${tenantId}:`, err?.raw?.message || err?.message);
