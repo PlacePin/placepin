@@ -16,7 +16,7 @@ const AccountManagement = () => {
     try {
       setIsDeleting(true);
       await axiosInstance.delete(
-        '/api/settings/delete-account',
+        '/api/settings/account',
         { headers: { Authorization: `Bearer ${accessToken}` } }
       );
       logout();
