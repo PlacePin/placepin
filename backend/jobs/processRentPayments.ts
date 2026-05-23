@@ -2,13 +2,15 @@ import Stripe from 'stripe';
 import { LandlordModel } from '../database/models/Landlord.model';
 import { TenantModel } from '../database/models/Tenant.model';
 
-
 export async function processRentPayments(dueDate: 1 | 15) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
   console.log(`Processing rent payments for tenants with due date: ${dueDate}`);
 
+  // Only find landlords who have an ID AND are already marked verified!
   const landlords = await LandlordModel.find({
-    'properties.tenants.rentStatus': 'queued'
+    'properties.tenants.rentStatus': 'queued',
+    stripeConnectAccountId: { $ne: null },
+    isStripeConnectVerified: true // This filters out unverified accounts instantly
   });
 
   for (const landlord of landlords) {

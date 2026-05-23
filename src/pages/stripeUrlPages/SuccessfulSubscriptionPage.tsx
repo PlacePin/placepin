@@ -23,7 +23,6 @@ const SuccessfulSubscriptionPage = () => {
     }
   }
   
-
   return (
     <div className={styles.container}>
       <h1>✅ Payment Successful</h1>

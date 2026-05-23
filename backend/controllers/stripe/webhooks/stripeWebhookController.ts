@@ -315,6 +315,20 @@ export const stripeWebhookController = async (
         break;
       }
 
+      case "account.updated": {
+        const account = event.data.object as Stripe.Account;
+
+        // If they successfully finished submitting all tax/identity/bank details
+        if (account.details_submitted) {
+          await LandlordModel.updateOne(
+            { stripeConnectAccountId: account.id },
+            { $set: { isStripeConnectVerified: true } }
+          );
+          console.log(`🎉 Landlord account ${account.id} is officially verified by Stripe!`);
+        }
+        break;
+      }
+
       // handle other relevant events if you want
       default:
         console.log(`Unhandled event type ${event.type}`);

@@ -28,6 +28,7 @@ const landlordSchema = new mongoose.Schema({
   fullName: String,
   gender: String,
   hasAcceptedPrivacyPolicy: Boolean,
+  isStripeConnectVerified: { type: Boolean, default: false },
   lastActive: { type: Date, default: null },
   password: { type: String, required: true },
   passwordReset: {

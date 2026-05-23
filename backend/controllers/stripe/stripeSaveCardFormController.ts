@@ -63,3 +63,57 @@ export const stripeSaveCardForm = async (
     return res.status(500).json({ message: "Something went wrong with saving the card" });
   }
 };
+
+export const initiateLandlordOnboarding = async (req: Request, res: Response) => {
+  const userId = req.userId; 
+
+  try {
+    if (!userId) {
+      return res.status(401).json({ message: 'Invalid token' });
+    }
+
+    const landlord = await LandlordModel.findById(userId);
+    if (!landlord) {
+      return res.status(404).json({ message: 'Landlord not found' });
+    }
+
+    let connectAccountId = landlord.stripeConnectAccountId;
+
+    // Create a Stripe Express profile shell if they don't have one yet
+    if (!connectAccountId) {
+      const account = await stripe.accounts.create({
+        type: 'express', // Express lets Stripe manage the identity data securely
+        country: 'US',
+        capabilities: {
+          card_payments: { requested: true },
+          transfers: { requested: true },
+        },
+        business_type: 'individual',
+        email: landlord.email,
+      });
+
+      connectAccountId = account.id;
+
+      // Immediately save that "acct_xxxx" string to the landlord document
+      await LandlordModel.updateOne(
+        { _id: userId },
+        { $set: { stripeConnectAccountId: connectAccountId } }
+      );
+    }
+
+    // Generate a temporary onboarding link for Stripe's verification wizard
+    const accountLink = await stripe.accountLinks.create({
+      account: connectAccountId,
+      refresh_url: `${process.env.CLIENT_URL}/settings/banksettings`, // If link expires/fails
+      return_url: `${process.env.CLIENT_URL}/landlorddashboard`, // Where they land when completed
+      type: 'account_onboarding',
+    });
+
+    // 4. Hand the URL back to your React client
+    return res.status(200).json({ onboardingUrl: accountLink.url });
+
+  } catch (error) {
+    console.error('Stripe Connect onboarding generation error:', error);
+    return res.status(500).json({ message: 'Failed to generate onboarding session' });
+  }
+};
