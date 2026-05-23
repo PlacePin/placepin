@@ -126,7 +126,7 @@ const SaveCardForm = () => {
         </NavLink>.
       </p>
       {user.accountType === 'landlord' && (
-        <p className={styles.disclaimer}>This card is usually used to collect rent.</p>
+        <p className={styles.disclaimer}>This card is used to pay for your platform subscription plan.</p>
       )}
     </>
   );
