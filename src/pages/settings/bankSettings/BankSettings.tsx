@@ -49,10 +49,10 @@ const BankSettings = () => {
         <SaveCardForm />
       </Elements>
 
+      <hr className={styles.divider} />
       {/* Stripe Connect Setup section exclusively for Landlords */}
       {user.accountType === 'landlord' && (
         <div className={styles.connectSection}>
-          <hr className={styles.divider} />
           <h3>Rent Direct Deposits</h3>
           <p className={styles.description}>
             Connect your bank account securely to begin accepting monthly rent deposits from your tenants.
