@@ -32,12 +32,6 @@ const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
   const [tenantName, setTenantName] = useState('');
   const [tenantEmail, setTenantEmail] = useState('');
   const [propertyId, setPropertyId] = useState('');
-  const [tenantAddress, setTenantAddress] = useState({
-    street: '',
-    city: '',
-    state: '',
-    zip: '',
-  });
   const [message, setMessage] = useState('');
 
   const { accessToken } = useAuth();
@@ -46,26 +40,18 @@ const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
   const propertyRows: LandlordPropertyRow[] = data?.properties ?? [];
   const hasProperties = propertyRows.length > 0;
 
-  const handlePropertySelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedId = e.target.value;
-    setPropertyId(selectedId);
-
-    const row = propertyRows.find((p) => p.properties._id === selectedId);
-    if (row) {
-      const { street, city, state, zip } = row.properties.address;
-      setTenantAddress({ street, city, state, zip });
-    } else {
-      setTenantAddress({ street: '', city: '', state: '', zip: '' });
-    }
-  };
-
   const handleTenantInviteSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!propertyId) {
+      setMessage('Please select a property.');
+      return;
+    }
 
     const tenantInfo = {
       tenantName,
       tenantEmail,
-      tenantAddress,
+      propertyId,
     };
 
     try {
@@ -80,7 +66,7 @@ const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
       );
       setMessage(res.data.message);
       onClose?.();
-    } catch (err: any){
+    } catch {
       setMessage('Failed to send invite!');
     }
   };
@@ -117,7 +103,7 @@ const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
           <select
             id="propertyId"
             value={propertyId}
-            onChange={handlePropertySelect}
+            onChange={(e) => setPropertyId(e.target.value)}
             className={styles.inputFields}
             required
             disabled={!hasProperties}
@@ -131,59 +117,6 @@ const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
               </option>
             ))}
           </select>
-
-          <label htmlFor="street" className={styles.labels}>
-            Street Address
-          </label>
-          <input
-            type="text"
-            id="street"
-            value={tenantAddress.street}
-            className={`${styles.inputFields} ${styles.readOnlyField}`}
-            readOnly
-            required
-          />
-
-          <div className={styles.split}>
-            <div className={styles.city}>
-              <label htmlFor="city" className={styles.labels}>
-                City
-              </label>
-              <input
-                type="text"
-                id="city"
-                value={tenantAddress.city}
-                className={`${styles.inputFields} ${styles.readOnlyField}`}
-                readOnly
-                required
-              />
-            </div>
-            <div className={styles.state}>
-              <label htmlFor="state" className={styles.labels}>
-                State
-              </label>
-              <input
-                type="text"
-                id="state"
-                value={tenantAddress.state}
-                className={`${styles.inputFields} ${styles.readOnlyField}`}
-                readOnly
-                required
-              />
-            </div>
-          </div>
-
-          <label htmlFor="zip" className={styles.labels}>
-            Zip Code
-          </label>
-          <input
-            type="text"
-            id="zip"
-            value={tenantAddress.zip}
-            className={`${styles.inputFields} ${styles.readOnlyField}`}
-            readOnly
-            required
-          />
 
           <label htmlFor="tenantEmail" className={styles.labels}>
             Tenant Email
