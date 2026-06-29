@@ -1,6 +1,6 @@
 import { useGetAxios } from '../../../hooks/useGetAxios';
 import { useAuth } from '../../../context/AuthContext';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { MessageCircleMore, Plus } from 'lucide-react';
 import { io, Socket } from 'socket.io-client';
 import { jwtDecode } from 'jwt-decode';
@@ -117,12 +117,12 @@ const Messaging = () => {
     conversation();
   }, [convoWith]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const position = scrollRef.current
     if (position) {
       position.scrollTop = position.scrollHeight
     }
-  }, [messages])
+  }, [messages, convoWith])
 
   const handleActionComplete = (convo: string, index: number) => {
     setMessages(prev => ({
