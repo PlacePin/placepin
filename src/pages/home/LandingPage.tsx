@@ -340,11 +340,11 @@ const LandingPage = () => {
               <div className={`${styles.features} ${styles.landlordFeatures}`}>
                 <h4>For property owners</h4>
                 <ul>
-                  <li>✓ $150/month per building + 1% per rent payment — simple, transparent pricing</li>
+                  <li>✓ $150/month per building, transparent pricing</li>
                   <li>✓ Built for landlords at any stage — from a few units to entire portfolios</li>
                   <li>✓ Unlock tenant perks across all your units</li>
                   <li>✓ Streamline rent collection and tenant communication in one place</li>
-                  <li>✓ Flat $150 per building — predictable pricing as you grow</li>
+                  <li>✓ Simple onboarding with tools designed to save time and reduce admin work</li>
                 </ul>
               </div>
             </div>

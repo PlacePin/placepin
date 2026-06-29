@@ -205,6 +205,7 @@ const LandlordProperties = () => {
             resourceId={propertyId}
             resourceType={resourceType}
             onClose={() => setSelectedPropertyId(null)}
+            propertyAddress={propertyAddress}
           />
           <div className={styles.portalBody}>
             <PropertySummary

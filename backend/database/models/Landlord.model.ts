@@ -28,6 +28,7 @@ const landlordSchema = new mongoose.Schema({
   fullName: String,
   gender: String,
   hasAcceptedPrivacyPolicy: Boolean,
+  isStripeConnectVerified: { type: Boolean, default: false },
   lastActive: { type: Date, default: null },
   password: { type: String, required: true },
   passwordReset: {
@@ -64,7 +65,7 @@ const landlordSchema = new mongoose.Schema({
           },
           rentStatus: {
             type: String,
-            enum: ["pending", "queued", "paid", "overdue"],
+            enum: ["pending", "queued", "processing", "paid", "overdue"],
             default: "pending"
           },
           dueDate: { type: Number, enum: [1, 15], default: null },
@@ -93,6 +94,7 @@ const landlordSchema = new mongoose.Schema({
       }
     }
   ],
+  stripeConnectAccountId: { type: String, default: null },
   subscription: {
     isSubscribed: { type: Boolean, default: false },
     savedPaymentMethod: { type: String, default: null },

@@ -28,8 +28,9 @@ const LandlordTenants = () => {
     return <div></div>;
   }
 
-  const tenants = data.tenants
-  const numberOfTenants = tenants.length
+  const tenants = data.tenants;
+  const numberOfTenants = tenants.length;
+  const propertyAddress = selectedTenant?.address.street;
 
   const tenantsCards = tenants.map((tenant: any) => {
     const profilePic = tenant.profilePic ?
@@ -97,6 +98,7 @@ const LandlordTenants = () => {
             resourceName={selectedTenant.fullName}
             resourceId={selectedTenant._id}
             resourceType={firstLetterCapitalize(selectedTenant.accountType)}
+            propertyAddress={propertyAddress}
             onClose={() => setSelectedTenant(null)}
           />
           <div className={styles.portalBody}>

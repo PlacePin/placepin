@@ -4,8 +4,7 @@ import styles from './saveCardForm.module.css';
 import { useAuth } from "../../context/AuthContext";
 import axiosInstance from "../../utils/axiosInstance";
 import { NavLink } from "react-router-dom";
-import type { DecodedAccessToken } from "../../interfaces/interfaces";
-import { jwtDecode } from "jwt-decode";
+import PrimaryButton from "../buttons/PrimaryButton";
 
 const SaveCardForm = () => {
   const stripe = useStripe();
@@ -16,8 +15,6 @@ const SaveCardForm = () => {
   const { accessToken } = useAuth();
 
   if (!accessToken) return null;
-
-  const user = jwtDecode<DecodedAccessToken>(accessToken);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -103,13 +100,11 @@ const SaveCardForm = () => {
             }}
           />
         </div>
-        <button
-          type="submit"
+        <PrimaryButton
           disabled={loading || !stripe}
           className={styles.button}
-        >
-          {loading ? "Saving..." : "Save Card"}
-        </button>
+          title={loading ? "Saving..." : "Save Card"}
+        />
 
         {message && (
           <p className={styles.message}>{message}</p>
@@ -125,9 +120,6 @@ const SaveCardForm = () => {
           {`Privacy Policy`}
         </NavLink>.
       </p>
-      {user.accountType === 'landlord' && (
-        <p className={styles.disclaimer}>This card is usually used to collect rent.</p>
-      )}
     </>
   );
 };

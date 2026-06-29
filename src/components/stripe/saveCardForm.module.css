@@ -1,9 +1,9 @@
-.form{
-    max-width: 400px;
-    margin: 2rem auto;
-    padding: 1rem;
-    border: 1px solid var(--color-border-5);
-    border-radius: 8px;
+.form {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 1rem;
+  border: 1px solid var(--color-border-5);
+  border-radius: 8px;
 }
 
 .divContainer {
@@ -12,18 +12,25 @@
 }
 
 .button {
-    margin-top: 1rem;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 4px;
-    background: #00bfa5;
-    color: white;
-    cursor: pointer;
+  margin-top: 1rem;
+  cursor: pointer;
+  display: inline;
+}
+
+.button:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+.button:active:not(:disabled) {
+  background-color: var(--color-primary-active);
+  transform: scale(0.98);
 }
 
 .button:disabled {
+  background-color: var(--color-text-5);
+  color: var(--color-text-4);
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .message {
@@ -37,8 +44,4 @@
   color: #777;
   text-align: center;
   margin-bottom: 1.5rem;
-}
-
-.disclaimer {
-  color: var(--color-text-2);
 }

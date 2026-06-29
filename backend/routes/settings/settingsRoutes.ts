@@ -4,7 +4,7 @@ import { settingsBasicInfo } from '../../controllers/settings/settingsBasicInfoC
 import { updateBasicInfo } from '../../controllers/settings/updateBasicInfoController';
 import { uploadProfilePic } from '../../controllers/settings/uploadProfilePicController';
 import { stripeSubscriptionCheckoutForm } from '../../controllers/stripe/stripeSubscriptionCheckoutFormController';
-import { stripeSaveCardForm } from '../../controllers/stripe/stripeSaveCardFormController';
+import { initiateLandlordOnboarding, stripeSaveCardForm } from '../../controllers/stripe/stripeSaveCardFormController';
 import { stripeCancelSubscription } from '../../controllers/stripe/stripeCancelSubscriptionController';
 import { stripeSubscriptionStatus } from '../../controllers/stripe/stripeSubscriptionStatusController';
 import { stripeUpdateSubscription } from '../../controllers/stripe/stripeUpdateSubscriptionController';
@@ -20,6 +20,7 @@ router.post('/stripe/subscription-checkout-form', stripeSubscriptionCheckoutForm
 router.post('/stripe/update-subscription', stripeUpdateSubscription);
 router.post('/stripe/cancel-subscription', stripeCancelSubscription)
 router.post('/savecardform', stripeSaveCardForm);
+router.post('/landlord-onboard', initiateLandlordOnboarding)
 router.delete('/account', deleteAccount);
 
 export default router
