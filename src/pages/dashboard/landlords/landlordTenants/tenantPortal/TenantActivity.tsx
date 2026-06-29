@@ -2,8 +2,10 @@ import styles from './tenantActivity.module.css';
 import EngagementPatternsChart from '../../../../../components/charts/EngagementPatternsChart';
 import MaintenanceRequestChart from '../../../../../components/charts/MaintenanceRequestChart';
 import type { PerkPatterns } from '../../../../../interfaces/interfaces';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
+
+const PAYMENTS_PER_PAGE = 5;
 
 const MOBILE_COLLAPSE_MQ = '(max-width: 650px)';
 
@@ -23,6 +25,14 @@ const TenantActivity = ({
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [paymentHistoryMobileOpen, setPaymentHistoryMobileOpen] = useState(true);
   const [isMobilePaymentCollapsible, setIsMobilePaymentCollapsible] = useState(false);
+  const [paymentPage, setPaymentPage] = useState(1);
+
+  const sortedPayments = [...rentPayments].reverse();
+  const totalPaymentPages = Math.ceil(sortedPayments.length / PAYMENTS_PER_PAGE);
+  const paginatedPayments = sortedPayments.slice(
+    (paymentPage - 1) * PAYMENTS_PER_PAGE,
+    paymentPage * PAYMENTS_PER_PAGE
+  );
 
   useEffect(() => {
     const mobileQuery = window.matchMedia(MOBILE_COLLAPSE_MQ);
@@ -34,7 +44,7 @@ const TenantActivity = ({
 
   const availableYears = [currentYear, currentYear - 1, currentYear - 2];
 
-  const rentPaymentsMapped = rentPayments.map((rentPayment, i) => {
+  const rentPaymentsMapped = paginatedPayments.map((rentPayment, i) => {
     return (
       <div key={i} className={styles.rentPayment}>
         <p>
@@ -51,6 +61,32 @@ const TenantActivity = ({
       </div>
     )
   })
+
+  const paginationControls = totalPaymentPages > 1 && (
+    <div className={styles.paginationControls}>
+      <button
+        type="button"
+        className={styles.paginationButton}
+        onClick={() => setPaymentPage(prev => Math.max(1, prev - 1))}
+        disabled={paymentPage === 1}
+        aria-label="Previous page"
+      >
+        <ChevronLeft size={18} />
+      </button>
+      <span className={styles.paginationInfo}>
+        {paymentPage} / {totalPaymentPages}
+      </span>
+      <button
+        type="button"
+        className={styles.paginationButton}
+        onClick={() => setPaymentPage(prev => Math.min(totalPaymentPages, prev + 1))}
+        disabled={paymentPage === totalPaymentPages}
+        aria-label="Next page"
+      >
+        <ChevronRight size={18} />
+      </button>
+    </div>
+  )
 
   const noPaymentHistory = (
     <div className={styles.noPaymentHistoryWrapper}>
@@ -93,7 +129,10 @@ const TenantActivity = ({
             hidden={isMobilePaymentCollapsible && !paymentHistoryMobileOpen}
           >
             {rentPayments.length ?
-              rentPaymentsMapped :
+              <>
+                {rentPaymentsMapped}
+                {paginationControls}
+              </> :
               noPaymentHistory
             }
           </div>
