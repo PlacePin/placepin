@@ -3,146 +3,122 @@ import styles from './inviteTenantModal.module.css';
 import { useAuth } from '../../context/AuthContext';
 import FormModal from './FormModal';
 import axiosInstance from '../../utils/axiosInstance';
+import { useGetAxios } from '../../hooks/useGetAxios';
+
+interface PropertyAddress {
+  street: string;
+  unit?: string;
+  city: string;
+  state: string;
+  zip: string;
+}
+
+interface LandlordPropertyRow {
+  properties: {
+    _id: string;
+    name?: string;
+    address: PropertyAddress;
+  };
+}
 
 interface InviteTenantModalProps {
   onClose?: () => void;
 }
 
-const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
+const formatPropertyLabel = (address: PropertyAddress) =>
+  `${address.street}, ${address.city} ${address.state}, ${address.zip}`;
 
+const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
   const [tenantName, setTenantName] = useState('');
   const [tenantEmail, setTenantEmail] = useState('');
-  const [tenantAddress, setTenantAddress] = useState({
-    street: '',
-    city: '',
-    state: '',
-    zip: '',
-  });
+  const [propertyId, setPropertyId] = useState('');
   const [message, setMessage] = useState('');
 
   const { accessToken } = useAuth();
+  const { data, error } = useGetAxios('/api/landlords/properties');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setTenantAddress(prev => ({
-      ...prev,
-      [name]: value
-    }))
-  }
+  const propertyRows: LandlordPropertyRow[] = data?.properties ?? [];
+  const hasProperties = propertyRows.length > 0;
 
   const handleTenantInviteSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
+
+    if (!propertyId) {
+      setMessage('Please select a property.');
+      return;
+    }
 
     const tenantInfo = {
       tenantName,
-      tenantAddress,
       tenantEmail,
-    }
+      propertyId,
+    };
 
     try {
-      const res = await axiosInstance.post('/api/users/invite/tenant/',
+      const res = await axiosInstance.post(
+        '/api/users/invite/tenant/',
         tenantInfo,
         {
           headers: {
-            Authorization: `bearer ${accessToken}`
-          }
+            Authorization: `bearer ${accessToken}`,
+          },
         },
-      )
-      setMessage(res.data.message)
-      onClose?.()
-    } catch (err: any) {
-      setMessage('Failed to send invite!')
+      );
+      setMessage(res.data.message);
+      onClose?.();
+    } catch {
+      setMessage('Failed to send invite!');
     }
-  }
+  };
 
   return (
-    <FormModal title='Invite Tenant' onClose={onClose}>
+    <FormModal title="Invite Tenant" onClose={onClose}>
       <form onSubmit={handleTenantInviteSubmit}>
         <div className={styles.formContainer}>
-          <label
-            htmlFor='tenantName'
-            className={styles.labels}
-          >
+          <label htmlFor="tenantName" className={styles.labels}>
             Tenant Name
           </label>
           <input
             type="text"
-            id='tenantName'
-            placeholder='Dinah Augustin'
+            id="tenantName"
+            placeholder="Dinah Augustin"
             onChange={(e) => setTenantName(e.target.value)}
             className={styles.inputFields}
             required
           />
-          <label
-            htmlFor='tenantAddress'
-            className={styles.labels}
-          >
-            Tenant Address
+
+          {error && (
+            <p className={styles.message}>Failed to load properties.</p>
+          )}
+
+          {!hasProperties && !error && (
+            <p className={styles.emptyState}>
+              Add a property before inviting tenants.
+            </p>
+          )}
+
+          <label htmlFor="propertyId" className={styles.labels}>
+            Property
           </label>
-          <input
-            type="text"
-            id='tenantAddress'
-            name='street'
-            placeholder='123 Main Street'
-            onChange={handleChange}
+          <select
+            id="propertyId"
+            value={propertyId}
+            onChange={(e) => setPropertyId(e.target.value)}
             className={styles.inputFields}
             required
-          />
-          <div className={styles.split}>
-            <div className={styles.city}>
-              <label
-                htmlFor='city'
-                className={styles.labels}
-              >
-                City
-              </label>
-              <input
-                type="text"
-                id='city'
-                name="city"
-                placeholder='Boston'
-                onChange={handleChange}
-                className={styles.inputFields}
-                required
-              />
-            </div>
-            <div className={styles.state}>
-              <label
-                htmlFor='state'
-                className={styles.labels}
-              >
-                State
-              </label>
-              <input
-                type="text"
-                id='state'
-                name="state"
-                placeholder='Massachusetts'
-                onChange={handleChange}
-                className={styles.inputFields}
-                required
-              />
-            </div>
-          </div>
-          <label
-            htmlFor='zip'
-            className={styles.labels}
+            disabled={!hasProperties}
           >
-            Zip Code
-          </label>
-          <input
-            type="number"
-            id='zip'
-            name="zip"
-            placeholder='02136'
-            onChange={handleChange}
-            className={styles.inputFields}
-            required
-          />
-          <label
-            htmlFor='tenantEmail'
-            className={styles.labels}
-          >
+            <option value="" disabled>
+              Select a property
+            </option>
+            {propertyRows.map((row) => (
+              <option key={row.properties._id} value={row.properties._id}>
+                {formatPropertyLabel(row.properties.address)}
+              </option>
+            ))}
+          </select>
+
+          <label htmlFor="tenantEmail" className={styles.labels}>
             Tenant Email
           </label>
           <input
@@ -154,13 +130,13 @@ const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
             required
           />
         </div>
-        <button className={styles.button}>
+        <button className={styles.button} disabled={!hasProperties}>
           Send Invite
         </button>
         <p className={styles.message}>{message}</p>
       </form>
     </FormModal>
-  )
-}
+  );
+};
 
-export default InviteTenantModal
+export default InviteTenantModal;

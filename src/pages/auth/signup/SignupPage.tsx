@@ -1,6 +1,6 @@
 import styles from './signupPage.module.css';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useState, type FormEvent } from 'react';
+import { NavLink, useNavigate, useSearchParams } from 'react-router-dom';
+import { useState, useEffect, type FormEvent } from 'react';
 import { useAuth } from '../../../context/AuthContext';
 // import { LANDLORD_ROUTES } from '../../../routes/landlordRoutes';
 import { TENANT_ROUTES } from '../../../routes/tenantRoutes';
@@ -9,8 +9,9 @@ import axiosInstance from '../../../utils/axiosInstance';
 import TrialInterstitialPage from '../../trialInterstitial/TrialInterstitialPage';
 
 const SignupPage = () => {
-  const navigate = useNavigate()
-  const { login } = useAuth()
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const { login } = useAuth();
 
   const [username, setUserName] = useState('')
   const [email, setEmail] = useState('')
@@ -20,22 +21,73 @@ const SignupPage = () => {
     city: '',
     state: '',
     zip: '',
-  })
-  const [password, setPassword] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const [accountType, setAccountType] = useState('tenant')
-  const [referral, setReferral] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const [sessionUrl, setSessionUrl] = useState<string | null>(null)
+  });
+  const [password, setPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [accountType, setAccountType] = useState('tenant');
+  const [referral, setReferral] = useState('');
+  const [referralAddressLocked, setReferralAddressLocked] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [sessionUrl, setSessionUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    const codeFromUrl = searchParams.get('referral');
+    if (codeFromUrl) {
+      setReferral(codeFromUrl.toLowerCase().trim());
+      setAccountType('tenant');
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    const trimmed = referral.trim();
+    if (!trimmed) {
+      setReferralAddressLocked(false);
+      return;
+    }
+
+    const timeout = setTimeout(async () => {
+      try {
+        const res = await axiosInstance.get('/api/auth/referral-preview', {
+          params: { code: trimmed },
+        });
+        const { street, city, state, zip } = res.data.address;
+        setAddress((prev) => ({
+          street: street?.toLowerCase().trim() ?? prev.street,
+          apt: prev.apt,
+          city: city?.toLowerCase().trim() ?? prev.city,
+          state: state?.toLowerCase().trim() ?? prev.state,
+          zip: zip?.toString().trim() ?? prev.zip,
+        }));
+        setReferralAddressLocked(true);
+      } catch {
+        setReferralAddressLocked(false);
+      }
+    }, 400);
+
+    return () => clearTimeout(timeout);
+  }, [referral]);
 
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setAddress(prev => ({
+    setAddress((prev) => ({
       ...prev,
-      [name]: value.toLocaleLowerCase().trim()
-    }))
-  }
+      [name]: value.toLocaleLowerCase().trim(),
+    }));
+  };
+
+  const handleReferralChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.toLowerCase().trim();
+    setReferral(value);
+    if (!value) {
+      setReferralAddressLocked(false);
+    }
+  };
+
+  const addressFieldClass = (locked: boolean) =>
+    locked
+      ? `${styles.inputFields} ${styles.readOnlyField}`
+      : styles.inputFields;
 
   const handleCreateAccount = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -94,6 +146,9 @@ const SignupPage = () => {
   if (sessionUrl) {
     return <TrialInterstitialPage sessionUrl={sessionUrl} context="signup" />
   }
+
+  const lockAddressFromReferral =
+    accountType === 'tenant' && referralAddressLocked;
 
   return (
     <div className={styles.topContainer}>
@@ -156,6 +211,7 @@ const SignupPage = () => {
                   className={styles.inputFields}
                   onChange={(e) => setAccountType(e.target.value)}
                   id="accountType"
+                  value={accountType}
                   required
                 >
                   <option value="" disabled>Select one</option>
@@ -163,27 +219,33 @@ const SignupPage = () => {
                   <option value="landlord">Landlord</option>
                   <option value="tradesmen">Tradesmen</option>
                 </select>
-                {accountType === 'tenant' && <>
-                  <label className={styles.inputLabel} htmlFor='landlordReferral'>
-                    Landlord Referral Code
-                  </label>
-                  <input
-                    type="text"
-                    className={styles.inputFields}
-                    onChange={(e) => setReferral(e.target.value.toLowerCase().trim())}
-                    id='landlordReferral'
-                    placeholder='Referral Code (Optional)' />
-                </>}
-                <label className={styles.inputLabel} htmlFor='street'>
+                {accountType === 'tenant' && (
+                  <>
+                    <label className={styles.inputLabel} htmlFor="landlordReferral">
+                      Landlord Referral Code
+                    </label>
+                    <input
+                      type="text"
+                      className={styles.inputFields}
+                      onChange={handleReferralChange}
+                      value={referral}
+                      id="landlordReferral"
+                      placeholder="Referral Code (Optional)"
+                    />
+                  </>
+                )}
+                <label className={styles.inputLabel} htmlFor="street">
                   Street Address
                 </label>
                 <input
                   type="text"
-                  className={styles.inputFields}
+                  className={addressFieldClass(lockAddressFromReferral)}
                   onChange={handleAddressChange}
-                  id='street'
-                  name='street'
-                  placeholder='123 Main Street'
+                  id="street"
+                  name="street"
+                  value={address.street}
+                  placeholder="123 Main Street"
+                  readOnly={lockAddressFromReferral}
                   required
                 />
                 <label className={styles.inputLabel} htmlFor='apt'>
@@ -193,9 +255,10 @@ const SignupPage = () => {
                   type="text"
                   className={styles.inputFields}
                   onChange={handleAddressChange}
-                  id='apt'
-                  name='apt'
-                  placeholder='Suite 101'
+                  id="apt"
+                  name="apt"
+                  value={address.apt}
+                  placeholder="Suite 101"
                 />
                 <div className={styles.split}>
                   <div className={styles.city}>
@@ -204,11 +267,13 @@ const SignupPage = () => {
                     </label>
                     <input
                       type="text"
-                      className={styles.inputFields}
+                      className={addressFieldClass(lockAddressFromReferral)}
                       onChange={handleAddressChange}
-                      id='city'
-                      name='city'
-                      placeholder='Boston'
+                      id="city"
+                      name="city"
+                      value={address.city}
+                      placeholder="Boston"
+                      readOnly={lockAddressFromReferral}
                       required
                     />
                   </div>
@@ -218,11 +283,13 @@ const SignupPage = () => {
                     </label>
                     <input
                       type="text"
-                      className={styles.inputFields}
+                      className={addressFieldClass(lockAddressFromReferral)}
                       onChange={handleAddressChange}
-                      id='state'
-                      name='state'
-                      placeholder='Massachusetts'
+                      id="state"
+                      name="state"
+                      value={address.state}
+                      placeholder="Massachusetts"
+                      readOnly={lockAddressFromReferral}
                       required
                     />
                   </div>
@@ -231,12 +298,14 @@ const SignupPage = () => {
                   Zip Code
                 </label>
                 <input
-                  type="number"
-                  className={styles.inputFields}
+                  type="text"
+                  className={addressFieldClass(lockAddressFromReferral)}
                   onChange={handleAddressChange}
-                  id='zip'
-                  name='zip'
-                  placeholder='02136'
+                  id="zip"
+                  name="zip"
+                  value={address.zip}
+                  placeholder="02136"
+                  readOnly={lockAddressFromReferral}
                   required
                 />
                 <label className={styles.inputLabel} htmlFor='phoneNumber'>Phone Number</label>
@@ -262,10 +331,8 @@ const SignupPage = () => {
                 <button type="submit" disabled={isLoading}>
                   {isLoading ? 'Setting up your account...' : 'Sign Up'}
                 </button>
-                <p
-                  className={styles.login}
-                >
-                  Have an account? <NavLink to='/login'>Login</NavLink>
+                <p className={styles.login}>
+                  Have an account? <NavLink to="/login">Login</NavLink>
                 </p>
                 <p className={styles.legalLinks}>
                   {`By signing up, you agree to our `}
@@ -286,5 +353,4 @@ const SignupPage = () => {
     </div>
   )
 }
-
 export default SignupPage

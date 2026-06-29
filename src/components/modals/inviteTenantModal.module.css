@@ -11,7 +11,7 @@
 }
 
 .inputFields:focus {
-  border-color: #00bfa5;
+  border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(0, 191, 165, 0.2);
 }
 
@@ -31,19 +31,8 @@
 .formContainer {
   padding: 1rem 2rem;
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: repeat(1, 1fr);    
   gap: .5rem;
-}
-
-.split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-}
-
-.city,
-.state {
-  display: grid;
 }
 
 .labels {
@@ -60,7 +49,7 @@
   box-sizing: border-box;
   cursor: pointer;
   color: #fff;
-  background: #00bfa5;
+  background: var(--color-primary);
   transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
@@ -71,5 +60,16 @@
 
 .message {
   padding-top: 0.5rem;
-  color: red;
+  color: var(--color-error);
+}
+
+.emptyState {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-text-3);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
