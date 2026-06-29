@@ -17,6 +17,10 @@
   flex-direction: column;
 }
 
+.payment {
+  overflow: hidden;
+}
+
 .engagement {
   margin-top: 0.5rem;
   height: 63%;
@@ -105,6 +109,19 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+}
+
+.paymentList {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.paymentList::-webkit-scrollbar {
+  display: none;
 }
 
 .paginationControls {
@@ -113,8 +130,9 @@
   justify-content: center;
   gap: 0.75rem;
   padding: 0.75rem 1rem;
-  margin-top: auto;
+  flex-shrink: 0;
   border-top: 1px solid var(--color-border-5);
+  background: var(--color-surface-3);
 }
 
 .paginationButton {

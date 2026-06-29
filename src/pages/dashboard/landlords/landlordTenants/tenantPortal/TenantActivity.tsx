@@ -130,7 +130,9 @@ const TenantActivity = ({
           >
             {rentPayments.length ?
               <>
-                {rentPaymentsMapped}
+                <div className={styles.paymentList}>
+                  {rentPaymentsMapped}
+                </div>
                 {paginationControls}
               </> :
               noPaymentHistory
