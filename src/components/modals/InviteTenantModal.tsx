@@ -124,7 +124,7 @@ const InviteTenantModal = ({ onClose }: InviteTenantModalProps) => {
           <input
             type="email"
             id="tenantEmail"
-            placeholder="dinahaugustin@placepin.com"
+            placeholder="dinahaugustin@placepin.io"
             onChange={(e) => setTenantEmail(e.target.value)}
             className={styles.inputFields}
             required

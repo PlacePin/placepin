@@ -15,11 +15,9 @@ const AccountManagement = () => {
   const handleDelete = async () => {
     try {
       setIsDeleting(true);
-      await axiosInstance.post(
-        '/api/settings/account',
-        undefined,
-        { headers: { Authorization: `Bearer ${accessToken}` } }
-      );
+      await axiosInstance.delete('/api/settings/account', {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
       logout();
       navigate('/');
     } catch (err) {
