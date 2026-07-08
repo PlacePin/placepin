@@ -9,6 +9,7 @@ import { stripeCancelSubscription } from '../../controllers/stripe/stripeCancelS
 import { stripeSubscriptionStatus } from '../../controllers/stripe/stripeSubscriptionStatusController';
 import { stripeUpdateSubscription } from '../../controllers/stripe/stripeUpdateSubscriptionController';
 import { deleteAccount } from '../../controllers/settings/deleteAccountController';
+import { sendSupportEmail } from '../../controllers/settings/supportController';
 
 const router = express.Router()
 
@@ -22,5 +23,6 @@ router.post('/stripe/cancel-subscription', stripeCancelSubscription)
 router.post('/savecardform', stripeSaveCardForm);
 router.post('/landlord-onboard', initiateLandlordOnboarding)
 router.delete('/account', deleteAccount);
+router.post('/support', sendSupportEmail);
 
 export default router

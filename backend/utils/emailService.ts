@@ -40,3 +40,31 @@ export const emailPasswordReset = async (userEmail: string, resetUrl: string) =>
     throw err;
   }
 };
+
+export const emailSupport = async (
+  senderName: string,
+  senderEmail: string,
+  type: 'support' | 'suggestion',
+  subject: string,
+  message: string,
+) => {
+  try {
+    const { data } = await resendClient.post('/emails', {
+      from: `PlacePin <${NOTIFY_EMAIL}>`,
+      to: ['kerlin@placepin.io'],
+      reply_to: senderEmail,
+      subject: `[${type === 'suggestion' ? 'Suggestion' : 'Support'}] ${subject}`,
+      html: `
+        <p><strong>From:</strong> ${senderName} (${senderEmail})</p>
+        <p><strong>Type:</strong> ${type === 'suggestion' ? 'Suggestion' : 'Support Request'}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+        <hr />
+        <p>${message.replace(/\n/g, '<br />')}</p>
+      `,
+    });
+    console.log('Support email sent:', data?.id);
+  } catch (err: any) {
+    console.error('emailSupport failed:', err.message);
+    throw err;
+  }
+};
