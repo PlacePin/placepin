@@ -1,7 +1,7 @@
 import express from 'express';
 import { sendMessage } from '../../controllers/messages/messagesController';
 import { getConversations, getUsernames } from '../../controllers/messages/conversationsController';
-import { getSuggestions, markSuggestionRead, submitSuggestion } from '../../controllers/messages/suggestionBoxController';
+import { deleteSuggestion, getSuggestions, markSuggestionRead, submitSuggestion } from '../../controllers/messages/suggestionBoxController';
 
 const router = express.Router();
 
@@ -11,5 +11,6 @@ router.get('/conversations', getConversations)
 router.post('/suggestions', submitSuggestion)
 router.get('/suggestions', getSuggestions)
 router.patch('/suggestions/:id/read', markSuggestionRead)
+router.delete('/suggestions/:id', deleteSuggestion)
 
 export default router

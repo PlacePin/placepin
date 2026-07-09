@@ -408,9 +408,33 @@
   letter-spacing: 0.04em;
 }
 
+.suggestionCardActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .suggestionCardDate {
   font-size: 0.75rem;
   color: var(--color-text-3);
+}
+
+.suggestionDeleteBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-3);
+  padding: 0.2rem;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.suggestionDeleteBtn:hover {
+  color: var(--color-error, #ef4444);
+  background: rgba(239, 68, 68, 0.08);
 }
 
 .suggestionCardBody {

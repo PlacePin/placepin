@@ -98,3 +98,27 @@ export const markSuggestionRead = async (req: Request, res: Response) => {
     return res.status(500).json({ error: 'Failed to mark suggestion as read.' });
   }
 };
+
+export const deleteSuggestion = async (req: Request, res: Response) => {
+  const userId = req.userId;
+  const { id } = req.params;
+
+  try {
+    const suggestion = await SuggestionBoxMessageModel.findById(id).select('landlordId');
+
+    if (!suggestion) {
+      return res.status(404).json({ message: 'Suggestion not found.' });
+    }
+
+    if (suggestion.landlordId.toString() !== userId) {
+      return res.status(403).json({ message: 'Not authorized.' });
+    }
+
+    await SuggestionBoxMessageModel.findByIdAndDelete(id);
+
+    return res.status(200).json({ message: 'Suggestion deleted.' });
+  } catch (err) {
+    console.error('deleteSuggestion failed:', err);
+    return res.status(500).json({ error: 'Failed to delete suggestion. Please try again.' });
+  }
+};

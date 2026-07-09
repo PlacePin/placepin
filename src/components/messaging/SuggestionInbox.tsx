@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Trash2 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import axiosInstance from '../../utils/axiosInstance';
 import styles from '../../pages/dashboard/messaging/messaging.module.css';
@@ -34,6 +35,17 @@ const SuggestionInbox = () => {
 
     fetchSuggestions();
   }, [accessToken]);
+
+  const deleteSuggestion = async (id: string) => {
+    try {
+      await axiosInstance.delete(`/api/messages/suggestions/${id}`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      setSuggestions((prev) => prev.filter((suggestion) => suggestion.id !== id));
+    } catch {
+      // non-critical — silently ignore
+    }
+  };
 
   const markRead = async (id: string) => {
     try {
@@ -73,13 +85,25 @@ const SuggestionInbox = () => {
           >
             <div className={styles.suggestionCardHeader}>
               <span className={styles.suggestionAnonymousLabel}>Anonymous Tenant</span>
-              <span className={styles.suggestionCardDate}>
-                {new Date(suggestion.sentAt).toLocaleDateString(undefined, {
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric',
-                })}
-              </span>
+              <div className={styles.suggestionCardActions}>
+                <span className={styles.suggestionCardDate}>
+                  {new Date(suggestion.sentAt).toLocaleDateString(undefined, {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                  })}
+                </span>
+                <button
+                  className={styles.suggestionDeleteBtn}
+                  title="Delete suggestion"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    deleteSuggestion(suggestion.id);
+                  }}
+                >
+                  <Trash2 size={14} />
+                </button>
+              </div>
             </div>
             <p className={styles.suggestionCardBody}>{suggestion.message}</p>
             {!suggestion.read && <span className={styles.suggestionUnreadDot} />}
