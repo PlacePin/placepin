@@ -224,6 +224,222 @@
   text-align: center;
 }
 
+/* ── Suggestion Box sidebar entry ── */
+.suggestionBoxEntry {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-primary, #00bfa5);
+  font-weight: 600;
+  border-bottom: 1px solid var(--color-border-5);
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.unreadBadge {
+  margin-left: auto;
+  background: var(--color-primary, #00bfa5);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 0.1rem 0.45rem;
+  line-height: 1.4;
+}
+
+/* ── Shared suggestion panel wrapper ── */
+.suggestionFormPanel,
+.suggestionInboxPanel {
+  padding: 1.5rem;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.suggestionHeading {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text-1);
+  margin: 0 0 0.25rem;
+}
+
+.suggestionSubtext {
+  font-size: 0.875rem;
+  color: var(--color-text-3);
+  line-height: 1.6;
+  margin: 0 0 1.5rem;
+}
+
+/* ── Tenant form ── */
+.suggestionForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.suggestionTextarea {
+  border: 2px solid var(--color-border-5);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  font-size: 0.95rem;
+  font-family: var(--font-family);
+  background: var(--color-surface-5);
+  color: var(--color-text-1);
+  resize: vertical;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.suggestionTextarea::placeholder {
+  color: var(--color-text-3);
+  opacity: 1;
+}
+
+.suggestionTextarea:focus {
+  outline: none;
+  border-color: #00bfa5;
+  box-shadow: 0 0 0 3px rgba(0, 191, 165, 0.12);
+}
+
+.suggestionCharCount {
+  font-size: 0.75rem;
+  color: var(--color-text-3);
+  text-align: right;
+}
+
+.suggestionBtnPrimary {
+  margin-top: 0.75rem;
+  padding: 0.65rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: var(--color-primary, #00bfa5);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-family);
+  transition: background 0.15s ease, transform 0.1s ease;
+  align-self: flex-start;
+}
+
+.suggestionBtnPrimary:hover:not(:disabled) {
+  background: var(--color-primary-hover, #00a896);
+}
+
+.suggestionBtnPrimary:active:not(:disabled) {
+  transform: translateY(2px);
+}
+
+.suggestionBtnPrimary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.suggestionError {
+  font-size: 0.85rem;
+  color: var(--color-error, #ef4444);
+  margin: 0;
+}
+
+/* ── Tenant success state ── */
+.suggestionSuccessState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex: 1;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.suggestionSuccessIcon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: rgba(0, 191, 165, 0.15);
+  color: #00bfa5;
+  font-size: 1.4rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Landlord inbox cards ── */
+.suggestionCardList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.suggestionCard {
+  background: var(--color-surface-3);
+  border: 1px solid var(--color-border-5);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  position: relative;
+}
+
+.suggestionCard:hover {
+  background: var(--color-surface-4);
+}
+
+.suggestionCardUnread {
+  border-left: 3px solid #00bfa5;
+}
+
+.suggestionCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.suggestionAnonymousLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-primary, #00bfa5);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.suggestionCardDate {
+  font-size: 0.75rem;
+  color: var(--color-text-3);
+}
+
+.suggestionCardBody {
+  font-size: 0.9rem;
+  color: var(--color-text-1);
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.suggestionUnreadDot {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00bfa5;
+}
+
+/* ── Responsive overrides for suggestion panels ── */
+@media (max-width: 1024px) {
+  .suggestionFormPanel,
+  .suggestionInboxPanel {
+    padding: 1rem;
+  }
+}
+
 @media (max-width: 1024px) {
   .wrapper {
     display: flex;

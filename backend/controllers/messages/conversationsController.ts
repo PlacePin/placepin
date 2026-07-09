@@ -4,6 +4,7 @@ import { DirectMessageModel } from "../../database/models/Message.model";
 import { LandlordModel } from "../../database/models/Landlord.model";
 import { TenantModel } from "../../database/models/Tenant.model";
 import { TradesmenModel } from "../../database/models/Tradesmen.model";
+import { SuggestionBoxMessageModel } from "../../database/models/SuggestionBoxMessage.model";
 import type mongoose from "mongoose";
 
 export const getUsernames = async (
@@ -60,7 +61,25 @@ export const getUsernames = async (
       }
     }
 
-    return res.status(200).json({ usernames: validUsername })
+    // Suggestion box metadata — available to tenants and landlords
+    let suggestionBox: { enabled: boolean; unreadCount: number };
+
+    if (tenant) {
+      suggestionBox = { enabled: !!tenant.referredByLandlord, unreadCount: 0 };
+    } else {
+      const isLandlord = !!(await LandlordModel.findById(userId).select('_id').lean());
+      if (isLandlord) {
+        const unreadCount = await SuggestionBoxMessageModel.countDocuments({
+          landlordId: userId,
+          readAt: null,
+        });
+        suggestionBox = { enabled: true, unreadCount };
+      } else {
+        suggestionBox = { enabled: false, unreadCount: 0 };
+      }
+    }
+
+    return res.status(200).json({ usernames: validUsername, suggestionBox })
   } catch (err) {
     console.error('Unexpected Error', err);
     return res.status(500).json({ message: 'Oops! Something went wrong!' })

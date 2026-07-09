@@ -1,7 +1,7 @@
 import { useGetAxios } from '../../../hooks/useGetAxios';
 import { useAuth } from '../../../context/AuthContext';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { MessageCircleMore, Plus } from 'lucide-react';
+import { MessageCircleMore, Plus, Lightbulb } from 'lucide-react';
 import { io, Socket } from 'socket.io-client';
 import { jwtDecode } from 'jwt-decode';
 import type { DecodedAccessToken } from '../../../interfaces/interfaces';
@@ -11,6 +11,8 @@ import PrimaryButton from '../../../components/buttons/PrimaryButton';
 import { NavLink } from 'react-router-dom';
 import axiosInstance from '../../../utils/axiosInstance';
 import MessageComponent from '../../../components/messaging/MessageComponent';
+import SuggestionBoxForm from '../../../components/messaging/SuggestionBoxForm';
+import SuggestionInbox from '../../../components/messaging/SuggestionInbox';
 
 type Message = {
   sender: string;
@@ -28,12 +30,19 @@ type SocketMessage = {
   receiverId: string;
 } & Message;
 
+type SuggestionBoxMeta = {
+  enabled: boolean;
+  unreadCount: number;
+};
+
 const Messaging = () => {
   const [people, setPeople] = useState<string[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [messages, setMessages] = useState<Record<string, Message[]>>({});
   const [inputValue, setInputValue] = useState('');
   const [showCompose, setShowCompose] = useState(false);
+  const [suggestionBox, setSuggestionBox] = useState<SuggestionBoxMeta>({ enabled: false, unreadCount: 0 });
+  const [activeSuggestionBox, setActiveSuggestionBox] = useState(false);
   const socketRef = useRef<Socket | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -45,9 +54,9 @@ const Messaging = () => {
 
   const decoded = jwtDecode<DecodedAccessToken>(accessToken);
 
-  // Set your current user (in production, you'd use user ID or JWT)
   const currentUserId = decoded.userID;
-  const convoWith = activeIndex !== null ? people[activeIndex] : '';
+  const accountType = decoded.accountType;
+  const convoWith = activeIndex !== null && !activeSuggestionBox ? people[activeIndex] : '';
 
   useEffect(() => {
     if (!currentUserId) return;
@@ -91,6 +100,9 @@ const Messaging = () => {
   useEffect(() => {
     if (data?.usernames) {
       setPeople(data.usernames);
+    }
+    if (data?.suggestionBox) {
+      setSuggestionBox(data.suggestionBox);
     }
   }, [data]);
 
@@ -178,11 +190,29 @@ const Messaging = () => {
             </p>
           </div>
           <div className={styles.messagesList}>
+            {suggestionBox.enabled && (
+              <p
+                className={`${styles.person} ${styles.suggestionBoxEntry} ${activeSuggestionBox ? styles.activeMessage : ''}`}
+                onClick={() => {
+                  setActiveSuggestionBox(true);
+                  setActiveIndex(null);
+                }}
+              >
+                <Lightbulb size={15} />
+                Suggestion Box
+                {accountType === 'landlord' && suggestionBox.unreadCount > 0 && (
+                  <span className={styles.unreadBadge}>{suggestionBox.unreadCount}</span>
+                )}
+              </p>
+            )}
             {people.map((person, i) => (
               <p
                 key={i}
-                className={`${styles.person} ${activeIndex === i ? styles.activeMessage : ''}`}
-                onClick={() => setActiveIndex(i)}
+                className={`${styles.person} ${activeIndex === i && !activeSuggestionBox ? styles.activeMessage : ''}`}
+                onClick={() => {
+                  setActiveIndex(i);
+                  setActiveSuggestionBox(false);
+                }}
               >
                 {person}
               </p>
@@ -192,7 +222,11 @@ const Messaging = () => {
 
         {/* Middle: Chat Window */}
         <>
-          {convoWith ? (
+          {activeSuggestionBox ? (
+            <div className={styles.convo}>
+              {accountType === 'landlord' ? <SuggestionInbox /> : <SuggestionBoxForm />}
+            </div>
+          ) : convoWith ? (
             <div className={styles.convo}>
               <h3 className={`${activeIndex !== null && styles.header}`}>{convoWith}</h3>
               <div
