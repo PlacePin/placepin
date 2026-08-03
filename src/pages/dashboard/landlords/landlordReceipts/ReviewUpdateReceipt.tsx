@@ -351,7 +351,7 @@ const ReviewUpdateReceipt = ({
                     <span className={styles.receiptAmount}>${receipt.amount.toFixed(2)}</span>
                   </div>
                   <div className={styles.receiptDetails}>
-                    <div>Date: {new Date(receipt.date).toLocaleDateString()}</div>
+                    <div>Date: {`${new Date(receipt.date).getUTCMonth() + 1}/${new Date(receipt.date).getUTCDate()}/${new Date(receipt.date).getUTCFullYear()}`}</div>
                     <div>Payment: {receipt.paymentMethod}</div>
                     {receipt.description && (
                       <div className={styles.receiptDescription}>{receipt.description}</div>
