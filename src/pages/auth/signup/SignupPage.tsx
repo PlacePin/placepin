@@ -72,7 +72,7 @@ const SignupPage = () => {
     const { name, value } = e.target;
     setAddress((prev) => ({
       ...prev,
-      [name]: value.toLocaleLowerCase().trim(),
+      [name]: value,
     }));
   };
 
