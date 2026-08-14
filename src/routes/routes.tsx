@@ -23,6 +23,7 @@ import TradesmenDashboard from "../pages/dashboard/tradesmen/TradesmenDashboard"
 import TradesmenHomepage from "../pages/dashboard/tradesmen/tradesmenHomepage/TradesmenHomepage";
 import PrivacyPolicy from "../pages/legal/PrivacyPolicy";
 import TermsOfService from "../pages/legal/TermsOfService";
+import ContactPage from "../pages/contact/ContactPage";
 import ForgotPasswordPage from "../pages/auth/forgotPassword/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/auth/resetPassword/ResetPasswordPage";
 
@@ -34,6 +35,7 @@ const routes: RouteObject[] = [
   { path: '/reset-password/:token', element: <ResetPasswordPage /> },
   { path: '/privacypolicy', element: <PrivacyPolicy /> },
   { path: '/termsofservice', element: <TermsOfService /> },
+  { path: '/contact', element: <ContactPage /> },
   {
     path: LANDLORD_ROUTES.DASHBOARD,
     element: <PrivateRoute />,

@@ -14,18 +14,18 @@ export const advertisements: Advertisement[] = [
     id: 'placeholder-1',
     businessName: 'Your Local Business',
     tagline: 'This ad space is reserved for a local business.',
-    link: '#',
+    link: '/contact',
   },
   {
     id: 'placeholder-2',
     businessName: 'Advertise With PlacePin',
     tagline: 'Reach engaged renters and landlords in your area.',
-    link: '#',
+    link: '/contact',
   },
   {
     id: 'placeholder-3',
     businessName: 'Ad Space Available',
     tagline: 'Interested in advertising here? Get in touch with us.',
-    link: '#',
+    link: '/contact',
   },
 ];

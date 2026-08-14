@@ -16,6 +16,7 @@ import messageRoutes from './routes/messages/messageRoutes';
 import workOrderRoutes from './routes/workOrders/workOrderRoutes';
 import waitlistRoutes from './routes/waitlist/waitlistRoutes';
 import featuresListRoutes from './routes/featuresList/featuresListRoutes';
+import contactRoutes from './routes/contact/contactRoutes';
 import rentRoutes from './routes/rent/rentRoutes';
 import stripeFinancialConnectionsRoutes from './routes/stripe/stripeFinancialConnectionsRoutes';
 import tenantDataRoutes from './routes/resources/tenantDataRoutes';
@@ -44,6 +45,7 @@ app.use(express.json())
 app.use('/api/auth', authRoutes)
 app.use('/api/waitlist', waitlistRoutes)
 app.use('/api/features-list', featuresListRoutes)
+app.use('/api/contact', contactRoutes)
 app.use('/api/settings', authenticateToken, settingsRoutes)
 app.use('/api/subscription', authenticateToken, subscriptionRoutes)
 app.use('/api/users', authenticateToken, usersRoutes)
