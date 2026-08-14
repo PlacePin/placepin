@@ -150,6 +150,83 @@
   margin: 0 2rem 0 0;
 }
 
+.promoLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-2);
+  text-align: center;
+}
+
+.promoPlaceholder {
+  flex: 1;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--color-border-5);
+  border-radius: 0.75rem;
+  color: var(--color-text-2);
+  font-size: 0.9rem;
+}
+
+.promoContent {
+  flex: 1;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px dashed var(--color-border-5);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.promoImage {
+  width: 100%;
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.promoImagePlaceholder {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface-1);
+  border: 1px dashed var(--color-border-5);
+  border-radius: 0.5rem;
+  color: var(--color-text-2);
+}
+
+.promoBusinessName {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.promoDescription {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-text-2);
+}
+
+.promoLink {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-tertiary-hover);
+  text-decoration: none;
+}
+
+.promoLink:hover {
+  text-decoration: underline;
+}
+
 .infoSection {
   width: 20%;
   min-width: 220px;

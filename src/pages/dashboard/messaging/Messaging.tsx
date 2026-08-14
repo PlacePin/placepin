@@ -1,7 +1,7 @@
 import { useGetAxios } from '../../../hooks/useGetAxios';
 import { useAuth } from '../../../context/AuthContext';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { MessageCircleMore, Plus, Lightbulb } from 'lucide-react';
+import { MessageCircleMore, Plus, Lightbulb, ImageOff } from 'lucide-react';
 import { io, Socket } from 'socket.io-client';
 import { jwtDecode } from 'jwt-decode';
 import type { DecodedAccessToken } from '../../../interfaces/interfaces';
@@ -13,6 +13,8 @@ import axiosInstance from '../../../utils/axiosInstance';
 import MessageComponent from '../../../components/messaging/MessageComponent';
 import SuggestionBoxForm from '../../../components/messaging/SuggestionBoxForm';
 import SuggestionInbox from '../../../components/messaging/SuggestionInbox';
+import { advertisements } from '../../../data/advertisements';
+import { useAdRotation } from '../../../hooks/useAdRotation';
 
 type Message = {
   sender: string;
@@ -45,6 +47,7 @@ const Messaging = () => {
   const [activeSuggestionBox, setActiveSuggestionBox] = useState(false);
   const socketRef = useRef<Socket | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const currentAd = useAdRotation(advertisements);
 
   const { accessToken } = useAuth();
 
@@ -279,8 +282,39 @@ const Messaging = () => {
           )}
         </>
         <div>
-          {/* This div is for advertising later on */}
-          {/* <div className={styles.promo}></div> */}
+          {/* Cycles through placeholder ads on each mount until real local-business ads are onboarded */}
+          <div className={styles.promo}>
+            <span className={styles.promoLabel}>Advertisement</span>
+            {currentAd ? (
+              <div className={styles.promoContent}>
+                {currentAd.imageUrl ? (
+                  <img
+                    src={currentAd.imageUrl}
+                    alt={currentAd.businessName}
+                    className={styles.promoImage}
+                  />
+                ) : (
+                  <div className={styles.promoImagePlaceholder}>
+                    <ImageOff size={20} />
+                  </div>
+                )}
+                <h4 className={styles.promoBusinessName}>{currentAd.businessName}</h4>
+                <p className={styles.promoDescription}>{currentAd.tagline}</p>
+                <a
+                  href={currentAd.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.promoLink}
+                >
+                  Learn more
+                </a>
+              </div>
+            ) : (
+              <div className={styles.promoPlaceholder}>
+                <p>Ad space</p>
+              </div>
+            )}
+          </div>
           <div className={styles.infoSection}>
             <NavLink
               className={styles.navLink}

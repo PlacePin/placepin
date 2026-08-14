@@ -467,7 +467,7 @@ const LandingPage = () => {
               <a href="#how-it-works">How it Works</a>
               <a href="#features">Features</a>
               <a href="#pricing">Pricing</a>
-              <a href="#contact">Contact</a>
+              <NavLink to='/contact'>Contact</NavLink>
             </div>
             <div className={styles.footerColumn}>
               <h4>About</h4>
