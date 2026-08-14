@@ -404,7 +404,7 @@ const LandingPage = () => {
       <section className={styles.ctaSection} id="contact">
         <div className={styles.container}>
           <div className={styles.ctaContent}>
-            <p>Stay in the loop. Enter your email and be the first to know when new features roll out.</p>
+            <p>Enter your email to request a demo!</p>
           </div>
           <div className={styles.ctaForm}>
             <p>Just send us your email and we will contact you.</p>
